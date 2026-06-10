@@ -7,6 +7,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g8b1"]
+size = Vector2(126, 23)
+
 [node name="Node2D" type="Node2D" unique_id=2123985184]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=881870940]
@@ -25,3 +28,15 @@ position = Vector2(105, 534)
 
 [node name="Tusk" parent="." unique_id=890546670 instance=ExtResource("3_1ikvx")]
 position = Vector2(1065, 502)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=344345065]
+position = Vector2(273, 458)
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2" unique_id=238556292]
+position = Vector2(-4.9999995, -2.7500038)
+scale = Vector2(1, 0.16796875)
+texture = ExtResource("1_wtcfe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=244539503]
+position = Vector2(-6, -3.5)
+shape = SubResource("RectangleShape2D_3g8b1")

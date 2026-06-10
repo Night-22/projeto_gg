@@ -217,7 +217,7 @@ script = ExtResource("1_unwft")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1488943503]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_tckef")
-animation = &"idle"
+animation = &"jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1481044837]
 shape = SubResource("CapsuleShape2D_ym2kn")
@@ -229,4 +229,8 @@ position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_xojfc")
 debug_color = Color(0.991069, 0, 0.27625036, 0.41960785)
 
+[node name="coyoteTimer" type="Timer" parent="." unique_id=87459967]
+wait_time = 0.067
+
 [connection signal="body_entered" from="hurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="timeout" from="coyoteTimer" to="." method="_on_coyote_timer_timeout"]
