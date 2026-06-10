@@ -230,7 +230,8 @@ shape = SubResource("RectangleShape2D_xojfc")
 debug_color = Color(0.991069, 0, 0.27625036, 0.41960785)
 
 [node name="coyoteTimer" type="Timer" parent="." unique_id=87459967]
-wait_time = 0.067
+wait_time = 0.15
+one_shot = true
 
 [connection signal="body_entered" from="hurtBox" to="." method="_on_hurt_box_body_entered"]
 [connection signal="timeout" from="coyoteTimer" to="." method="_on_coyote_timer_timeout"]
