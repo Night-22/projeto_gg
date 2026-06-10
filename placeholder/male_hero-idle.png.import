@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs2aump1furax"
-path="res://.godot/imported/male_hero-jump.png-83442d56d174cdaae62e33c51cde429b.ctex"
+uid="uid://cj8eimkrdqmqo"
+path="res://.godot/imported/male_hero-idle.png-12e4ad50352c7b9a9b9d2674a3508ec4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite_Provisório/male_hero-jump.png"
-dest_files=["res://.godot/imported/male_hero-jump.png-83442d56d174cdaae62e33c51cde429b.ctex"]
+source_file="res://placeholder/male_hero-idle.png"
+dest_files=["res://.godot/imported/male_hero-idle.png-12e4ad50352c7b9a9b9d2674a3508ec4.ctex"]
 
 [params]
 

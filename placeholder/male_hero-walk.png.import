@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjtn5mqhif1lb"
-path="res://.godot/imported/male_hero-combo_1.png-b3fc5a0d2ca1e3151b84cea200ba00b5.ctex"
+uid="uid://bgamn4qcc8m16"
+path="res://.godot/imported/male_hero-walk.png-3042a572d38cb4f11d4ff9afe404f642.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite_Provisório/male_hero-combo_1.png"
-dest_files=["res://.godot/imported/male_hero-combo_1.png-b3fc5a0d2ca1e3151b84cea200ba00b5.ctex"]
+source_file="res://placeholder/male_hero-walk.png"
+dest_files=["res://.godot/imported/male_hero-walk.png-3042a572d38cb4f11d4ff9afe404f642.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boqhdg1xd1nmx"
-path="res://.godot/imported/male_hero-fall.png-f02b2947f1095c5e14314dc581000008.ctex"
+uid="uid://cy1h5svtuywkc"
+path="res://.godot/imported/male_hero-fall_loop.png-195f6625a15765a29d955ff1631d48ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprite_Provisório/male_hero-fall.png"
-dest_files=["res://.godot/imported/male_hero-fall.png-f02b2947f1095c5e14314dc581000008.ctex"]
+source_file="res://placeholder/male_hero-fall_loop.png"
+dest_files=["res://.godot/imported/male_hero-fall_loop.png-195f6625a15765a29d955ff1631d48ca.ctex"]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://coi1jg7fjtgob"]
 
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_wtcfe"]
-[ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas/player.tscn" id="2_smc2o"]
-[ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas/husk.tscn" id="3_1ikvx"]
+[ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
+[ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas_tscn/inimigos_tscn/husk.tscn" id="3_1ikvx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)

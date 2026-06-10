@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cn6ny6stqnxho"]
 
-[ext_resource type="Texture2D" uid="uid://bgamn4qcc8m16" path="res://Sprite_Provisório/male_hero-walk.png" id="1_8or6t"]
-[ext_resource type="Script" uid="uid://byeh3d4t8q3nu" path="res://scripts/player.gd" id="1_unwft"]
-[ext_resource type="Texture2D" uid="uid://cj8eimkrdqmqo" path="res://Sprite_Provisório/male_hero-idle.png" id="2_xojfc"]
-[ext_resource type="Texture2D" uid="uid://cs2aump1furax" path="res://Sprite_Provisório/male_hero-jump.png" id="3_15dsx"]
+[ext_resource type="Texture2D" uid="uid://bgamn4qcc8m16" path="res://placeholder/male_hero-walk.png" id="1_8or6t"]
+[ext_resource type="Script" uid="uid://byeh3d4t8q3nu" path="res://scripts_gd/player.gd" id="1_unwft"]
+[ext_resource type="Texture2D" uid="uid://cj8eimkrdqmqo" path="res://placeholder/male_hero-idle.png" id="2_xojfc"]
+[ext_resource type="Texture2D" uid="uid://cs2aump1furax" path="res://placeholder/male_hero-jump.png" id="3_15dsx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tckef"]
 atlas = ExtResource("2_xojfc")
