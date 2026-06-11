@@ -18,6 +18,10 @@ var Life = 3
 @export var friction = 6.7
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var attack_hit_box: CollisionShape2D = $attackHitBox/collision
+@onready var attack_sprite: Sprite2D = $attackHitBox/Sprite2D
+
+@onready var attack_timer: Timer = $attackTimer
 
 var coyote_time_activated = false
 @onready var coyote_timer: Timer = $coyoteTimer
@@ -25,6 +29,7 @@ var coyote_time_activated = false
 var speed: float = 300.0
 var jump_velocity = -500.0
 var last_direction = 1
+var can_attack = true
 
 func _physics_process(delta: float) -> void:
 
@@ -46,10 +51,12 @@ func _physics_process(delta: float) -> void:
 			anim.play("jump")
 
 		State.ATTACK:
-			pass
+			state_attack(delta)
+			
 
 		State.FALL:
 			state_fall(delta)
+			anim.play("fall")
 
 		State.DEAD:
 			state_dead()
@@ -75,6 +82,9 @@ func state_idle(delta):
 	if Input.is_action_just_pressed("pulo"):
 		jump()
 		return
+
+	if Input.is_action_just_pressed("ataque"):
+		current_state = State.ATTACK
 
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 	
@@ -110,6 +120,10 @@ func state_walk(delta):
 	if Input.is_action_just_pressed("pulo"):
 		jump()
 		return
+		
+
+	if Input.is_action_just_pressed("ataque"):
+		current_state = State.ATTACK
 
 	if direction == 0:
 		current_state = State.IDLE
@@ -124,7 +138,6 @@ func state_jump(delta):
 	velocity += get_gravity() * delta
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 
-	
 	if last_direction < 0:
 		anim.flip_h = true
 	else:
@@ -148,7 +161,70 @@ func state_jump(delta):
 
 	if velocity.y >= 0:
 		current_state = State.FALL
+		
+	if Input.is_action_just_pressed("ataque"):
+		current_state = State.ATTACK
 
+
+func state_attack(delta):
+	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
+	
+	if last_direction < 0:
+		anim.flip_h = true
+		attack_sprite.flip_h = true
+		if can_attack:
+			attack_hit_box.position.x = -23
+			attack_hit_box.position.y = 0
+			attack_sprite.position.x = -23
+			attack_sprite.position.y = 0
+			attack_sprite.rotation = 0
+			attack_hit_box.rotation = 0
+			
+	else:
+		anim.flip_h = false
+		attack_sprite.flip_h = false
+		if can_attack:
+			attack_hit_box.position.x = 23
+			attack_hit_box.position.y = 0
+			attack_sprite.position.x = 23
+			attack_sprite.position.y = 0
+			attack_sprite.rotation = 0
+			attack_hit_box.rotation = 0
+	
+	
+	if Input.is_action_pressed("cima") and Input.is_action_just_pressed("ataque"):
+		attack_hit_box.position.x = 0
+		attack_hit_box.position.y = -23
+		attack_hit_box.rotation = 90
+		
+		attack_sprite.position.x = 0
+		attack_sprite.position.y = -23
+		attack_sprite.rotation = 90
+		
+	
+	
+	if Input.is_action_pressed("ataque") and can_attack:
+		can_attack = false
+		attack_hit_box.disabled = false
+		attack_sprite.visible = true
+		attack_timer.start()
+		
+
+
+	
+	if is_on_floor():
+		if direction > 0 or direction < 0:
+			current_state = State.WALK
+		else:
+			current_state = State.IDLE
+	
+
+	if not is_on_floor():
+		if velocity.y > 0:
+			current_state = State.FALL
+		else:
+			current_state =State.JUMP
+		
 
 func state_fall(delta):
 	velocity += get_gravity() * delta
@@ -168,7 +244,9 @@ func state_fall(delta):
 		direction * speed,
 		delta * acceleration
 	)
-
+	
+	if Input.is_action_just_pressed("ataque"):
+		current_state = State.ATTACK
 
 	if Input.is_action_just_pressed("pulo") and coyote_time_activated:
 		jump()
@@ -201,6 +279,19 @@ func start_coyote():
 		coyote_timer.start()
 
 
+func attack_direction(dir):
+	pass
+	
+	#match dir == "direita":
+		#attack_hit_box.position.x = 23
+		#attack_hit_box.position.y = 0
+		#attack_sprite.position.x = 23
+		#attack_sprite.position.y = 0
+		#attack_sprite.rotation = 0
+		#attack_hit_box.rotation = 0
+		
+	
+
 func die():
 	queue_free()
 
@@ -213,3 +304,9 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 
 func _on_coyote_timer_timeout() -> void:
 	coyote_time_activated = false
+
+
+func _on_attack_timer_timeout() -> void:
+	can_attack = true
+	attack_sprite.visible = false
+	attack_hit_box.disabled = true
