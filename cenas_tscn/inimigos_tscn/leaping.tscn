@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dchqpas3ef5eo"]
+
+[ext_resource type="Script" uid="uid://b5lnfdq24ghbl" path="res://scripts_gd/leaping.gd" id="1_wubkq"]
+[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="2_y3o0a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpn4n"]
+size = Vector2(53, 47)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ofep"]
+radius = 240.29982
+
+[node name="Leaping" type="CharacterBody2D" unique_id=803833005 groups=["Inimigo"]]
+script = ExtResource("1_wubkq")
+Life = 6
+Speed = 40
+metadata/_custom_type_script = "uid://cn1m5131s4q2h"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=419843012]
+position = Vector2(4.7683716e-07, -1.3709068e-06)
+scale = Vector2(0.40625003, 0.35937497)
+texture = ExtResource("2_y3o0a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=207577036]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_qpn4n")
+
+[node name="percepcao" type="Area2D" parent="." unique_id=977427726]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="percepcao" unique_id=1337069599]
+shape = SubResource("CircleShape2D_4ofep")
+
+[node name="Timer" type="Timer" parent="." unique_id=1701668984]
+wait_time = 2.5
+
+[connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
+[connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

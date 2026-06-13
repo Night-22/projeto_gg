@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://5bcysmejkdhr"]
 
-[ext_resource type="Script" uid="uid://c5rlfasincpj1" path="res://scripts/husk.gd" id="1_2hlel"]
+[ext_resource type="Script" uid="uid://c5rlfasincpj1" path="res://scripts_gd/husk.gd" id="1_2hlel"]
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="2_pyj1k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mowv5"]
@@ -9,9 +9,13 @@ size = Vector2(37, 37)
 [sub_resource type="CircleShape2D" id="CircleShape2D_rbbsh"]
 radius = 152.3975
 
-[node name="Husk" type="CharacterBody2D" unique_id=890546670 groups=["Inimigo"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dfc8r"]
+size = Vector2(39, 38)
+
+[node name="Husk" type="CharacterBody2D" unique_id=890546670]
 script = ExtResource("1_2hlel")
-Speed = 20
+Life = 4
+Speed = 70
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1761213694]
@@ -33,6 +37,13 @@ wait_time = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="percepcao" unique_id=431959880]
 shape = SubResource("CircleShape2D_rbbsh")
+
+[node name="hurtBox" type="Area2D" parent="." unique_id=4617547]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtBox" unique_id=469231633]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_dfc8r")
+debug_color = Color(0.99716884, 0.04914762, 0, 0.41960785)
 
 [connection signal="timeout" from="tempo_virar" to="." method="_on_tempo_virar_timeout"]
 [connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]

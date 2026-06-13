@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://dchqpas3ef5eo"]
-
-[ext_resource type="Script" uid="uid://cn1m5131s4q2h" path="res://scripts/enemy.gd" id="1_s6pvy"]
-
-[node name="Leaping" type="CharacterBody2D" unique_id=803833005]
-script = ExtResource("1_s6pvy")
-metadata/_custom_type_script = "uid://cn1m5131s4q2h"
