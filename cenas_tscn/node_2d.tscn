@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_wtcfe"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
 [ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas_tscn/inimigos_tscn/husk.tscn" id="3_1ikvx"]
+[ext_resource type="PackedScene" uid="uid://dchqpas3ef5eo" path="res://cenas_tscn/inimigos_tscn/leaping.tscn" id="4_ydpk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)
@@ -40,3 +41,6 @@ texture = ExtResource("1_wtcfe")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=244539503]
 position = Vector2(-6, -3.5)
 shape = SubResource("RectangleShape2D_3g8b1")
+
+[node name="Leaping" parent="." unique_id=803833005 instance=ExtResource("4_ydpk4")]
+position = Vector2(459, 494)

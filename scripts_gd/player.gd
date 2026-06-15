@@ -30,11 +30,23 @@ var speed: float = 300.0
 var jump_velocity = -500.0
 var last_direction = 1
 var can_attack = true
+var looking_up = false
+var looking_down = false
 
 func _physics_process(delta: float) -> void:
 
 	if Life <= 0:
 		current_state = State.DEAD
+
+	if Input.is_action_pressed("cima"):
+		looking_up = true
+	else:
+		looking_up = false
+		
+	if Input.is_action_pressed("baixo"):
+		looking_down = true
+	else:
+		looking_down = false
 
 	match current_state:
 
@@ -169,45 +181,27 @@ func state_jump(delta):
 func state_attack(delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 	
-	if last_direction < 0:
-		anim.flip_h = true
-		attack_sprite.flip_h = true
-		if can_attack:
-			attack_hit_box.position.x = -23
-			attack_hit_box.position.y = 0
-			attack_sprite.position.x = -23
-			attack_sprite.position.y = 0
-			attack_sprite.rotation = 0
-			attack_hit_box.rotation = 0
-			
-	else:
-		anim.flip_h = false
-		attack_sprite.flip_h = false
-		if can_attack:
-			attack_hit_box.position.x = 23
-			attack_hit_box.position.y = 0
-			attack_sprite.position.x = 23
-			attack_sprite.position.y = 0
-			attack_sprite.rotation = 0
-			attack_hit_box.rotation = 0
-	
-	
-	if Input.is_action_pressed("cima") and Input.is_action_just_pressed("ataque"):
-		attack_hit_box.position.x = 0
-		attack_hit_box.position.y = -23
-		attack_hit_box.rotation = 90
-		
-		attack_sprite.position.x = 0
-		attack_sprite.position.y = -23
-		attack_sprite.rotation = 90
-		
-	
-	
 	if Input.is_action_pressed("ataque") and can_attack:
 		can_attack = false
 		attack_hit_box.disabled = false
 		attack_sprite.visible = true
 		attack_timer.start()
+	
+	if last_direction < 0:
+		attack_to_direction("left")
+			
+	else:
+		attack_to_direction("right")
+			
+
+	if looking_up:
+		attack_to_direction("up")
+
+	if looking_down:
+		attack_to_direction("down")
+	
+	
+
 		
 
 
@@ -279,18 +273,49 @@ func start_coyote():
 		coyote_timer.start()
 
 
-func attack_direction(dir):
-	pass
-	
-	#match dir == "direita":
-		#attack_hit_box.position.x = 23
-		#attack_hit_box.position.y = 0
-		#attack_sprite.position.x = 23
-		#attack_sprite.position.y = 0
-		#attack_sprite.rotation = 0
-		#attack_hit_box.rotation = 0
+func attack_to_direction(dir):
+	match dir:
+		"right":
+			anim.flip_h = false
+			attack_sprite.flip_h = false
+			attack_hit_box.position.x = 23
+			attack_hit_box.position.y = 0
+			attack_hit_box.rotation = 0
+			attack_sprite.position.x = 23
+			attack_sprite.position.y = 0
+			attack_sprite.rotation = 0
+
+			
+		"left":
+			anim.flip_h = true
+			attack_sprite.flip_h = true
+			attack_hit_box.position.x = -23
+			attack_hit_box.position.y = 0
+			attack_hit_box.rotation = 0
+			attack_sprite.position.x = -23
+			attack_sprite.position.y = 0
+			attack_sprite.rotation = 0
+
+
+		"up":
+			attack_sprite.flip_h = false
+			attack_hit_box.position.x = 0
+			attack_hit_box.position.y = -23
+			attack_hit_box.rotation = -1.57079633
+			attack_sprite.position.x = 0
+			attack_sprite.position.y = -23
+			attack_sprite.rotation = -1.57079633
+
+
+		"down":
+			attack_sprite.flip_h = false
+			attack_hit_box.position.x = 0
+			attack_hit_box.position.y = 23
+			attack_hit_box.rotation = 1.57079633
+			attack_sprite.position.x = 0
+			attack_sprite.position.y = 23
+			attack_sprite.rotation = 1.57079633
 		
-	
 
 func die():
 	queue_free()

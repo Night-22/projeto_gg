@@ -328,12 +328,12 @@ debug_color = Color(0.991069, 0, 0.27625036, 0.41960785)
 [node name="attackHitBox" type="Area2D" parent="." unique_id=767947414]
 
 [node name="collision" type="CollisionShape2D" parent="attackHitBox" unique_id=1467424342]
-position = Vector2(0, -23)
-rotation = 1.5707964
+position = Vector2(23, 0)
 shape = SubResource("CapsuleShape2D_1pynu")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="attackHitBox" unique_id=235777237]
+visible = false
 position = Vector2(23, 0)
 scale = Vector2(1.125, 1)
 texture = ExtResource("8_tw7kf")
