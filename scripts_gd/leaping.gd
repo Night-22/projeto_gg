@@ -27,11 +27,6 @@ func _physics_process(delta):
 		can_jump = false
 		timer.start()
 	
-	
-	if player != null:
-		patrulha = false
-	else:
-		patrulha = true
 	super._physics_process(delta)
 
 func _on_timer_timeout():

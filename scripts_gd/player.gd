@@ -181,6 +181,40 @@ func state_jump(delta):
 func state_attack(delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 	
+	if last_direction < 0:
+		anim.flip_h = true
+		attack_sprite.flip_h = true
+		if can_attack:
+			attack_hit_box.position.x = -23
+			attack_hit_box.position.y = 0
+			attack_sprite.position.x = -23
+			attack_sprite.position.y = 0
+			attack_sprite.rotation = 0
+			attack_hit_box.rotation = 0
+			
+	else:
+		anim.flip_h = false
+		attack_sprite.flip_h = false
+		if can_attack:
+			attack_hit_box.position.x = 23
+			attack_hit_box.position.y = 0
+			attack_sprite.position.x = 23
+			attack_sprite.position.y = 0
+			attack_sprite.rotation = 0
+			attack_hit_box.rotation = 0
+	
+	
+	if Input.is_action_pressed("cima") and Input.is_action_just_pressed("ataque"):
+		attack_hit_box.position.x = 0
+		attack_hit_box.position.y = -23
+		attack_hit_box.rotation = 90
+		
+		attack_sprite.position.x = 0
+		attack_sprite.position.y = -23
+		attack_sprite.rotation = 90
+		
+	
+	
 	if Input.is_action_pressed("ataque") and can_attack:
 		can_attack = false
 		attack_hit_box.disabled = false
@@ -273,6 +307,16 @@ func start_coyote():
 		coyote_timer.start()
 
 
+func attack_direction(dir):
+	pass
+	
+	#match dir == "direita":
+		#attack_hit_box.position.x = 23
+		#attack_hit_box.position.y = 0
+		#attack_sprite.position.x = 23
+		#attack_sprite.position.y = 0
+		#attack_sprite.rotation = 0
+		#attack_hit_box.rotation = 0
 func attack_to_direction(dir):
 	match dir:
 		"right":
@@ -316,6 +360,7 @@ func attack_to_direction(dir):
 			attack_sprite.position.y = 23
 			attack_sprite.rotation = 1.57079633
 		
+	
 
 func die():
 	queue_free()
@@ -326,6 +371,9 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 		Life -= 1
 		print(Life)
 
+func _on_attack_hit_box_body_entered(body: Node2D) -> void:
+	if body is Enemy:
+		body._dano(2)
 
 func _on_coyote_timer_timeout() -> void:
 	coyote_time_activated = false

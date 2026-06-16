@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_wtcfe"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
-[ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas_tscn/inimigos_tscn/husk.tscn" id="3_1ikvx"]
 [ext_resource type="PackedScene" uid="uid://dchqpas3ef5eo" path="res://cenas_tscn/inimigos_tscn/leaping.tscn" id="4_ydpk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
@@ -10,6 +9,9 @@ size = Vector2(1149, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3g8b1"]
 size = Vector2(126, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydpk4"]
+size = Vector2(25, 69)
 
 [node name="Node2D" type="Node2D" unique_id=2123985184]
 
@@ -27,9 +29,6 @@ shape = SubResource("RectangleShape2D_0e48y")
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_smc2o")]
 position = Vector2(105, 534)
 
-[node name="Tusk" parent="." unique_id=890546670 instance=ExtResource("3_1ikvx")]
-position = Vector2(1065, 502)
-
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=344345065]
 position = Vector2(273, 458)
 
@@ -43,4 +42,28 @@ position = Vector2(-6, -3.5)
 shape = SubResource("RectangleShape2D_3g8b1")
 
 [node name="Leaping" parent="." unique_id=803833005 instance=ExtResource("4_ydpk4")]
-position = Vector2(459, 494)
+position = Vector2(881, 528)
+
+[node name="parede1" type="StaticBody2D" parent="." unique_id=2104750248]
+position = Vector2(656, 504)
+
+[node name="Sprite2D" type="Sprite2D" parent="parede1" unique_id=1053802671]
+position = Vector2(0.9999843, 9.750006)
+scale = Vector2(0.21875013, 0.55859363)
+texture = ExtResource("1_wtcfe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="parede1" unique_id=1244696478]
+position = Vector2(0.5, 8.5)
+shape = SubResource("RectangleShape2D_ydpk4")
+
+[node name="parede2" type="StaticBody2D" parent="." unique_id=1695536154]
+position = Vector2(1090, 509)
+
+[node name="Sprite2D" type="Sprite2D" parent="parede2" unique_id=1416249118]
+position = Vector2(0.9999843, 9.750006)
+scale = Vector2(0.21875013, 0.55859363)
+texture = ExtResource("1_wtcfe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="parede2" unique_id=2116218482]
+position = Vector2(0.5, 8.5)
+shape = SubResource("RectangleShape2D_ydpk4")
