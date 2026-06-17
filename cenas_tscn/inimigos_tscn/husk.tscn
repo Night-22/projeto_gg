@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://5bcysmejkdhr"]
 
 [ext_resource type="Script" uid="uid://c5rlfasincpj1" path="res://scripts_gd/husk.gd" id="1_2hlel"]
-[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="2_pyj1k"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_dfc8r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mowv5"]
 size = Vector2(37, 37)
@@ -19,8 +19,9 @@ Speed = 70
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1761213694]
-scale = Vector2(0.296875, 0.31640628)
-texture = ExtResource("2_pyj1k")
+position = Vector2(-0.5000015, -1.7881393e-06)
+scale = Vector2(0.07155964, 0.0652921)
+texture = ExtResource("2_dfc8r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1335797185]
 position = Vector2(0.5, -0.5)

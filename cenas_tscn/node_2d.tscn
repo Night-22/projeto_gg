@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://coi1jg7fjtgob"]
 
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="1_ebefr"]
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_wtcfe"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
 [ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas_tscn/inimigos_tscn/husk.tscn" id="3_1ikvx"]
@@ -16,9 +17,9 @@ size = Vector2(126, 23)
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=881870940]
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1070371215]
-position = Vector2(580.5, 597.5)
-scale = Vector2(9.0703125, 0.7578125)
-texture = ExtResource("1_wtcfe")
+position = Vector2(584, 320)
+scale = Vector2(2.0770643, 1.0756015)
+texture = ExtResource("1_ebefr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1393848615]
 position = Vector2(573.5, 598)
