@@ -19,8 +19,8 @@ size = Vector2(25, 69)
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=881870940]
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1070371215]
-position = Vector2(584, 320)
-scale = Vector2(2.0770643, 1.0756015)
+position = Vector2(584, 593.5)
+scale = Vector2(2.0770643, 0.13573886)
 texture = ExtResource("1_ebefr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1393848615]

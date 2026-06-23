@@ -181,7 +181,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wmeht")
 }],
-"loop": false,
+"loop": 0,
 "name": &"attack",
 "speed": 12.0
 }, {
@@ -198,7 +198,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2nrtx")
 }],
-"loop": true,
+"loop": 1,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -233,7 +233,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1vaqx")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -256,7 +256,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gqqv0")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump",
 "speed": 5.0
 }, {
@@ -291,7 +291,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8bq56")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 12.0
 }]
@@ -339,7 +339,7 @@ scale = Vector2(1.125, 1)
 texture = ExtResource("8_tw7kf")
 
 [node name="coyoteTimer" type="Timer" parent="." unique_id=87459967]
-wait_time = 0.15
+wait_time = 0.1
 one_shot = true
 
 [node name="attackTimer" type="Timer" parent="." unique_id=1104962873]
