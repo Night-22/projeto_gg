@@ -392,7 +392,7 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 
 	if body is Enemy:
-		body._dano(2)
+		body._dano(2, global_position.x)
 
 		if looking_down and !is_on_floor():
 

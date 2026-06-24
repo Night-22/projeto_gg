@@ -46,7 +46,7 @@ shape = SubResource("RectangleShape2D_3g8b1")
 position = Vector2(881, 528)
 
 [node name="parede1" type="StaticBody2D" parent="." unique_id=2104750248]
-position = Vector2(656, 504)
+position = Vector2(30, 508)
 
 [node name="Sprite2D" type="Sprite2D" parent="parede1" unique_id=1053802671]
 position = Vector2(0.9999843, 9.750006)

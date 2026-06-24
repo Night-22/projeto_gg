@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="2_qpn4n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ofep"]
-size = Vector2(47, 44)
+size = Vector2(47, 45)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g47wh"]
 radius = 142.41138
@@ -18,7 +18,7 @@ scale = Vector2(0.3359375, 0.3359375)
 texture = ExtResource("2_qpn4n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1258044184]
-position = Vector2(-0.5, 0)
+position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_4ofep")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=955924899]
