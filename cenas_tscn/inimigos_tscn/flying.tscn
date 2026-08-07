@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://6dqbypo6pxym"]
+
+[ext_resource type="Script" uid="uid://comd5bjedmb6v" path="res://cenas_tscn/inimigos_tscn/flying.gd" id="1_sih1y"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_4usim"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(28, 24)
+
+[node name="Flying" type="CharacterBody2D" unique_id=187868775 groups=["Inimigo"]]
+script = ExtResource("1_sih1y")
+metadata/_custom_type_script = "uid://bullfap4fo1nx"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1189773818]
+scale = Vector2(0.04678898, 0.04123714)
+texture = ExtResource("2_4usim")
+
+[node name="collision" type="CollisionShape2D" parent="." unique_id=518803161]
+shape = SubResource("RectangleShape2D_g4v7s")

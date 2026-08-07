@@ -298,9 +298,10 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ym2kn"]
 radius = 6.0
+height = 26.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xojfc"]
-size = Vector2(14, 26)
+size = Vector2(14, 28)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1pynu"]
 radius = 7.0
@@ -316,12 +317,13 @@ frame = 6
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1481044837]
+position = Vector2(0, 3)
 shape = SubResource("CapsuleShape2D_ym2kn")
 
 [node name="hurtBox" type="Area2D" parent="." unique_id=758181996]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtBox" unique_id=2142861132]
-position = Vector2(0, 2)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_xojfc")
 debug_color = Color(0.991069, 0, 0.27625036, 0.41960785)
 

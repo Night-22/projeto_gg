@@ -10,28 +10,28 @@ extends Enemy
 var player: Node2D = null
 var can_jump := true
 var jumping := false
+var target_pos: Vector2 = Vector2.ZERO
 
 func _physics_process(delta):
 	if dead:
 		return
-
+	
 	if jumping:
 		Speed = leap_speed
 	else:
 		Speed = walk_speed
-
+	
 	if player != null and can_jump and is_on_floor():
-		dir = sign(player.global_position.x - global_position.x)
-
+		target_pos = player.global_position
+		dir = sign(target_pos.x - global_position.x)
 		jumping = true
 		velocity.y = leap_force
-
 		can_jump = false
 		timer.start()
-
+	
 	if jumping and is_on_floor() and velocity.y >= 0:
 		jumping = false
-
+	
 	super._physics_process(delta)
 
 func _on_timer_timeout():
