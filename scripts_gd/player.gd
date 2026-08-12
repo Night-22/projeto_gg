@@ -11,7 +11,7 @@ enum State {
 }
 
 var current_state = State.IDLE
-var Life = 3
+var Life = 50
 
 @export var max_speed = 300.0
 @export var acceleration = 2.5
@@ -20,11 +20,10 @@ var Life = 3
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_hit_box: CollisionShape2D = $attackHitBox/collision
 @onready var attack_sprite: Sprite2D = $attackHitBox/Sprite2D
-
 @onready var attack_timer: Timer = $attackTimer
+@onready var coyote_timer: Timer = $coyoteTimer
 
 var coyote_time_activated = false
-@onready var coyote_timer: Timer = $coyoteTimer
 
 var speed: float = 300.0
 var jump_velocity = -500.0
@@ -44,72 +43,125 @@ var dash_timer = 0.0
 
 var air_dash_available = true
 
+var current_element = 0
+
+var damage_knockback := Vector2.ZERO
+
+@export var knockback_force := 120.0
+@export var knockback_up_force := -80.0
+
+const ELEMENT_COLORS = {
+	0: Color(1.0, 0.45, 0.0),
+	1: Color(0.3, 0.8, 1.0),
+	2: Color(0.7, 0.2, 1.0),
+	3: Color(0.3, 1.0, 0.3)
+}
+
+
+func _ready() -> void:
+	atualizar_elemento()
+
+
 func _physics_process(delta: float) -> void:
 	if Life <= 0:
 		current_state = State.DEAD
-	
+
 	if is_on_floor():
 		jump_count = 0
 		air_dash_available = true
-	
+
 	looking_up = Input.is_action_pressed("cima")
 	looking_down = Input.is_action_pressed("baixo")
-	
+
+	verificar_troca_elemento()
+
 	match current_state:
 		State.IDLE:
 			state_idle(delta)
 			anim.play("idle")
-		
+
 		State.WALK:
 			state_walk(delta)
 			anim.play("walk")
-		
+
 		State.JUMP:
 			state_jump(delta)
 			anim.play("jump")
-		
+
 		State.ATTACK:
 			state_attack(delta)
-		
+
 		State.FALL:
 			state_fall(delta)
 			anim.play("fall")
-		
+
 		State.DASH:
 			state_dash(delta)
-		
+
 		State.DEAD:
 			state_dead()
-	
+
+	if damage_knockback.length() > 10:
+		velocity.x = damage_knockback.x
+		velocity.y = damage_knockback.y
+		damage_knockback = damage_knockback.move_toward(
+			Vector2.ZERO,
+			600 * delta
+		)
+
 	move_and_slide()
+
+
+func verificar_troca_elemento() -> void:
+	if Input.is_action_just_pressed("elemento_1"):
+		current_element = 0
+		atualizar_elemento()
+
+	elif Input.is_action_just_pressed("elemento_2"):
+		current_element = 1
+		atualizar_elemento()
+
+	elif Input.is_action_just_pressed("elemento_3"):
+		current_element = 2
+		atualizar_elemento()
+
+	elif Input.is_action_just_pressed("elemento_4"):
+		current_element = 3
+		atualizar_elemento()
+
+
+func atualizar_elemento() -> void:
+	if ELEMENT_COLORS.has(current_element):
+		attack_sprite.modulate = ELEMENT_COLORS[current_element]
 
 
 func state_idle(delta):
 	anim.flip_h = last_direction < 0
-	
+
 	velocity.x = lerp(
 		velocity.x,
 		0.0,
 		delta * friction
 	)
-	
+
 	if Input.is_action_just_pressed("pulo"):
 		jump()
 		return
-	
+
 	if Input.is_action_just_pressed("dash"):
 		start_dash()
 		return
-	
+
 	if Input.is_action_just_pressed("ataque"):
 		current_state = State.ATTACK
-	
+		return
+
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-	
+
 	if direction != 0:
 		current_state = State.WALK
 		return
-	
+
 	if !is_on_floor():
 		start_coyote()
 		current_state = State.FALL
@@ -117,33 +169,34 @@ func state_idle(delta):
 
 func state_walk(delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-	
+
 	anim.flip_h = last_direction < 0
-	
+
 	if direction != 0:
 		last_direction = direction
-	
+
 	velocity.x = lerp(
 		velocity.x,
 		direction * speed,
 		delta * acceleration
 	)
-	
+
 	if Input.is_action_just_pressed("pulo"):
 		jump()
 		return
-	
+
 	if Input.is_action_just_pressed("dash"):
 		start_dash()
 		return
-	
+
 	if Input.is_action_just_pressed("ataque"):
 		current_state = State.ATTACK
-	
+		return
+
 	if direction == 0:
 		current_state = State.IDLE
 		return
-	
+
 	if !is_on_floor():
 		start_coyote()
 		current_state = State.FALL
@@ -151,67 +204,67 @@ func state_walk(delta):
 
 func state_jump(delta):
 	velocity += get_gravity() * delta
-	
+
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-	
+
 	anim.flip_h = last_direction < 0
-	
+
 	if direction != 0:
 		last_direction = direction
-	
+
 	velocity.x = lerp(
 		velocity.x,
 		direction * speed,
 		delta * acceleration
 	)
-	
+
 	if Input.is_action_just_pressed("pulo") and jump_count < max_jumps:
 		jump()
 		return
-	
+
 	if Input.is_action_just_pressed("dash"):
 		start_dash()
 		return
-	
+
 	var jump_force = Input.get_action_strength("pulo")
-	
+
 	if velocity.y < 0:
 		if Input.is_action_just_released("pulo"):
 			velocity.y *= jump_force
-	
+
 	if velocity.y >= 0:
 		current_state = State.FALL
-	
+
 	if Input.is_action_just_pressed("ataque"):
 		current_state = State.ATTACK
 
 
 func state_attack(delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-	
+
 	if Input.is_action_pressed("ataque") and can_attack:
 		can_attack = false
 		attack_hit_box.disabled = false
 		attack_sprite.visible = true
 		attack_timer.start()
-	
+
 	if last_direction < 0:
 		attack_to_direction("left")
 	else:
 		attack_to_direction("right")
-	
+
 	if looking_up:
 		attack_to_direction("up")
-	
+
 	if looking_down:
 		attack_to_direction("down")
-	
+
 	if is_on_floor():
 		if direction != 0:
 			current_state = State.WALK
 		else:
 			current_state = State.IDLE
-	
+
 	if !is_on_floor():
 		if velocity.y > 0:
 			current_state = State.FALL
@@ -221,27 +274,28 @@ func state_attack(delta):
 
 func state_fall(delta):
 	velocity += get_gravity() * delta
-	
+
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-	
+
 	anim.flip_h = last_direction < 0
-	
+
 	if direction != 0:
 		last_direction = direction
-	
+
 	velocity.x = lerp(
 		velocity.x,
 		direction * speed,
 		delta * acceleration
 	)
-	
+
 	if Input.is_action_just_pressed("ataque"):
 		current_state = State.ATTACK
-	
+		return
+
 	if Input.is_action_just_pressed("dash"):
 		start_dash()
 		return
-	
+
 	if Input.is_action_just_pressed("pulo"):
 		if coyote_time_activated:
 			jump()
@@ -249,11 +303,11 @@ func state_fall(delta):
 		elif jump_count < max_jumps:
 			jump()
 			return
-	
+
 	if is_on_floor():
 		coyote_time_activated = false
 		coyote_timer.stop()
-	
+
 		if direction == 0:
 			current_state = State.IDLE
 		else:
@@ -262,22 +316,20 @@ func state_fall(delta):
 
 func state_dash(delta):
 	dash_timer -= delta
-	
+
 	velocity.y = 0
 	velocity.x = dash_speed * last_direction
-	
+
 	anim.flip_h = last_direction < 0
-	
+
 	if dash_timer <= 0:
 		if is_on_floor():
-		
 			var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-		
+
 			if direction == 0:
 				current_state = State.IDLE
 			else:
 				current_state = State.WALK
-		
 		else:
 			current_state = State.FALL
 
@@ -298,15 +350,15 @@ func start_dash():
 	if !is_on_floor():
 		if !air_dash_available:
 			return
-	
+
 		air_dash_available = false
-	
+
 	dash_timer = dash_time
 	current_state = State.DASH
-	
+
 	if last_direction == 0:
 		last_direction = 1
-	
+
 	velocity.y = 0
 
 
@@ -318,44 +370,94 @@ func start_coyote():
 
 func attack_to_direction(dir):
 	match dir:
-	
 		"right":
 			anim.flip_h = false
 			attack_sprite.flip_h = false
-		
+
 			attack_hit_box.position = Vector2(23, 0)
 			attack_hit_box.rotation = 0
-		
+
 			attack_sprite.position = Vector2(23, 0)
 			attack_sprite.rotation = 0
-		
+
 		"left":
 			anim.flip_h = true
 			attack_sprite.flip_h = true
-		
+
 			attack_hit_box.position = Vector2(-23, 0)
 			attack_hit_box.rotation = 0
-		
+
 			attack_sprite.position = Vector2(-23, 0)
 			attack_sprite.rotation = 0
-		
+
 		"up":
 			attack_sprite.flip_h = false
-		
+
 			attack_hit_box.position = Vector2(0, -23)
 			attack_hit_box.rotation = -1.57079633
-		
+
 			attack_sprite.position = Vector2(0, -23)
 			attack_sprite.rotation = -1.57079633
-		
+
 		"down":
 			attack_sprite.flip_h = false
-			
+
 			attack_hit_box.position = Vector2(0, 23)
 			attack_hit_box.rotation = 1.57079633
-			
+
 			attack_sprite.position = Vector2(0, 23)
 			attack_sprite.rotation = 1.57079633
+
+
+func receber_dano(dano: int, origem_x: float) -> void:
+	if Life <= 0:
+		return
+
+	Life -= dano
+
+	mostrar_dano(dano)
+
+	var direcao = sign(global_position.x - origem_x)
+
+	if direcao == 0:
+		direcao = -1
+
+	damage_knockback.x = direcao * knockback_force
+	damage_knockback.y = knockback_up_force
+
+	velocity = damage_knockback
+
+	if Life <= 0:
+		current_state = State.DEAD
+
+
+func mostrar_dano(dano: int) -> void:
+	var label = Label.new()
+
+	label.text = str(dano)
+	label.position = Vector2(-10, -45)
+	label.z_index = 100
+
+	add_child(label)
+
+	var tween = create_tween()
+	tween.set_parallel(true)
+
+	tween.tween_property(
+		label,
+		"position",
+		Vector2(-10, -70),
+		0.5
+	)
+
+	tween.tween_property(
+		label,
+		"modulate:a",
+		0.0,
+		0.5
+	)
+
+	tween.finished.connect(label.queue_free)
 
 
 func die():
@@ -364,27 +466,34 @@ func die():
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Inimigo"):
-		Life -= 1
-		print(Life)
+		receber_dano(1, body.global_position.x)
 
 
 func _on_attack_hit_box_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Inimigo") :
-		body._dano(2, global_position.x)
-	
+	if body.is_in_group("Inimigo"):
+		var dano = 2
+
+		if body.has_method("_aplicar_elemento"):
+			dano = body._aplicar_elemento(
+				current_element,
+				dano,
+				global_position.x
+			)
+
+		body._dano(dano, global_position.x)
+
 		if looking_down and !is_on_floor():
-	
 			velocity.y = pogo_velocity
-	
 			jump_count = min(jump_count + 1, max_jumps)
-	
 			current_state = State.JUMP
 
 
 func _on_coyote_timer_timeout() -> void:
 	coyote_time_activated = false
+
 	if !is_on_floor() and jump_count == 0:
 		jump_count = 1
+
 
 func _on_attack_timer_timeout() -> void:
 	can_attack = true

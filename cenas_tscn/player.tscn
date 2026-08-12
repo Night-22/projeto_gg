@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cjtn5mqhif1lb" path="res://placeholder/male_hero-combo_1.png" id="2_xrwlx"]
 [ext_resource type="Texture2D" uid="uid://cs2aump1furax" path="res://placeholder/male_hero-jump.png" id="3_15dsx"]
 [ext_resource type="Texture2D" uid="uid://bywhy5g1teet2" path="res://placeholder/male_hero-combo_1_end.png" id="3_tw7kf"]
-[ext_resource type="Texture2D" uid="uid://dm3d88ffr8r05" path="res://placeholder/corte.png" id="8_tw7kf"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="8_tw7kf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0w80"]
 atlas = ExtResource("2_xrwlx")
@@ -336,8 +336,8 @@ disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="attackHitBox" unique_id=235777237]
 visible = false
-position = Vector2(23, 0)
-scale = Vector2(1.125, 1)
+position = Vector2(22.614456, 0.38554716)
+scale = Vector2(-0.021577558, 0.048399802)
 texture = ExtResource("8_tw7kf")
 
 [node name="coyoteTimer" type="Timer" parent="." unique_id=87459967]

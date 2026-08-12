@@ -12,10 +12,8 @@ radius = 152.3975
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dfc8r"]
 size = Vector2(39, 38)
 
-[node name="Husk" type="CharacterBody2D" unique_id=890546670]
+[node name="Husk" type="CharacterBody2D" unique_id=890546670 groups=["Inimigo"]]
 script = ExtResource("1_2hlel")
-Life = 4
-Speed = 70
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1761213694]
