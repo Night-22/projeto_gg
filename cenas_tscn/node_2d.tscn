@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="1_ebefr"]
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_wtcfe"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
+[ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="5_ebefr"]
 [ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas_tscn/inimigos_tscn/husk.tscn" id="6_rf4it"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
@@ -68,3 +69,5 @@ shape = SubResource("RectangleShape2D_ydpk4")
 
 [node name="Husk" parent="." unique_id=890546670 instance=ExtResource("6_rf4it")]
 position = Vector2(740, 544)
+
+[node name="Hud" parent="." unique_id=249675550 instance=ExtResource("5_ebefr")]

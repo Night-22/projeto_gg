@@ -10,8 +10,32 @@ enum State {
 	DEAD
 }
 
+enum Spell {
+	WATER_1,
+	WATER_2,
+	WATER_3,
+	WATER_4,
+	FIRE_1,
+	FIRE_2,
+	FIRE_3,
+	FIRE_4,
+	LIGHTNING_1,
+	LIGHTNING_2,
+	LIGHTNING_3,
+	LIGHTNING_4,
+	PLANT_1,
+	PLANT_2,
+	PLANT_3,
+	PLANT_4
+}
+
 var current_state = State.IDLE
+
 var Life = 50
+var max_life = 50
+
+var Mana = 100
+var max_mana = 100
 
 @export var max_speed = 300.0
 @export var acceleration = 2.5
@@ -43,23 +67,64 @@ var dash_timer = 0.0
 
 var air_dash_available = true
 
-var current_element = 0
-
 var damage_knockback := Vector2.ZERO
 
 @export var knockback_force := 120.0
 @export var knockback_up_force := -80.0
 
-const ELEMENT_COLORS = {
+var current_element = -1
+var imbued_element = -1
+
+var element_colors = {
 	0: Color(1.0, 0.45, 0.0),
 	1: Color(0.3, 0.8, 1.0),
 	2: Color(0.7, 0.2, 1.0),
 	3: Color(0.3, 1.0, 0.3)
 }
 
+var spell_scenes = {
+	Spell.WATER_1: preload("res://cenas_tscn/spells/water/water_1.tscn"),
+	Spell.WATER_2: preload("res://cenas_tscn/spells/water/water_2.tscn"),
+	Spell.WATER_3: preload("res://cenas_tscn/spells/water/water_3.tscn"),
+	Spell.FIRE_1: preload("res://cenas_tscn/spells/fire/fire_1.tscn"),
+	Spell.LIGHTNING_1: preload("res://cenas_tscn/spells/lightning/lightning_1.tscn"),
+	Spell.PLANT_1: preload("res://cenas_tscn/spells/plant/plant_1.tscn")
+}
+
+var equipped_spells = [
+	Spell.WATER_3,
+	Spell.FIRE_1,
+	Spell.LIGHTNING_1,
+	Spell.PLANT_1
+]
+
+var active_spells = []
+
+var selected_spell = 0
+
+var spell_in_use = false
+var active_spell = null
+
+var spell_lock_timer: Timer
+
+var imbue_timer: Timer
+
 
 func _ready() -> void:
-	atualizar_elemento()
+	add_to_group("Player")
+
+	imbue_timer = Timer.new()
+	imbue_timer.one_shot = true
+	imbue_timer.timeout.connect(_on_imbue_timer_timeout)
+	add_child(imbue_timer)
+
+	spell_lock_timer = Timer.new()
+	spell_lock_timer.one_shot = true
+	spell_lock_timer.timeout.connect(_on_spell_lock_timer_timeout)
+	add_child(spell_lock_timer)
+
+	setup_spells()
+	update_imbued_element()
 
 
 func _physics_process(delta: float) -> void:
@@ -73,7 +138,7 @@ func _physics_process(delta: float) -> void:
 	looking_up = Input.is_action_pressed("cima")
 	looking_down = Input.is_action_pressed("baixo")
 
-	verificar_troca_elemento()
+	handle_spell_input()
 
 	match current_state:
 		State.IDLE:
@@ -104,6 +169,7 @@ func _physics_process(delta: float) -> void:
 	if damage_knockback.length() > 10:
 		velocity.x = damage_knockback.x
 		velocity.y = damage_knockback.y
+
 		damage_knockback = damage_knockback.move_toward(
 			Vector2.ZERO,
 			600 * delta
@@ -112,27 +178,161 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func verificar_troca_elemento() -> void:
-	if Input.is_action_just_pressed("elemento_1"):
-		current_element = 0
-		atualizar_elemento()
+func setup_spells() -> void:
+	active_spells.clear()
 
-	elif Input.is_action_just_pressed("elemento_2"):
-		current_element = 1
-		atualizar_elemento()
-
-	elif Input.is_action_just_pressed("elemento_3"):
-		current_element = 2
-		atualizar_elemento()
-
-	elif Input.is_action_just_pressed("elemento_4"):
-		current_element = 3
-		atualizar_elemento()
+	for spell_id in equipped_spells:
+		if spell_scenes.has(spell_id):
+			var spell = spell_scenes[spell_id].instantiate()
+			add_child(spell)
+			active_spells.append(spell)
+		else:
+			active_spells.append(null)
 
 
-func atualizar_elemento() -> void:
-	if ELEMENT_COLORS.has(current_element):
-		attack_sprite.modulate = ELEMENT_COLORS[current_element]
+func handle_spell_input() -> void:
+	if Input.is_action_just_pressed("spell_1"):
+		if !spell_in_use:
+			selected_spell = 0
+		return
+
+	if Input.is_action_just_pressed("spell_2"):
+		if !spell_in_use:
+			selected_spell = 1
+		return
+
+	if Input.is_action_just_pressed("spell_3"):
+		if !spell_in_use:
+			selected_spell = 2
+		return
+
+	if Input.is_action_just_pressed("spell_4"):
+		if !spell_in_use:
+			selected_spell = 3
+		return
+
+	if Input.is_action_just_pressed("cast_spell"):
+		use_selected_spell()
+
+
+func use_selected_spell() -> void:
+	if spell_in_use:
+		return
+
+	if selected_spell < 0:
+		return
+
+	if selected_spell >= active_spells.size():
+		return
+
+	var spell = active_spells[selected_spell]
+
+	if spell == null:
+		return
+
+	if !spell.has_method("use"):
+		return
+
+	if spell.has_method("is_active"):
+		if spell.is_active():
+			return
+
+	spell.use(self)
+
+	if spell.has_method("is_active"):
+		if !spell.is_active():
+			return
+	else:
+		if spell.get("active") == null:
+			return
+
+		if !spell.active:
+			return
+
+	var spell_duration = spell.get("duration")
+
+	if spell_duration == null:
+		return
+
+	if spell_duration <= 0:
+		return
+
+	spell_in_use = true
+	active_spell = spell
+
+	spell_lock_timer.start(spell_duration)
+
+
+func finalizar_magia() -> void:
+	spell_lock_timer.stop()
+	spell_in_use = false
+	active_spell = null
+
+
+func _on_spell_lock_timer_timeout() -> void:
+	spell_in_use = false
+	active_spell = null
+
+
+func equip_spell(slot: int, spell_id: int) -> void:
+	if spell_in_use:
+		return
+
+	if slot < 0 or slot >= 4:
+		return
+
+	if !spell_scenes.has(spell_id):
+		return
+
+	if active_spells.size() > slot:
+		var old_spell = active_spells[slot]
+
+		if old_spell != null:
+			old_spell.queue_free()
+
+	var new_spell = spell_scenes[spell_id].instantiate()
+
+	add_child(new_spell)
+
+	if active_spells.size() <= slot:
+		while active_spells.size() <= slot:
+			active_spells.append(null)
+
+	active_spells[slot] = new_spell
+	equipped_spells[slot] = spell_id
+
+
+func imbue_element(element: int, duration: float) -> void:
+	imbued_element = element
+
+	if imbue_timer:
+		imbue_timer.stop()
+		imbue_timer.start(duration)
+
+	update_imbued_element()
+
+
+func remove_element_imbue() -> void:
+	imbued_element = -1
+
+	if imbue_timer:
+		imbue_timer.stop()
+
+	update_imbued_element()
+
+
+func update_imbued_element() -> void:
+	if imbued_element == -1:
+		attack_sprite.modulate = Color.WHITE
+		return
+
+	if element_colors.has(imbued_element):
+		attack_sprite.modulate = element_colors[imbued_element]
+
+
+func _on_imbue_timer_timeout() -> void:
+	imbued_element = -1
+	update_imbued_element()
 
 
 func state_idle(delta):
@@ -473,12 +673,13 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Inimigo"):
 		var dano = 2
 
-		if body.has_method("_aplicar_elemento"):
-			dano = body._aplicar_elemento(
-				current_element,
-				dano,
-				global_position.x
-			)
+		if imbued_element != -1:
+			if body.has_method("_aplicar_elemento"):
+				dano = body._aplicar_elemento(
+					imbued_element,
+					dano,
+					global_position.x
+				)
 
 		body._dano(dano, global_position.x)
 

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bgpmupd55wehy"]
+
+[ext_resource type="Script" uid="uid://wap6d8c3dcya" path="res://cenas_tscn/spells/plant/plant_1.gd" id="1_7p106"]
+
+[node name="Plant1" type="Node2D" unique_id=621909134]
+script = ExtResource("1_7p106")
+
+[node name="DurationTimer" type="Timer" parent="." unique_id=559834618]
+wait_time = 10.0
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=1126226850]
+wait_time = 15.0
+one_shot = true

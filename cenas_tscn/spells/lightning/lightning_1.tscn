@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://0dnmphwknr6o"]
+
+[ext_resource type="Script" uid="uid://badpcy4bmgngq" path="res://cenas_tscn/spells/lightning/lightning_1.gd" id="1_aui1s"]
+
+[node name="Lightning1" type="Node2D" unique_id=621909134]
+script = ExtResource("1_aui1s")
+
+[node name="DurationTimer" type="Timer" parent="." unique_id=559834618]
+wait_time = 10.0
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=1126226850]
+wait_time = 15.0
+one_shot = true

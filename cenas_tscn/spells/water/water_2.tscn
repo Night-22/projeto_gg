@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dqscfa2oxfdme"]
+
+[ext_resource type="Script" uid="uid://lawiumpymxyr" path="res://cenas_tscn/spells/water/water_2.gd" id="1_erto3"]
+[ext_resource type="Texture2D" uid="uid://ck8lmcrqidd5h" path="res://placeholder/agua.png" id="2_rnaoq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 50.0
+
+[node name="Water2" type="Node2D" unique_id=1468875115]
+script = ExtResource("1_erto3")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1331461005]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1939693114]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1421704337]
+position = Vector2(2.000001, -2)
+scale = Vector2(0.35964912, 0.37130803)
+texture = ExtResource("2_rnaoq")

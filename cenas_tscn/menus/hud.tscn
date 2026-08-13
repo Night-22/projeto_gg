@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://bytt2gxhnkgtd"]
+
+[ext_resource type="Script" uid="uid://d64q2ahvpa6i" path="res://cenas_tscn/menus/hud.gd" id="1_ahplq"]
+
+[node name="Hud" type="CanvasLayer" unique_id=249675550]
+script = ExtResource("1_ahplq")
+
+[node name="Interface" type="Control" parent="." unique_id=1726835691]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="Interface" unique_id=1489437378]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 12.0
+offset_right = 276.0
+offset_bottom = 46.0
+value = 100.0
+show_percentage = false
+
+[node name="ManaBar" type="ProgressBar" parent="Interface" unique_id=1350334871]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 54.0
+offset_right = 277.0
+offset_bottom = 88.0
+value = 100.0
+show_percentage = false
+
+[node name="SpellBar" type="VBoxContainer" parent="Interface" unique_id=1731993230]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -70.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="SpellSlot1" type="Panel" parent="Interface/SpellBar" unique_id=543188155]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Interface/SpellBar/SpellSlot1" unique_id=323033833]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "1
+"
+
+[node name="CooldownOverlay" type="ColorRect" parent="Interface/SpellBar/SpellSlot1" unique_id=5444177]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SpellSlot2" type="Panel" parent="Interface/SpellBar" unique_id=672686715]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Interface/SpellBar/SpellSlot2" unique_id=710099920]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "2"
+
+[node name="CooldownOverlay" type="ColorRect" parent="Interface/SpellBar/SpellSlot2" unique_id=523297080]
+layout_mode = 0
+offset_top = -74.0
+offset_right = 40.0
+offset_bottom = -34.0
+
+[node name="SpellSlot3" type="Panel" parent="Interface/SpellBar" unique_id=2026786212]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Interface/SpellBar/SpellSlot3" unique_id=1310988687]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "3"
+
+[node name="CooldownOverlay" type="ColorRect" parent="Interface/SpellBar/SpellSlot3" unique_id=566178114]
+layout_mode = 0
+offset_top = -148.0
+offset_right = 40.0
+offset_bottom = -108.0
+
+[node name="SpellSlot4" type="Panel" parent="Interface/SpellBar" unique_id=201710277]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Interface/SpellBar/SpellSlot4" unique_id=1879692810]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "4"
+
+[node name="CooldownOverlay" type="ColorRect" parent="Interface/SpellBar/SpellSlot4" unique_id=1573648012]
+layout_mode = 0
+offset_top = -222.0
+offset_right = 40.0
+offset_bottom = -182.0
