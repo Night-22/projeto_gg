@@ -2,7 +2,6 @@ extends Enemy
 
 @export var normal_speed := 80
 @export var chase_speed := 200
-
 @export var dano_contato := 1
 
 @onready var raycast: RayCast2D = $rayCast
@@ -17,12 +16,16 @@ func _physics_process(delta):
 		player = null
 		usando_investida = false
 		Speed = normal_speed
+		tempo_virar.stop()
 
 	super._physics_process(delta)
 
 
 func virar():
 	if player == null or !is_instance_valid(player):
+		return
+
+	if not usando_investida:
 		return
 
 	if player.global_position.x > global_position.x:
@@ -48,10 +51,11 @@ func iniciar_investida():
 func finalizar_investida():
 	usando_investida = false
 	Speed = normal_speed
+	tempo_virar.stop()
 
 
 func _on_tempo_virar_timeout() -> void:
-	if player != null and is_instance_valid(player):
+	if usando_investida and player != null and is_instance_valid(player):
 		virar()
 
 	finalizar_investida()

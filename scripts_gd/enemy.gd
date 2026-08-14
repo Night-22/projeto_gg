@@ -8,6 +8,7 @@ class_name Enemy
 
 @export var knockback_force := 300
 @export var knockback_up_force := -220
+@export var knockback_ataque:= 30
 
 var dead := false
 var elementosRecebidos = []
@@ -415,7 +416,6 @@ func _dano(dano: int, origem_x: float):
 
 	if Life <= 0:
 		die()
-
 
 func die():
 	dead = true

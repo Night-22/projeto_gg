@@ -6,8 +6,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(28, 24)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yf5fn"]
+radius = 59.0118
+height = 348.07092
+
 [node name="Flying" type="CharacterBody2D" unique_id=187868775 groups=["Inimigo"]]
 script = ExtResource("1_sih1y")
+knockback_ataque = 80
 metadata/_custom_type_script = "uid://bullfap4fo1nx"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1189773818]
@@ -16,3 +21,13 @@ texture = ExtResource("2_4usim")
 
 [node name="collision" type="CollisionShape2D" parent="." unique_id=518803161]
 shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="percepcao" type="Area2D" parent="." unique_id=21009768]
+
+[node name="collision" type="CollisionShape2D" parent="percepcao" unique_id=378220495]
+position = Vector2(3, 16)
+rotation = 1.5642688
+shape = SubResource("CapsuleShape2D_yf5fn")
+
+[connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
+[connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]

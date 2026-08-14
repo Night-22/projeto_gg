@@ -67,7 +67,7 @@ texture = ExtResource("1_wtcfe")
 position = Vector2(0.5, 8.5)
 shape = SubResource("RectangleShape2D_ydpk4")
 
-[node name="Husk" parent="." unique_id=890546670 instance=ExtResource("6_rf4it")]
-position = Vector2(740, 544)
-
 [node name="Hud" parent="." unique_id=249675550 instance=ExtResource("5_ebefr")]
+
+[node name="Husk" parent="." unique_id=890546670 instance=ExtResource("6_rf4it")]
+position = Vector2(866, 532)

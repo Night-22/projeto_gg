@@ -308,6 +308,7 @@ radius = 7.0
 
 [node name="Player" type="CharacterBody2D" unique_id=2135435064 groups=["Player"]]
 script = ExtResource("1_unwft")
+knockback_force = 280.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1488943503]
 texture_filter = 1
