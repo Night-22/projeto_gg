@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://crsjs6ulns4gs"]
+
+[ext_resource type="Script" uid="uid://bfj4vhpttxq5y" path="res://cenas_tscn/spells/plant/plant_2_thorn.gd" id="1_xsrdt"]
+[ext_resource type="Texture2D" uid="uid://biau3j3v2umoy" path="res://placeholder/planta.png" id="2_1hd25"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(48, 40)
+
+[node name="Plant2Thorn" type="Node2D" unique_id=912784734]
+script = ExtResource("1_xsrdt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1279607736]
+position = Vector2(2.3841858e-07, 1.9073486e-06)
+scale = Vector2(0.20168069, 0.14285715)
+texture = ExtResource("2_1hd25")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2133244349]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1724688741]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

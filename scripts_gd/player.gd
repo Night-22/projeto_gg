@@ -86,16 +86,29 @@ var spell_scenes = {
 	Spell.WATER_1: preload("res://cenas_tscn/spells/water/water_1.tscn"),
 	Spell.WATER_2: preload("res://cenas_tscn/spells/water/water_2.tscn"),
 	Spell.WATER_3: preload("res://cenas_tscn/spells/water/water_3.tscn"),
+	Spell.WATER_4: preload("res://cenas_tscn/spells/water/water_4.tscn"),
+	
 	Spell.FIRE_1: preload("res://cenas_tscn/spells/fire/fire_1.tscn"),
+	Spell.FIRE_2: preload("res://cenas_tscn/spells/fire/fire_2.tscn"),
+	Spell.FIRE_3: preload("res://cenas_tscn/spells/fire/fire_3.tscn"),
+	Spell.FIRE_4: preload("res://cenas_tscn/spells/fire/fire_4.tscn"),
+	
 	Spell.LIGHTNING_1: preload("res://cenas_tscn/spells/lightning/lightning_1.tscn"),
-	Spell.PLANT_1: preload("res://cenas_tscn/spells/plant/plant_1.tscn")
+	Spell.LIGHTNING_2: preload("res://cenas_tscn/spells/lightning/lightning_2.tscn"),
+	Spell.LIGHTNING_3: preload("res://cenas_tscn/spells/lightning/lightning_3.tscn"),
+	Spell.LIGHTNING_4: preload("res://cenas_tscn/spells/lightning/lightning_4.tscn"),
+	
+	Spell.PLANT_1: preload("res://cenas_tscn/spells/plant/plant_1.tscn"),
+	Spell.PLANT_2: preload("res://cenas_tscn/spells/plant/plant_2.tscn"),
+	Spell.PLANT_3: preload("res://cenas_tscn/spells/plant/plant_3.tscn"),
+	Spell.PLANT_4: preload("res://cenas_tscn/spells/plant/plant_4.tscn")
 }
 
 var equipped_spells = [
-	Spell.WATER_3,
-	Spell.FIRE_1,
-	Spell.LIGHTNING_1,
-	Spell.PLANT_1
+	Spell.WATER_4,
+	Spell.FIRE_4,
+	Spell.LIGHTNING_4,
+	Spell.PLANT_3
 ]
 
 var active_spells = []
@@ -104,7 +117,6 @@ var selected_spell = 0
 
 var spell_in_use = false
 var active_spell = null
-
 var spell_lock_timer: Timer
 
 var imbue_timer: Timer
@@ -174,6 +186,8 @@ func _physics_process(delta: float) -> void:
 			Vector2.ZERO,
 			600 * delta
 		)
+
+
 
 	move_and_slide()
 
@@ -439,7 +453,7 @@ func state_jump(delta):
 		current_state = State.ATTACK
 
 
-func state_attack(delta):
+func state_attack(_delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 
 	if Input.is_action_pressed("ataque") and can_attack:

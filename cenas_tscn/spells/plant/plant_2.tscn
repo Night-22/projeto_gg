@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d2ruhx28boi66"]
+
+[ext_resource type="Script" uid="uid://ckps5p7grivlg" path="res://cenas_tscn/spells/plant/plant_2.gd" id="1_55gf5"]
+
+[node name="Plant2" type="Node2D" unique_id=22378378]
+script = ExtResource("1_55gf5")

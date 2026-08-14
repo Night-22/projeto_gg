@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bo22gqbk27xf1"]
+
+[ext_resource type="Script" uid="uid://tl8a1k1m581m" path="res://cenas_tscn/spells/fire/fire_3_ground.gd" id="1_r8nko"]
+[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="2_5el36"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i5iox"]
+size = Vector2(109, 26)
+
+[node name="Fire3Ground" type="Node2D" unique_id=162089487]
+script = ExtResource("1_r8nko")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=410096036]
+position = Vector2(0.49999976, -3.0000002)
+scale = Vector2(0.52153116, 0.09386282)
+texture = ExtResource("2_5el36")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=947265789]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1698166107]
+position = Vector2(0.5, -3)
+shape = SubResource("RectangleShape2D_i5iox")
+
+[node name="DurationTimer" type="Timer" parent="." unique_id=1075569706]
+one_shot = true
+
+[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_timer_timeout"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_tmer_timeout"]

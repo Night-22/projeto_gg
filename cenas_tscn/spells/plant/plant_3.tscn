@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dxtdme67p5j58"]
+
+[ext_resource type="Script" uid="uid://f7tnas31wiuo" path="res://cenas_tscn/spells/plant/plant_3.gd" id="1_5wve2"]
+
+[node name="Plant3" type="Node2D" unique_id=866044590]
+script = ExtResource("1_5wve2")
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=1729089453]
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

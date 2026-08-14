@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://3kofp2sk212g"]
+
+[ext_resource type="Script" uid="uid://luv6v73g5nql" path="res://cenas_tscn/spells/lightning/lightning_4.gd" id="1_lioei"]
+
+[node name="Lightning4" type="Node2D" unique_id=2064369380]
+script = ExtResource("1_lioei")
+
+[node name="DelayTimer" type="Timer" parent="." unique_id=391715159]
+one_shot = true
+
+[node name="DurationTimer" type="Timer" parent="." unique_id=1909190149]
+one_shot = true
+
+[connection signal="timeout" from="DelayTimer" to="." method="_on_delay_timer_timeout"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_timer_timeout"]

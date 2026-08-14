@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://uj1yfu0sg60p"]
+
+[ext_resource type="Script" uid="uid://n4c3isui0h1" path="res://cenas_tscn/spells/plant/vine.gd" id="1_r8raf"]
+[ext_resource type="Texture2D" uid="uid://biau3j3v2umoy" path="res://placeholder/planta.png" id="2_ewyod"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(23, 43)
+
+[node name="Plant4Vine" type="Node2D" unique_id=643301484]
+script = ExtResource("1_r8raf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=539008595]
+scale = Vector2(0.1, 0.15)
+texture = ExtResource("2_ewyod")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1589520208]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1638644293]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

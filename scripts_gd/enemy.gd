@@ -6,8 +6,8 @@ class_name Enemy
 @export var JUMP_FORCE = -200
 @export var dir = -1
 
-@export var knockback_force := 200
-@export var knockback_up_force := -140
+@export var knockback_force := 300
+@export var knockback_up_force := -220
 
 var dead := false
 var elementosRecebidos = []
@@ -58,6 +58,7 @@ var eletrizacao_timer := 0.0
 
 var queimadura_tick_timer := 0.0
 var sobrecarga_tick_timer := 0.0
+
 
 
 func _ready() -> void:
@@ -140,7 +141,7 @@ func _aplicar_elemento(elemento, dano: int = 0, origem_x: float = 0.0) -> int:
 	return dano
 
 
-func ativar_reacao(dano, origem_x: float) -> int:
+func ativar_reacao(dano, _origem_x: float) -> int:
 	var elemento_1 = elementosRecebidos[0]
 	var elemento_2 = elementosRecebidos[1]
 
@@ -269,6 +270,8 @@ func aplicar_corrente_eletrica() -> void:
 
 func receber_dano_corrente(dano: int) -> void:
 	_dano(dano, global_position.x)
+	
+	
 
 
 func finalizar_imobilizacao() -> void:
@@ -398,10 +401,15 @@ func _dano(dano: int, origem_x: float):
 	mostrar_dano(dano)
 
 	var direcao = sign(global_position.x - origem_x)
-
+	var particula = preload("res://particles/explosion.tscn").instantiate()
+	
 	if direcao == 0:
 		direcao = -1
-
+		
+	particula.global_position = global_position
+	get_parent().add_child(particula)
+	
+	
 	knockback.x = direcao * knockback_force
 	velocity.y = knockback_up_force
 

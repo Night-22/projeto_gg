@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dndawkg1gnt6t"]
+
+[ext_resource type="Script" uid="uid://610ergkte5wk" path="res://cenas_tscn/spells/plant/plant_4.gd" id="1_rx6xl"]
+
+[node name="Plant4" type="Node2D" unique_id=1321687678]
+script = ExtResource("1_rx6xl")
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1104590063]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

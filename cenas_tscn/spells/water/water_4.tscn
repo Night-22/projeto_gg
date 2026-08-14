@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bl1bsojopr0ku"]
+
+[ext_resource type="Script" uid="uid://dl5b58jn2j4wt" path="res://cenas_tscn/spells/water/water_4.gd" id="1_r13pf"]
+
+[node name="Water4" type="Node2D" unique_id=1185633678]
+script = ExtResource("1_r13pf")
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=602981831]
+
+[node name="DurationTimer" type="Timer" parent="." unique_id=2030274327]

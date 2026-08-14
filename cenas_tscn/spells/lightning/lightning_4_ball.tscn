@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cww6gnplrgwqb"]
+
+[ext_resource type="Script" uid="uid://dh2ocrftb5i3y" path="res://cenas_tscn/spells/lightning/lightning_4_ball.gd" id="1_a01t1"]
+[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="2_0326w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 28.0
+
+[node name="Lightning4Ball" type="Area2D" unique_id=1664520629]
+script = ExtResource("1_a01t1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1886420719]
+position = Vector2(1.9073486e-06, -0.49999905)
+scale = Vector2(0.23036651, 0.17343174)
+texture = ExtResource("2_0326w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=101554752]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

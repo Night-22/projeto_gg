@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bquijr5ke34of"]
+
+[ext_resource type="Script" uid="uid://djh2qsx3tt254" path="res://cenas_tscn/spells/fire/fire_4.gd" id="1_86pxa"]
+
+[node name="Fire4" type="Node2D" unique_id=1803532819]
+script = ExtResource("1_86pxa")
+
+[node name="DelayTimer" type="Timer" parent="." unique_id=1313736222]
+wait_time = 0.06
+one_shot = true
+
+[connection signal="timeout" from="DelayTimer" to="." method="_on_delay_timer_timeout"]
