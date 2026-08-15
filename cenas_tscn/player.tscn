@@ -307,6 +307,7 @@ size = Vector2(14, 28)
 radius = 7.0
 
 [node name="Player" type="CharacterBody2D" unique_id=2135435064 groups=["Player"]]
+collision_mask = 3
 script = ExtResource("1_unwft")
 knockback_force = 280.0
 

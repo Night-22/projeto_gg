@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cqoe2e6mjqheo"]
+
+[ext_resource type="Script" uid="uid://i1c7in13idop" path="res://scripts_gd/bosses/teia_projetil.gd" id="1_teia"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_7hxpi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_teia"]
+radius = 27.018513
+
+[node name="TeiaProjetil" type="Area2D" unique_id=62415888]
+script = ExtResource("1_teia")
+
+[node name="Visual" type="Sprite2D" parent="." unique_id=1086316875]
+position = Vector2(-2.3841858e-07, 0.5)
+scale = Vector2(0.07339449, 0.09106529)
+texture = ExtResource("2_7hxpi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1530383270]
+shape = SubResource("CircleShape2D_teia")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

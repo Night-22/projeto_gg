@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://djxoxqgtu0fwd"]
+
+[ext_resource type="Script" uid="uid://cwanwmxbjnnaq" path="res://scripts_gd/bosses/aranha_perna.gd" id="1_perna"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_inbku"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_perna"]
+resource_local_to_scene = true
+size = Vector2(22, 300)
+
+[node name="AranhaPerna" type="Node2D" unique_id=884509998]
+script = ExtResource("1_perna")
+
+[node name="Visual" type="Sprite2D" parent="." unique_id=1721711360]
+position = Vector2(0.50000024, 150.5)
+scale = Vector2(0.04587156, 0.5171821)
+texture = ExtResource("2_inbku")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1169797578]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=445405136]
+position = Vector2(0, 150)
+shape = SubResource("RectangleShape2D_perna")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

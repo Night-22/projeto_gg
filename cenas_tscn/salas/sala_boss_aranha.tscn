@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://dr2og4ykx6uby"]
+
+[ext_resource type="Script" uid="uid://cguu41w4g4bkn" path="res://cenas_tscn/salas/sala_boss_aranha.gd" id="1_sala"]
+[ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="4_spellinv"]
+[ext_resource type="PackedScene" uid="uid://cckf4txbexjq2" path="res://cenas_tscn/inimigos_tscn/bosses/aranha_boss.tscn" id="5_boss"]
+[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
+size = Vector2(40, 700)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ponte"]
+size = Vector2(900, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ponte_baixo"]
+size = Vector2(900, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gatilho"]
+size = Vector2(20, 300)
+
+[node name="SalaBossAranha" type="Node2D" unique_id=538308924]
+script = ExtResource("1_sala")
+
+[node name="ParedeEsquerda" type="StaticBody2D" parent="." unique_id=1530647059]
+position = Vector2(22, 317)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParedeEsquerda" unique_id=1271799918]
+scale = Vector2(0.3125, 5.46875)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeEsquerda" unique_id=1262948200]
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="ParedeDireita" type="StaticBody2D" parent="." unique_id=781238381]
+position = Vector2(1122, 321)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParedeDireita" unique_id=293009568]
+scale = Vector2(0.3125, 5.46875)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeDireita" unique_id=1948501696]
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="PonteCima" type="StaticBody2D" parent="." unique_id=742914706 groups=["PlataformaFuravel"]]
+position = Vector2(576, 406)
+scale = Vector2(1.28, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PonteCima" unique_id=44488374]
+scale = Vector2(7.03125, 0.3125)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PonteCima" unique_id=764550698]
+shape = SubResource("RectangleShape2D_ponte")
+one_way_collision = true
+
+[node name="PonteBaixo" type="StaticBody2D" parent="." unique_id=107777508]
+position = Vector2(571, 623)
+scale = Vector2(1.3417821, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="PonteBaixo" unique_id=136953543]
+scale = Vector2(7.03125, 0.3125)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PonteBaixo" unique_id=1926974898]
+shape = SubResource("RectangleShape2D_ponte_baixo")
+
+[node name="AranhaBoss" parent="." unique_id=1636954468 instance=ExtResource("5_boss")]
+position = Vector2(562, 160)
+limite_esquerdo = 160.0
+limite_direito = 1040.0
+distancia_ate_o_chao = 550.0
+
+[node name="Player" parent="." unique_id=196636666 instance=ExtResource("2_player")]
+position = Vector2(180, 560)
+
+[node name="GatilhoLuta" type="Area2D" parent="." unique_id=2033880070]
+position = Vector2(220, 560)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GatilhoLuta" unique_id=1089489064]
+shape = SubResource("RectangleShape2D_gatilho")
+
+[node name="Hud" parent="." unique_id=1980153622 instance=ExtResource("3_hud")]
+
+[node name="SpellInventory" parent="." unique_id=1422836862 instance=ExtResource("4_spellinv")]
+
+[node name="HudChefe" type="CanvasLayer" parent="." unique_id=1482517010]
+
+[node name="Interface" type="Control" parent="HudChefe" unique_id=579226982]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NomeChefe" type="Label" parent="HudChefe/Interface" unique_id=402414097]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 16.0
+offset_right = 700.0
+offset_bottom = 40.0
+text = "ARANHA"
+horizontal_alignment = 1
+
+[node name="BarraVidaChefe" type="ProgressBar" parent="HudChefe/Interface" unique_id=1225040551]
+layout_mode = 0
+offset_left = 350.0
+offset_top = 42.0
+offset_right = 750.0
+offset_bottom = 58.0
+show_percentage = false
+
+[connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]

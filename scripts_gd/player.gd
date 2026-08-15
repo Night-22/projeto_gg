@@ -87,17 +87,17 @@ var spell_scenes = {
 	Spell.WATER_2: preload("res://cenas_tscn/spells/water/water_2.tscn"),
 	Spell.WATER_3: preload("res://cenas_tscn/spells/water/water_3.tscn"),
 	Spell.WATER_4: preload("res://cenas_tscn/spells/water/water_4.tscn"),
-	
+
 	Spell.FIRE_1: preload("res://cenas_tscn/spells/fire/fire_1.tscn"),
 	Spell.FIRE_2: preload("res://cenas_tscn/spells/fire/fire_2.tscn"),
 	Spell.FIRE_3: preload("res://cenas_tscn/spells/fire/fire_3.tscn"),
 	Spell.FIRE_4: preload("res://cenas_tscn/spells/fire/fire_4.tscn"),
-	
+
 	Spell.LIGHTNING_1: preload("res://cenas_tscn/spells/lightning/lightning_1.tscn"),
 	Spell.LIGHTNING_2: preload("res://cenas_tscn/spells/lightning/lightning_2.tscn"),
 	Spell.LIGHTNING_3: preload("res://cenas_tscn/spells/lightning/lightning_3.tscn"),
 	Spell.LIGHTNING_4: preload("res://cenas_tscn/spells/lightning/lightning_4.tscn"),
-	
+
 	Spell.PLANT_1: preload("res://cenas_tscn/spells/plant/plant_1.tscn"),
 	Spell.PLANT_2: preload("res://cenas_tscn/spells/plant/plant_2.tscn"),
 	Spell.PLANT_3: preload("res://cenas_tscn/spells/plant/plant_3.tscn"),
@@ -111,6 +111,30 @@ var equipped_spells = [
 	Spell.PLANT_3
 ]
 
+var spell_inventory = [
+
+Spell.WATER_1,
+Spell.WATER_2,
+Spell.WATER_3,
+Spell.WATER_4,
+
+Spell.FIRE_1,
+Spell.FIRE_2,
+Spell.FIRE_3,
+Spell.FIRE_4,
+
+Spell.LIGHTNING_1,
+Spell.LIGHTNING_2,
+Spell.LIGHTNING_3,
+Spell.LIGHTNING_4,
+
+Spell.PLANT_1,
+Spell.PLANT_2,
+Spell.PLANT_3,
+Spell.PLANT_4
+
+]
+
 var active_spells = []
 
 var selected_spell = 0
@@ -120,6 +144,8 @@ var active_spell = null
 var spell_lock_timer: Timer
 
 var imbue_timer: Timer
+
+var plataforma_timer: Timer
 
 
 func _ready() -> void:
@@ -134,6 +160,11 @@ func _ready() -> void:
 	spell_lock_timer.one_shot = true
 	spell_lock_timer.timeout.connect(_on_spell_lock_timer_timeout)
 	add_child(spell_lock_timer)
+
+	plataforma_timer = Timer.new()
+	plataforma_timer.one_shot = true
+	plataforma_timer.timeout.connect(_on_plataforma_timer_timeout)
+	add_child(plataforma_timer)
 
 	setup_spells()
 	update_imbued_element()
@@ -187,8 +218,6 @@ func _physics_process(delta: float) -> void:
 			600 * delta
 		)
 
-
-
 	move_and_slide()
 
 
@@ -233,13 +262,20 @@ func use_selected_spell() -> void:
 	if spell_in_use:
 		return
 
-	if selected_spell < 0:
+	if selected_spell < 0 or selected_spell >= equipped_spells.size():
 		return
+
+	if selected_spell >= active_spells.size():
+		setup_spells()
 
 	if selected_spell >= active_spells.size():
 		return
 
 	var spell = active_spells[selected_spell]
+
+	if spell == null or !is_instance_valid(spell):
+		setup_spells()
+		spell = active_spells[selected_spell]
 
 	if spell == null:
 		return
@@ -247,34 +283,22 @@ func use_selected_spell() -> void:
 	if !spell.has_method("use"):
 		return
 
-	if spell.has_method("is_active"):
-		if spell.is_active():
-			return
+	var mana_before = Mana
 
 	spell.use(self)
 
-	if spell.has_method("is_active"):
-		if !spell.is_active():
-			return
-	else:
-		if spell.get("active") == null:
-			return
-
-		if !spell.active:
-			return
+	if Mana == mana_before:
+		return
 
 	var spell_duration = spell.get("duration")
 
 	if spell_duration == null:
-		return
+		spell_duration = 0.0
 
-	if spell_duration <= 0:
-		return
-
-	spell_in_use = true
-	active_spell = spell
-
-	spell_lock_timer.start(spell_duration)
+	if spell_duration > 0:
+		spell_in_use = true
+		active_spell = spell
+		spell_lock_timer.start(spell_duration)
 
 
 func finalizar_magia() -> void:
@@ -289,6 +313,7 @@ func _on_spell_lock_timer_timeout() -> void:
 
 
 func equip_spell(slot: int, spell_id: int) -> void:
+
 	if spell_in_use:
 		return
 
@@ -300,20 +325,37 @@ func equip_spell(slot: int, spell_id: int) -> void:
 
 	if active_spells.size() > slot:
 		var old_spell = active_spells[slot]
-
 		if old_spell != null:
 			old_spell.queue_free()
 
 	var new_spell = spell_scenes[spell_id].instantiate()
-
 	add_child(new_spell)
 
-	if active_spells.size() <= slot:
-		while active_spells.size() <= slot:
-			active_spells.append(null)
+	while active_spells.size() <= slot:
+		active_spells.append(null)
 
 	active_spells[slot] = new_spell
 	equipped_spells[slot] = spell_id
+
+func rebuild_active_spells() -> void:
+	for spell in active_spells:
+		if spell != null and is_instance_valid(spell):
+			spell.queue_free()
+
+	active_spells.clear()
+
+	await get_tree().process_frame
+
+	for spell_id in equipped_spells:
+		if spell_scenes.has(spell_id):
+			var spell = spell_scenes[spell_id].instantiate()
+			add_child(spell)
+			active_spells.append(spell)
+		else:
+			active_spells.append(null)
+
+	if selected_spell >= active_spells.size():
+		selected_spell = 0
 
 
 func imbue_element(element: int, duration: float) -> void:
@@ -359,6 +401,10 @@ func state_idle(delta):
 	)
 
 	if Input.is_action_just_pressed("pulo"):
+		if looking_down and esta_em_plataforma_furavel():
+			descer_plataforma()
+			return
+
 		jump()
 		return
 
@@ -396,6 +442,10 @@ func state_walk(delta):
 	)
 
 	if Input.is_action_just_pressed("pulo"):
+		if looking_down and esta_em_plataforma_furavel():
+			descer_plataforma()
+			return
+
 		jump()
 		return
 
@@ -582,6 +632,26 @@ func start_coyote():
 		coyote_timer.start()
 
 
+func esta_em_plataforma_furavel() -> bool:
+	for i in get_slide_collision_count():
+		var colisao := get_slide_collision(i)
+
+		if colisao.get_collider() and colisao.get_collider().is_in_group("PlataformaFuravel"):
+			return true
+
+	return false
+
+
+func descer_plataforma() -> void:
+	set_collision_mask_value(2, false)
+	plataforma_timer.start(0.25)
+	current_state = State.FALL
+
+
+func _on_plataforma_timer_timeout() -> void:
+	set_collision_mask_value(2, true)
+
+
 func attack_to_direction(dir):
 	match dir:
 		"right":
@@ -695,6 +765,8 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 				)
 
 		body._dano(dano, global_position.x)
+
+		Mana = min(Mana + 10, max_mana)
 
 		if looking_down and !is_on_floor():
 			velocity.y = pogo_velocity

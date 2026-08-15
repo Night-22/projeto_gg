@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://b18w3gpastgrh"]
+
+[ext_resource type="Script" uid="uid://cgay8vajxs21j" path="res://cenas_tscn/menus/spell_inventory.gd" id="1_0vt75"]
+
+[node name="SpellInventory" type="CanvasLayer" unique_id=1732352662 groups=["Inventario"]]
+process_mode = 3
+visible = false
+script = ExtResource("1_0vt75")
+
+[node name="Background" type="Panel" parent="." unique_id=411967214]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Background" unique_id=46522234]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer" unique_id=1858971941]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Background/MarginContainer/VBoxContainer" unique_id=1756660490]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 35
+text = "Magias"
+
+[node name="InventoryGrid" type="GridContainer" parent="Background/MarginContainer/VBoxContainer" unique_id=1640806350]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 4
+
+[node name="Water1" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1915124477]
+layout_mode = 2
+text = "Water 1"
+
+[node name="Water2" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=536654266]
+layout_mode = 2
+text = "Water 2"
+
+[node name="Water3" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1238865574]
+layout_mode = 2
+text = "Water 3"
+
+[node name="Water4" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=78431719]
+layout_mode = 2
+text = "Water 4"
+
+[node name="Fire1" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1463386431]
+layout_mode = 2
+text = "Fire 1"
+
+[node name="Fire2" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1646604251]
+layout_mode = 2
+text = "Fire 2"
+
+[node name="Fire3" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1696533946]
+layout_mode = 2
+text = "Fire 3"
+
+[node name="Fire4" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=530520672]
+layout_mode = 2
+text = "Fire 4"
+
+[node name="Lightning1" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=339257351]
+layout_mode = 2
+text = "Lightning 1"
+
+[node name="Lightning2" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=211109273]
+layout_mode = 2
+text = "Lightning 2"
+
+[node name="Lightning3" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=119354767]
+layout_mode = 2
+text = "Lightning 3"
+
+[node name="Lightning4" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=525123718]
+layout_mode = 2
+text = "Lightning 4"
+
+[node name="Plant1" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1674414600]
+layout_mode = 2
+text = "Plant 1"
+
+[node name="Plant2" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1558918232]
+layout_mode = 2
+text = "Plant 2"
+
+[node name="Plant3" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1747197479]
+layout_mode = 2
+text = "Plant 3"
+
+[node name="Plant4" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=554432789]
+layout_mode = 2
+text = "Plant 4"
+
+[node name="Separator" type="HSeparator" parent="Background/MarginContainer/VBoxContainer" unique_id=389990454]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="EquippedTitle" type="Label" parent="Background/MarginContainer/VBoxContainer" unique_id=525051337]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "Magias Equipadas"
+
+[node name="EquippedGrid" type="GridContainer" parent="Background/MarginContainer/VBoxContainer" unique_id=1918677656]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 4
+
+[node name="Slot1" type="Button" parent="Background/MarginContainer/VBoxContainer/EquippedGrid" unique_id=2007864856]
+layout_mode = 2
+text = "Slot 1"
+
+[node name="Slot2" type="Button" parent="Background/MarginContainer/VBoxContainer/EquippedGrid" unique_id=1708242037]
+layout_mode = 2
+text = "Slot 2"
+
+[node name="Slot3" type="Button" parent="Background/MarginContainer/VBoxContainer/EquippedGrid" unique_id=940134084]
+layout_mode = 2
+text = "Slot 3"
+
+[node name="Slot4" type="Button" parent="Background/MarginContainer/VBoxContainer/EquippedGrid" unique_id=1309330123]
+layout_mode = 2
+text = "Slot 4"

@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cckf4txbexjq2"]
+
+[ext_resource type="Script" uid="uid://rgqtno2xyud7" path="res://scripts_gd/bosses/aranha_boss.gd" id="1_boss"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_corpo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_corpo"]
+radius = 64.03124
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mordida"]
+radius = 44.011364
+
+[node name="AranhaBoss" type="CharacterBody2D" unique_id=1360233921 groups=["Boss", "Inimigo"]]
+script = ExtResource("1_boss")
+Life = 400
+
+[node name="Corpo" type="Sprite2D" parent="." unique_id=280356212]
+modulate = Color(0.12, 0.1, 0.14, 1)
+scale = Vector2(0.55, 0.5)
+texture = ExtResource("2_corpo")
+
+[node name="Cabeca" type="Sprite2D" parent="." unique_id=231438219]
+modulate = Color(0.22, 0.18, 0.24, 1)
+position = Vector2(0, 34)
+scale = Vector2(0.22, 0.2)
+texture = ExtResource("2_corpo")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1935050369]
+shape = SubResource("CircleShape2D_corpo")
+
+[node name="MordidaHitbox" type="Area2D" parent="." unique_id=604990351]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MordidaHitbox" unique_id=882950983 groups=["Boss"]]
+position = Vector2(0, 20)
+shape = SubResource("CircleShape2D_mordida")
+
+[connection signal="body_entered" from="MordidaHitbox" to="." method="_on_mordida_hitbox_body_entered"]
