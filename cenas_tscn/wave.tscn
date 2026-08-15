@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cqelerxtrf73r"]
+
+[ext_resource type="Script" uid="uid://bwh2tyliv2v3k" path="res://scripts_gd/wave.gd" id="1_rsqta"]
+[ext_resource type="Texture2D" uid="uid://ck8lmcrqidd5h" path="res://placeholder/agua.png" id="2_7x2gi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(37, 142)
+
+[node name="wave" type="Area2D" unique_id=1666008270]
+script = ExtResource("1_rsqta")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1363420009]
+position = Vector2(2.3841858e-07, 0)
+scale = Vector2(0.15789475, 0.59704643)
+texture = ExtResource("2_7x2gi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1134760217]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

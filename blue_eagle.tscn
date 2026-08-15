@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cddfc30c5jyqa"]
+
+[ext_resource type="Script" uid="uid://dqkk1efi14ay" path="res://scripts_gd/blue_eagle.gd" id="1_xpq04"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_2cm5d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(58, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 425.62424
+
+[node name="Blue_eagle" type="CharacterBody2D" unique_id=1060966006 groups=["Inimigo"]]
+script = ExtResource("1_xpq04")
+metadata/_custom_type_script = "uid://bullfap4fo1nx"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1682955659]
+scale = Vector2(0.1059633, 0.08161512)
+texture = ExtResource("2_2cm5d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1602803412]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="percepcao" type="Area2D" parent="." unique_id=295090041]
+
+[node name="collision" type="CollisionShape2D" parent="percepcao" unique_id=498067592]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
+[connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]

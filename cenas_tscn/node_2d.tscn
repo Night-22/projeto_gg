@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_wtcfe"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
 [ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="5_ebefr"]
-[ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas_tscn/inimigos_tscn/husk.tscn" id="6_rf4it"]
+[ext_resource type="PackedScene" uid="uid://l2o4xk8ijo3h" path="res://cenas_tscn/inimigos_tscn/water_handler.tscn" id="5_rf4it"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)
@@ -69,5 +69,5 @@ shape = SubResource("RectangleShape2D_ydpk4")
 
 [node name="Hud" parent="." unique_id=249675550 instance=ExtResource("5_ebefr")]
 
-[node name="Husk" parent="." unique_id=890546670 instance=ExtResource("6_rf4it")]
-position = Vector2(866, 532)
+[node name="Water_handler" parent="." unique_id=1836258984 instance=ExtResource("5_rf4it")]
+position = Vector2(860, 523)

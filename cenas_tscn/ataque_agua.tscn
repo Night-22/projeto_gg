@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ce6osdxqntbyl"]
+
+[ext_resource type="Script" uid="uid://0y1u15a3tuch" path="res://scripts_gd/ataque_agua.gd" id="1_hlk0c"]
+[ext_resource type="Texture2D" uid="uid://ck8lmcrqidd5h" path="res://placeholder/agua.png" id="2_7wyeh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(24, 24)
+
+[node name="ataque_agua" type="Area2D" unique_id=347405697]
+script = ExtResource("1_hlk0c")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1583648125]
+scale = Vector2(0.10745613, 0.101265825)
+texture = ExtResource("2_7wyeh")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=405553195]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
