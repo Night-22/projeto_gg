@@ -22,6 +22,20 @@ offset_bottom = 46.0
 value = 100.0
 show_percentage = false
 
+[node name="HealthText" type="Label" parent="Interface/HealthBar" unique_id=2089174677]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="ManaBar" type="ProgressBar" parent="Interface" unique_id=1350334871]
 layout_mode = 0
 offset_left = 55.0
@@ -30,6 +44,20 @@ offset_right = 277.0
 offset_bottom = 88.0
 value = 100.0
 show_percentage = false
+
+[node name="ManaText" type="Label" parent="Interface/ManaBar" unique_id=374329060]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SpellBar" type="VBoxContainer" parent="Interface" unique_id=1731993230]
 custom_minimum_size = Vector2(70, 70)

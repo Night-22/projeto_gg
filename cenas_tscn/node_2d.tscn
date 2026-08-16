@@ -102,3 +102,4 @@ position = Vector2(519, 526)
 elemento_nativo = 1
 
 [node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("10_ne5t3")]
+visible = false

@@ -15,6 +15,12 @@ var player
 @onready var spell_3_cooldown: ColorRect = $Interface/SpellBar/SpellSlot3/CooldownOverlay
 @onready var spell_4_cooldown: ColorRect = $Interface/SpellBar/SpellSlot4/CooldownOverlay
 
+@onready var health_text: Label = $Interface/HealthBar/HealthText
+@onready var mana_text: Label = $Interface/ManaBar/ManaText
+
+
+
+
 var spell_names = {
 	0: "WATER 1",
 	1: "WATER 2",
@@ -74,9 +80,11 @@ func atualizar_visibilidade() -> void:
 func update_bars() -> void:
 	health_bar.max_value = player.max_life
 	health_bar.value = player.Life
+	health_text.text = str(player.Life) +  " / " + str(player.max_life)
 
 	mana_bar.max_value = player.max_mana
 	mana_bar.value = player.Mana
+	mana_text.text = str(player.Mana) +  " / " + str(player.max_mana)
 
 
 func update_spell_names() -> void:
