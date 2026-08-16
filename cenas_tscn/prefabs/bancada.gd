@@ -38,7 +38,6 @@ func _on_body_exited(body: Node2D) -> void:
 func interagir() -> void:
 	if !jogador_dentro():
 		return
-
 	var menu = get_tree().get_first_node_in_group("Craft_menu")
 
 	if menu == null:

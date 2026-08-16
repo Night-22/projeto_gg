@@ -4,16 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_wtcfe"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
 [ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="5_ebefr"]
-<<<<<<< Updated upstream
-[ext_resource type="PackedScene" uid="uid://l2o4xk8ijo3h" path="res://cenas_tscn/inimigos_tscn/water_handler.tscn" id="5_rf4it"]
-=======
 [ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="6_7juhd"]
 [ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas_tscn/inimigos_tscn/husk.tscn" id="6_rf4it"]
-[ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="7_craft"]
-[ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="8_r7ct6"]
-[ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="9_wcvwo"]
-[ext_resource type="PackedScene" uid="uid://be3eb7ftul2hj" path="res://cenas_tscn/prefabs/laser_path.tscn" id="10_ne5t3"]
->>>>>>> Stashed changes
+[ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="7_r7ct6"]
+[ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="8_wcvwo"]
+[ext_resource type="PackedScene" uid="uid://dchqpas3ef5eo" path="res://cenas_tscn/inimigos_tscn/slime_agua.tscn" id="9_wcvwo"]
+[ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="10_ne5t3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)
@@ -24,13 +20,13 @@ size = Vector2(126, 23)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ydpk4"]
 size = Vector2(25, 69)
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1264534979]
+[node name="Node2D" type="Node2D" unique_id=2123985184]
 
-[node name="Escada" parent="." unique_id=645834004 instance=ExtResource("8_r7ct6")]
-position = Vector2(264, 347)
+[node name="Escada" parent="." unique_id=1403829435 instance=ExtResource("8_wcvwo")]
+position = Vector2(265, 346)
 
-[node name="Bancada" parent="." unique_id=139153692 instance=ExtResource("9_wcvwo")]
-position = Vector2(178, 524)
+[node name="Bancada" parent="." unique_id=139153692 instance=ExtResource("7_r7ct6")]
+position = Vector2(165, 527)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=881870940]
 
@@ -58,15 +54,15 @@ texture = ExtResource("1_wtcfe")
 position = Vector2(-6, -3.5)
 shape = SubResource("RectangleShape2D_3g8b1")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=443947329]
-position = Vector2(368, 282)
+[node name="StaticBody2D3" type="StaticBody2D" parent="." unique_id=6910059]
+position = Vector2(374, 289)
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3" unique_id=853323645]
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D3" unique_id=1991135570]
 position = Vector2(-4.9999995, -2.7500038)
 scale = Vector2(1, 0.16796875)
 texture = ExtResource("1_wtcfe")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=1396598645]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=2071259964]
 position = Vector2(-6, -3.5)
 shape = SubResource("RectangleShape2D_3g8b1")
 
@@ -96,19 +92,13 @@ shape = SubResource("RectangleShape2D_ydpk4")
 
 [node name="Hud" parent="." unique_id=249675550 instance=ExtResource("5_ebefr")]
 
-<<<<<<< Updated upstream
-[node name="Water_handler" parent="." unique_id=1836258984 instance=ExtResource("5_rf4it")]
-position = Vector2(860, 523)
-=======
 [node name="Husk" parent="." unique_id=890546670 instance=ExtResource("6_rf4it")]
 position = Vector2(866, 532)
-elemento_nativo = 2
 
 [node name="SpellInventory" parent="." unique_id=1732352662 instance=ExtResource("6_7juhd")]
 
-[node name="CraftMenu" parent="." unique_id=688422434 instance=ExtResource("7_craft")]
-visible = false
+[node name="Slime_agua" parent="." unique_id=803833005 instance=ExtResource("9_wcvwo")]
+position = Vector2(519, 526)
+elemento_nativo = 1
 
-[node name="LaserPath" parent="." unique_id=1075413229 instance=ExtResource("10_ne5t3")]
-position = Vector2(475, 224)
->>>>>>> Stashed changes
+[node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("10_ne5t3")]
