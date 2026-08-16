@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cjj87tb5uhqdj"]
+
+[ext_resource type="Script" uid="uid://btukcpehd2fp" path="res://cenas_tscn/prefabs/spike.gd" id="1_7k7bx"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_7k7bx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(114, 18)
+
+[node name="Spike" type="Area2D" unique_id=742297829]
+script = ExtResource("1_7k7bx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1222214721]
+position = Vector2(1, -4.500002)
+scale = Vector2(0.20917432, 0.029209614)
+texture = ExtResource("2_7k7bx")
+region_rect = Rect2(0, 8, 16, 8)
+region_filter_clip_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2110264070]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

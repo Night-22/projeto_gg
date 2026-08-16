@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_corpo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_corpo"]
-radius = 64.03124
+radius = 155.08063
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mordida"]
 radius = 44.011364

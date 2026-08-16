@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bhghq6v0h5wfp"]
+
+[ext_resource type="Script" uid="uid://be0vhv04oy7ub" path="res://cenas_tscn/prefabs/bancada.gd" id="1_cxt67"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_gyvvs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(60, 56)
+
+[node name="Bancada" type="Area2D" unique_id=139153692]
+collision_mask = 3
+script = ExtResource("1_cxt67")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=184563544]
+position = Vector2(0.5, -0.5)
+scale = Vector2(0.09357797, 0.09450172)
+texture = ExtResource("2_gyvvs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=963571565]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

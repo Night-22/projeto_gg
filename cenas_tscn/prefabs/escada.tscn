@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://hybms7ye30td"]
+
+[ext_resource type="Script" uid="uid://d0myqirekfhjl" path="res://cenas_tscn/prefabs/escada.gd" id="1_puyy0"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_wvtl3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(42, 195)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(56, 192)
+
+[node name="Escada" type="Area2D" unique_id=1403829435]
+script = ExtResource("1_puyy0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=425449579]
+position = Vector2(0.74999964, 0)
+scale = Vector2(0.079816505, 0.33676976)
+texture = ExtResource("2_wvtl3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012440669]
+position = Vector2(1, 0.5)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="AreaSubir" type="Area2D" parent="." unique_id=1105656243]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaSubir" unique_id=1187048473]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_yf5fn")
+debug_color = Color(0.7, 0.56000006, 0, 0.41960785)
+
+[connection signal="body_entered" from="AreaSubir" to="." method="_on_area_subir_body_entered"]
+[connection signal="body_exited" from="AreaSubir" to="." method="_on_area_subir_body_exited"]

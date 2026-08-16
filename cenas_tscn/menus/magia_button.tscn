@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://brd8ho5myrnk4"]
+
+[node name="MagiaButton" type="Button" unique_id=1409738295]
+custom_minimum_size = Vector2(140, 50)
+offset_right = 140.0
+offset_bottom = 50.0
+text = "MAGIA"

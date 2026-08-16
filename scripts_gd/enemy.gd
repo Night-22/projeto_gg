@@ -1,14 +1,24 @@
 extends CharacterBody2D
 class_name Enemy
 
+enum ElementoNativo {
+	SEM_ELEMENTO,
+	AGUA,
+	FOGO,
+	RAIO,
+	PLANTA
+}
+
 @export var Life = 50
 @export var Speed = 60
 @export var JUMP_FORCE = -200
 @export var dir = -1
+@export var elemento_nativo: ElementoNativo = ElementoNativo.SEM_ELEMENTO
+@export var chance_drop_alma := 1.0
 
 @export var knockback_force := 300
 @export var knockback_up_force := -220
-@export var knockback_ataque:= 30
+@export var knockback_ataque := 30
 
 var dead := false
 var elementosRecebidos = []
@@ -44,6 +54,8 @@ var agua_icon = preload("res://placeholder/agua.png")
 var raio_icon = preload("res://placeholder/raio.png")
 var planta_icon = preload("res://placeholder/planta.png")
 
+var alma_scene = preload("res://cenas_tscn/itens/alma_elemental.tscn")
+
 var element_icon_size = Vector2(24, 24)
 var element_icon_spacing = 4.0
 var element_icon_offset = Vector2(0, -40)
@@ -59,7 +71,6 @@ var eletrizacao_timer := 0.0
 
 var queimadura_tick_timer := 0.0
 var sobrecarga_tick_timer := 0.0
-
 
 
 func _ready() -> void:
@@ -90,6 +101,10 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_wall():
 		dir *= -1
+
+
+func obter_elemento_nativo() -> int:
+	return elemento_nativo
 
 
 func receberAtaque(tipo):
@@ -271,8 +286,6 @@ func aplicar_corrente_eletrica() -> void:
 
 func receber_dano_corrente(dano: int) -> void:
 	_dano(dano, global_position.x)
-	
-	
 
 
 func finalizar_imobilizacao() -> void:
@@ -403,20 +416,86 @@ func _dano(dano: int, origem_x: float):
 
 	var direcao = sign(global_position.x - origem_x)
 	var particula = preload("res://particles/explosion.tscn").instantiate()
-	
+
 	if direcao == 0:
 		direcao = -1
-		
+
 	particula.global_position = global_position
 	get_parent().add_child(particula)
-	
-	
+
 	knockback.x = direcao * knockback_force
 	velocity.y = knockback_up_force
 
 	if Life <= 0:
 		die()
 
+
 func die():
+	if dead:
+		return
+
 	dead = true
-	queue_free()
+	call_deferred("dropar_almas")
+	call_deferred("queue_free")
+
+
+func dropar_almas() -> void:
+	if randf() > chance_drop_alma:
+		return
+
+	if elemento_nativo == ElementoNativo.SEM_ELEMENTO:
+		dropar_almas_sem_elemento()
+		return
+
+	var quantidade = randi_range(2, 5)
+
+	for i in range(quantidade):
+		criar_alma(elemento_nativo)
+
+
+func dropar_almas_sem_elemento() -> void:
+	var quantidade = randi_range(1, 2)
+
+	for i in range(quantidade):
+		var elemento = randi_range(
+			ElementoNativo.AGUA,
+			ElementoNativo.PLANTA
+		)
+
+		criar_alma(elemento)
+
+
+func criar_alma(elemento: ElementoNativo) -> void:
+	var alma = alma_scene.instantiate()
+
+	get_parent().add_child(alma)
+
+	alma.global_position = global_position
+
+	var tipo_alma = converter_elemento_para_alma(elemento)
+
+	alma.configurar(tipo_alma)
+
+	var direcao = Vector2(
+		randf_range(-1.0, 1.0),
+		randf_range(-1.0, -0.2)
+	).normalized()
+
+	alma.position += direcao * randf_range(10.0, 30.0)
+
+
+func converter_elemento_para_alma(elemento: ElementoNativo) -> int:
+	match elemento:
+		ElementoNativo.AGUA:
+			return 0
+
+		ElementoNativo.FOGO:
+			return 1
+
+		ElementoNativo.RAIO:
+			return 2
+
+		ElementoNativo.PLANTA:
+			return 3
+
+	return 0

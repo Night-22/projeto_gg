@@ -11,7 +11,7 @@ var detection_range = 450.0
 var damage = 6
 
 
-func iniciar(owner_player, direction: float, spell_duration: float) -> void:
+func iniciar(owner_player, _direction: float, spell_duration: float) -> void:
 	player = owner_player
 	duration = spell_duration
 	duration_timer = duration
@@ -82,6 +82,3 @@ func _on_body_entered(body: Node2D) -> void:
 	body._dano(dano, global_position.x)
 
 	queue_free()
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.

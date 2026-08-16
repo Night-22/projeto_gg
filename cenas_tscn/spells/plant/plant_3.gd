@@ -1,6 +1,7 @@
 extends Node2D
 
-var duration = 3.0
+var duration = 0.5
+var plants_duration = 4
 var cooldown = 10.0
 var mana_cost = 15.0
 
@@ -49,7 +50,7 @@ func criar_planta(player, index: int) -> void:
 		0
 	) + offsets[index]
 
-	projectile.iniciar(player, direcao, duration)
+	projectile.iniciar(player, direcao, plants_duration)
 
 
 func is_on_cooldown() -> bool:
@@ -68,4 +69,4 @@ func get_cooldown_percent() -> float:
 
 
 func _on_cooldown_timer_timeout() -> void:
-	pass # Replace with function body.
+	pass 

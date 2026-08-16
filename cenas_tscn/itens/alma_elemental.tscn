@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cvs1nsrgvf68p"]
+
+[ext_resource type="Script" uid="uid://c3r7ucqi0aht1" path="res://cenas_tscn/itens/alma_elemental.gd" id="1_wytdq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 18.027756
+
+[node name="AlmaElemental" type="Area2D" unique_id=2119867668]
+script = ExtResource("1_wytdq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1029916477]
+scale = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1001440509]
+shape = SubResource("CircleShape2D_g4v7s")

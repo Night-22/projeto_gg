@@ -4,7 +4,7 @@ var player = null
 var active = false
 
 var duration = 1.0
-var cooldown = 15.0
+var cooldown = 2.0
 var mana_cost = 15
 
 var ball_scene = preload("res://cenas_tscn/spells/water/water_ball.tscn")

@@ -36,6 +36,8 @@ var spell_names = {
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 	player = get_tree().get_first_node_in_group("Player")
 
 	update_spell_names()
@@ -44,14 +46,29 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	atualizar_visibilidade()
+
 	if player == null:
 		player = get_tree().get_first_node_in_group("Player")
-		return
+
+		if player == null:
+			return
 
 	update_bars()
 	update_spell_names()
 	update_selected_spell()
 	update_cooldowns()
+
+
+func atualizar_visibilidade() -> void:
+	var menu_aberto = false
+
+	for menu in get_tree().get_nodes_in_group("Menus"):
+		if is_instance_valid(menu) and menu.visible:
+			menu_aberto = true
+			break
+
+	visible = !menu_aberto
 
 
 func update_bars() -> void:
@@ -97,13 +114,10 @@ func update_selected_spell() -> void:
 	match player.selected_spell:
 		0:
 			spell_1_name.modulate.a = 1.0
-
 		1:
 			spell_2_name.modulate.a = 1.0
-
 		2:
 			spell_3_name.modulate.a = 1.0
-
 		3:
 			spell_4_name.modulate.a = 1.0
 

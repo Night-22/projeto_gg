@@ -31,6 +31,9 @@ var spell_names = {
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	add_to_group("Menus")
+
 	player = get_tree().get_first_node_in_group("Player")
 
 	visible = false
@@ -62,10 +65,12 @@ func abrir_menu() -> void:
 	if player.spell_in_use:
 		return
 
-	visible = true
+	criar_inventario()
 
 	selected_spell = -1
 	selected_slot = -1
+
+	visible = true
 
 	atualizar_slots()
 
@@ -82,6 +87,9 @@ func fechar_menu() -> void:
 
 
 func criar_inventario() -> void:
+	if inventory_grid == null:
+		return
+
 	for child in inventory_grid.get_children():
 		child.queue_free()
 
@@ -164,6 +172,7 @@ func equipar_magia() -> void:
 	selected_spell = -1
 	selected_slot = -1
 
+	criar_inventario()
 	atualizar_slots()
 
 

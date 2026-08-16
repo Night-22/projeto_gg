@@ -1,6 +1,7 @@
 extends Node2D
 
-var duration = 10.0
+var duration = 0.5
+var imbue_duration = 10.0
 var cooldown = 15.0
 var mana_cost = 10.0
 
@@ -22,7 +23,7 @@ func use(player) -> void:
 		return
 
 	player.Mana -= mana_cost
-	player.imbue_element(1, duration)
+	player.imbue_element(1, imbue_duration)
 
 	cooldown_timer.start()
 

@@ -6,7 +6,6 @@ enum State {
 	JUMP,
 	ATTACK,
 	FALL,
-	PLANAR,
 	DASH,
 	CLIMB,
 	DEAD
@@ -48,7 +47,7 @@ var almas_planta = 0
 @export var acceleration = 2.5
 @export var friction = 6.7
 
-@onready var anim: AnimatedSprite2D = $anim
+@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_hit_box: CollisionShape2D = $attackHitBox/collision
 @onready var attack_sprite: Sprite2D = $attackHitBox/Sprite2D
 @onready var attack_timer: Timer = $attackTimer
@@ -58,11 +57,7 @@ var coyote_time_activated = false
 
 var speed: float = 300.0
 var jump_velocity = -500.0
-var double_jump_velocity = -350.0
 var pogo_velocity = -400.0
-
-var planar_gravity = 250.0
-var planar_max_fall_speed = 80.0
 
 var last_direction = 1
 var can_attack = true
@@ -178,7 +173,6 @@ var spell_lock_timer: Timer
 var imbue_timer: Timer
 var plataforma_timer: Timer
 
-
 func _ready() -> void:
 	add_to_group("Player")
 
@@ -200,7 +194,6 @@ func _ready() -> void:
 	setup_spells()
 	update_imbued_element()
 
-
 func _physics_process(delta: float) -> void:
 	if Life <= 0:
 		current_state = State.DEAD
@@ -220,41 +213,27 @@ func _physics_process(delta: float) -> void:
 				entrar_na_escada(ladder)
 
 	if Input.is_action_just_pressed("interagir"):
-		if bancada != null and is_instance_valid(bancada) :
-			interagir_com_bancada()
-
-
+		interagir_com_bancada()
 
 	match current_state:
 		State.IDLE:
 			state_idle(delta)
 			anim.play("idle")
-
 		State.WALK:
 			state_walk(delta)
 			anim.play("walk")
-
 		State.JUMP:
 			state_jump(delta)
 			anim.play("jump")
-
 		State.ATTACK:
 			state_attack(delta)
-
 		State.FALL:
 			state_fall(delta)
 			anim.play("fall")
-
-		State.PLANAR:
-			state_planar(delta)
-			anim.play("fall")
-
 		State.DASH:
 			state_dash(delta)
-
 		State.CLIMB:
 			state_climb(delta)
-
 		State.DEAD:
 			state_dead()
 
@@ -262,13 +241,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = damage_knockback.x
 		velocity.y = damage_knockback.y
 
-	damage_knockback = damage_knockback.move_toward(
-		Vector2.ZERO,
-		600 * delta
-	)
+	damage_knockback = damage_knockback.move_toward(Vector2.ZERO, 600 * delta)
 
 	move_and_slide()
-
 
 func entrar_na_bancada(nova_bancada) -> void:
 	if nova_bancada == null:
@@ -276,16 +251,13 @@ func entrar_na_bancada(nova_bancada) -> void:
 
 	bancada = nova_bancada
 
-
 func sair_da_bancada(nova_bancada) -> void:
 	if bancada != nova_bancada:
 		return
 
 	bancada = null
 
-
 func interagir_com_bancada() -> void:
-	print('bancada')
 	if bancada == null:
 		return
 
@@ -296,25 +268,20 @@ func interagir_com_bancada() -> void:
 	if bancada.has_method("interagir"):
 		bancada.interagir()
 
-
 func adicionar_alma(tipo_alma: int) -> void:
 	match tipo_alma:
 		0:
 			almas_agua += 1
 			print("almas de agua: ", almas_agua)
-
 		1:
 			almas_fogo += 1
 			print("almas de fogo: ", almas_fogo)
-
 		2:
 			almas_raio += 1
 			print("almas de raio: ", almas_raio)
-
 		3:
 			almas_planta += 1
 			print("almas de planta: ", almas_planta)
-
 
 func setup_spells() -> void:
 	active_spells.clear()
@@ -327,42 +294,33 @@ func setup_spells() -> void:
 		else:
 			active_spells.append(null)
 
-
 func handle_spell_input() -> void:
 	if Input.is_action_just_pressed("spell_1"):
 		if !spell_in_use:
 			selected_spell = 0
 		return
-
 	if Input.is_action_just_pressed("spell_2"):
 		if !spell_in_use:
 			selected_spell = 1
 		return
-
 	if Input.is_action_just_pressed("spell_3"):
 		if !spell_in_use:
 			selected_spell = 2
 		return
-
 	if Input.is_action_just_pressed("spell_4"):
 		if !spell_in_use:
 			selected_spell = 3
 		return
-
 	if Input.is_action_just_pressed("cast_spell"):
 		use_selected_spell()
-
 
 func use_selected_spell() -> void:
 	if spell_in_use:
 		return
-
 	if selected_spell < 0 or selected_spell >= equipped_spells.size():
 		return
-
 	if selected_spell >= active_spells.size():
 		setup_spells()
-
 	if selected_spell >= active_spells.size():
 		return
 
@@ -374,19 +332,16 @@ func use_selected_spell() -> void:
 
 	if spell == null:
 		return
-
 	if !spell.has_method("use"):
 		return
 
 	var mana_before = Mana
-
 	spell.use(self)
 
 	if Mana == mana_before:
 		return
 
 	var spell_duration = spell.get("duration")
-
 	if spell_duration == null:
 		spell_duration = 0.0
 
@@ -395,34 +350,27 @@ func use_selected_spell() -> void:
 		active_spell = spell
 		spell_lock_timer.start(spell_duration)
 
-
 func finalizar_magia() -> void:
 	spell_lock_timer.stop()
 	spell_in_use = false
 	active_spell = null
 
-
 func _on_spell_lock_timer_timeout() -> void:
 	spell_in_use = false
 	active_spell = null
 
-
 func equip_spell(slot: int, spell_id: int) -> void:
 	if spell_in_use:
 		return
-
 	if slot < 0 or slot >= 4:
 		return
-
 	if !spell_scenes.has(spell_id):
 		return
-
 	if spell_id not in spell_inventory:
 		return
 
 	if active_spells.size() > slot:
 		var old_spell = active_spells[slot]
-
 		if old_spell != null:
 			old_spell.queue_free()
 
@@ -434,7 +382,6 @@ func equip_spell(slot: int, spell_id: int) -> void:
 
 	active_spells[slot] = new_spell
 	equipped_spells[slot] = spell_id
-
 
 func rebuild_active_spells() -> void:
 	for spell in active_spells:
@@ -456,108 +403,81 @@ func rebuild_active_spells() -> void:
 	if selected_spell >= active_spells.size():
 		selected_spell = 0
 
-
 func desbloquear_magia(spell_id: int) -> bool:
 	if !spell_scenes.has(spell_id):
 		return false
-
 	if spell_id in spell_inventory:
 		return false
 
 	spell_inventory.append(spell_id)
-
 	return true
-
 
 func magia_desbloqueada(spell_id: int) -> bool:
 	return spell_id in spell_inventory
 
-
 func obter_elemento_da_magia(spell_id: int) -> int:
 	if spell_id >= Spell.WATER_1 and spell_id <= Spell.WATER_4:
 		return 1
-
 	if spell_id >= Spell.FIRE_1 and spell_id <= Spell.FIRE_4:
 		return 0
-
 	if spell_id >= Spell.LIGHTNING_1 and spell_id <= Spell.LIGHTNING_4:
 		return 2
-
 	if spell_id >= Spell.PLANT_1 and spell_id <= Spell.PLANT_4:
 		return 3
-
 	return -1
-
 
 func obter_custo_da_magia(spell_id: int) -> int:
 	if !spell_costs.has(spell_id):
 		return 0
-
 	return spell_costs[spell_id]
-
 
 func obter_almas_do_elemento(elemento: int) -> int:
 	match elemento:
 		0:
 			return almas_fogo
-
 		1:
 			return almas_agua
-
 		2:
 			return almas_raio
-
 		3:
 			return almas_planta
-
 	return 0
-
 
 func remover_almas_do_elemento(elemento: int, quantidade: int) -> bool:
 	if quantidade <= 0:
 		return false
-
 	if obter_almas_do_elemento(elemento) < quantidade:
 		return false
 
 	match elemento:
 		0:
 			almas_fogo -= quantidade
-
 		1:
 			almas_agua -= quantidade
-
 		2:
 			almas_raio -= quantidade
-
 		3:
 			almas_planta -= quantidade
-
 		_:
 			return false
 
 	return true
 
-
 func pode_craftar_magia(spell_id: int) -> bool:
 	if !spell_scenes.has(spell_id):
 		return false
-
 	if spell_id in spell_inventory:
 		return false
 
 	var elemento = obter_elemento_da_magia(spell_id)
-
 	if elemento == -1:
 		return false
 
 	var custo = obter_custo_da_magia(spell_id)
-
 	if custo <= 0:
 		return false
 
 	return obter_almas_do_elemento(elemento) >= custo
-
 
 func craftar_magia(spell_id: int) -> bool:
 	if !pode_craftar_magia(spell_id):
@@ -568,31 +488,23 @@ func craftar_magia(spell_id: int) -> bool:
 
 	if !remover_almas_do_elemento(elemento, custo):
 		return false
-
 	if !desbloquear_magia(spell_id):
 		return false
 
 	return true
 
-
 func imbue_element(element: int, duration: float) -> void:
 	imbued_element = element
-
 	if imbue_timer:
 		imbue_timer.stop()
 		imbue_timer.start(duration)
-
 	update_imbued_element()
-
 
 func remove_element_imbue() -> void:
 	imbued_element = -1
-
 	if imbue_timer:
 		imbue_timer.stop()
-
 	update_imbued_element()
-
 
 func update_imbued_element() -> void:
 	if imbued_element == -1:
@@ -602,26 +514,18 @@ func update_imbued_element() -> void:
 	if element_colors.has(imbued_element):
 		attack_sprite.modulate = element_colors[imbued_element]
 
-
 func _on_imbue_timer_timeout() -> void:
 	imbued_element = -1
 	update_imbued_element()
 
-
 func state_idle(delta):
 	anim.flip_h = last_direction < 0
-
-	velocity.x = lerp(
-		velocity.x,
-		0.0,
-		delta * friction
-	)
+	velocity.x = lerp(velocity.x, 0.0, delta * friction)
 
 	if Input.is_action_just_pressed("pulo"):
 		if looking_down and esta_em_plataforma_furavel():
 			descer_plataforma()
 			return
-
 		jump()
 		return
 
@@ -643,26 +547,19 @@ func state_idle(delta):
 		start_coyote()
 		current_state = State.FALL
 
-
 func state_walk(delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-
 	anim.flip_h = last_direction < 0
 
 	if direction != 0:
 		last_direction = direction
 
-	velocity.x = lerp(
-		velocity.x,
-		direction * speed,
-		delta * acceleration
-	)
+	velocity.x = lerp(velocity.x, direction * speed, delta * acceleration)
 
 	if Input.is_action_just_pressed("pulo"):
 		if looking_down and esta_em_plataforma_furavel():
 			descer_plataforma()
 			return
-
 		jump()
 		return
 
@@ -682,22 +579,15 @@ func state_walk(delta):
 		start_coyote()
 		current_state = State.FALL
 
-
 func state_jump(delta):
 	velocity += get_gravity() * delta
-
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-
 	anim.flip_h = last_direction < 0
 
 	if direction != 0:
 		last_direction = direction
 
-	velocity.x = lerp(
-		velocity.x,
-		direction * speed,
-		delta * acceleration
-	)
+	velocity.x = lerp(velocity.x, direction * speed, delta * acceleration)
 
 	if Input.is_action_just_pressed("pulo") and jump_count < max_jumps:
 		jump()
@@ -713,15 +603,10 @@ func state_jump(delta):
 		velocity.y *= jump_force
 
 	if velocity.y >= 0:
-		if jump_count >= max_jumps and Input.is_action_pressed("pulo"):
-			current_state = State.PLANAR
-			return
-
 		current_state = State.FALL
 
 	if Input.is_action_just_pressed("ataque"):
 		current_state = State.ATTACK
-
 
 func state_attack(_delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
@@ -755,22 +640,15 @@ func state_attack(_delta):
 		else:
 			current_state = State.JUMP
 
-
 func state_fall(delta):
 	velocity += get_gravity() * delta
-
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-
 	anim.flip_h = last_direction < 0
 
 	if direction != 0:
 		last_direction = direction
 
-	velocity.x = lerp(
-		velocity.x,
-		direction * speed,
-		delta * acceleration
-	)
+	velocity.x = lerp(velocity.x, direction * speed, delta * acceleration)
 
 	if Input.is_action_just_pressed("ataque"):
 		current_state = State.ATTACK
@@ -788,10 +666,6 @@ func state_fall(delta):
 			jump()
 			return
 
-	if jump_count >= max_jumps and Input.is_action_pressed("pulo"):
-		current_state = State.PLANAR
-		return
-
 	if is_on_floor():
 		coyote_time_activated = false
 		coyote_timer.stop()
@@ -800,67 +674,22 @@ func state_fall(delta):
 			current_state = State.IDLE
 		else:
 			current_state = State.WALK
-
-
-func state_planar(delta):
-	velocity.y += planar_gravity * delta
-	velocity.y = min(velocity.y, planar_max_fall_speed)
-
-	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-
-	anim.flip_h = last_direction < 0
-
-	if direction != 0:
-		last_direction = direction
-
-	velocity.x = lerp(
-		velocity.x,
-		direction * speed,
-		delta * acceleration
-	)
-
-	if !Input.is_action_pressed("pulo"):
-		current_state = State.FALL
-		return
-
-	if Input.is_action_just_pressed("ataque"):
-		current_state = State.ATTACK
-		return
-
-	if Input.is_action_just_pressed("dash"):
-		start_dash()
-		return
-
-	if is_on_floor():
-		jump_count = 0
-		coyote_time_activated = false
-		coyote_timer.stop()
-
-		if direction == 0:
-			current_state = State.IDLE
-		else:
-			current_state = State.WALK
-
 
 func state_dash(delta):
 	dash_timer -= delta
-
 	velocity.y = 0
 	velocity.x = dash_speed * last_direction
-
 	anim.flip_h = last_direction < 0
 
 	if dash_timer <= 0:
 		if is_on_floor():
 			var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-
 			if direction == 0:
 				current_state = State.IDLE
 			else:
 				current_state = State.WALK
 		else:
 			current_state = State.FALL
-
 
 func state_climb(_delta):
 	if ladder == null or !is_instance_valid(ladder):
@@ -871,12 +700,7 @@ func state_climb(_delta):
 	climbing_ladder = true
 
 	var centro_escada = ladder.global_position.x
-
-	global_position.x = lerp(
-		global_position.x,
-		centro_escada,
-		0.35
-	)
+	global_position.x = lerp(global_position.x, centro_escada, 0.35)
 
 	velocity.x = 0
 	velocity.y = 0
@@ -906,31 +730,20 @@ func state_climb(_delta):
 		current_state = State.FALL
 		return
 
-
 func state_dead():
 	die()
 
-
 func jump():
-	if jump_count >= max_jumps:
-		return
-
-	if jump_count == 0:
-		velocity.y = jump_velocity
-	else:
-		velocity.y = double_jump_velocity
-
+	velocity.y = jump_velocity
 	jump_count += 1
 	coyote_time_activated = false
 	coyote_timer.stop()
 	current_state = State.JUMP
 
-
 func start_dash():
 	if !is_on_floor():
 		if !air_dash_available:
 			return
-
 		air_dash_available = false
 
 	dash_timer = dash_time
@@ -941,12 +754,10 @@ func start_dash():
 
 	velocity.y = 0
 
-
 func start_coyote():
 	if coyote_timer.is_stopped():
 		coyote_time_activated = true
 		coyote_timer.start()
-
 
 func entrar_na_escada(nova_escada) -> void:
 	if nova_escada == null:
@@ -959,7 +770,6 @@ func entrar_na_escada(nova_escada) -> void:
 		current_state = State.CLIMB
 		velocity = Vector2.ZERO
 		global_position.x = ladder.global_position.x
-
 
 func sair_da_escada(escada) -> void:
 	if ladder != escada:
@@ -975,7 +785,6 @@ func sair_da_escada(escada) -> void:
 
 	ladder = null
 
-
 func esta_em_plataforma_furavel() -> bool:
 	for i in get_slide_collision_count():
 		var colisao := get_slide_collision(i)
@@ -985,16 +794,13 @@ func esta_em_plataforma_furavel() -> bool:
 
 	return false
 
-
 func descer_plataforma() -> void:
 	set_collision_mask_value(2, false)
 	plataforma_timer.start(0.25)
 	current_state = State.FALL
 
-
 func _on_plataforma_timer_timeout() -> void:
 	set_collision_mask_value(2, true)
-
 
 func attack_to_direction(dir):
 	match dir:
@@ -1005,7 +811,6 @@ func attack_to_direction(dir):
 			attack_hit_box.rotation = 0
 			attack_sprite.position = Vector2(30, 0)
 			attack_sprite.rotation = 0
-
 		"left":
 			anim.flip_h = true
 			attack_sprite.flip_h = true
@@ -1013,14 +818,12 @@ func attack_to_direction(dir):
 			attack_hit_box.rotation = 0
 			attack_sprite.position = Vector2(-30, 0)
 			attack_sprite.rotation = 0
-
 		"up":
 			attack_sprite.flip_h = false
 			attack_hit_box.position = Vector2(0, -35)
 			attack_hit_box.rotation = -1.57079633
 			attack_sprite.position = Vector2(0, -35)
 			attack_sprite.rotation = -1.57079633
-
 		"down":
 			attack_sprite.flip_h = false
 			attack_hit_box.position = Vector2(0, 35)
@@ -1028,13 +831,11 @@ func attack_to_direction(dir):
 			attack_sprite.position = Vector2(0, 35)
 			attack_sprite.rotation = 1.57079633
 
-
 func receber_dano(dano: int, origem_x: float) -> void:
 	if Life <= 0:
 		return
 
 	Life -= dano
-
 	mostrar_dano(dano)
 
 	var direcao = sign(global_position.x - origem_x)
@@ -1044,50 +845,30 @@ func receber_dano(dano: int, origem_x: float) -> void:
 
 	damage_knockback.x = direcao * knockback_force
 	damage_knockback.y = knockback_up_force
-
 	velocity = damage_knockback
 
 	if Life <= 0:
 		current_state = State.DEAD
 
-
 func mostrar_dano(dano: int) -> void:
 	var label = Label.new()
-
 	label.text = str(dano)
 	label.position = Vector2(-10, -45)
 	label.z_index = 100
-
 	add_child(label)
 
 	var tween = create_tween()
 	tween.set_parallel(true)
-
-	tween.tween_property(
-		label,
-		"position",
-		Vector2(-10, -70),
-		0.5
-	)
-
-	tween.tween_property(
-		label,
-		"modulate:a",
-		0.0,
-		0.5
-	)
-
+	tween.tween_property(label, "position", Vector2(-10, -70), 0.5)
+	tween.tween_property(label, "modulate:a", 0.0, 0.5)
 	tween.finished.connect(label.queue_free)
-
 
 func die():
 	queue_free()
 
-
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 	if body is Enemy:
 		receber_dano(1, body.global_position.x)
-
 
 func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Inimigo"):
@@ -1095,29 +876,21 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 
 		if imbued_element != -1:
 			if body.has_method("_aplicar_elemento"):
-				dano = body._aplicar_elemento(
-					imbued_element,
-					dano,
-					global_position.x
-				)
+				dano = body._aplicar_elemento(imbued_element, dano, global_position.x)
 
 		body._dano(dano, global_position.x)
-
 		Mana = min(Mana + 10, max_mana)
 
 		if looking_down and !is_on_floor():
 			velocity.y = pogo_velocity
 			jump_count = min(jump_count + 1, max_jumps)
-			air_dash_available = true
 			current_state = State.JUMP
-
 
 func _on_coyote_timer_timeout() -> void:
 	coyote_time_activated = false
 
 	if !is_on_floor() and jump_count == 0:
 		jump_count = 1
-
 
 func _on_attack_timer_timeout() -> void:
 	can_attack = true

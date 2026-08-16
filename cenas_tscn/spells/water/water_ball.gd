@@ -3,7 +3,7 @@ extends Area2D
 var player = null
 var direction := Vector2.ZERO
 var speed := 700.0
-var damage := 5
+var damage := 50
 
 
 func setup(owner_player, shot_direction: Vector2) -> void:
