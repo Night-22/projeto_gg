@@ -20,13 +20,12 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Titulo" type="Label" parent="." unique_id=2018610770]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
+offset_left = 41.999996
+offset_right = 382.0
+offset_bottom = 63.0
+scale = Vector2(0.68302894, 0.68302894)
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 45
 text = "Craft de magias"
 
@@ -35,18 +34,20 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -583.0
-offset_bottom = -579.0
+offset_left = 364.0
+offset_top = -486.0
+offset_right = 364.0
+offset_bottom = -482.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="AlmasContainer" type="HBoxContainer" parent="." unique_id=959388311]
 custom_maximum_size = Vector2(600, 360)
-offset_left = 48.0
-offset_top = 84.0
-offset_right = 548.0
-offset_bottom = 444.0
-scale = Vector2(0.5, 0.5)
+offset_left = 3.0
+offset_top = 53.0
+offset_right = 543.0
+offset_bottom = 413.0
+scale = Vector2(0.23053364, 0.23053364)
 theme_override_constants/separation = 60
 
 [node name="Agua" type="HBoxContainer" parent="AlmasContainer" unique_id=1233539205]
@@ -106,11 +107,13 @@ text = "7"
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 33.0
-offset_top = 153.0
-offset_right = -590.0
+offset_left = 99.0
+offset_top = 237.99998
+offset_right = -221.0
+offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.4256724, 0.40245274)
 
 [node name="Margem" type="MarginContainer" parent="PainelMagias" unique_id=805229538]
 layout_mode = 2
@@ -128,12 +131,13 @@ columns = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 649.0
-offset_top = 152.0
-offset_right = -40.0
-offset_bottom = -9.0
+offset_left = 190.99998
+offset_top = 95.0
+offset_right = 228.0
+offset_bottom = 88.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.3554751, 0.3554751)
 
 [node name="Conteúdo" type="VBoxContainer" parent="PainelDetalhes" unique_id=1254638024]
 layout_mode = 2

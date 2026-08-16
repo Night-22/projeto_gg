@@ -8,6 +8,7 @@ size = Vector2(49.5, 85.5)
 
 [node name="Plant4Vine" type="Node2D" unique_id=643301484]
 position = Vector2(0, -19)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_x5tji")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=104319883]

@@ -7,7 +7,7 @@
 size = Vector2(20, 39)
 
 [node name="Fire2" type="Node2D" unique_id=1738226628]
-scale = Vector2(1.2244728, 1.1825892)
+scale = Vector2(0.6, 0.58)
 script = ExtResource("1_6ybfx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=830853583]

@@ -15,6 +15,16 @@ run/main_scene="uid://coi1jg7fjtgob"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=240
+window/size/mode=2
+window/size/resizable=false
+window/size/borderless=true
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
 [global_group]
 
 Inimigo=""

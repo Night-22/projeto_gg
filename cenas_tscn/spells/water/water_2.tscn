@@ -7,6 +7,7 @@
 radius = 50.0
 
 [node name="Water2" type="Node2D" unique_id=1468875115]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_erto3")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1331461005]

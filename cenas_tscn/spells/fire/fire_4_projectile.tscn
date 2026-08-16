@@ -10,6 +10,7 @@ radius = 18.0
 radius = 32.01562
 
 [node name="Fire4Projectile" type="Node2D" unique_id=995830015]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_3ko2i")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=387903168]

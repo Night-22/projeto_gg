@@ -8,6 +8,7 @@
 radius = 138.0
 
 [node name="Lightning2" type="Node2D" unique_id=1162329190]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_8138s")
 
 [node name="DurationTimer" type="Timer" parent="." unique_id=776641601]

@@ -7,6 +7,7 @@
 size = Vector2(109, 26)
 
 [node name="Fire3Ground" type="Node2D" unique_id=162089487]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_r8nko")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=410096036]
@@ -23,5 +24,5 @@ shape = SubResource("RectangleShape2D_i5iox")
 [node name="DurationTimer" type="Timer" parent="." unique_id=1075569706]
 one_shot = true
 
-[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_timer_timeout"]
 [connection signal="timeout" from="DurationTimer" to="." method="_on_duration_tmer_timeout"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_timer_timeout"]

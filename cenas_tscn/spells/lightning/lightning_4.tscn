@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://luv6v73g5nql" path="res://cenas_tscn/spells/lightning/lightning_4.gd" id="1_lioei"]
 
 [node name="Lightning4" type="Node2D" unique_id=2064369380]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_lioei")
 
 [node name="DelayTimer" type="Timer" parent="." unique_id=391715159]

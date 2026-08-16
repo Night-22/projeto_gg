@@ -14,11 +14,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HealthBar" type="ProgressBar" parent="Interface" unique_id=1489437378]
-layout_mode = 0
-offset_left = 55.0
-offset_top = 12.0
-offset_right = 276.0
-offset_bottom = 46.0
+layout_mode = 1
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 226.0
+offset_bottom = 40.0
+scale = Vector2(0.737436, 0.737436)
 value = 100.0
 show_percentage = false
 
@@ -37,11 +38,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ManaBar" type="ProgressBar" parent="Interface" unique_id=1350334871]
-layout_mode = 0
-offset_left = 55.0
-offset_top = 54.0
-offset_right = 277.0
-offset_bottom = 88.0
+layout_mode = 1
+offset_left = 5.0
+offset_top = 40.0
+offset_right = 227.0
+offset_bottom = 74.0
+scale = Vector2(0.737436, 0.737436)
 value = 100.0
 show_percentage = false
 
@@ -66,9 +68,13 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -70.0
+offset_left = -36.0
+offset_top = 62.0
+offset_right = 34.0
+offset_bottom = 114.0
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.41383654, 0.41383654)
 alignment = 1
 
 [node name="SpellSlot1" type="Panel" parent="Interface/SpellBar" unique_id=543188155]

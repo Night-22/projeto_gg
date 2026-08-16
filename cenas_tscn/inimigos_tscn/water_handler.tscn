@@ -10,6 +10,7 @@ size = Vector2(54, 58)
 size = Vector2(388, 91)
 
 [node name="Water_handler" type="CharacterBody2D" unique_id=1836258984 groups=["Inimigo"]]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_kjihv")
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 

@@ -13,6 +13,7 @@ radius = 152.3975
 size = Vector2(39, 38)
 
 [node name="Husk" type="CharacterBody2D" unique_id=890546670 groups=["Inimigo"]]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_2hlel")
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 

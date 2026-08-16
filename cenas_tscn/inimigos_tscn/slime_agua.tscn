@@ -10,6 +10,7 @@ size = Vector2(47, 46)
 radius = 142.41138
 
 [node name="Slime_agua" type="CharacterBody2D" unique_id=803833005 groups=["Inimigo"]]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_fmh24")
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 

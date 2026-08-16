@@ -7,6 +7,7 @@
 radius = 15.0
 
 [node name="Plant3Projectile" type="Area2D" unique_id=1344200242]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_8gnqf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=869830801]

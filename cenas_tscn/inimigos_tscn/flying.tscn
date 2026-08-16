@@ -11,6 +11,7 @@ radius = 59.0118
 height = 348.07092
 
 [node name="Flying" type="CharacterBody2D" unique_id=187868775 groups=["Inimigo"]]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_sih1y")
 knockback_ataque = 80
 metadata/_custom_type_script = "uid://bullfap4fo1nx"

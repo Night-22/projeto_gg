@@ -187,15 +187,15 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ym2kn"]
-radius = 9.0
-height = 38.0
+radius = 7.0
+height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xojfc"]
 size = Vector2(14, 28)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1pynu"]
-radius = 11.0
-height = 36.0
+radius = 6.0
+height = 20.0
 
 [node name="Player" type="CharacterBody2D" unique_id=2135435064 groups=["Player"]]
 collision_mask = 7
@@ -204,15 +204,15 @@ knockback_force = 280.0
 
 [node name="anim" type="AnimatedSprite2D" parent="." unique_id=1488943503]
 texture_filter = 1
-position = Vector2(-0.99999994, -1.9999999)
-scale = Vector2(2, 1.939)
+position = Vector2(-0.74999994, -1.9999999)
+scale = Vector2(0.98275864, 1)
 sprite_frames = SubResource("SpriteFrames_tckef")
 animation = &"floor_hit"
 frame = 5
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1481044837]
-position = Vector2(1, 4)
+position = Vector2(1, 0)
 shape = SubResource("CapsuleShape2D_ym2kn")
 
 [node name="hurtBox" type="Area2D" parent="." unique_id=758181996]
@@ -226,14 +226,14 @@ debug_color = Color(0.991069, 0, 0.27625036, 0.41960785)
 [node name="attackHitBox" type="Area2D" parent="." unique_id=767947414]
 
 [node name="collision" type="CollisionShape2D" parent="attackHitBox" unique_id=1467424342]
-position = Vector2(25, 3)
+position = Vector2(21, 0)
 shape = SubResource("CapsuleShape2D_1pynu")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="attackHitBox" unique_id=235777237]
 visible = false
-position = Vector2(22.614456, 0.38554716)
-scale = Vector2(-0.021577558, 0.048399802)
+position = Vector2(21.490524, 0.49052262)
+scale = Vector2(-0.02337765, 0.032667078)
 texture = ExtResource("8_tw7kf")
 
 [node name="coyoteTimer" type="Timer" parent="." unique_id=87459967]
@@ -243,6 +243,10 @@ one_shot = true
 [node name="attackTimer" type="Timer" parent="." unique_id=1104962873]
 wait_time = 0.4
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=884263791]
+position = Vector2(0, -48)
+position_smoothing_enabled = true
 
 [connection signal="animation_finished" from="anim" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="hurtBox" to="." method="_on_hurt_box_body_entered"]

@@ -1001,31 +1001,31 @@ func attack_to_direction(dir):
 		"right":
 			anim.flip_h = false
 			attack_sprite.flip_h = false
-			attack_hit_box.position = Vector2(30, 0)
+			attack_hit_box.position = Vector2(15, 0)
 			attack_hit_box.rotation = 0
-			attack_sprite.position = Vector2(30, 0)
+			attack_sprite.position = Vector2(15, 0)
 			attack_sprite.rotation = 0
 
 		"left":
 			anim.flip_h = true
 			attack_sprite.flip_h = true
-			attack_hit_box.position = Vector2(-30, 0)
+			attack_hit_box.position = Vector2(-15, 0)
 			attack_hit_box.rotation = 0
-			attack_sprite.position = Vector2(-30, 0)
+			attack_sprite.position = Vector2(-15, 0)
 			attack_sprite.rotation = 0
 
 		"up":
 			attack_sprite.flip_h = false
-			attack_hit_box.position = Vector2(0, -35)
+			attack_hit_box.position = Vector2(0, -20)
 			attack_hit_box.rotation = -1.57079633
-			attack_sprite.position = Vector2(0, -35)
+			attack_sprite.position = Vector2(0, -20)
 			attack_sprite.rotation = -1.57079633
 
 		"down":
 			attack_sprite.flip_h = false
-			attack_hit_box.position = Vector2(0, 35)
+			attack_hit_box.position = Vector2(0, 20)
 			attack_hit_box.rotation = 1.57079633
-			attack_sprite.position = Vector2(0, 35)
+			attack_sprite.position = Vector2(0, 20)
 			attack_sprite.rotation = 1.57079633
 
 
