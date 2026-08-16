@@ -3,6 +3,9 @@ class_name AranhaBoss
 
 signal chefe_derrotado
 
+@export var parede_esquerda : StaticBody2D
+@export var parede_direita : StaticBody2D
+
 enum Estado {
 	IDLE,
 	ANDANDO_LADOS,
@@ -15,20 +18,21 @@ enum Estado {
 	ATAQUE_MORDIDA,
 }
 
-var perna_scene := preload("res://cenas_tscn/inimigos_tscn/bosses/aranha_perna.tscn")
+@onready var sprite = get_node("AnimatedSprite2D")
+
 var teia_scene := preload("res://cenas_tscn/inimigos_tscn/bosses/teia_projetil.tscn")
 
 @export var vida_maxima_boss := 200
 @export var numero_pernas := 8
 
 
-@export var limite_esquerdo := -500.0
-@export var limite_direito := 500.0
-@export var distancia_ate_o_chao := 400.0
+@export var limite_esquerdo := -100
+@export var limite_direito := 200.0
+@export var distancia_ate_o_chao := 170.0
 
 
 @export var velocidade_movimento := 140.0
-@export var margem_arena := 24.0
+@export var margem_arena := 1.0
 
 
 @export var tempo_idle_min := 1.2
@@ -50,6 +54,24 @@ var teia_scene := preload("res://cenas_tscn/inimigos_tscn/bosses/teia_projetil.t
 
 @onready var mordida_hitbox: Area2D = $MordidaHitbox
 
+var ataques_porradao: Array[String] = [
+	"pata_baixo_esquerda",
+	"pata_cima_esquerda",
+	"pata_medio_esquerda",
+	"pata_baixo_direita",
+	"pata_cima_direita",
+	"pata_medio_direita"
+]
+
+var _colisao_porradao_ativa := false
+
+@onready var hitbox_esquerda: Area2D = $Pata_Porrada_esquerda
+@onready var hitbox_direita: Area2D = $Pata_porrada_direita
+
+@export var colisao_esquerda : CollisionShape2D
+@export var colisao_direita : CollisionShape2D
+
+
 var lutando := false
 var jogador: Node2D = null
 
@@ -63,6 +85,15 @@ var chao_y := 0.0
 
 var pernas: Array[AranhaPerna] = []
 var _porradao_em_andamento := false
+
+@export var aceleracao := 500.0
+@export var desaceleracao := 700.0
+@export var velocidade_perseguicao := 220.0
+
+
+
+func tocar_animacao(nome_animacao: String) -> void:
+	sprite.play(nome_animacao)
 
 
 func _ready() -> void:
@@ -81,7 +112,7 @@ func _ready() -> void:
 	if mordida_hitbox:
 		mordida_hitbox.monitoring = false
 
-	_criar_pernas()
+
 
 
 func iniciar_luta() -> void:
@@ -96,7 +127,6 @@ func iniciar_luta() -> void:
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
-
 	processar_reacoes(delta)
 
 	if not lutando:
@@ -126,10 +156,27 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	global_position.x = clamp(global_position.x, limite_esquerdo, limite_direito)
+
+
 
 	if estado_atual != Estado.ATAQUE_MORDIDA:
 		global_position.y = altura_suspensa_global
+	move_and_slide()
+
+	if estado_atual == Estado.ANDANDO_LADOS:
+		for i in get_slide_collision_count():
+			var colisao := get_slide_collision(i)
+			var collider := colisao.get_collider()
+
+			if collider == parede_esquerda:
+				direcao_movimento = 1
+				sprite.flip_h = false
+				break
+
+			elif collider == parede_direita:
+				direcao_movimento = -1
+				sprite.flip_h = true
+				break
 
 
 func _trocar_estado(novo: int) -> void:
@@ -138,10 +185,12 @@ func _trocar_estado(novo: int) -> void:
 	match novo:
 		Estado.IDLE:
 			modulate = Color.WHITE
+			tocar_animacao("idle")
+
 			estado_timer = randf_range(tempo_idle_min, tempo_idle_max)
 
 		Estado.ANDANDO_LADOS:
-			direcao_movimento = [-1, 1][randi() % 2]
+			direcao_movimento = [-1, 1].pick_random()
 			estado_timer = randf_range(1.0, 2.0)
 
 		Estado.PREPARANDO_PORRADAO:
@@ -189,54 +238,95 @@ func _escolher_proxima_acao() -> void:
 
 
 func _estado_idle(delta: float) -> void:
-	velocity = Vector2.ZERO
+	tocar_animacao("idle")
 
-	estado_timer -= delta
-	if estado_timer <= 0:
-		_escolher_proxima_acao()
+	velocity.x = move_toward(
+		velocity.x,
+		0.0,
+		desaceleracao * delta
+	)
 
-
-func _estado_andando_lados(delta: float) -> void:
-	velocity.x = direcao_movimento * velocidade_movimento
 	velocity.y = 0
 
-	if global_position.x <= limite_esquerdo + margem_arena:
-		direcao_movimento = 1
-	elif global_position.x >= limite_direito - margem_arena:
-		direcao_movimento = -1
+	estado_timer -= delta
+
+	if estado_timer <= 0:
+		_escolher_proxima_acao()
+		
+func _estado_andando_lados(delta: float) -> void:
+	tocar_animacao("andando")
+
+	var velocidade_alvo := direcao_movimento * velocidade_movimento
+
+	velocity.x = move_toward(
+		velocity.x,
+		velocidade_alvo,
+		aceleracao * delta
+	)
+
+	velocity.y = 0
+
+	sprite.flip_h = velocity.x < 0
 
 	estado_timer -= delta
+
 	if estado_timer <= 0:
 		_trocar_estado(Estado.IDLE)
 
-
 func _estado_indo_para_centro(delta: float) -> void:
-	var centro_x := (limite_esquerdo + limite_direito) / 2.0
+	tocar_animacao("andando")
+
+	var centro_x := (parede_esquerda.global_position.x + parede_direita.global_position.x) / 2.0
 	var direcao := signf(centro_x - global_position.x)
 
-	velocity.x = direcao * velocidade_movimento
+	var velocidade_alvo := direcao * velocidade_movimento
+
+	velocity.x = move_toward(
+		velocity.x,
+		velocidade_alvo,
+		aceleracao * delta
+	)
+
 	velocity.y = 0
+
+	if abs(velocity.x) > 1.0:
+		sprite.flip_h = velocity.x < 0
 
 	if abs(centro_x - global_position.x) < 4.0:
 		velocity.x = 0
 		_trocar_estado(Estado.PREPARANDO_PORRADAO)
 
-
 func _estado_perseguindo(delta: float) -> void:
 	if jogador == null or not is_instance_valid(jogador):
+		velocity.x = move_toward(velocity.x, 0.0, desaceleracao * delta)
+		
+		if abs(velocity.x) < 1.0:
+			velocity.x = 0.0
+		
 		_trocar_estado(Estado.IDLE)
 		return
 
+	tocar_animacao("andando")
+
 	var direcao := signf(jogador.global_position.x - global_position.x)
 
-	velocity.x = direcao * velocidade_movimento * 1.6
+	var velocidade_alvo := direcao * velocidade_perseguicao
+
+	velocity.x = move_toward(
+		velocity.x,
+		velocidade_alvo,
+		aceleracao * delta
+	)
+
 	velocity.y = 0
 
-	estado_timer -= delta
-	if estado_timer <= 0:
-		velocity.x = 0
-		_trocar_estado(Estado.PREPARANDO_ATAQUE)
+	if abs(velocity.x) > 1.0:
+		sprite.flip_h = velocity.x < 0
 
+	estado_timer -= delta
+
+	if estado_timer <= 0:
+		_trocar_estado(Estado.PREPARANDO_ATAQUE)
 
 func _estado_preparando_porradao(delta: float) -> void:
 	velocity = Vector2.ZERO
@@ -254,6 +344,19 @@ func _estado_preparando_ataque(delta: float) -> void:
 		_trocar_estado(proximo_ataque_perseguicao)
 
 
+var ataques_esquerda: Array[String] = [
+	"pata_baixo_esquerda",
+	"pata_cima_esquerda",
+	"pata_medio_esquerda"
+]
+
+var ataques_direita: Array[String] = [
+	"pata_baixo_direita",
+	"pata_cima_direita",
+	"pata_medio_direita"
+]
+
+
 func _estado_porradao(_delta: float) -> void:
 	velocity = Vector2.ZERO
 
@@ -263,29 +366,37 @@ func _iniciar_porradao() -> void:
 		return
 
 	_porradao_em_andamento = true
-	_sequencia_porradao()
+	await _executar_ataque_porradao()
 
 
-func _sequencia_porradao() -> void:
-	var pernas_vivas: Array[AranhaPerna] = []
+func _executar_ataque_porradao() -> void:
+	var ataques: Array[String]
 
-	for perna in pernas:
-		if is_instance_valid(perna) and perna.ativa:
-			pernas_vivas.append(perna)
+	# desliga as duas
+	colisao_esquerda.set_deferred("disabled", true)
+	colisao_direita.set_deferred("disabled", true)
 
-	for perna in pernas_vivas:
+	await get_tree().physics_frame
+
+	# escolhe o lado
+	if randi() % 2 == 0:
+		ataques = ataques_esquerda
+	else:
+		ataques = ataques_direita
+
+	# faz os 3 ataques
+	for ataque in ataques:
 		if dead:
-			return
+			break
+		
+		sprite.flip_h = false
+		await _executar_animacao_porradao(ataque)
 
-		if is_instance_valid(perna) and perna.ativa:
-			perna.ativar_ataque(dano_porradao)
+	# desliga tudo
+	colisao_esquerda.set_deferred("disabled", true)
+	colisao_direita.set_deferred("disabled", true)
 
-		await get_tree().create_timer(tempo_ativo_perna).timeout
-
-		if is_instance_valid(perna):
-			perna.desativar_ataque()
-
-		await get_tree().create_timer(intervalo_entre_pernas).timeout
+	await get_tree().physics_frame
 
 	_porradao_em_andamento = false
 
@@ -293,11 +404,101 @@ func _sequencia_porradao() -> void:
 		_trocar_estado(Estado.IDLE)
 
 
+func _executar_animacao_porradao(ataque: String) -> void:
+	var hitbox_ativa: CollisionShape2D
+
+	# escolhe a hitbox
+	if ataque in ataques_esquerda:
+		hitbox_ativa = colisao_esquerda
+	elif ataque in ataques_direita:
+		hitbox_ativa = colisao_direita
+	else:
+		print("ataque invalido: ", ataque)
+		return
+
+	# desliga as duas
+	colisao_esquerda.set_deferred("disabled", true)
+	colisao_direita.set_deferred("disabled", true)
+
+	await get_tree().physics_frame
+
+	if dead:
+		return
+
+	# deixa a animacao anterior parar
+	sprite.stop()
+
+	# toca a animacao escolhida
+	sprite.play(ataque)
+
+	# espera o sprite atualizar
+	await get_tree().process_frame
+
+	# garante que comecou no frame 0
+	sprite.frame = 0
+
+	print("ataque escolhido: ", ataque)
+	print("animacao atual: ", sprite.animation)
+
+	# confere se a animacao realmente foi trocada
+	if sprite.animation != StringName(ataque):
+		print("erro na animacao: esperado ", ataque, " mas esta ", sprite.animation)
+		return
+
+	# espera o frame de impacto
+	while sprite.frame < 4:
+		await get_tree().process_frame
+
+		if dead:
+			colisao_esquerda.set_deferred("disabled", true)
+			colisao_direita.set_deferred("disabled", true)
+			await get_tree().physics_frame
+			return
+
+	# desliga as duas antes de ligar a certa
+	colisao_esquerda.set_deferred("disabled", true)
+	colisao_direita.set_deferred("disabled", true)
+
+	await get_tree().physics_frame
+
+	# liga a hitbox correta
+	hitbox_ativa.set_deferred("disabled", false)
+
+	await get_tree().physics_frame
+
+	# da dano em quem ja estiver dentro
+	_dar_dano_porradao(hitbox_ativa.get_parent())
+
+	print("animacao atual no impacto: ", sprite.animation)
+	print("hitbox ativa: ", hitbox_ativa.get_path())
+	print("esquerda ativa: ", !colisao_esquerda.disabled)
+	print("direita ativa: ", !colisao_direita.disabled)
+
+	# espera a animacao acabar
+	await sprite.animation_finished
+
+	# desliga tudo
+	colisao_esquerda.set_deferred("disabled", true)
+	colisao_direita.set_deferred("disabled", true)
+
+	await get_tree().physics_frame
+
+	print("ataque terminou: ", ataque)
+
+
+func _dar_dano_porradao(hitbox: Area2D) -> void:
+	for body in hitbox.get_overlapping_bodies():
+		if body.is_in_group("Player") and body.has_method("receber_dano"):
+			body.receber_dano(dano_porradao, global_position.x)
+
+
 func _estado_ataque_teia(_delta: float) -> void:
 	velocity = Vector2.ZERO
 
 
 func _iniciar_ataque_teia() -> void:
+	tocar_animacao("mordendo")
+
 	var teia: TeiaProjetil = teia_scene.instantiate()
 
 	teia.global_position = Vector2(global_position.x, global_position.y + 16)
@@ -322,6 +523,8 @@ func _estado_ataque_mordida(_delta: float) -> void:
 
 
 func _iniciar_ataque_mordida() -> void:
+	tocar_animacao("mordendo")
+
 	var y_original := global_position.y
 	var y_alvo := chao_y - 40.0
 
@@ -332,7 +535,6 @@ func _iniciar_ataque_mordida() -> void:
 	tween.tween_property(self, "global_position:y", y_alvo, tempo_descida_mordida)
 	tween.tween_property(self, "global_position:y", y_original, tempo_descida_mordida)
 	tween.finished.connect(_finalizar_mordida)
-
 
 func _finalizar_mordida() -> void:
 	if mordida_hitbox:
@@ -347,28 +549,6 @@ func _on_mordida_hitbox_body_entered(body: Node2D) -> void:
 		body.receber_dano(dano_mordida, global_position.x)
 
 
-func _criar_pernas() -> void:
-	for perna in pernas:
-		if is_instance_valid(perna):
-			perna.queue_free()
-
-	pernas.clear()
-
-	if numero_pernas <= 0:
-		return
-
-	var centro_x := (limite_esquerdo + limite_direito) / 2.0
-	var passo := (limite_direito - limite_esquerdo) / float(numero_pernas + 1)
-
-	for i in range(numero_pernas):
-		var perna: AranhaPerna = perna_scene.instantiate()
-		var pos_x_arena := limite_esquerdo + passo * (i + 1)
-
-		add_child(perna)
-		perna.position = Vector2(pos_x_arena - centro_x, 0)
-		perna.set_comprimento(distancia_ate_o_chao)
-
-		pernas.append(perna)
 
 
 func atualizar_pernas_por_vida() -> void:
@@ -449,3 +629,15 @@ func die():
 	tween.tween_property(self, "modulate:a", 0.0, 1.4)
 	tween.set_parallel(false)
 	tween.tween_callback(queue_free)
+
+
+#func _on_pata_porrada_esquerda_body_entered(body: Node2D) -> void:
+	#if body.is_in_group("Player") and body.has_method("receber_dano"):
+		#body.receber_dano(dano_porradao, global_position.x)
+#
+#
+#
+#
+#func _on_pata_porrada_direita_body_entered(body: Node2D) -> void:
+	#if body.is_in_group("Player") and body.has_method("receber_dano"):
+		#body.receber_dano(dano_porradao, global_position.x)

@@ -57,8 +57,8 @@ var almas_planta = 0
 var coyote_time_activated = false
 
 var speed: float = 300.0
-var jump_velocity = -500.0
-var double_jump_velocity = -350.0
+var jump_velocity = -400.0
+var double_jump_velocity = -250.0
 var pogo_velocity = -400.0
 
 var planar_gravity = 250.0
