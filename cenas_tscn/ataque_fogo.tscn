@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://um5us0mapds5"]
+
+[ext_resource type="Script" uid="uid://b5aawqaiy71pq" path="res://scripts_gd/ataque_fogo.gd" id="1_kjnv6"]
+[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="2_w8qqb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(18, 16)
+
+[node name="ataque_fogo" type="Area2D" unique_id=1309946704]
+script = ExtResource("1_kjnv6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=380425858]
+scale = Vector2(0.08133972, 0.057761736)
+texture = ExtResource("2_w8qqb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=918055759]
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

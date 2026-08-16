@@ -5,10 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
 [ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="5_ebefr"]
 [ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="6_7juhd"]
-[ext_resource type="PackedScene" uid="uid://5bcysmejkdhr" path="res://cenas_tscn/inimigos_tscn/husk.tscn" id="6_rf4it"]
 [ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="7_r7ct6"]
 [ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="8_wcvwo"]
-[ext_resource type="PackedScene" uid="uid://dchqpas3ef5eo" path="res://cenas_tscn/inimigos_tscn/slime_agua.tscn" id="9_wcvwo"]
+[ext_resource type="PackedScene" uid="uid://cm3xil64ctpv6" path="res://cenas_tscn/inimigos_tscn/plant_wizard.tscn" id="9_wcvwo"]
 [ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="10_ne5t3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
@@ -89,14 +88,7 @@ shape = SubResource("RectangleShape2D_ydpk4")
 
 [node name="Hud" parent="." unique_id=249675550 instance=ExtResource("5_ebefr")]
 
-[node name="Husk" parent="." unique_id=890546670 instance=ExtResource("6_rf4it")]
-position = Vector2(866, 532)
-
 [node name="SpellInventory" parent="." unique_id=1732352662 instance=ExtResource("6_7juhd")]
-
-[node name="Slime_agua" parent="." unique_id=803833005 instance=ExtResource("9_wcvwo")]
-position = Vector2(519, 526)
-elemento_nativo = 1
 
 [node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("10_ne5t3")]
 visible = false
@@ -125,3 +117,6 @@ shape = SubResource("RectangleShape2D_3g8b1")
 position = Vector2(-277, -463)
 tile_map_data = PackedByteArray("AAAOABwAAAALAAUAAAAPABwAAAAMAAUAAAAQABwAAAAMAAUAAAARABwAAAAMAAUAAAASABwAAAAMAAUAAAATABwAAAALAAUAABA=")
 tile_set = ExtResource("2_ne5t3")
+
+[node name="plant_wizard" parent="." unique_id=1241531326 instance=ExtResource("9_wcvwo")]
+position = Vector2(865, 526)
