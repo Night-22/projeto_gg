@@ -15,10 +15,10 @@ grow_vertical = 2
 
 [node name="HealthBar" type="ProgressBar" parent="Interface" unique_id=1489437378]
 layout_mode = 1
-offset_left = 5.0
+offset_left = 7.0
 offset_top = 6.0
-offset_right = 226.0
-offset_bottom = 40.0
+offset_right = 127.688446
+offset_bottom = 22.272598
 scale = Vector2(0.737436, 0.737436)
 value = 100.0
 show_percentage = false
@@ -39,10 +39,10 @@ grow_vertical = 2
 
 [node name="ManaBar" type="ProgressBar" parent="Interface" unique_id=1350334871]
 layout_mode = 1
-offset_left = 5.0
-offset_top = 40.0
-offset_right = 227.0
-offset_bottom = 74.0
+offset_left = 7.0
+offset_top = 22.0
+offset_right = 127.688446
+offset_bottom = 39.628647
 scale = Vector2(0.737436, 0.737436)
 value = 100.0
 show_percentage = false
@@ -62,7 +62,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SpellBar" type="VBoxContainer" parent="Interface" unique_id=1731993230]
-custom_minimum_size = Vector2(70, 70)
+custom_minimum_size = Vector2(70, 50)
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0

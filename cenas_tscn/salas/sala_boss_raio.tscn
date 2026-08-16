@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://b7buidipm5q88"]
+
+[ext_resource type="Script" uid="uid://d1rpb5k34j82b" path="res://cenas_tscn/salas/sala_boss_raio.gd" id="1_sala"]
+[ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="4_spellinv"]
+[ext_resource type="PackedScene" uid="uid://bo86gs3gebcvv" path="res://cenas_tscn/inimigos_tscn/bosses/raio_boss.tscn" id="5_boss"]
+[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
+[ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="7_7bfxw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
+size = Vector2(28, 252)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
+size = Vector2(530, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plataforma"]
+size = Vector2(62, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gatilho"]
+size = Vector2(9, 69)
+
+[node name="SalaBossRaio" type="Node2D" unique_id=765142088]
+script = ExtResource("1_sala")
+
+[node name="ParedeEsquerda" type="StaticBody2D" parent="." unique_id=1546652038]
+position = Vector2(-57, 123)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParedeEsquerda" unique_id=1214900909]
+position = Vector2(-0.4999888, -2.0000076)
+scale = Vector2(0.22656256, 1.9687499)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeEsquerda" unique_id=555903626]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="ParedeDireita" type="StaticBody2D" parent="." unique_id=1748592239]
+position = Vector2(407, 122)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParedeDireita" unique_id=313293876]
+position = Vector2(-5.5000114, -7.6293945e-06)
+scale = Vector2(0.22656232, 1.9453125)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeDireita" unique_id=129749036]
+position = Vector2(-6, 0)
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="Chao" type="StaticBody2D" parent="." unique_id=1066077234]
+position = Vector2(165, 240)
+
+[node name="Sprite2D" type="Sprite2D" parent="Chao" unique_id=712045242]
+position = Vector2(5.5000124, 0)
+scale = Vector2(4.1328125, 0.14062494)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chao" unique_id=1691434255]
+position = Vector2(3, 0)
+shape = SubResource("RectangleShape2D_chao")
+
+[node name="Plataforma1" type="StaticBody2D" parent="." unique_id=1503966605 groups=["PlataformaFuravel"]]
+position = Vector2(70, 60)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Plataforma1" unique_id=958512929]
+position = Vector2(1.847744e-06, 3.7550926e-06)
+scale = Vector2(0.4765625, 0.06250003)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plataforma1" unique_id=1403029534]
+shape = SubResource("RectangleShape2D_plataforma")
+one_way_collision = true
+
+[node name="Plataforma2" type="StaticBody2D" parent="." unique_id=312448321 groups=["PlataformaFuravel"]]
+position = Vector2(180, 60)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Plataforma2" unique_id=1124224334]
+position = Vector2(1.847744e-06, 3.7550926e-06)
+scale = Vector2(0.4765625, 0.06250003)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plataforma2" unique_id=1074693880]
+shape = SubResource("RectangleShape2D_plataforma")
+one_way_collision = true
+
+[node name="Plataforma3" type="StaticBody2D" parent="." unique_id=169807856 groups=["PlataformaFuravel"]]
+position = Vector2(290, 60)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Plataforma3" unique_id=1439336601]
+position = Vector2(1.847744e-06, 3.7550926e-06)
+scale = Vector2(0.4765625, 0.06250003)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Plataforma3" unique_id=516975785]
+shape = SubResource("RectangleShape2D_plataforma")
+one_way_collision = true
+
+[node name="RaioBoss" parent="." unique_id=1094024065 instance=ExtResource("5_boss")]
+position = Vector2(179, 26)
+scale = Vector2(0.5, 0.5)
+limite_esquerdo = -25.5
+limite_direito = 369.5
+distancia_plataforma_chao = 174.5
+posicoes_plataformas = PackedFloat32Array(70, 180, 290)
+
+[node name="Player" parent="." unique_id=1746348835 instance=ExtResource("2_player")]
+position = Vector2(-25, 219)
+
+[node name="GatilhoLuta" type="Area2D" parent="." unique_id=1705967106]
+position = Vector2(-4, 198)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GatilhoLuta" unique_id=1680972046]
+shape = SubResource("RectangleShape2D_gatilho")
+
+[node name="Hud" parent="." unique_id=1254297096 instance=ExtResource("3_hud")]
+visible = false
+
+[node name="SpellInventory" parent="." unique_id=681638033 instance=ExtResource("4_spellinv")]
+
+[node name="HudChefe" type="CanvasLayer" parent="." unique_id=1095167948]
+visible = false
+
+[node name="Interface" type="Control" parent="HudChefe" unique_id=2011777730]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NomeChefe" type="Label" parent="HudChefe/Interface" unique_id=2100650956]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 4.0
+offset_right = 382.0
+offset_bottom = 19.0
+theme_override_font_sizes/font_size = 10
+text = "CHEFE DE RAIO"
+horizontal_alignment = 1
+
+[node name="BarraVidaChefe" type="ProgressBar" parent="HudChefe/Interface" unique_id=283891761]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 17.0
+offset_right = 356.0
+offset_bottom = 33.0
+show_percentage = false
+
+[node name="CameraLockArea" parent="." unique_id=1808650042 instance=ExtResource("7_7bfxw")]
+position = Vector2(169, 118)
+scale = Vector2(23.962223, 12.332323)
+
+[connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://joso60aafyh3"]
+
+[ext_resource type="Script" uid="uid://w5p2c3hq2rj" path="res://scripts_gd/bosses/raio_projetil.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_raio"]
+size = Vector2(63, 1143)
+
+[node name="RaioProjetil" type="Area2D" unique_id=393367192]
+script = ExtResource("1_script")
+largura = 90.0
+
+[node name="Visual" type="ColorRect" parent="." unique_id=1321334062]
+color = Color(1, 0.95, 0.3, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1302670086]
+position = Vector2(20, 570)
+shape = SubResource("RectangleShape2D_raio")
+disabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

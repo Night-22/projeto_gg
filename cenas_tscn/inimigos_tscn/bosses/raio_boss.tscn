@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bo86gs3gebcvv"]
+
+[ext_resource type="Script" uid="uid://cinpl3vh3j5jf" path="res://scripts_gd/bosses/raio_boss.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_corpo"]
+[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="3_nucleo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(88, 120)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dash"]
+radius = 80.0
+
+[node name="RaioBoss" type="CharacterBody2D" unique_id=496240330 groups=["Boss", "Inimigo"]]
+script = ExtResource("1_script")
+
+[node name="Corpo" type="Sprite2D" parent="." unique_id=1365253115]
+modulate = Color(0.35, 0.2, 0.55, 1)
+scale = Vector2(0.165, 0.205)
+texture = ExtResource("2_corpo")
+
+[node name="Nucleo" type="Sprite2D" parent="." unique_id=1703592488]
+modulate = Color(0.6, 0.9, 1, 1)
+position = Vector2(0, -15)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("3_nucleo")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1916406482]
+shape = SubResource("RectangleShape2D_corpo")
+
+[node name="DashHitbox" type="Area2D" parent="." unique_id=1663037768]
+visible = false
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DashHitbox" unique_id=1551154846]
+shape = SubResource("CircleShape2D_dash")
+
+[connection signal="body_entered" from="DashHitbox" to="." method="_on_dash_hitbox_body_entered"]

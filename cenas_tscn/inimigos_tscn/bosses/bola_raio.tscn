@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts_gd/bosses/bola_raio.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="2_visual"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bola"]
+radius = 14.0
+
+[node name="BolaRaio" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="Visual" type="Sprite2D" parent="."]
+modulate = Color(0.7, 0.9, 1, 1)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("2_visual")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bola")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

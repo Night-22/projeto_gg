@@ -44,7 +44,7 @@ var almas_fogo = 0
 var almas_raio = 0
 var almas_planta = 0
 
-@export var max_speed = 300.0
+@export var max_speed = 200.0
 @export var acceleration = 2.5
 @export var friction = 6.7
 
@@ -53,13 +53,20 @@ var almas_planta = 0
 @onready var attack_sprite: Sprite2D = $attackHitBox/Sprite2D
 @onready var attack_timer: Timer = $attackTimer
 @onready var coyote_timer: Timer = $coyoteTimer
+@onready var camera: Camera2D = $Camera2D
+
+var camera_travada = false
+var _limite_padrao_esquerdo := 0
+var _limite_padrao_direito := 0
+var _limite_padrao_superior := 0
+var _limite_padrao_inferior := 0
 
 var coyote_time_activated = false
 
-var speed: float = 300.0
-var jump_velocity = -500.0
-var double_jump_velocity = -350.0
-var pogo_velocity = -400.0
+var speed: float = 200.0
+var jump_velocity = -360.0
+var double_jump_velocity = -280.0
+var pogo_velocity = -360.0
 
 var planar_gravity = 250.0
 var planar_max_fall_speed = 80.0
@@ -72,8 +79,8 @@ var looking_down = false
 var jump_count = 0
 var max_jumps = 2
 
-var dash_speed = 400.0
-var dash_time = 0.25
+var dash_speed = 250.0
+var dash_time = 0.2
 var dash_timer = 0.0
 
 var air_dash_available = true
@@ -182,6 +189,11 @@ var plataforma_timer: Timer
 func _ready() -> void:
 	add_to_group("Player")
 
+	_limite_padrao_esquerdo = camera.limit_left
+	_limite_padrao_direito = camera.limit_right
+	_limite_padrao_superior = camera.limit_top
+	_limite_padrao_inferior = camera.limit_bottom
+
 	imbue_timer = Timer.new()
 	imbue_timer.one_shot = true
 	imbue_timer.timeout.connect(_on_imbue_timer_timeout)
@@ -268,7 +280,6 @@ func _physics_process(delta: float) -> void:
 	)
 
 	move_and_slide()
-
 
 func entrar_na_bancada(nova_bancada) -> void:
 	if nova_bancada == null:
@@ -1123,3 +1134,20 @@ func _on_attack_timer_timeout() -> void:
 	can_attack = true
 	attack_sprite.visible = false
 	attack_hit_box.disabled = true
+
+func travar_camera(area: Rect2) -> void:
+	camera_travada = true
+
+	camera.limit_left = int(area.position.x)
+	camera.limit_top = int(area.position.y)
+	camera.limit_right = int(area.position.x + area.size.x)
+	camera.limit_bottom = int(area.position.y + area.size.y)
+
+
+func destravar_camera() -> void:
+	camera_travada = false
+
+	camera.limit_left = _limite_padrao_esquerdo
+	camera.limit_top = _limite_padrao_superior
+	camera.limit_right = _limite_padrao_direito
+	camera.limit_bottom = _limite_padrao_inferior

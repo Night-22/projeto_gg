@@ -245,7 +245,7 @@ wait_time = 0.4
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=884263791]
-position = Vector2(0, -48)
+position = Vector2(-1, -84)
 position_smoothing_enabled = true
 
 [connection signal="animation_finished" from="anim" to="." method="_on_animated_sprite_2d_animation_finished"]
