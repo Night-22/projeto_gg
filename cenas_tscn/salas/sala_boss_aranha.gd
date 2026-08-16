@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var boss: AranhaBoss = $AranhaBoss
+@onready var boss: AranhaBoss = get_node("AranhaBoss")
 @onready var gatilho: Area2D = $GatilhoLuta
 @onready var hud_chefe: CanvasLayer = $HudChefe
 @onready var barra_vida_chefe: ProgressBar = $HudChefe/Interface/BarraVidaChefe
