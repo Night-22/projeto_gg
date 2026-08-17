@@ -44,3 +44,4 @@ func obter_jogador() -> Node2D:
 			return jogador
 
 	return null
+	

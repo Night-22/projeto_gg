@@ -75,6 +75,7 @@ var sobrecarga_tick_timer := 0.0
 
 
 func _ready() -> void:
+
 	atualizar_icones_elementais()
 
 

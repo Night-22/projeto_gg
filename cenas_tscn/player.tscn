@@ -338,7 +338,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"die",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -570,9 +570,7 @@ texture_filter = 1
 position = Vector2(-0.74999994, -1.9999999)
 scale = Vector2(0.98275864, 1)
 sprite_frames = SubResource("SpriteFrames_tckef")
-animation = &"ataque_chao"
-frame = 4
-frame_progress = 1.0
+animation = &"floor_hit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1481044837]
 visible = false

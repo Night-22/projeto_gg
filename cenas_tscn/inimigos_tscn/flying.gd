@@ -41,10 +41,6 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall() and not player_detectado:
 		dir *= -1
 
-
-
-
-
 func _on_percepcao_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player = body

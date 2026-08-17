@@ -7,7 +7,7 @@ var texto_elemental : String
 
 func _ready():
 	texto_tutorial.modulate.a = 0.0
-	texto_elemental = "Faça reações elementais nos totens para destrancar a porta"
+	texto_elemental = "Faça reações elementais nos totens apertando o botão E para destrancar a porta"
 
 
 func mostrar_tutorial(texto: String) -> void:

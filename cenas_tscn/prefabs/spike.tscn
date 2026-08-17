@@ -6,10 +6,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(114, 18)
 
-[node name="Spike" type="Area2D" unique_id=742297829]
+[node name="Spike" type="Area2D" unique_id=742297829 groups=["Spike"]]
 script = ExtResource("1_7k7bx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1222214721]
+visible = false
 position = Vector2(1, -4.500002)
 scale = Vector2(0.20917432, 0.029209614)
 texture = ExtResource("2_7k7bx")
@@ -20,4 +21,5 @@ region_filter_clip_enabled = true
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_g4v7s")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

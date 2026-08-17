@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_4usim"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(28, 24)
+size = Vector2(24, 24)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yf5fn"]
 radius = 59.0118
@@ -12,6 +12,8 @@ height = 348.07092
 
 [node name="Flying" type="CharacterBody2D" unique_id=187868775 groups=["Inimigo"]]
 scale = Vector2(0.5, 0.5)
+motion_mode = 1
+wall_min_slide_angle = 1.4049901
 script = ExtResource("1_sih1y")
 knockback_ataque = 80
 metadata/_custom_type_script = "uid://bullfap4fo1nx"

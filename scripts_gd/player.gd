@@ -32,6 +32,11 @@ enum Spell {
 	PLANT_4
 }
 
+var invulnerable := false
+var iframe_timer := 0.0
+
+var input_locked := false
+
 var current_state = State.IDLE
 
 var Life = 50
@@ -236,7 +241,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Life <= 0:
 		current_state = State.DEAD
-
+	
+	if input_locked:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+	
 	if current_state != State.CLIMB and current_state != State.HEAL and is_on_floor():
 		jump_count = 0
 		air_dash_available = true
@@ -453,15 +463,22 @@ func curar_completo() -> void:
 
 
 func morrer_e_respawnar() -> void:
-	Life = max_life
-	Mana = max_mana
+	#Life = max_life
+	#Mana = max_mana
 
-	global_position = respawn_position
-	velocity = Vector2.ZERO
+	#global_position = respawn_position
+	#velocity = Vector2.ZERO
 	damage_knockback = Vector2.ZERO
 
 	cancelar_cura()
 	current_state = State.IDLE
+	lock_player()
+	anim.play("die")
+	await anim.animation_finished
+	var ultimo := SaveManager.obter_ultimo_save()
+	if ultimo != -1:
+			await SaveManager.carregar_jogo(ultimo)
+	unlock_player()
 
 
 func adicionar_item(id: String, nome: String, icone: String = "", quantidade: int = 1) -> void:
@@ -560,6 +577,7 @@ func setup_spells() -> void:
 			active_spells.append(spell)
 		else:
 			active_spells.append(null)
+
 
 
 func handle_spell_input() -> void:
@@ -1085,7 +1103,7 @@ func state_planar(delta):
 
 func state_dash(delta):
 	dash_timer -= delta
-
+	create_dash_effect()
 	velocity.y = 0
 	velocity.x = dash_speed * last_direction
 
@@ -1101,6 +1119,7 @@ func state_dash(delta):
 				current_state = State.WALK
 		else:
 			current_state = State.FALL
+	
 
 
 func state_climb(_delta):
@@ -1149,6 +1168,7 @@ func state_climb(_delta):
 
 
 func state_dead():
+	#velocity += get_gravity() * get_physics_process_delta_time()
 	die()
 
 
@@ -1276,8 +1296,12 @@ func attack_to_direction(dir):
 
 
 func receber_dano(dano: int, origem_x: float) -> void:
-	if Life <= 0:
+	if Life <= 0 or invulnerable:
 		return
+
+	iniciar_iframe()
+
+	tremer_camera(5, 0.25)
 
 	if current_state == State.HEAL:
 		cancelar_cura()
@@ -1298,7 +1322,6 @@ func receber_dano(dano: int, origem_x: float) -> void:
 
 	if Life <= 0:
 		current_state = State.DEAD
-
 
 func mostrar_dano(dano: int) -> void:
 	var label = Label.new()
@@ -1364,6 +1387,13 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 			air_dash_available = true
 			current_state = State.JUMP
 
+func fazer_pogo() -> void:
+	print("PLAYER: POGO EXECUTADO")
+
+	velocity.y = pogo_velocity
+	jump_count = min(jump_count + 1, max_jumps)
+	air_dash_available = true
+	current_state = State.JUMP
 
 func _on_coyote_timer_timeout() -> void:
 	coyote_time_activated = false
@@ -1400,3 +1430,95 @@ func destravar_camera() -> void:
 	camera.limit_top = _limite_padrao_superior
 	camera.limit_right = _limite_padrao_direito
 	camera.limit_bottom = _limite_padrao_inferior
+	
+func lock_player() -> void:
+	input_locked = true
+	velocity = Vector2.ZERO
+	damage_knockback = Vector2.ZERO
+
+
+func unlock_player() -> void:
+	input_locked = false
+	
+func tremer_camera(intensidade: float = 5.0, duracao: float = 0.15) -> void:
+	var tween = create_tween()
+
+	var quantidade_tremores := int(duracao / 0.03)
+
+	for i in quantidade_tremores:
+		tween.tween_property(
+			camera,
+			"offset",
+			Vector2(
+				randf_range(-intensidade, intensidade),
+				randf_range(-intensidade, intensidade)
+			),
+			0.03
+		)
+
+	tween.tween_property(
+		camera,
+		"offset",
+		Vector2.ZERO,
+		0.05
+	)
+
+var freeze_tween: Tween
+
+#func freeze_time(duracao: float = 0.1) -> void:
+	#Engine.time_scale = 0.0
+	#
+	#await get_tree().create_timer(
+		#duracao,
+		#true,
+		#false,
+		#true
+	#).timeout
+	#
+	#Engine.time_scale = 1.0
+	
+func create_dash_effect():
+	var playerCopyNode = anim.duplicate()
+	get_parent().add_child(playerCopyNode)
+	playerCopyNode.global_position = global_position
+	playerCopyNode.modulate.a = 0.0
+
+	var animationTime = dash_timer / 2.0
+
+	var tween = create_tween()
+	tween.tween_property(
+		playerCopyNode,
+		"modulate:a",
+		0.5,
+		animationTime * 0.3
+	)
+	tween.tween_property(
+		playerCopyNode,
+		"modulate:a",
+		0.0,
+		animationTime * 0.7
+	)
+
+	await tween.finished
+	playerCopyNode.queue_free()
+
+func iniciar_iframe(duracao: float = 0.7) -> void:
+	if invulnerable:
+		return
+
+	invulnerable = true
+	iframe_timer = duracao
+
+	
+
+	while iframe_timer > 0:
+		iframe_timer -= get_physics_process_delta_time()
+
+		modulate.a = 0.4 if int(iframe_timer * 20.0) % 2 == 0 else 1.0
+
+		await get_tree().physics_frame
+
+	
+
+	invulnerable = false
+	modulate.a = 1.0

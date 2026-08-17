@@ -6,6 +6,8 @@ signal chefe_derrotado
 @export var parede_esquerda : StaticBody2D
 @export var parede_direita : StaticBody2D
 
+@export var player : CharacterBody2D
+
 enum Estado {
 	IDLE,
 	ANDANDO_LADOS,
@@ -463,7 +465,9 @@ func _executar_animacao_porradao(ataque: String) -> void:
 
 	# liga a hitbox correta
 	hitbox_ativa.set_deferred("disabled", false)
-
+	
+	player.tremer_camera(10, 0.5)
+	
 	await get_tree().physics_frame
 
 	# da dano em quem ja estiver dentro
@@ -522,6 +526,7 @@ func _estado_ataque_mordida(_delta: float) -> void:
 		velocity.x = direcao * velocidade_movimento * 0.4
 
 
+
 func _iniciar_ataque_mordida() -> void:
 	tocar_animacao("mordendo")
 
@@ -533,6 +538,7 @@ func _iniciar_ataque_mordida() -> void:
 
 	var tween := create_tween()
 	tween.tween_property(self, "global_position:y", y_alvo, tempo_descida_mordida)
+	player.tremer_camera(5, tempo_descida_mordida)
 	tween.tween_property(self, "global_position:y", y_original, tempo_descida_mordida)
 	tween.finished.connect(_finalizar_mordida)
 

@@ -2,7 +2,7 @@ extends Area2D
 
 var jogador = null
 
-@export var jump_velocity = 500
+@export var jump_velocity = -500
 
 var escala_original = Vector2.ONE
 
@@ -15,7 +15,8 @@ func _on_body_entered(body):
 	if body.is_in_group("Player"):
 		jogador = body
 		jogador.slime_jump_velocity = jump_velocity
-		jogador.jump()
+		jogador.pular_no_slime()
+		
 
 		animar_slime()
 

@@ -105,3 +105,32 @@ func carregar_jogo(slot: int) -> bool:
 func apagar_slot(slot: int) -> void:
 	if slot_existe(slot):
 		DirAccess.remove_absolute(_caminho_slot(slot))
+
+##PARA PEGAR O ULTIMO SAVE É SO FAZER ISSO DAQ
+##var ultimo := SaveManager.obter_ultimo_save()
+	##if ultimo != -1:
+			##await SaveManager.carregar_jogo(ultimo)
+
+func obter_ultimo_save() -> int:
+	# comeca sem nenhum save
+	var slot_mais_recente := -1
+	var data_mais_recente := ""
+
+	# verifica todos os slots
+	for slot in range(1, MAX_SLOTS + 1):
+		var dados := obter_info_slot(slot)
+
+		# pula se o slot estiver vazio
+		if dados.is_empty():
+			continue
+
+		# pega a data do save
+		var data = dados.get("data_hora", "")
+
+		# ve se esse save e mais recente
+		if data > data_mais_recente:
+			data_mais_recente = data
+			slot_mais_recente = slot
+
+	# retorna o slot mais recente
+	return slot_mais_recente
