@@ -401,14 +401,17 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(1640, -131)
 
 [node name="chao_movel" parent="props" unique_id=184351549 instance=ExtResource("14_blw00")]
-position = Vector2(1537, 3)
+position = Vector2(1537, 82)
 script = ExtResource("15_3mhvm")
-distancia = 120.0
+distancia = 170.0
 velocidade = 150.0
 
 [node name="porta4" parent="props" unique_id=1694370646 instance=ExtResource("7_6305r")]
 position = Vector2(1711, 191.99998)
 scale = Vector2(-1, -1.063)
+
+[node name="slime_bloco4" parent="props" unique_id=1766379732 instance=ExtResource("9_phy2f")]
+position = Vector2(1610, 207)
 
 [node name="fire_wizard" parent="." unique_id=2065534413 instance=ExtResource("16_urwnf")]
 position = Vector2(1687, 103)
@@ -422,7 +425,7 @@ Life = 5
 knockback_ataque = 120
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("11_blw00")]
-position = Vector2(175, 276)
+position = Vector2(1559, 39)
 
 [node name="Flying2" parent="." unique_id=1786747674 instance=ExtResource("17_vqqwn")]
 position = Vector2(1626, -184)

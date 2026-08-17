@@ -61,6 +61,21 @@ var almas_planta = 0
 @onready var coyote_timer: Timer = $coyoteTimer
 @onready var camera: Camera2D = $Camera2D
 
+
+var dentro_da_agua := false
+
+@export var gravidade_agua := 60.0
+@export var velocidade_max_queda_agua := 100.0
+
+@export var velocidade_agua := 110.0
+@export var aceleracao_agua := 1.5
+
+@export var jump_velocity_agua := -160.0
+@export var double_jump_velocity_agua := -120.0
+@export var pogo_velocity_agua := -160.0
+
+@export var dash_speed_agua := 150.0
+
 var camera_travada = false
 var _limite_padrao_esquerdo := 0
 var _limite_padrao_direito := 0
@@ -289,8 +304,11 @@ func _physics_process(delta: float) -> void:
 			anim.play("fall")
 
 		State.PLANAR:
-			state_planar(delta)
-			anim.play("glide")
+			if dentro_da_agua:
+				current_state = State.FALL
+			else:
+				state_planar(delta)
+				anim.play("glide")
 
 		State.DASH:
 			state_dash(delta)
@@ -901,8 +919,6 @@ func state_idle(delta):
 	if !is_on_floor():
 		start_coyote()
 		current_state = State.FALL
-
-
 func state_walk(delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 
@@ -913,8 +929,8 @@ func state_walk(delta):
 
 	velocity.x = lerp(
 		velocity.x,
-		direction * speed,
-		delta * acceleration
+		direction * obter_speed(),
+		delta * obter_acceleration()
 	)
 
 	if Input.is_action_just_pressed("pulo"):
@@ -940,10 +956,8 @@ func state_walk(delta):
 	if !is_on_floor():
 		start_coyote()
 		current_state = State.FALL
-
-
 func state_jump(delta):
-	velocity += get_gravity() * delta
+	aplicar_gravidade(delta)
 
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 
@@ -954,8 +968,8 @@ func state_jump(delta):
 
 	velocity.x = lerp(
 		velocity.x,
-		direction * speed,
-		delta * acceleration
+		direction * obter_speed(),
+		delta * obter_acceleration()
 	)
 
 	if Input.is_action_just_pressed("pulo") and jump_count < max_jumps:
@@ -980,7 +994,6 @@ func state_jump(delta):
 
 	if Input.is_action_just_pressed("ataque"):
 		current_state = State.ATTACK
-
 
 func state_attack(_delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
@@ -1013,10 +1026,8 @@ func state_attack(_delta):
 			current_state = State.FALL
 		else:
 			current_state = State.JUMP
-
-
 func state_fall(delta):
-	velocity += get_gravity() * delta
+	aplicar_gravidade(delta)
 
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 
@@ -1027,8 +1038,8 @@ func state_fall(delta):
 
 	velocity.x = lerp(
 		velocity.x,
-		direction * speed,
-		delta * acceleration
+		direction * obter_speed(),
+		delta * obter_acceleration()
 	)
 
 	if Input.is_action_just_pressed("ataque"):
@@ -1060,8 +1071,9 @@ func state_fall(delta):
 		else:
 			current_state = State.WALK
 
-
 func state_planar(delta):
+	
+	
 	velocity.y += planar_gravity * delta
 	velocity.y = min(velocity.y, planar_max_fall_speed)
 
@@ -1100,12 +1112,12 @@ func state_planar(delta):
 		else:
 			current_state = State.WALK
 
-
 func state_dash(delta):
 	dash_timer -= delta
 	create_dash_effect()
+
 	velocity.y = 0
-	velocity.x = dash_speed * last_direction
+	velocity.x = obter_dash_speed() * last_direction
 
 	anim.flip_h = last_direction < 0
 
@@ -1171,15 +1183,14 @@ func state_dead():
 	#velocity += get_gravity() * get_physics_process_delta_time()
 	die()
 
-
 func jump():
 	if jump_count >= max_jumps:
 		return
 
 	if jump_count == 0:
-		velocity.y = jump_velocity
+		velocity.y = obter_jump_velocity()
 	else:
-		velocity.y = double_jump_velocity
+		velocity.y = obter_double_jump_velocity()
 
 	jump_count += 1
 	coyote_time_activated = false
@@ -1382,7 +1393,7 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 		Mana = min(Mana + 10, max_mana)
 
 		if looking_down and !is_on_floor():
-			velocity.y = pogo_velocity
+			velocity.y = obter_pogo_velocity()
 			jump_count = min(jump_count + 1, max_jumps)
 			air_dash_available = true
 			current_state = State.JUMP
@@ -1390,7 +1401,7 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 func fazer_pogo() -> void:
 	print("PLAYER: POGO EXECUTADO")
 
-	velocity.y = pogo_velocity
+	velocity.y = obter_pogo_velocity()
 	jump_count = min(jump_count + 1, max_jumps)
 	air_dash_available = true
 	current_state = State.JUMP
@@ -1522,3 +1533,58 @@ func iniciar_iframe(duracao: float = 0.7) -> void:
 
 	invulnerable = false
 	modulate.a = 1.0
+
+func entrar_na_agua() -> void:
+	dentro_da_agua = true
+
+
+func sair_da_agua() -> void:
+	dentro_da_agua = false
+func obter_speed() -> float:
+	if dentro_da_agua:
+		return velocidade_agua
+
+	return speed
+
+
+func obter_acceleration() -> float:
+	if dentro_da_agua:
+		return aceleracao_agua
+
+	return acceleration
+
+
+func obter_jump_velocity() -> float:
+	if dentro_da_agua:
+		return jump_velocity_agua
+
+	return jump_velocity
+
+
+func obter_double_jump_velocity() -> float:
+	if dentro_da_agua:
+		return double_jump_velocity_agua
+
+	return double_jump_velocity
+
+
+func obter_pogo_velocity() -> float:
+	if dentro_da_agua:
+		return pogo_velocity_agua
+
+	return pogo_velocity
+
+
+func obter_dash_speed() -> float:
+	if dentro_da_agua:
+		return dash_speed_agua
+
+	return dash_speed
+
+
+func aplicar_gravidade(delta: float) -> void:
+	if dentro_da_agua:
+		velocity.y += gravidade_agua * delta
+		velocity.y = min(velocity.y, velocidade_max_queda_agua)
+	else:
+		velocity += get_gravity() * delta
