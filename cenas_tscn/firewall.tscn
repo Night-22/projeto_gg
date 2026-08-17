@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b0nfp7fepidfg"]
+
+[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="1_4jwfa"]
+[ext_resource type="Script" uid="uid://c3ub3phkhpfop" path="res://scripts_gd/firewall.gd" id="1_l0syl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4hfqt"]
+size = Vector2(14, 73)
+
+[node name="firewall" type="Area2D" unique_id=1631623316]
+script = ExtResource("1_l0syl")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=525527581]
+position = Vector2(1.7881393e-07, -0.50000024)
+scale = Vector2(0.06698565, 0.2635379)
+texture = ExtResource("1_4jwfa")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=1873886427]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_4hfqt")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

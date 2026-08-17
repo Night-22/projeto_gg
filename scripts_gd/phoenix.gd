@@ -1,6 +1,6 @@
 extends Flying
 
-@onready var water = preload("res://cenas_tscn/ataque_agua.tscn")
+@onready var water = preload("res://cenas_tscn/ataque_fogo.tscn")
 @onready var cooldown: Timer = $Cooldown
 @onready var percepcao: Area2D = $percepcao
 

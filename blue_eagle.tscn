@@ -25,5 +25,9 @@ shape = SubResource("RectangleShape2D_g4v7s")
 [node name="collision" type="CollisionShape2D" parent="percepcao" unique_id=498067592]
 shape = SubResource("CircleShape2D_g4v7s")
 
+[node name="Cooldown" type="Timer" parent="." unique_id=177694156]
+wait_time = 3.0
+
 [connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
 [connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
