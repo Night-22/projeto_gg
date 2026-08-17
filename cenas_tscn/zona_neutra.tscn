@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b4337vjp45b1x" path="res://cenas_tscn/inimigos_tscn/phoenix.tscn" id="11_hvy8n"]
 [ext_resource type="PackedScene" uid="uid://d4gxdlp2dmx68" path="res://cenas_tscn/prefabs/slime_bloco.tscn" id="11_wtsj2"]
 [ext_resource type="PackedScene" uid="uid://cm3xil64ctpv6" path="res://cenas_tscn/inimigos_tscn/plant_wizard.tscn" id="12_hvy8n"]
+[ext_resource type="PackedScene" uid="uid://cjj87tb5uhqdj" path="res://cenas_tscn/prefabs/spike.tscn" id="13_vkgfb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8svo"]
 texture = ExtResource("4_a2tbi")
@@ -892,6 +893,10 @@ Speed = 0
 [node name="slime_bloco6" parent="." unique_id=1468841756 instance=ExtResource("11_wtsj2")]
 position = Vector2(520, 141)
 jump_velocity = -250
+
+[node name="Spike" parent="." unique_id=742297829 instance=ExtResource("13_vkgfb")]
+position = Vector2(72, -138)
+scale = Vector2(3.5600007, 1)
 
 [connection signal="body_entered" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_entered"]
 [connection signal="body_exited" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_exited"]
