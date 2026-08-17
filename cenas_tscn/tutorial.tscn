@@ -13,6 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://cn1satphdxvy8" path="res://cenas_tscn/prefabs/totem.tscn" id="11_3b82o"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="11_blw00"]
 [ext_resource type="PackedScene" uid="uid://c7inqq1bh8uw5" path="res://cenas_tscn/prefabs/plataforma_furavel.tscn" id="12_3mhvm"]
+[ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="12_bltfd"]
+[ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="15_phy2f"]
+[ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="16_6o3if"]
+[ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="17_blw00"]
+[ext_resource type="PackedScene" path="res://cenas_tscn/menus/bancada_menu.tscn" id="18_3mhvm"]
+[ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="19_urwnf"]
+[ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="20_vqqwn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_foa2r"]
 texture = ExtResource("2_3b82o")
@@ -246,6 +253,9 @@ size = Vector2(67, 36)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0u6y"]
 size = Vector2(24, 21)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1u0y"]
+size = Vector2(28, 28)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gngh"]
 size = Vector2(55, 33)
 
@@ -300,7 +310,7 @@ alavancas = [NodePath("../alavanca3")]
 [node name="porta2" parent="props" unique_id=917270089 node_paths=PackedStringArray("alavancas") instance=ExtResource("7_6305r")]
 position = Vector2(639, 272)
 scale = Vector2(-1, -1.063)
-alavancas = [NodePath("../alavanca")]
+alavancas = [NodePath("../alavanca"), NodePath("../alavanca2")]
 
 [node name="alavanca" parent="props" unique_id=304942892 instance=ExtResource("8_wyg7v")]
 position = Vector2(489, 136)
@@ -366,6 +376,10 @@ position = Vector2(1161, 129)
 
 [node name="totem2" parent="props" unique_id=1597960096 instance=ExtResource("11_3b82o")]
 position = Vector2(1161, 273)
+
+[node name="Bancada2" parent="props" unique_id=1066200369 instance=ExtResource("12_bltfd")]
+position = Vector2(302, 275)
+scale = Vector2(0.5, 0.5)
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("11_blw00")]
 position = Vector2(334, 277)
@@ -456,6 +470,10 @@ shape = SubResource("RectangleShape2D_d0u6y")
 position = Vector2(860, 712)
 shape = SubResource("RectangleShape2D_d0u6y")
 
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="HUD_Tutorial/area_texto_tutorial/interagir" unique_id=1418258891]
+position = Vector2(302, 275)
+shape = SubResource("RectangleShape2D_p1u0y")
+
 [node name="descer_plataforma" type="Area2D" parent="HUD_Tutorial/area_texto_tutorial" unique_id=638050003]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HUD_Tutorial/area_texto_tutorial/descer_plataforma" unique_id=1901142902]
@@ -485,6 +503,18 @@ shape = SubResource("RectangleShape2D_33x8s")
 [node name="plataforma_furavel5" parent="HUD_Tutorial" unique_id=1676048172 instance=ExtResource("12_3mhvm")]
 position = Vector2(489.00003, 148.00002)
 scale = Vector2(0.089579746, 0.1683125)
+
+[node name="Hud" parent="." unique_id=249675550 instance=ExtResource("15_phy2f")]
+
+[node name="SpellInventory" parent="." unique_id=1732352662 instance=ExtResource("16_6o3if")]
+
+[node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("17_blw00")]
+
+[node name="BancadaMenu" parent="." unique_id=63037626 instance=ExtResource("18_3mhvm")]
+
+[node name="SaveMenu" parent="." unique_id=1861813984 instance=ExtResource("19_urwnf")]
+
+[node name="InventarioGeral" parent="." unique_id=754743051 instance=ExtResource("20_vqqwn")]
 
 [connection signal="destrancou" from="props/porta3" to="." method="_on_porta_3_destrancou"]
 [connection signal="body_entered" from="HUD_Tutorial/area_texto_tutorial/cura" to="." method="_on_cura_body_entered"]
