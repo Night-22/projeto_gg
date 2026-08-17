@@ -69,10 +69,10 @@ var _limite_padrao_inferior := 0
 
 var coyote_time_activated = false
 
-var speed: float = 200.0
-var jump_velocity = -360.0
-var double_jump_velocity = -280.0
-var pogo_velocity = -360.0
+var speed: float = 160.0
+var jump_velocity = -280.0
+var double_jump_velocity = -200.0
+var pogo_velocity = -260.0
 
 var planar_gravity = 250.0
 var planar_max_fall_speed = 80.0

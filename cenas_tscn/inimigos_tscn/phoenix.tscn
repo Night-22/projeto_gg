@@ -4,17 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_403vi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
-size = Vector2(28, 30)
+size = Vector2(14, 14)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57qmd"]
-radius = 153.39491
+radius = 124.01613
 
 [node name="phoenix" type="CharacterBody2D" unique_id=904614313 groups=["Inimigo"]]
 script = ExtResource("1_4ma74")
 metadata/_custom_type_script = "uid://bullfap4fo1nx"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=439796330]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.025, 0.025)
 texture = ExtResource("2_403vi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1443085660]
