@@ -38,7 +38,8 @@ func _on_body_exited(body: Node2D) -> void:
 func interagir() -> void:
 	if !jogador_dentro():
 		return
-	var menu = get_tree().get_first_node_in_group("Craft_menu")
+
+	var menu = get_tree().get_first_node_in_group("Bancada_menu")
 
 	if menu == null:
 		return
@@ -50,8 +51,17 @@ func interagir() -> void:
 	if menu.visible:
 		return
 
+	var player = obter_jogador()
+
+	if player != null:
+		if player.has_method("curar_completo"):
+			player.curar_completo()
+
+		if player.has_method("definir_checkpoint"):
+			player.definir_checkpoint(global_position)
+
 	if menu.has_method("abrir_menu"):
-		menu.abrir_menu()
+		menu.abrir_menu(self)
 
 func jogador_dentro() -> bool:
 	for jogador in jogadores:
@@ -59,3 +69,10 @@ func jogador_dentro() -> bool:
 			return true
 
 	return false
+
+func obter_jogador():
+	for jogador in jogadores:
+		if is_instance_valid(jogador):
+			return jogador
+
+	return null

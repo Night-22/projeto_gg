@@ -2,7 +2,7 @@ extends Node2D
 
 var duration = 0.4
 var cooldown = 15.0
-var mana_cost = 25.0
+var mana_cost = 25
 var damage = 3
 
 var player = null

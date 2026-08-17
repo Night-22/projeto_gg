@@ -4,7 +4,6 @@
 
 [node name="SpellInventory" type="CanvasLayer" unique_id=1732352662 groups=["Inventario"]]
 process_mode = 3
-visible = false
 script = ExtResource("1_0vt75")
 
 [node name="Background" type="Panel" parent="." unique_id=411967214]
@@ -19,6 +18,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -22.5
+offset_right = 34.0
+offset_bottom = 22.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -33,11 +36,13 @@ theme_override_font_sizes/font_size = 35
 text = "Magias"
 
 [node name="InventoryGrid" type="GridContainer" parent="Background/MarginContainer/VBoxContainer" unique_id=1640806350]
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 4
 columns = 4
 
 [node name="Water1" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1915124477]
+custom_maximum_size = Vector2(-1, 50)
 layout_mode = 2
 text = "Water 1"
 

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://syw6d4ef0k07"]
+
+[ext_resource type="Script" uid="uid://11cw1x2atm3s" path="res://scripts_gd/fire_user.gd" id="1_tsqbp"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_8axs6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(28, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57qmd"]
+size = Vector2(141, 26)
+
+[node name="Fire_user" type="CharacterBody2D" unique_id=1450389385 groups=["Inimigo"]]
+script = ExtResource("1_tsqbp")
+metadata/_custom_type_script = "uid://cn1m5131s4q2h"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1193667901]
+position = Vector2(0.99999994, 0.99999994)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_8axs6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1398714691]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[node name="percepcao" type="Area2D" parent="." unique_id=1873445244]
+
+[node name="collision" type="CollisionShape2D" parent="percepcao" unique_id=428968283]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_57qmd")
+
+[node name="Cooldown" type="Timer" parent="." unique_id=1258787150]
+wait_time = 5.0
+
+[connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
+[connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

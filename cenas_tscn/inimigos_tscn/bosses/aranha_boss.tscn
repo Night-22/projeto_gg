@@ -411,11 +411,13 @@ autoplay = "idle"
 speed_scale = 1.5
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1935050369]
+visible = false
 position = Vector2(-1, -62)
 rotation = -1.5707964
 shape = SubResource("CircleShape2D_corpo")
 
 [node name="MordidaHitbox" type="Area2D" parent="." unique_id=604990351]
+visible = false
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MordidaHitbox" unique_id=882950983 groups=["Boss"]]
@@ -423,6 +425,7 @@ position = Vector2(-1, -21)
 shape = SubResource("CircleShape2D_mordida")
 
 [node name="Pata_Porrada_esquerda" type="Area2D" parent="." unique_id=782841464]
+visible = false
 
 [node name="pata_esquerda" type="CollisionShape2D" parent="Pata_Porrada_esquerda" unique_id=827304483]
 position = Vector2(-63.271492, 23.328413)
@@ -430,6 +433,7 @@ rotation = -0.17821217
 shape = SubResource("RectangleShape2D_57qmd")
 
 [node name="Pata_porrada_direita" type="Area2D" parent="." unique_id=1548852569]
+visible = false
 
 [node name="pata_direita" type="CollisionShape2D" parent="Pata_porrada_direita" unique_id=207969170]
 position = Vector2(62.000008, 26.000002)

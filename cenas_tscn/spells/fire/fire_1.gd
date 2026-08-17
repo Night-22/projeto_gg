@@ -3,7 +3,7 @@ extends Node2D
 var duration = 0.5
 var imbue_duration = 10.0
 var cooldown = 15.0
-var mana_cost = 10.0
+var mana_cost = 10
 
 var cooldown_timer: Timer
 

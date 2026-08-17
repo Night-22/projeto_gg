@@ -1,53 +1,57 @@
 extends Flying
 
 @onready var water = preload("res://cenas_tscn/ataque_agua.tscn")
-@onready var percepcao: Area2D = $percepcao
 @onready var cooldown: Timer = $Cooldown
+@onready var percepcao: Area2D = $percepcao
 
 var player: Node2D = null
 var atacando := false
+var ja_atacou := false
 
-@export var distancia_do_cajado := 35.0
-@export var intervalo_entre_tiros := 0.15
+@export var distancia_do_ataque := 10.0
+@export var angulo_dos_tiros := 40.0
 
 
 func _on_percepcao_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		player = body
-		
-		if !atacando and cooldown.is_stopped():
-			call_deferred("disparar_rajada")
+	if !body.is_in_group("Player"):
+		return
+	
+	player = body
+	
+	if !ja_atacou and !atacando:
+		ja_atacou = true
+		call_deferred("disparar_rajada")
 
 
 func disparar_rajada() -> void:
-	if !player_na_area():
+	if !player_esta_na_percepcao():
 		return
 	
 	atacando = true
-	disparar_agua()
 	
-	await get_tree().create_timer(intervalo_entre_tiros).timeout
-	if !player_na_area():
-		atacando = false
-		return
+	var direcao = player.global_position - global_position
+	var angulo = direcao.angle()
+	var abertura = deg_to_rad(angulo_dos_tiros)
 	
-	disparar_agua()
+	disparar_agua(Vector2.from_angle(angulo - abertura))
+	disparar_agua(Vector2.from_angle(angulo))
+	disparar_agua(Vector2.from_angle(angulo + abertura))
 	
-	await get_tree().create_timer(intervalo_entre_tiros).timeout
-	
-	if !player_na_area():
-		atacando = false
-		return
-	
-	disparar_agua()
 	atacando = false
 	cooldown.start()
 
 
-func player_na_area() -> bool:
-	var jogadores = percepcao.get_overlapping_bodies()
+func disparar_agua(direcao: Vector2) -> void:
+	var ataque = water.instantiate()
 	
-	for body in jogadores:
+	ataque.global_position = global_position + direcao * distancia_do_ataque
+	ataque.direction = direcao
+	
+	get_parent().add_child(ataque)
+
+
+func player_esta_na_percepcao() -> bool:
+	for body in percepcao.get_overlapping_bodies():
 		if body.is_in_group("Player"):
 			player = body
 			return true
@@ -56,29 +60,12 @@ func player_na_area() -> bool:
 	return false
 
 
-func disparar_agua() -> void:
-	if !player_na_area():
-		return
-	
-	var ataque = water.instantiate()
-	var direcao = sign(
-		player.global_position.x - global_position.x
-	)
-	if direcao == 0:
-		direcao = 1
-	
-	ataque.global_position = global_position
-	ataque.global_position.x += direcao * distancia_do_cajado
-	ataque.direction = Vector2(direcao, 0)
-	
-	get_parent().add_child(ataque)
-
-
 func _on_cooldown_timeout() -> void:
-	if player_na_area() and !atacando:
+	if player_esta_na_percepcao() and !atacando:
 		disparar_rajada()
 
 
 func _on_percepcao_body_exited(body: Node2D) -> void:
 	if body == player:
 		player = null
+		atacando = false
