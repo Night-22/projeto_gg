@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c7inqq1bh8uw5"]
+
+[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_73nbk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ponte"]
+size = Vector2(900, 40)
+
+[node name="plataforma_furavel" type="StaticBody2D" unique_id=1424422267 groups=["PlataformaFuravel"]]
+z_index = 1
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1112908817]
+visible = false
+z_index = 1
+scale = Vector2(7.03125, 0.3125)
+texture = ExtResource("1_73nbk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1656586497]
+z_index = 1
+shape = SubResource("RectangleShape2D_ponte")
+one_way_collision = true

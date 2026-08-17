@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://vqp0b05cdr31"]
+
+[ext_resource type="Script" uid="uid://b6ihyfdxerali" path="res://scripts_gd/porta.gd" id="1_2j2l3"]
+[ext_resource type="Texture2D" uid="uid://dwi11jqwvo4fs" path="res://assets/portaaberta.png" id="2_g8bx8"]
+[ext_resource type="Texture2D" uid="uid://cxttrqh0mf30a" path="res://assets/portafechada.png" id="3_56pp7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g8bx8")
+}],
+"loop": 1,
+"name": &"aberta",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_56pp7")
+}],
+"loop": 1,
+"name": &"fechada",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(4, 31.058815)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(69, 31.058832)
+
+[node name="porta" type="StaticBody2D" unique_id=526709121]
+scale = Vector2(1, 1.0625)
+script = ExtResource("1_2j2l3")
+fechada = true
+
+[node name="Label" type="Label" parent="." unique_id=158233058]
+visible = false
+offset_left = 7.0
+offset_top = -23.529411
+offset_right = 47.0
+offset_bottom = -0.5294113
+theme_override_font_sizes/font_size = 6
+text = "0/0"
+
+[node name="porta" type="AnimatedSprite2D" parent="." unique_id=950460370]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"fechada"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1621961110]
+position = Vector2(12, 0.47058868)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1418250403]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=251850367]
+position = Vector2(0.5, -0.47058868)
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

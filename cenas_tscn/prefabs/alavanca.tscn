@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://cqbtg7of0441y"]
+
+[ext_resource type="Script" uid="uid://bv8khllrpsxnk" path="res://scripts_gd/alavanca.gd" id="1_yxtj3"]
+[ext_resource type="Texture2D" uid="uid://bdssedmuk4ehh" path="res://assets/alavanca-Sheet.png" id="2_col0d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0u6y"]
+size = Vector2(24, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_foa2r"]
+atlas = ExtResource("2_col0d")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjcax"]
+atlas = ExtResource("2_col0d")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyc7n"]
+atlas = ExtResource("2_col0d")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0y0r"]
+atlas = ExtResource("2_col0d")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yf5fn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_foa2r")
+}],
+"loop": 1,
+"name": &"desligada",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjcax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyc7n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0y0r")
+}],
+"loop": 0,
+"name": &"ligando",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_yxtj3"]
+offsets = PackedFloat32Array(0, 0.26415095, 0.6037736, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.5689655, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ormsq"]
+gradient = SubResource("Gradient_yxtj3")
+fill = 1
+fill_from = Vector2(0.5117647, 0.5588235)
+fill_to = Vector2(1, 1)
+
+[node name="Alavanca" type="Area2D" unique_id=304942892]
+script = ExtResource("1_yxtj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=134023756]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_d0u6y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=498858399]
+sprite_frames = SubResource("SpriteFrames_yf5fn")
+animation = &"ligando"
+autoplay = "desligada"
+
+[node name="Label" type="Label" parent="." unique_id=1752658526]
+visible = false
+offset_left = -4.0
+offset_top = -15.0
+offset_right = 36.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 6
+text = "0/2"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=24528364]
+position = Vector2(1.9999995, -1.5000005)
+scale = Vector2(0.34375, 0.296875)
+color = Color(1, 1, 1, 0.41568628)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_ormsq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

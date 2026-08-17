@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://d4gxdlp2dmx68"]
+
+[ext_resource type="Script" uid="uid://c0xfgg3m5qa4d" path="res://scripts_gd/slime_bloco.gd" id="1_7t3rf"]
+[ext_resource type="Texture2D" uid="uid://clyo5wfc2rhks" path="res://assets/slime_bloco.png" id="2_ormsq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gngh"]
+size = Vector2(16, 7)
+
+[node name="slime_bloco" type="Area2D" unique_id=1633220232 groups=["slime_bloco"]]
+script = ExtResource("1_7t3rf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=175342759]
+texture = ExtResource("2_ormsq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1739941380]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_3gngh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
