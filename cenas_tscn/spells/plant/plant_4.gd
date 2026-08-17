@@ -1,7 +1,7 @@
 extends Node2D
 
 var cooldown = 30.0
-var mana_cost = 35.0
+var mana_cost = 35
 
 var cooldown_timer: Timer
 var spawn_timer: Timer

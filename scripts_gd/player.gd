@@ -9,6 +9,7 @@ enum State {
 	PLANAR,
 	DASH,
 	CLIMB,
+	HEAL,
 	DEAD
 }
 
@@ -50,7 +51,7 @@ var almas_planta = 0
 
 @onready var anim: AnimatedSprite2D = $anim
 @onready var attack_hit_box: CollisionShape2D = $attackHitBox/collision
-@onready var attack_sprite: Sprite2D = $attackHitBox/Sprite2D
+@onready var attack_sprite: AnimatedSprite2D = $attackHitBox/attack_sprite
 @onready var attack_timer: Timer = $attackTimer
 @onready var coyote_timer: Timer = $coyoteTimer
 @onready var camera: Camera2D = $Camera2D
@@ -89,6 +90,7 @@ var damage_knockback := Vector2.ZERO
 
 @export var knockback_force := 200.0
 @export var knockback_up_force := -100.0
+@export var slime_jump_velocity = -600.0
 
 var ladder = null
 var climbing_ladder = false
@@ -96,13 +98,19 @@ var climb_speed = 120.0
 
 var bancada = null
 
+var tem_checkpoint := false
+var respawn_position := Vector2.ZERO
+
+# Cada item: {"id": String, "nome": String, "icone": String, "quantidade": int}
+var inventario_itens: Array = []
+
 var current_element = -1
 var imbued_element = -1
 
 var element_colors = {
 	0: Color(1.0, 0.45, 0.0),
-	1: Color(0.3, 0.8, 1.0),
-	2: Color(0.7, 0.2, 1.0),
+	1: Color(0.0, 1.125, 10.175),
+	2: Color(0.65, 0.0, 4.601),
 	3: Color(0.3, 1.0, 0.3)
 }
 
@@ -126,10 +134,10 @@ var spell_scenes = {
 }
 
 var equipped_spells = [
-	Spell.WATER_4,
-	Spell.FIRE_4,
-	Spell.LIGHTNING_4,
-	Spell.PLANT_3
+	Spell.WATER_1,
+	Spell.FIRE_1,
+	Spell.LIGHTNING_1,
+	Spell.PLANT_1
 ]
 
 var spell_inventory = [
@@ -185,9 +193,19 @@ var spell_lock_timer: Timer
 var imbue_timer: Timer
 var plataforma_timer: Timer
 
+var heal_mana_cost = 35
+var heal_duration = 2.0
+var heal_amount = 20
+var heal_timer := 0.0
+var heal_mana_timer := 0.0
+var heal_mana_interval := 0.0
+var heal_mana_spent := 0
+
 
 func _ready() -> void:
 	add_to_group("Player")
+
+	respawn_position = global_position
 
 	_limite_padrao_esquerdo = camera.limit_left
 	_limite_padrao_direito = camera.limit_right
@@ -209,6 +227,8 @@ func _ready() -> void:
 	plataforma_timer.timeout.connect(_on_plataforma_timer_timeout)
 	add_child(plataforma_timer)
 
+	heal_mana_interval = heal_duration / float(heal_mana_cost)
+
 	setup_spells()
 	update_imbued_element()
 
@@ -217,7 +237,7 @@ func _physics_process(delta: float) -> void:
 	if Life <= 0:
 		current_state = State.DEAD
 
-	if current_state != State.CLIMB and is_on_floor():
+	if current_state != State.CLIMB and current_state != State.HEAL and is_on_floor():
 		jump_count = 0
 		air_dash_available = true
 
@@ -227,15 +247,16 @@ func _physics_process(delta: float) -> void:
 	handle_spell_input()
 
 	if ladder != null and is_instance_valid(ladder):
-		if current_state != State.CLIMB:
+		if current_state != State.CLIMB and current_state != State.HEAL:
 			if Input.is_action_pressed("cima") or Input.is_action_pressed("baixo"):
 				entrar_na_escada(ladder)
 
 	if Input.is_action_just_pressed("interagir"):
-		if bancada != null and is_instance_valid(bancada) :
+		if bancada != null and is_instance_valid(bancada):
 			interagir_com_bancada()
 
-
+	if current_state != State.HEAL:
+		tentar_iniciar_cura()
 
 	match current_state:
 		State.IDLE:
@@ -259,16 +280,22 @@ func _physics_process(delta: float) -> void:
 
 		State.PLANAR:
 			state_planar(delta)
-			anim.play("fall")
+			anim.play("glide")
 
 		State.DASH:
 			state_dash(delta)
+			anim.play("dash")
 
 		State.CLIMB:
 			state_climb(delta)
+			anim.play("climb")
+
+		State.HEAL:
+			state_heal(delta)
 
 		State.DEAD:
 			state_dead()
+			anim.play("die")
 
 	if damage_knockback.length() > 10:
 		velocity.x = damage_knockback.x
@@ -280,6 +307,93 @@ func _physics_process(delta: float) -> void:
 	)
 
 	move_and_slide()
+
+
+func tentar_iniciar_cura() -> void:
+	if !Input.is_action_pressed("curar"):
+		return
+
+	if !is_on_floor():
+		return
+
+	if Life >= max_life:
+		return
+
+	if Mana < heal_mana_cost:
+		return
+
+	if spell_in_use:
+		return
+
+	if current_state == State.ATTACK:
+		return
+
+	iniciar_cura()
+
+
+func iniciar_cura() -> void:
+	current_state = State.HEAL
+	velocity = Vector2.ZERO
+
+	heal_timer = 0.0
+	heal_mana_timer = 0.0
+	heal_mana_spent = 0
+
+
+func state_heal(delta: float) -> void:
+	velocity = Vector2.ZERO
+
+	if !is_on_floor():
+		cancelar_cura()
+		return
+
+	if !Input.is_action_pressed("curar"):
+		cancelar_cura()
+		return
+
+	if Life >= max_life:
+		cancelar_cura()
+		return
+
+	heal_timer += delta
+	heal_mana_timer += delta
+
+	while heal_mana_timer >= heal_mana_interval and heal_mana_spent < heal_mana_cost:
+		heal_mana_timer -= heal_mana_interval
+
+		if Mana <= 0:
+			cancelar_cura()
+			return
+
+		Mana -= 1
+		heal_mana_spent += 1
+
+	if heal_timer >= heal_duration:
+		if heal_mana_spent >= heal_mana_cost:
+			Life = min(Life + heal_amount, max_life)
+			finalizar_cura()
+		else:
+			cancelar_cura()
+		return
+
+	anim.play("idle")
+
+
+func cancelar_cura() -> void:
+	current_state = State.IDLE
+	heal_timer = 0.0
+	heal_mana_timer = 0.0
+	heal_mana_spent = 0
+	velocity = Vector2.ZERO
+
+
+func finalizar_cura() -> void:
+	current_state = State.IDLE
+	heal_timer = 0.0
+	heal_mana_timer = 0.0
+	heal_mana_spent = 0
+	velocity = Vector2.ZERO
+
 
 func entrar_na_bancada(nova_bancada) -> void:
 	if nova_bancada == null:
@@ -296,7 +410,7 @@ func sair_da_bancada(nova_bancada) -> void:
 
 
 func interagir_com_bancada() -> void:
-	print('bancada')
+
 	if bancada == null:
 		return
 
@@ -325,6 +439,115 @@ func adicionar_alma(tipo_alma: int) -> void:
 		3:
 			almas_planta += 1
 			print("almas de planta: ", almas_planta)
+
+
+func definir_checkpoint(pos: Vector2) -> void:
+	tem_checkpoint = true
+	respawn_position = pos
+
+
+func curar_completo() -> void:
+	Life = max_life
+	Mana = max_mana
+
+
+
+func morrer_e_respawnar() -> void:
+	Life = max_life
+	Mana = max_mana
+
+	global_position = respawn_position
+	velocity = Vector2.ZERO
+	damage_knockback = Vector2.ZERO
+
+	cancelar_cura()
+	current_state = State.IDLE
+
+
+func adicionar_item(id: String, nome: String, icone: String = "", quantidade: int = 1) -> void:
+	for item in inventario_itens:
+		if item["id"] == id:
+			item["quantidade"] += quantidade
+			return
+
+	inventario_itens.append({
+		"id": id,
+		"nome": nome,
+		"icone": icone,
+		"quantidade": quantidade
+	})
+
+
+func remover_item(id: String, quantidade: int = 1) -> void:
+	for item in inventario_itens:
+		if item["id"] == id:
+			item["quantidade"] -= quantidade
+
+			if item["quantidade"] <= 0:
+				inventario_itens.erase(item)
+
+			return
+
+
+
+func obter_dados_save() -> Dictionary:
+	var cena_atual = get_tree().current_scene
+	var caminho_cena = ""
+
+	if cena_atual != null:
+		caminho_cena = cena_atual.scene_file_path
+
+	return {
+		"vida": Life,
+		"vida_max": max_life,
+		"mana": Mana,
+		"mana_max": max_mana,
+		"almas_agua": almas_agua,
+		"almas_fogo": almas_fogo,
+		"almas_raio": almas_raio,
+		"almas_planta": almas_planta,
+		"magias_desbloqueadas": spell_inventory.duplicate(),
+		"magias_equipadas": equipped_spells.duplicate(),
+		"itens": inventario_itens.duplicate(true),
+		"checkpoint_cena": caminho_cena,
+		"checkpoint_pos_x": respawn_position.x,
+		"checkpoint_pos_y": respawn_position.y
+	}
+
+
+
+func aplicar_dados_save(dados: Dictionary) -> void:
+	Life = int(dados.get("vida", Life))
+	max_life = int(dados.get("vida_max", max_life))
+	Mana = int(dados.get("mana", Mana))
+	max_mana = int(dados.get("mana_max", max_mana))
+
+	almas_agua = int(dados.get("almas_agua", 0))
+	almas_fogo = int(dados.get("almas_fogo", 0))
+	almas_raio = int(dados.get("almas_raio", 0))
+	almas_planta = int(dados.get("almas_planta", 0))
+
+	spell_inventory.clear()
+
+	for spell_id in dados.get("magias_desbloqueadas", []):
+		spell_inventory.append(int(spell_id))
+
+	equipped_spells.clear()
+
+	for spell_id in dados.get("magias_equipadas", []):
+		equipped_spells.append(int(spell_id))
+
+	inventario_itens = dados.get("itens", [])
+
+	var pos_x = float(dados.get("checkpoint_pos_x", global_position.x))
+	var pos_y = float(dados.get("checkpoint_pos_y", global_position.y))
+
+	respawn_position = Vector2(pos_x, pos_y)
+	tem_checkpoint = true
+
+	global_position = respawn_position
+
+	rebuild_active_spells()
 
 
 func setup_spells() -> void:
@@ -361,11 +584,18 @@ func handle_spell_input() -> void:
 		return
 
 	if Input.is_action_just_pressed("cast_spell"):
+		if is_on_floor():
+			anim.play("ataque_chao")
+		else:
+			anim.play("ataque_ar")
 		use_selected_spell()
 
 
 func use_selected_spell() -> void:
 	if spell_in_use:
+		return
+
+	if current_state == State.HEAL:
 		return
 
 	if selected_spell < 0 or selected_spell >= equipped_spells.size():
@@ -903,7 +1133,7 @@ func state_climb(_delta):
 	velocity.y = vertical_direction * climb_speed
 
 	if vertical_direction != 0:
-		anim.play("walk")
+		anim.play("climb")
 	else:
 		anim.play("idle")
 
@@ -1010,39 +1240,47 @@ func _on_plataforma_timer_timeout() -> void:
 func attack_to_direction(dir):
 	match dir:
 		"right":
+			
 			anim.flip_h = false
 			attack_sprite.flip_h = false
-			attack_hit_box.position = Vector2(15, 0)
-			attack_hit_box.rotation = 0
-			attack_sprite.position = Vector2(15, 0)
+			attack_hit_box.position = Vector2(25, 0)
+			attack_hit_box.rotation = -1.57079633
+			attack_sprite.position = Vector2(10, 0)
 			attack_sprite.rotation = 0
+			attack_sprite.play("attack_side")
 
 		"left":
 			anim.flip_h = true
 			attack_sprite.flip_h = true
-			attack_hit_box.position = Vector2(-15, 0)
-			attack_hit_box.rotation = 0
-			attack_sprite.position = Vector2(-15, 0)
+			attack_hit_box.position = Vector2(-25, 0)
+			attack_hit_box.rotation = -1.57079633
+			attack_sprite.position = Vector2(-10, 0)
 			attack_sprite.rotation = 0
+			attack_sprite.play("attack_side")
 
 		"up":
 			attack_sprite.flip_h = false
 			attack_hit_box.position = Vector2(0, -20)
 			attack_hit_box.rotation = -1.57079633
-			attack_sprite.position = Vector2(0, -20)
-			attack_sprite.rotation = -1.57079633
+			attack_sprite.position = Vector2(-8, -20)
+			attack_sprite.rotation = 0
+			attack_sprite.play("attack_up_down")
 
 		"down":
 			attack_sprite.flip_h = false
 			attack_hit_box.position = Vector2(0, 20)
 			attack_hit_box.rotation = 1.57079633
-			attack_sprite.position = Vector2(0, 20)
-			attack_sprite.rotation = 1.57079633
+			attack_sprite.position = Vector2(8, 20)
+			attack_sprite.rotation = 3
+			attack_sprite.play("attack_up_down")
 
 
 func receber_dano(dano: int, origem_x: float) -> void:
 	if Life <= 0:
 		return
+
+	if current_state == State.HEAL:
+		cancelar_cura()
 
 	Life -= dano
 
@@ -1092,7 +1330,7 @@ func mostrar_dano(dano: int) -> void:
 
 
 func die():
-	queue_free()
+	morrer_e_respawnar()
 
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
@@ -1134,6 +1372,13 @@ func _on_attack_timer_timeout() -> void:
 	can_attack = true
 	attack_sprite.visible = false
 	attack_hit_box.disabled = true
+
+
+func pular_no_slime():
+	velocity.y = slime_jump_velocity
+	jump_count = 1
+	air_dash_available = true
+	current_state = State.JUMP
 
 func travar_camera(area: Rect2) -> void:
 	camera_travada = true

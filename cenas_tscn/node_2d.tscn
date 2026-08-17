@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="8_wcvwo"]
 [ext_resource type="PackedScene" uid="uid://dchqpas3ef5eo" path="res://cenas_tscn/inimigos_tscn/slime_agua.tscn" id="9_wcvwo"]
 [ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="10_ne5t3"]
+[ext_resource type="PackedScene" path="res://cenas_tscn/menus/bancada_menu.tscn" id="11_bancmenu"]
+[ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="12_savemenu"]
+[ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="13_geninv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)
@@ -99,7 +102,12 @@ position = Vector2(519, 526)
 elemento_nativo = 1
 
 [node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("10_ne5t3")]
-visible = false
+
+[node name="BancadaMenu" parent="." unique_id=1183963467 instance=ExtResource("11_bancmenu")]
+
+[node name="SaveMenu" parent="." unique_id=2105074129 instance=ExtResource("12_savemenu")]
+
+[node name="InventarioGeral" parent="." unique_id=1844395041 instance=ExtResource("13_geninv")]
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=45169895]
 

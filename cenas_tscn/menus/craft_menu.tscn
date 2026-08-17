@@ -20,6 +20,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Titulo" type="Label" parent="." unique_id=2018610770]
+texture_filter = 2
 offset_left = 41.999996
 offset_right = 382.0
 offset_bottom = 63.0
@@ -43,9 +44,9 @@ grow_vertical = 0
 
 [node name="AlmasContainer" type="HBoxContainer" parent="." unique_id=959388311]
 custom_maximum_size = Vector2(600, 360)
-offset_left = 3.0
+offset_left = 18.0
 offset_top = 53.0
-offset_right = 543.0
+offset_right = 558.0
 offset_bottom = 413.0
 scale = Vector2(0.23053364, 0.23053364)
 theme_override_constants/separation = 60
@@ -132,9 +133,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 190.99998
-offset_top = 95.0
+offset_top = 89.0
 offset_right = 228.0
-offset_bottom = 88.0
+offset_bottom = 124.19705
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.3554751, 0.3554751)
@@ -143,6 +144,7 @@ scale = Vector2(0.3554751, 0.3554751)
 layout_mode = 2
 
 [node name="Nome" type="Label" parent="PainelDetalhes/Conteúdo" unique_id=1104498846]
+texture_filter = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 35
 text = "Selecione uma magia"

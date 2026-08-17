@@ -33,6 +33,7 @@ var spell_names = {
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_to_group("Menus")
+	add_to_group("Inventario_equipar")
 
 	player = get_tree().get_first_node_in_group("Player")
 
@@ -48,11 +49,12 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("inventario"):
-		if visible:
-			fechar_menu()
-		else:
-			abrir_menu()
+	if !visible:
+		return
+
+	if event.is_action_pressed("interagir"):
+		fechar_menu()
+		get_viewport().set_input_as_handled()
 
 
 func abrir_menu() -> void:

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://bk45va1uoed6h"]
+
+[ext_resource type="Script" uid="uid://cj1axiowt0c47" path="res://cenas_tscn/menus/general_inventory.gd" id="1"]
+
+[node name="InventarioGeral" type="CanvasLayer" unique_id=754743051]
+process_mode = 3
+layer = 2
+script = ExtResource("1")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=1078846619]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fundo" unique_id=342544114]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Titulo" type="Label" parent="Fundo/VBoxContainer" unique_id=1235471502]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 16
+text = "Inventário"
+horizontal_alignment = 1
+
+[node name="MagiasEquipadas" type="VBoxContainer" parent="Fundo/VBoxContainer" unique_id=1695861334]
+layout_mode = 2
+
+[node name="LabelMagias" type="Label" parent="Fundo/VBoxContainer/MagiasEquipadas" unique_id=1986954048]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Magias equipadas"
+
+[node name="GridMagias" type="GridContainer" parent="Fundo/VBoxContainer/MagiasEquipadas" unique_id=1612103842]
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 4
+
+[node name="Itens" type="VBoxContainer" parent="Fundo/VBoxContainer" unique_id=1047554388]
+layout_mode = 2
+
+[node name="LabelItens" type="Label" parent="Fundo/VBoxContainer/Itens" unique_id=2121698884]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Itens"
+
+[node name="GridItens" type="GridContainer" parent="Fundo/VBoxContainer/Itens" unique_id=1965769676]
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 4

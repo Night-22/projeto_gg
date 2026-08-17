@@ -3,7 +3,7 @@ extends Node2D
 var duration = 0.5
 var plants_duration = 4
 var cooldown = 10.0
-var mana_cost = 15.0
+var mana_cost = 15
 
 var projectile_scene = preload("res://cenas_tscn/spells/plant/plant_3_projectile.tscn")
 
