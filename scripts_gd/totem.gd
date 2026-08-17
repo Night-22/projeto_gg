@@ -1,5 +1,5 @@
 extends Enemy
-class_name Totem
+class_name Totem_alavanca
 
 
 signal reacao_ativada(reacao: Reacao)
@@ -17,18 +17,20 @@ enum Reacao {
 
 
 @export var reacao_especifica: Reacao = Reacao.NENHUMA
+@export var ativa := false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
 func _ready() -> void:
 	Speed = 0
-	Life = 999
+	Life = 999999
 
 	atualizar_icones_elementais()
 
-func die() -> void:
-	return
+	if animated_sprite.sprite_frames.has_animation("idle"):
+		animated_sprite.play("idle")
+
 
 func _physics_process(delta: float) -> void:
 	if dead:
@@ -37,21 +39,73 @@ func _physics_process(delta: float) -> void:
 	processar_reacoes(delta)
 
 
-func receberAtaque(tipo):
+func receber_dano_corrente(_dano: int) -> void:
+	return
+
+
+func die() -> void:
+	return
+
+
+func _dano(_dano: int, _origem_x: float) -> void:
+	return
+
+
+func receberAtaque(tipo) -> void:
+	if ativa:
+		return
+
 	if tipo not in tiposVariados:
 		return
 
-	if elementosRecebidos.size() >= 1:
+	if elementosRecebidos.size() == 0:
+		elementosRecebidos.append(tipo)
+
+		atualizar_icones_elementais()
+		tocar_animacao_elemento(tipo)
+
 		return
 
-	elementosRecebidos.append(tipo)
+	if elementosRecebidos[0] == tipo:
+		return
 
-	atualizar_icones_elementais()
+	if elementosRecebidos.size() == 1:
+		elementosRecebidos.append(tipo)
 
-	tocar_animacao_elemento(tipo)
+		atualizar_icones_elementais()
+		ativar_reacao(0, global_position.x)
 
 
-func ativar_reacao(_dano, _origem_x: float) -> int:
+func _aplicar_elemento(elemento, _dano: int = 0, _origem_x: float = 0.0) -> int:
+	if ativa:
+		return 0
+
+	var tipo := ""
+
+	match elemento:
+		0:
+			tipo = fogo
+		1:
+			tipo = agua
+		2:
+			tipo = raio
+		3:
+			tipo = planta
+		_:
+			return 0
+
+	receberAtaque(tipo)
+
+	return 0
+
+
+func ativar_reacao(_dano: int, _origem_x: float) -> int:
+	if ativa:
+		return 0
+
+	if elementosRecebidos.size() < 2:
+		return 0
+
 	var elemento_1 = elementosRecebidos[0]
 	var elemento_2 = elementosRecebidos[1]
 
@@ -60,101 +114,84 @@ func ativar_reacao(_dano, _origem_x: float) -> int:
 		elemento_2
 	]
 
-	var elemento_anterior = elemento_1
+	var reacao := Reacao.NENHUMA
 
+	if fogo in elementos and agua in elementos:
+		reacao = Reacao.VAPORIZACAO
+	elif agua in elementos and raio in elementos:
+		reacao = Reacao.ELETRICAMENTE_CARREGADO
+	elif agua in elementos and planta in elementos:
+		reacao = Reacao.ENRAIZAMENTO
+	elif fogo in elementos and planta in elementos:
+		reacao = Reacao.QUEIMADURA
+	elif fogo in elementos and raio in elementos:
+		reacao = Reacao.SOBRECARGA
+	elif raio in elementos and planta in elementos:
+		reacao = Reacao.ELETRIZACAO
+
+	if reacao == Reacao.NENHUMA:
+		elementosRecebidos.clear()
+		atualizar_icones_elementais()
+		return 0
+
+	ativa = true
 
 	elementosRecebidos.clear()
 	atualizar_icones_elementais()
 
+	tocar_animacao_reacao(reacao)
 
-	var reacao := Reacao.NENHUMA
-
-
-	if fogo in elementos and agua in elementos:
-		reacao = Reacao.VAPORIZACAO
-
-	elif agua in elementos and raio in elementos:
-		reacao = Reacao.ELETRICAMENTE_CARREGADO
-
-	elif agua in elementos and planta in elementos:
-		reacao = Reacao.ENRAIZAMENTO
-
-	elif fogo in elementos and planta in elementos:
-		reacao = Reacao.QUEIMADURA
-
-	elif fogo in elementos and raio in elementos:
-		reacao = Reacao.SOBRECARGA
-
-	elif raio in elementos and planta in elementos:
-		reacao = Reacao.ELETRIZACAO
-
-
-	# O totem não causa dano.
-	# Primeiro toca a animação do elemento anterior.
-	# Depois toca a animação da reação.
-	if reacao != Reacao.NENHUMA:
-		tocar_sequencia_reacao(elemento_anterior, reacao)
-
-		if reacao == reacao_especifica:
-			reacao_ativada.emit(reacao)
-
+	if reacao == reacao_especifica:
+		reacao_ativada.emit(reacao)
 
 	return 0
 
 
 func tocar_animacao_elemento(tipo: String) -> void:
-	match tipo:
-		fogo:
-			if animated_sprite.sprite_frames.has_animation("fogo"):
-				animated_sprite.play("fogo")
+	var nome_animacao := obter_nome_animacao_elemento(tipo)
 
-		agua:
-			if animated_sprite.sprite_frames.has_animation("agua"):
-				animated_sprite.play("agua")
-
-		raio:
-			if animated_sprite.sprite_frames.has_animation("raio"):
-				animated_sprite.play("raio")
-
-		planta:
-			if animated_sprite.sprite_frames.has_animation("planta"):
-				animated_sprite.play("planta")
-
-
-func tocar_sequencia_reacao(elemento_anterior: String, reacao: Reacao) -> void:
-	var nome_elemento := obter_nome_animacao_elemento(elemento_anterior)
-	var nome_reacao := obter_nome_animacao_reacao(reacao)
-
-
-	if nome_elemento == "" or nome_reacao == "":
+	if nome_animacao == "":
 		return
 
+	if not animated_sprite.sprite_frames.has_animation(nome_animacao):
+		return
 
-	# Toca primeiro o elemento que estava no totem.
-	if animated_sprite.sprite_frames.has_animation(nome_elemento):
-		animated_sprite.play(nome_elemento)
+	animated_sprite.sprite_frames.set_animation_loop(nome_animacao, true)
+	animated_sprite.play(nome_animacao)
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "position:x", position.x + 1, 0.05)
+	tween.tween_property(self, "position:x", position.x - 1, 0.05)
+	tween.tween_property(self, "position:x", position.x, 0.05)
 
-		await animated_sprite.animation_finished
 
+func tocar_animacao_reacao(reacao: Reacao) -> void:
+	var nome_animacao := obter_nome_animacao_reacao(reacao)
 
-	# Depois toca a reação elemental.
-	if animated_sprite.sprite_frames.has_animation(nome_reacao):
-		animated_sprite.play(nome_reacao)
+	if nome_animacao == "":
+		return
 
-		await animated_sprite.animation_finished
+	if not animated_sprite.sprite_frames.has_animation(nome_animacao):
+		return
+
+	animated_sprite.sprite_frames.set_animation_loop(nome_animacao, false)
+	animated_sprite.play(nome_animacao)
+
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(self, "position:x", position.x + 1, 0.05)
+	tween.tween_property(self, "position:x", position.x - 1, 0.05)
+	tween.tween_property(self, "position:x", position.x, 0.05)
 
 
 func obter_nome_animacao_elemento(tipo: String) -> String:
 	match tipo:
 		fogo:
 			return "fogo"
-
 		agua:
 			return "agua"
-
 		raio:
 			return "raio"
-
 		planta:
 			return "planta"
 
@@ -165,19 +202,14 @@ func obter_nome_animacao_reacao(reacao: Reacao) -> String:
 	match reacao:
 		Reacao.VAPORIZACAO:
 			return "vaporizacao"
-
 		Reacao.ELETRICAMENTE_CARREGADO:
 			return "eletricamente_carregado"
-
 		Reacao.ENRAIZAMENTO:
 			return "enraizamento"
-
 		Reacao.QUEIMADURA:
 			return "queimadura"
-
 		Reacao.SOBRECARGA:
 			return "sobrecarga"
-
 		Reacao.ELETRIZACAO:
 			return "eletrizacao"
 

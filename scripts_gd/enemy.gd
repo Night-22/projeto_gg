@@ -9,6 +9,7 @@ enum ElementoNativo {
 	PLANTA
 }
 
+
 @export var Life = 50
 @export var Speed = 60
 @export var JUMP_FORCE = -200

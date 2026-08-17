@@ -1334,8 +1334,12 @@ func die():
 
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
+	if body is Totem_alavanca:
+		return
+	
 	if body is Enemy:
 		receber_dano(1, body.global_position.x)
+	
 
 
 func _on_attack_hit_box_body_entered(body: Node2D) -> void:

@@ -1,6 +1,8 @@
 extends StaticBody2D
 class_name Porta
 
+signal destrancou
+
 @export var fechada: bool
 @export var alavanca: int
 @export var alavancas: Array[Node2D] = []
@@ -31,6 +33,7 @@ func abrir():
 	tween.tween_property(self, "position:x", posicao_inicial.x + 1, 0.05)
 	tween.tween_property(self, "position:x", posicao_inicial.x - 1, 0.05)
 	tween.tween_property(self, "position:x", posicao_inicial.x, 0.05)
+	
 
 
 func fechar():
@@ -40,8 +43,19 @@ func fechar():
 
 
 func _process(_delta):
-	if jogador_perto and Input.is_action_just_pressed("interagir"):
+	if not alavancas.is_empty():
+		var todas_ativas := true
 
+		for alavanca in alavancas:
+			if not alavanca.ativa:
+				todas_ativas = false
+				break
+
+		if todas_ativas:
+			destrancou.emit()
+			alavancas.clear()
+
+	if jogador_perto and Input.is_action_just_pressed("interagir"):
 		if fechada and not alavancas.is_empty():
 			for alavanca in alavancas:
 				if not alavanca.ativa:
@@ -77,7 +91,7 @@ func mostrar_alavancas():
 	var ativas := 0
 
 	for alavanca in alavancas:
-		if alavanca.ativo:
+		if alavanca.ativa:
 			ativas += 1
 
 	if ativas >= alavancas.size():

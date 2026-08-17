@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://cn1satphdxvy8"]
+
+[ext_resource type="Script" uid="uid://ccr0ga7shpocn" path="res://scripts_gd/totem.gd" id="1_4ecc3"]
+[ext_resource type="Texture2D" uid="uid://dnllfu2a3lbni" path="res://placeholder/totem_placeholder/agua1.png" id="2_oyhx4"]
+[ext_resource type="Texture2D" uid="uid://bn84rspo7kw0u" path="res://placeholder/totem_placeholder/eletricamente carregado.png" id="3_cwlst"]
+[ext_resource type="Texture2D" uid="uid://bxlckndelu2in" path="res://placeholder/totem_placeholder/eletrizacao.png" id="4_vw1vq"]
+[ext_resource type="Texture2D" uid="uid://bofou1knvjw3o" path="res://placeholder/totem_placeholder/enraizamento.png" id="5_alh0j"]
+[ext_resource type="Texture2D" uid="uid://1w0g6q1wsi1" path="res://placeholder/totem_placeholder/fogo_placeholder.png" id="6_2h8uw"]
+[ext_resource type="Texture2D" uid="uid://ceknuqh5h7ocy" path="res://placeholder/totem_placeholder/desligado.png" id="7_nlp2o"]
+[ext_resource type="Texture2D" uid="uid://bl11u7qe6n1eq" path="res://placeholder/totem_placeholder/planta.png" id="8_gdsuc"]
+[ext_resource type="Texture2D" uid="uid://b7570xjtt2oix" path="res://placeholder/totem_placeholder/queimadura.png" id="9_n1y1n"]
+[ext_resource type="Texture2D" uid="uid://bl6kmrxv1os4e" path="res://placeholder/totem_placeholder/raio.png" id="10_yh0rb"]
+[ext_resource type="Texture2D" uid="uid://u1k4tgwhmn4u" path="res://placeholder/totem_placeholder/sobrecarga.png" id="11_je2eu"]
+[ext_resource type="Texture2D" uid="uid://dwui7ighcbymu" path="res://placeholder/totem_placeholder/vaporiacao.png" id="12_gyoit"]
+[ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="13_4x0yw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5s0fj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oyhx4")
+}],
+"loop": 1,
+"name": &"agua",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_cwlst")
+}],
+"loop": 1,
+"name": &"eletricamente_carregado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vw1vq")
+}],
+"loop": 1,
+"name": &"eletrizacao",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_alh0j")
+}],
+"loop": 1,
+"name": &"enraizamento",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_2h8uw")
+}],
+"loop": 1,
+"name": &"fogo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_nlp2o")
+}],
+"loop": 0,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_gdsuc")
+}],
+"loop": 1,
+"name": &"planta",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_n1y1n")
+}],
+"loop": 1,
+"name": &"queimadura",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_yh0rb")
+}],
+"loop": 1,
+"name": &"raio",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_je2eu")
+}],
+"loop": 1,
+"name": &"sobrecarga",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_gyoit")
+}],
+"loop": 1,
+"name": &"vaporizacao",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1u0y"]
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqqwn"]
+size = Vector2(22, 34)
+
+[node name="totem" type="CharacterBody2D" unique_id=425842227 groups=["Inimigo"]]
+script = ExtResource("1_4ecc3")
+Life = 999
+Speed = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=12582367]
+position = Vector2(0, -0.5)
+scale = Vector2(1, 0.96875)
+sprite_frames = SubResource("SpriteFrames_5s0fj")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1237585634 groups=["Inimigo"]]
+shape = SubResource("RectangleShape2D_p1u0y")
+
+[node name="Hud" parent="." unique_id=249675550 instance=ExtResource("13_4x0yw")]
+
+[node name="Contato" type="Area2D" parent="." unique_id=1953947840]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Contato" unique_id=2113018812]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_vqqwn")
+debug_color = Color(0.33626792, 0, 0.16821155, 0.41960785)

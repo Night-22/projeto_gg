@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1w0g6q1wsi1"
-path="res://.godot/imported/fogo.png-fb28250b938c7a8bdb73377bbb670663.ctex"
+uid="uid://u1k4tgwhmn4u"
+path="res://.godot/imported/sobrecarga.png-b55e19eb8b3fcfcba4a974f0d66438f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/totem/fogo.png"
-dest_files=["res://.godot/imported/fogo.png-fb28250b938c7a8bdb73377bbb670663.ctex"]
+source_file="res://placeholder/totem_placeholder/sobrecarga.png"
+dest_files=["res://.godot/imported/sobrecarga.png-b55e19eb8b3fcfcba4a974f0d66438f1.ctex"]
 
 [params]
 

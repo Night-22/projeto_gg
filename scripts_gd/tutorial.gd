@@ -3,10 +3,11 @@ extends Node2D
 @onready var texto_tutorial = get_node("HUD_Tutorial/RichTextLabel")
 
 var tween_tutorial: Tween
-
+var texto_elemental : String
 
 func _ready():
 	texto_tutorial.modulate.a = 0.0
+	texto_elemental = "Faça reações elementais nos totens para destrancar a porta"
 
 
 func mostrar_tutorial(texto: String) -> void:
@@ -59,7 +60,7 @@ func _on_planar_e_pulo_duplo_body_exited(body: Node2D) -> void:
 
 func _on_interagir_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		mostrar_tutorial("Pressione Q para interagir.")
+		mostrar_tutorial("Aperte TAB para interagir.")
 
 
 func _on_interagir_body_exited(body: Node2D) -> void:
@@ -85,3 +86,29 @@ func _on_escada_body_exited(body: Node2D) -> void:
 func _on_escada_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		mostrar_tutorial("Aperte para cima para subir na escada.")
+
+
+func _on_cura_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		esconder_tutorial()
+
+
+func _on_cura_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		mostrar_tutorial("Segure Q para gastar a mana, recuperando parte da vida")
+
+
+func _on_reacao_elemental_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		mostrar_tutorial(texto_elemental)
+
+
+
+func _on_reacao_elemental_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		esconder_tutorial()
+
+
+func _on_porta_3_destrancou() -> void:
+	texto_elemental = "Reação elemental feita, porta destrancada"
+	mostrar_tutorial(texto_elemental)
