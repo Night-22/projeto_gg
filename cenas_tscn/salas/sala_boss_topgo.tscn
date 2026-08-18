@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d0n2rniqpa7tn" path="res://cenas_tscn/inimigos_tscn/bosses/topgo_boss.tscn" id="5_boss"]
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="7_camlock"]
+[ext_resource type="AudioStream" uid="uid://bjvdbfbme717b" path="res://assets/musicas/soundtrack_corrigida.mp3" id="8_tddkw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
 size = Vector2(28, 252)
@@ -82,6 +83,7 @@ limite_esquerdo = -25.5
 limite_direito = 369.5
 tempo_aviso_espinho = 1.0
 tempo_ativo_espinho = 2
+tempo_aviso_raio = 1.0
 altura_fogo_zona = 300.0
 tempo_ativo_fogo_zona = 1.5
 
@@ -135,5 +137,8 @@ show_percentage = false
 [node name="CameraLockArea" parent="." unique_id=2563963 instance=ExtResource("7_camlock")]
 position = Vector2(169, 118)
 scale = Vector2(23.962223, 12.332323)
+
+[node name="soundtrack" type="AudioStreamPlayer" parent="." unique_id=1978182221]
+stream = ExtResource("8_tddkw")
 
 [connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]

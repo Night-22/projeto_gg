@@ -608,7 +608,7 @@ wait_time = 0.6
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=884263791]
-position = Vector2(-1, -84)
+position = Vector2(-1, -44)
 position_smoothing_enabled = true
 
 [node name="respiracao_label" type="Label" parent="." unique_id=445329929]

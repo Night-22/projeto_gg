@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://brwwyayvmg3oj"
+path="res://.godot/imported/Spider Dance - Toby Fox (youtube).mp3-fa5cf78edb128780ced0e975c4745701.mp3str"
+
+[deps]
+
+source_file="res://assets/musicas/Spider Dance - Toby Fox (youtube).mp3"
+dest_files=["res://.godot/imported/Spider Dance - Toby Fox (youtube).mp3-fa5cf78edb128780ced0e975c4745701.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

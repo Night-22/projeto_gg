@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
 [ext_resource type="TileSet" uid="uid://caoatfk5e2aee" path="res://tres/tilemap.tres" id="7_18gdx"]
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="8_qnjy7"]
+[ext_resource type="AudioStream" uid="uid://brwwyayvmg3oj" path="res://assets/musicas/Spider Dance - Toby Fox (youtube).mp3" id="10_1sj3y"]
+[ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="11_flnu0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1sj3y"]
 texture = ExtResource("2_xxhu8")
@@ -172,7 +174,7 @@ debug_color = Color(1.732707e-06, 0.6057932, 0.66739863, 0.41960785)
 [node name="PonteCima" type="StaticBody2D" parent="." unique_id=742914706 groups=["PlataformaFuravel"]]
 visible = false
 z_index = 1
-position = Vector2(214.00002, 163)
+position = Vector2(211, 160)
 scale = Vector2(0.58437896, 0.21654733)
 collision_layer = 2
 
@@ -231,7 +233,7 @@ tile_set = ExtResource("7_18gdx")
 
 [node name="plataforma" type="TileMapLayer" parent="." unique_id=923464988]
 position = Vector2(0, 30)
-tile_map_data = PackedByteArray("AAAAAAgAAAALAAUAAAABAAgAAAAMAAUAAAACAAgAAAAMAAUAAAADAAgAAAAMAAUAAAAEAAgAAAAMAAUAAAAFAAgAAAAMAAUAAAAGAAgAAAAMAAUAAAAHAAgAAAAMAAUAAAAIAAgAAAAMAAUAAAAJAAgAAAAMAAUAAAAKAAgAAAAMAAUAAAALAAgAAAAMAAUAAAAMAAgAAAAMAAUAAAANAAgAAAAMAAUAAAAOAAgAAAAMAAUAAAAPAAgAAAAMAAUAAAAQAAgAAAAMAAUAAAARAAgAAAAMAAUAAAASAAgAAAAMAAUAAAATAAgAAAAMAAUAAAAUAAgAAAAMAAUAAAAVAAgAAAAMAAUAAAAWAAgAAAAMAAUAAAAXAAgAAAAMAAUAAAAZAAgAAAALAAUAABAaAAgAAAANAAUAAAAYAAgAAAAMAAUAAAA=")
+tile_map_data = PackedByteArray("AAAAAAgAAAALAAUAAAABAAgAAAAMAAUAAAACAAgAAAAMAAUAAAADAAgAAAAMAAUAAAAEAAgAAAAMAAUAAAAFAAgAAAALAAIAAAAGAAgAAAAMAAUAAAAHAAgAAAAMAAUAAAAIAAgAAAAMAAUAAAAJAAgAAAAMAAUAAAAKAAgAAAAMAAUAAAALAAgAAAAMAAUAAAAMAAgAAAAMAAUAAAANAAgAAAAMAAUAAAAOAAgAAAAMAAUAAAAPAAgAAAALAAIAAAAQAAgAAAAMAAUAAAARAAgAAAAMAAUAAAASAAgAAAAMAAUAAAATAAgAAAAMAAUAAAAUAAgAAAAMAAUAAAAVAAgAAAAMAAUAAAAWAAgAAAAMAAUAAAAXAAgAAAAMAAUAAAAZAAgAAAALAAUAABAaAAgAAAANAAUAAAAYAAgAAAAMAAUAAAAFAAoAAAALAAEAAAAFAAsAAAALAAIAAAAFAAwAAAALAAMAAAAFAAkAAAALAAMAAAAPAAoAAAALAAEAAAAPAAsAAAALAAIAAAAPAAwAAAALAAMAAAAPAAkAAAALAAMAAAA=")
 tile_set = ExtResource("7_18gdx")
 
 [node name="Hud" parent="." unique_id=1980153622 instance=ExtResource("3_hud")]
@@ -340,5 +342,16 @@ shape = SubResource("RectangleShape2D_ponte_baixo")
 [node name="CameraLockArea" parent="." unique_id=1808650042 instance=ExtResource("8_qnjy7")]
 position = Vector2(207, 115.99999)
 scale = Vector2(23.58992, 15.039998)
+
+[node name="soundtrack" type="AudioStreamPlayer" parent="." unique_id=215040991]
+stream = ExtResource("10_1sj3y")
+
+[node name="Escada" parent="." unique_id=1403829435 instance=ExtResource("11_flnu0")]
+position = Vector2(88, 196.00002)
+scale = Vector2(0.43999964, 0.39999878)
+
+[node name="Escada2" parent="." unique_id=1799812773 instance=ExtResource("11_flnu0")]
+position = Vector2(248, 196)
+scale = Vector2(0.43999964, 0.39999878)
 
 [connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]
