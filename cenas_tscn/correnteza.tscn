@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ct64nmp0uv2gw"]
+
+[ext_resource type="Script" uid="uid://cnw7ndcxsa8yc" path="res://scripts_gd/correnteza.gd" id="1_k54li"]
+[ext_resource type="Texture2D" uid="uid://q7uhmr8ugtg3" path="res://placeholder/bolha.png" id="2_4s2dd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(67, 250.5)
+
+[node name="correnteza" type="Area2D" unique_id=1782649001]
+script = ExtResource("1_k54li")
+velocidade_subida = -200.0
+quantidade_sprites = 16
+velocidade = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=949670675]
+modulate = Color(1, 1, 1, 0.59607846)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_4s2dd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1030458869]
+position = Vector2(0, 2.25)
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

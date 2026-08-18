@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bh0y2egqhylk8"]
+
+[ext_resource type="Script" uid="uid://dp3srd3nb6m06" path="res://scripts_gd/bolha_ar.gd" id="1_rb82c"]
+[ext_resource type="Texture2D" uid="uid://q7uhmr8ugtg3" path="res://placeholder/bolha.png" id="2_r25ph"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f116b"]
+size = Vector2(20, 10.5)
+
+[node name="Bolhas_de_ar" type="Area2D" unique_id=705294924]
+script = ExtResource("1_rb82c")
+quantidade_sprites = 5
+velocidade = 10.0
+intervalo_spawn = 1.0
+metadata/_custom_type_script = "uid://b8ygdy48hhl46"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1802885930]
+position = Vector2(0, 3.75)
+shape = SubResource("RectangleShape2D_f116b")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2002032432]
+modulate = Color(1, 1, 1, 0.59607846)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_r25ph")
+
+[node name="Timer" type="Timer" parent="." unique_id=1331244569]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

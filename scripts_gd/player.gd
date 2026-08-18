@@ -32,6 +32,14 @@ enum Spell {
 	PLANT_4
 }
 
+
+var tempo_respiracao = 20.0
+var tempo_respiracao_restante = 20.0
+var respiracao_ativa = false
+
+@onready var respiracao_label = $respiracao_label
+
+
 var invulnerable := false
 var iframe_timer := 0.0
 
@@ -64,7 +72,7 @@ var almas_planta = 0
 
 var dentro_da_agua := false
 
-@export var gravidade_agua := 60.0
+@export var gravidade_agua := 300.0
 @export var velocidade_max_queda_agua := 100.0
 
 @export var velocidade_agua := 110.0
@@ -256,6 +264,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if Life <= 0:
 		current_state = State.DEAD
+	
+	if dentro_da_agua:
+		atualizar_respiracao(delta)
+	
 	
 	if input_locked:
 		velocity = Vector2.ZERO
@@ -1540,6 +1552,8 @@ func entrar_na_agua() -> void:
 
 func sair_da_agua() -> void:
 	dentro_da_agua = false
+	resetar_tempo_respirar()
+	
 func obter_speed() -> float:
 	if dentro_da_agua:
 		return velocidade_agua
@@ -1588,3 +1602,37 @@ func aplicar_gravidade(delta: float) -> void:
 		velocity.y = min(velocity.y, velocidade_max_queda_agua)
 	else:
 		velocity += get_gravity() * delta
+
+
+
+
+
+func atualizar_respiracao(delta: float) -> void:
+	if !respiracao_ativa:
+		respiracao_ativa = true
+
+	var velocidade_tempo = 1.0
+
+	# depois de 5 segundos, fica 2 vezes mais lento
+	if tempo_respiracao_restante <= 5.0:
+		velocidade_tempo = 0.5
+		respiracao_label.visible = true
+
+		# faz a label piscar
+		respiracao_label.modulate.a = 0.5 + abs(sin(Time.get_ticks_msec() * 0.008)) * 0.5
+
+	tempo_respiracao_restante -= delta * velocidade_tempo
+	tempo_respiracao_restante = max(tempo_respiracao_restante, 0.0)
+
+	respiracao_label.text = str(ceil(tempo_respiracao_restante))
+
+	if tempo_respiracao_restante <= 0.0:
+		current_state = State.DEAD
+		
+		
+func resetar_tempo_respirar() -> void:
+	tempo_respiracao_restante = tempo_respiracao
+	respiracao_ativa = false
+
+	respiracao_label.visible = false
+	respiracao_label.modulate.a = 1.0

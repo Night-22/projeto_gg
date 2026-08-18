@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dywf142tj0uk7"]
+
+[ext_resource type="Texture2D" uid="uid://q7uhmr8ugtg3" path="res://placeholder/bolha.png" id="1_5vu5p"]
+[ext_resource type="Script" uid="uid://j06e0c40bs72" path="res://scripts_gd/bolha_de_ar.gd" id="1_fcfog"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(18, 18)
+
+[node name="bolha" type="Node2D" unique_id=1482424069]
+script = ExtResource("1_fcfog")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=82123753]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_5vu5p")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1825058071]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1767503342]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
