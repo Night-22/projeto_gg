@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cwfv6xveih1da"]
+
+[ext_resource type="Texture2D" uid="uid://biau3j3v2umoy" path="res://placeholder/planta.png" id="1_1to01"]
+[ext_resource type="Script" uid="uid://cfjfogyaslsnd" path="res://scripts_gd/plant_wall.gd" id="1_f8b5g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(10, 46)
+
+[node name="plant_wall" type="Area2D" unique_id=1293250289]
+script = ExtResource("1_f8b5g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1196227459]
+position = Vector2(-1.1920929e-07, 0)
+scale = Vector2(0.042016804, 0.16428572)
+texture = ExtResource("1_1to01")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=416757299]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

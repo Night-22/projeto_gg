@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="6_7juhd"]
 [ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="7_r7ct6"]
 [ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="8_wcvwo"]
-[ext_resource type="PackedScene" uid="uid://cm3xil64ctpv6" path="res://cenas_tscn/inimigos_tscn/plant_wizard.tscn" id="9_wcvwo"]
 [ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="10_ne5t3"]
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/bancada_menu.tscn" id="11_bancmenu"]
+[ext_resource type="PackedScene" uid="uid://j18sjxu2v840" path="res://cenas_tscn/inimigos_tscn/lightning_conjurer.tscn" id="12_0fuwc"]
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="12_savemenu"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="13_geninv"]
 
@@ -126,5 +126,6 @@ position = Vector2(-277, -463)
 tile_map_data = PackedByteArray("AAAOABwAAAALAAUAAAAPABwAAAAMAAUAAAAQABwAAAAMAAUAAAARABwAAAAMAAUAAAASABwAAAAMAAUAAAATABwAAAALAAUAABA=")
 tile_set = ExtResource("2_ne5t3")
 
-[node name="plant_wizard" parent="." unique_id=1241531326 instance=ExtResource("9_wcvwo")]
-position = Vector2(865, 526)
+[node name="lightning_conjurer" parent="." unique_id=1195204345 instance=ExtResource("12_0fuwc")]
+visible = false
+position = Vector2(880, 514)

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cdalsew8iem07"]
+
+[ext_resource type="Script" uid="uid://d1quqlh7uev70" path="res://scripts_gd/linghthing_wall.gd" id="1_xquu8"]
+[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="2_p1fx0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(10, 36)
+
+[node name="linghthing_wall" type="Area2D" unique_id=1652992115]
+script = ExtResource("1_xquu8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=490292404]
+position = Vector2(2.3841858e-07, 1.3709068e-06)
+scale = Vector2(0.05, 0.131)
+texture = ExtResource("2_p1fx0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1369140153]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

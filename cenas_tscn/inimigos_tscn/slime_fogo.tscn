@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://6clagx1h2pnp"]
+
+[ext_resource type="Script" uid="uid://cu2wpe0ujqliu" path="res://scripts_gd/slime_fogo.gd" id="1_hrtam"]
+[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="2_k0f4w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(24, 25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 52.0
+
+[node name="slime_fogo" type="CharacterBody2D" unique_id=1410727227 groups=["Inimigo"]]
+script = ExtResource("1_hrtam")
+metadata/_custom_type_script = "uid://cn1m5131s4q2h"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1854113805]
+modulate = Color(1, 0.06666667, 0, 1)
+position = Vector2(2.3841858e-07, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_k0f4w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=658636997]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="percepcao" type="Area2D" parent="." unique_id=1745190518]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="percepcao" unique_id=1400079730]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="Timer" type="Timer" parent="." unique_id=1498535335]
+wait_time = 2.5
+
+[node name="PatrolTimer" type="Timer" parent="." unique_id=1940866606]
+autostart = true
+
+[connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
+[connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PatrolTimer" to="." method="_on_patrol_timer_timeout"]

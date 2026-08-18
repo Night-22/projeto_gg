@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://l2o4xk8ijo3h"]
 
-[ext_resource type="Script" uid="uid://b6lumbgq2iyrx" path="res://cenas_tscn/inimigos_tscn/water_handler.gd" id="1_kjihv"]
+[ext_resource type="Script" uid="uid://b6lumbgq2iyrx" path="res://scripts_gd/water_handler.gd" id="1_kjihv"]
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_ghvsh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
