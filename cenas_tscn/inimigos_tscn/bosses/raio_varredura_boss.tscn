@@ -1,0 +1,18 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts_gd/bosses/raio_varredura_boss.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_raio"]
+size = Vector2(46, 2000)
+
+[node name="RaioVarreduraBoss" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="Visual" type="ColorRect" parent="."]
+color = Color(1, 0.95, 0.3, 0.35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_raio")
+disabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

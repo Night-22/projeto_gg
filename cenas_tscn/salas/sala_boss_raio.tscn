@@ -122,6 +122,7 @@ shape = SubResource("RectangleShape2D_gatilho")
 visible = false
 
 [node name="SpellInventory" parent="." unique_id=681638033 instance=ExtResource("4_spellinv")]
+visible = false
 
 [node name="HudChefe" type="CanvasLayer" parent="." unique_id=1095167948]
 visible = false

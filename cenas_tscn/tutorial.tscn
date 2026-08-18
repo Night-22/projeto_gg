@@ -417,6 +417,7 @@ position = Vector2(1610, 207)
 position = Vector2(1687, 103)
 Life = 5
 Speed = 0
+elemento_nativo = 2
 
 [node name="Flying" parent="." unique_id=187868775 instance=ExtResource("17_vqqwn")]
 position = Vector2(1524, -64)
@@ -425,7 +426,7 @@ Life = 5
 knockback_ataque = 120
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("11_blw00")]
-position = Vector2(1559, 39)
+position = Vector2(417, 247)
 
 [node name="Flying2" parent="." unique_id=1786747674 instance=ExtResource("17_vqqwn")]
 position = Vector2(1626, -184)

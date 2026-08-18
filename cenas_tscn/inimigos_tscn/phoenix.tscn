@@ -7,7 +7,7 @@
 size = Vector2(14, 14)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_57qmd"]
-radius = 124.01613
+radius = 89.02247
 
 [node name="phoenix" type="CharacterBody2D" unique_id=904614313 groups=["Inimigo"]]
 script = ExtResource("1_4ma74")
