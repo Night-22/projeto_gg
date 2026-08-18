@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cvckg605s3w5o"]
+
+[ext_resource type="Script" uid="uid://dldcuh8m1j20u" path="res://scripts_gd/bosses/espinho_boss.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_espinho"]
+size = Vector2(194, 260)
+
+[node name="EspinhoBoss" type="Area2D" unique_id=1246099210]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=155864733]
+position = Vector2(0, -130)
+shape = SubResource("RectangleShape2D_espinho")
+disabled = true
+
+[node name="Aviso" type="Node2D" parent="." unique_id=1068156114]
+
+[node name="Faixa" type="ColorRect" parent="Aviso" unique_id=1430336682]
+offset_left = -100.0
+offset_top = -36.0
+offset_right = 100.0
+color = Color(1, 0.25, 0.2, 0.5)
+
+[node name="Espinhos" type="Node2D" parent="." unique_id=821162906]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

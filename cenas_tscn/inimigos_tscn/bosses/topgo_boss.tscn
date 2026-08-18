@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://d0n2rniqpa7tn"]
+
+[ext_resource type="Script" uid="uid://bxtfoh3b2pfyi" path="res://scripts_gd/bosses/topgo_boss.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_corpo"]
+[ext_resource type="Texture2D" uid="uid://biau3j3v2umoy" path="res://placeholder/planta.png" id="3_planta"]
+[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="4_raio"]
+[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="5_hu5sq"]
+[ext_resource type="Texture2D" uid="uid://ck8lmcrqidd5h" path="res://placeholder/agua.png" id="6_htojr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+size = Vector2(92, 100)
+
+[node name="TopgoBoss" type="CharacterBody2D" unique_id=656860668 groups=["Boss", "Inimigo"]]
+script = ExtResource("1_script")
+
+[node name="Corpo" type="Sprite2D" parent="." unique_id=972490791]
+modulate = Color(0.4, 0.7, 0.35, 1)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("2_corpo")
+
+[node name="NucleoPlanta" type="Sprite2D" parent="." unique_id=2017957064]
+modulate = Color(0.55, 1, 0.55, 1)
+position = Vector2(-16, -20)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("3_planta")
+
+[node name="NucleoRaio" type="Sprite2D" parent="." unique_id=773026059]
+modulate = Color(1, 0.95, 0.5, 1)
+position = Vector2(16, -20)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("4_raio")
+
+[node name="NucleoFogo" type="Sprite2D" parent="." unique_id=178439985]
+visible = false
+position = Vector2(-16, 19)
+scale = Vector2(0.13875598, 0.12274366)
+texture = ExtResource("5_hu5sq")
+
+[node name="NucleoAgua" type="Sprite2D" parent="." unique_id=223009512]
+visible = false
+position = Vector2(16, 19)
+scale = Vector2(0.10224779, 0.13647152)
+texture = ExtResource("6_htojr")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=682320344]
+visible = false
+shape = SubResource("RectangleShape2D_corpo")

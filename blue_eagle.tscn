@@ -7,7 +7,7 @@
 size = Vector2(58, 48)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 425.62424
+radius = 270.06665
 
 [node name="Blue_eagle" type="CharacterBody2D" unique_id=1060966006 groups=["Inimigo"]]
 script = ExtResource("1_xpq04")

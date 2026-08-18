@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dpp3keymif22m"]
+
+[ext_resource type="Script" uid="uid://c40w7bxmv10i2" path="res://scripts_gd/bosses/minion_fogo_boss.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="2_visual"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_explosao"]
+radius = 30.0
+
+[node name="MinionFogoBoss" type="CharacterBody2D" unique_id=1959406939 groups=["Inimigo", "MinionFogoBoss"]]
+script = ExtResource("1_script")
+Life = 1
+Speed = 0
+
+[node name="Visual" type="Sprite2D" parent="." unique_id=2037210682]
+modulate = Color(1, 0.55, 0.3, 1)
+position = Vector2(-0.5000019, 0.50000095)
+scale = Vector2(0.13875598, 0.13357401)
+texture = ExtResource("2_visual")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=934813956]
+shape = SubResource("RectangleShape2D_corpo")
+
+[node name="AreaExplosao" type="Area2D" parent="." unique_id=1188506426]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaExplosao" unique_id=133219516]
+shape = SubResource("CircleShape2D_explosao")
+disabled = true
+
+[connection signal="body_entered" from="AreaExplosao" to="." method="_on_area_explosao_body_entered"]

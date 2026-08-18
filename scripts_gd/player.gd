@@ -129,7 +129,7 @@ var bancada = null
 var tem_checkpoint := false
 var respawn_position := Vector2.ZERO
 
-# Cada item: {"id": String, "nome": String, "icone": String, "quantidade": int}
+
 var inventario_itens: Array = []
 
 var current_element = -1
@@ -162,10 +162,10 @@ var spell_scenes = {
 }
 
 var equipped_spells = [
-	Spell.WATER_1,
-	Spell.FIRE_1,
-	Spell.LIGHTNING_1,
-	Spell.PLANT_1
+	Spell.WATER_4,
+	Spell.FIRE_4,
+	Spell.LIGHTNING_4,
+	Spell.PLANT_3
 ]
 
 var spell_inventory = [

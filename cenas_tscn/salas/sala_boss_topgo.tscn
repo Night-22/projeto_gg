@@ -1,0 +1,139 @@
+[gd_scene format=3 uid="uid://bvgdc5sxmhpm4"]
+
+[ext_resource type="Script" uid="uid://byujaal5hfayq" path="res://cenas_tscn/salas/sala_boss_topgo.gd" id="1_sala"]
+[ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="4_spellinv"]
+[ext_resource type="PackedScene" uid="uid://d0n2rniqpa7tn" path="res://cenas_tscn/inimigos_tscn/bosses/topgo_boss.tscn" id="5_boss"]
+[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
+[ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="7_camlock"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
+size = Vector2(28, 252)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
+size = Vector2(530, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plataforma_fase2"]
+size = Vector2(218, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gatilho"]
+size = Vector2(9, 69)
+
+[node name="SalaBossTopgo" type="Node2D" unique_id=1775463381]
+script = ExtResource("1_sala")
+
+[node name="ParedeEsquerda" type="StaticBody2D" parent="." unique_id=1754647308]
+position = Vector2(-57, 123)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParedeEsquerda" unique_id=1187791258]
+position = Vector2(-0.4999888, -2.0000076)
+scale = Vector2(0.22656256, 1.9687499)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeEsquerda" unique_id=243142826]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="ParedeDireita" type="StaticBody2D" parent="." unique_id=989543388]
+position = Vector2(407, 122)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParedeDireita" unique_id=98335340]
+position = Vector2(-5.5000114, -7.6293945e-06)
+scale = Vector2(0.22656232, 1.9453125)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeDireita" unique_id=2062331814]
+position = Vector2(-6, 0)
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="Chao" type="StaticBody2D" parent="." unique_id=689380115]
+position = Vector2(165, 240)
+
+[node name="Sprite2D" type="Sprite2D" parent="Chao" unique_id=627119441]
+position = Vector2(5.5000124, 0)
+scale = Vector2(4.1328125, 0.14062494)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chao" unique_id=1924906290]
+position = Vector2(3, 0)
+shape = SubResource("RectangleShape2D_chao")
+
+[node name="PlataformaFase2" type="StaticBody2D" parent="." unique_id=1053710184 groups=["PlataformaFuravel"]]
+visible = false
+position = Vector2(172, 185)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlataformaFase2" unique_id=1590620971]
+position = Vector2(3.4999943, 0)
+scale = Vector2(1.7265626, 0.078125)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlataformaFase2" unique_id=1239081663]
+position = Vector2(3, 0)
+shape = SubResource("RectangleShape2D_plataforma_fase2")
+disabled = true
+one_way_collision = true
+
+[node name="TopgoBoss" parent="." unique_id=39082022 instance=ExtResource("5_boss")]
+position = Vector2(174, 95)
+limite_esquerdo = -25.5
+limite_direito = 369.5
+tempo_aviso_espinho = 1.0
+tempo_ativo_espinho = 2
+altura_fogo_zona = 300.0
+tempo_ativo_fogo_zona = 1.5
+
+[node name="Player" parent="." unique_id=1347411747 instance=ExtResource("2_player")]
+position = Vector2(-25, 219)
+
+[node name="GatilhoLuta" type="Area2D" parent="." unique_id=1887252188]
+position = Vector2(-4, 198)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GatilhoLuta" unique_id=1301286536]
+shape = SubResource("RectangleShape2D_gatilho")
+
+[node name="Hud" parent="." unique_id=13438044 instance=ExtResource("3_hud")]
+visible = false
+
+[node name="SpellInventory" parent="." unique_id=539467214 instance=ExtResource("4_spellinv")]
+visible = false
+
+[node name="HudChefe" type="CanvasLayer" parent="." unique_id=689840333]
+visible = false
+
+[node name="Interface" type="Control" parent="HudChefe" unique_id=2113795162]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NomeChefe" type="Label" parent="HudChefe/Interface" unique_id=1002657853]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 4.0
+offset_right = 382.0
+offset_bottom = 19.0
+theme_override_font_sizes/font_size = 10
+text = "TOPGO"
+horizontal_alignment = 1
+
+[node name="BarraVidaChefe" type="ProgressBar" parent="HudChefe/Interface" unique_id=406185280]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 17.0
+offset_right = 356.0
+offset_bottom = 33.0
+show_percentage = false
+
+[node name="CameraLockArea" parent="." unique_id=2563963 instance=ExtResource("7_camlock")]
+position = Vector2(169, 118)
+scale = Vector2(23.962223, 12.332323)
+
+[connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]

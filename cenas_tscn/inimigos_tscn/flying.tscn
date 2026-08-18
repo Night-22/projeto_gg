@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://6dqbypo6pxym"]
 
-[ext_resource type="Script" uid="uid://comd5bjedmb6v" path="res://cenas_tscn/inimigos_tscn/flying.gd" id="1_sih1y"]
+[ext_resource type="Script" uid="uid://comd5bjedmb6v" path="res://scripts_gd/flying.gd" id="1_sih1y"]
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_4usim"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]

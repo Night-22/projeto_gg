@@ -537,7 +537,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack_side",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -557,7 +557,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"attack_up_down",
-"speed": 10.0
+"speed": 15.0
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=2135435064 groups=["Player"]]

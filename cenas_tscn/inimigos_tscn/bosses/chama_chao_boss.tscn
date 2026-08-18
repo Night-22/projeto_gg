@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://w4qaw7qo0mwp"]
+
+[ext_resource type="Script" uid="uid://b107xxlfx5c3a" path="res://scripts_gd/bosses/chama_chao_boss.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chamas"]
+size = Vector2(513, 40)
+
+[node name="ChamaChaoBoss" type="Area2D" unique_id=498857036]
+script = ExtResource("1_script")
+
+[node name="Aviso" type="Node2D" parent="." unique_id=501394820]
+
+[node name="Faixa" type="ColorRect" parent="Aviso" unique_id=317241888]
+color = Color(1, 0.3, 0.15, 0.5)
+
+[node name="ChamasPivo" type="Node2D" parent="." unique_id=1092072679]
+
+[node name="Visual" type="ColorRect" parent="ChamasPivo" unique_id=1362343986]
+color = Color(1, 0.35, 0.15, 0.75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1186441402]
+position = Vector2(-8.5, 0)
+shape = SubResource("RectangleShape2D_chamas")
+disabled = true
+
+[node name="TimerDano" type="Timer" parent="." unique_id=808637438]
+wait_time = 0.75
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="TimerDano" to="." method="_on_timer_dano_timeout"]
