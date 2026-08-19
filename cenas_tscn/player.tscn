@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b12dt5gxwsp37" path="res://assets/personagematacando-Sheet_mirror.png" id="2_t5do6"]
 [ext_resource type="Texture2D" uid="uid://bxic8v772ciwq" path="res://assets/personagematualizada-Sheet_mirror.png" id="2_uo3cy"]
 [ext_resource type="Texture2D" uid="uid://7cf1ayu454i2" path="res://assets/personagematualizada-Sheet.png" id="3_t5do6"]
+[ext_resource type="Script" uid="uid://c5mjtgl2idcb" path="res://scripts_gd/camera_2d.gd" id="6_t5do6"]
 [ext_resource type="Texture2D" uid="uid://debrota50q766" path="res://assets/personagem-Sheet (1).png" id="7_tw7kf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wcb67"]
@@ -608,8 +609,10 @@ wait_time = 0.6
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=884263791]
-position = Vector2(-1, -84)
+position = Vector2(-1, -40)
+limit_smoothed = true
 position_smoothing_enabled = true
+script = ExtResource("6_t5do6")
 
 [node name="respiracao_label" type="Label" parent="." unique_id=445329929]
 visible = false

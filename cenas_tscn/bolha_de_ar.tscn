@@ -18,4 +18,9 @@ texture = ExtResource("1_5vu5p")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1767503342]
 shape = SubResource("RectangleShape2D_g4v7s")
 
+[node name="Timer" type="Timer" parent="." unique_id=689969176]
+wait_time = 10.0
+autostart = true
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://d4gxdlp2dmx68" path="res://cenas_tscn/prefabs/slime_bloco.tscn" id="11_wtsj2"]
 [ext_resource type="PackedScene" uid="uid://cm3xil64ctpv6" path="res://cenas_tscn/inimigos_tscn/plant_wizard.tscn" id="12_hvy8n"]
 [ext_resource type="PackedScene" uid="uid://cjj87tb5uhqdj" path="res://cenas_tscn/prefabs/spike.tscn" id="13_vkgfb"]
+[ext_resource type="Script" uid="uid://c1rq37v3q2ii7" path="res://scripts_gd/elevador.gd" id="14_hjdki"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8svo"]
 texture = ExtResource("4_a2tbi")
@@ -665,8 +666,351 @@ size = Vector2(145, 592)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gngh"]
 size = Vector2(378, 84)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5s0fj"]
+size = Vector2(16, 3)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kn3bb"]
+texture = ExtResource("3_t8svo")
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+9:1/0 = 0
+11:1/0 = 0
+13:1/0 = 0
+15:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+25:1/0 = 0
+26:1/0 = 0
+27:1/0 = 0
+28:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+9:2/0 = 0
+11:2/0 = 0
+13:2/0 = 0
+15:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+19:2/0 = 0
+21:2/0 = 0
+22:2/0 = 0
+23:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+11:3/0 = 0
+13:3/0 = 0
+15:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+19:3/0 = 0
+21:3/0 = 0
+22:3/0 = 0
+23:3/0 = 0
+25:3/0 = 0
+27:3/0 = 0
+29:3/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+17:5/0 = 0
+18:5/0 = 0
+19:5/0 = 0
+21:5/0 = 0
+22:5/0 = 0
+23:5/0 = 0
+25:5/0 = 0
+2:7/0 = 0
+6:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+13:7/0 = 0
+18:7/0 = 0
+22:7/0 = 0
+25:7/0 = 0
+27:7/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+11:9/0 = 0
+12:9/0 = 0
+13:9/0 = 0
+17:9/0 = 0
+18:9/0 = 0
+21:9/0 = 0
+22:9/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+17:10/0 = 0
+18:10/0 = 0
+21:10/0 = 0
+22:10/0 = 0
+11:11/0 = 0
+13:11/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_p1u0y"]
+sources/0 = SubResource("TileSetAtlasSource_kn3bb")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1u0y"]
+size = Vector2(16, 3)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0qewp"]
+friction = 0.0
+absorbent = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hjdki"]
+texture = ExtResource("4_a2tbi")
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+9:1/0 = 0
+11:1/0 = 0
+13:1/0 = 0
+15:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+25:1/0 = 0
+26:1/0 = 0
+27:1/0 = 0
+28:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+9:2/0 = 0
+11:2/0 = 0
+13:2/0 = 0
+15:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+19:2/0 = 0
+21:2/0 = 0
+22:2/0 = 0
+23:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+11:3/0 = 0
+13:3/0 = 0
+15:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+19:3/0 = 0
+21:3/0 = 0
+22:3/0 = 0
+23:3/0 = 0
+25:3/0 = 0
+27:3/0 = 0
+29:3/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+17:5/0 = 0
+18:5/0 = 0
+19:5/0 = 0
+21:5/0 = 0
+22:5/0 = 0
+23:5/0 = 0
+25:5/0 = 0
+2:7/0 = 0
+6:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+13:7/0 = 0
+18:7/0 = 0
+22:7/0 = 0
+25:7/0 = 0
+27:7/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+11:9/0 = 0
+12:9/0 = 0
+12:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -5.5756197, 8, -8, -8, -4.3166084)
+13:9/0 = 0
+17:9/0 = 0
+18:9/0 = 0
+21:9/0 = 0
+22:9/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+17:10/0 = 0
+18:10/0 = 0
+21:10/0 = 0
+22:10/0 = 0
+11:11/0 = 0
+13:11/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0qewp"]
+texture = ExtResource("3_t8svo")
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+9:1/0 = 0
+11:1/0 = 0
+13:1/0 = 0
+15:1/0 = 0
+17:1/0 = 0
+18:1/0 = 0
+19:1/0 = 0
+21:1/0 = 0
+22:1/0 = 0
+23:1/0 = 0
+25:1/0 = 0
+26:1/0 = 0
+27:1/0 = 0
+28:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+9:2/0 = 0
+11:2/0 = 0
+13:2/0 = 0
+15:2/0 = 0
+17:2/0 = 0
+18:2/0 = 0
+19:2/0 = 0
+21:2/0 = 0
+22:2/0 = 0
+23:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+11:3/0 = 0
+13:3/0 = 0
+15:3/0 = 0
+17:3/0 = 0
+18:3/0 = 0
+19:3/0 = 0
+21:3/0 = 0
+22:3/0 = 0
+23:3/0 = 0
+25:3/0 = 0
+27:3/0 = 0
+29:3/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+13:5/0 = 0
+17:5/0 = 0
+18:5/0 = 0
+19:5/0 = 0
+21:5/0 = 0
+22:5/0 = 0
+23:5/0 = 0
+25:5/0 = 0
+2:7/0 = 0
+6:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+13:7/0 = 0
+18:7/0 = 0
+22:7/0 = 0
+25:7/0 = 0
+27:7/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+5:9/0 = 0
+6:9/0 = 0
+11:9/0 = 0
+12:9/0 = 0
+13:9/0 = 0
+17:9/0 = 0
+18:9/0 = 0
+21:9/0 = 0
+22:9/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+17:10/0 = 0
+18:10/0 = 0
+21:10/0 = 0
+22:10/0 = 0
+11:11/0 = 0
+13:11/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7numd"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_hjdki")
+sources/1 = SubResource("TileSetAtlasSource_0qewp")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7numd"]
+size = Vector2(16, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcnqv"]
+size = Vector2(16, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33x8s"]
+size = Vector2(80, 3)
+
 [node name="zona neutra" type="Node2D" unique_id=410013776]
 script = ExtResource("1_ned6s")
+
+[node name="entrada_neutra_tutorial_1" type="Marker2D" parent="." unique_id=1062911978]
+position = Vector2(-311, -61)
+
+[node name="entrada_neutra_lado" type="Marker2D" parent="." unique_id=439959167]
+position = Vector2(28, 77)
 
 [node name="fundo" type="TileMapLayer" parent="." unique_id=382679276]
 modulate = Color(0.32156864, 0.32156864, 0.32156864, 1)
@@ -906,7 +1250,80 @@ jump_velocity = -250
 position = Vector2(72, -138)
 scale = Vector2(3.5600007, 1)
 
+[node name="elevador" type="Node2D" parent="." unique_id=932703339]
+position = Vector2(841, 205)
+script = ExtResource("14_hjdki")
+
+[node name="segundo_andar" type="Marker2D" parent="elevador" unique_id=1186432385]
+position = Vector2(0, -572)
+
+[node name="primeiro_andar" type="Marker2D" parent="elevador" unique_id=1807410095]
+
+[node name="ir_ate_primeiro_andar" type="Area2D" parent="elevador" unique_id=363430541]
+position = Vector2(-56, 3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="elevador/ir_ate_primeiro_andar" unique_id=1725266988]
+position = Vector2(-9, -1.5)
+shape = SubResource("RectangleShape2D_5s0fj")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="elevador/ir_ate_primeiro_andar" unique_id=192982103]
+position = Vector2(-1, 0)
+tile_map_data = PackedByteArray("AAD/////AAAMAAkAACA=")
+tile_set = SubResource("TileSet_p1u0y")
+
+[node name="ir_ate_segundo_andar" type="Area2D" parent="elevador" unique_id=1117136528]
+position = Vector2(73, -573)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="elevador/ir_ate_segundo_andar" unique_id=2006490853]
+position = Vector2(-17, -1.5)
+shape = SubResource("RectangleShape2D_p1u0y")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="elevador/ir_ate_segundo_andar" unique_id=91182885]
+position = Vector2(-9, 0)
+tile_map_data = PackedByteArray("AAD/////AAAMAAkAACA=")
+tile_set = SubResource("TileSet_p1u0y")
+
+[node name="elevador" type="AnimatableBody2D" parent="elevador" unique_id=523884477]
+physics_material_override = SubResource("PhysicsMaterial_0qewp")
+
+[node name="tilemap" type="TileMapLayer" parent="elevador/elevador" unique_id=1859186357]
+position = Vector2(7, 0)
+tile_map_data = PackedByteArray("AAD//wAAAAAMAAkAAAAAAAAAAAAMAAkAAAD+/wAAAAAMAAkAAAD9/wAAAAAMAAkAAAABAAAAAAAMAAkAAAA=")
+tile_set = SubResource("TileSet_7numd")
+
+[node name="descer_plataforma" type="Area2D" parent="elevador/elevador" unique_id=1877837330]
+position = Vector2(16, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="elevador/elevador/descer_plataforma" unique_id=2093372049]
+position = Vector2(15, -1.5)
+shape = SubResource("RectangleShape2D_7numd")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="elevador/elevador/descer_plataforma" unique_id=1212861420]
+position = Vector2(23, 0)
+tile_map_data = PackedByteArray("AAD/////AAAMAAkAACA=")
+tile_set = SubResource("TileSet_p1u0y")
+
+[node name="subir_plataforma" type="Area2D" parent="elevador/elevador" unique_id=1719975448]
+position = Vector2(-16, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="elevador/elevador/subir_plataforma" unique_id=252021842]
+position = Vector2(-17, -1.5)
+shape = SubResource("RectangleShape2D_fcnqv")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="elevador/elevador/subir_plataforma" unique_id=1815582836]
+position = Vector2(-9, 0)
+tile_map_data = PackedByteArray("AAD/////AAAMAAkAACA=")
+tile_set = SubResource("TileSet_p1u0y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="elevador/elevador" unique_id=1533398818]
+position = Vector2(-1, 1.5)
+shape = SubResource("RectangleShape2D_33x8s")
+
 [connection signal="body_entered" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_entered"]
 [connection signal="body_exited" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_exited"]
 [connection signal="body_entered" from="parede_de_fora_predio_direita" to="." method="_on_parede_de_fora_predio_direita_body_entered"]
 [connection signal="body_exited" from="parede_de_fora_predio_direita" to="." method="_on_parede_de_fora_predio_direita_body_exited"]
+[connection signal="body_entered" from="elevador/ir_ate_primeiro_andar" to="elevador" method="_on_ir_ate_primeiro_andar_body_entered"]
+[connection signal="body_entered" from="elevador/ir_ate_segundo_andar" to="elevador" method="_on_ir_ate_segundo_andar_body_entered"]
+[connection signal="body_entered" from="elevador/elevador/descer_plataforma" to="elevador" method="_on_descer_plataforma_body_entered"]
+[connection signal="body_entered" from="elevador/elevador/subir_plataforma" to="elevador" method="_on_subir_plataforma_body_entered"]

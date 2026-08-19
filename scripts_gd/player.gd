@@ -93,7 +93,7 @@ var _limite_padrao_inferior := 0
 var coyote_time_activated = false
 
 var speed: float = 160.0
-var jump_velocity = -280.0
+var jump_velocity = -310.0
 var double_jump_velocity = -200.0
 var pogo_velocity = -260.0
 
@@ -106,7 +106,7 @@ var looking_up = false
 var looking_down = false
 
 var jump_count = 0
-var max_jumps = 2
+var max_jumps = 1
 
 var dash_speed = 250.0
 var dash_time = 0.2
@@ -1437,7 +1437,12 @@ func pular_no_slime():
 	air_dash_available = true
 	current_state = State.JUMP
 
-func travar_camera(area: Rect2) -> void:
+
+var area_camera_atual = null
+
+func travar_camera(area: Rect2, origem = null) -> void:
+	area_camera_atual = origem
+
 	camera_travada = true
 
 	camera.limit_left = int(area.position.x)
@@ -1446,7 +1451,11 @@ func travar_camera(area: Rect2) -> void:
 	camera.limit_bottom = int(area.position.y + area.size.y)
 
 
-func destravar_camera() -> void:
+func destravar_camera(origem = null) -> void:
+	if area_camera_atual != null and origem != area_camera_atual:
+		return
+
+	area_camera_atual = null
 	camera_travada = false
 
 	camera.limit_left = _limite_padrao_esquerdo
