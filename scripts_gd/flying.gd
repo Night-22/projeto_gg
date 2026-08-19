@@ -3,6 +3,7 @@ extends Flying
 @export var distancia_seguimento: float = 5.0
 
 @onready var percepcao: Area2D = $percepcao
+@onready var anim: AnimatedSprite2D = $anim
 
 var player: CharacterBody2D = null
 var player_detectado: bool = false
@@ -11,7 +12,7 @@ var player_detectado: bool = false
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
-		
+
 	if knockback.length() > 10.0:
 		velocity = knockback
 		
@@ -38,16 +39,8 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
+	if velocity.length() > 1.0:
+		anim.play("voo")
+	
 	if is_on_wall() and not player_detectado:
 		dir *= -1
-
-func _on_percepcao_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		player = body
-		player_detectado = true
-
-
-func _on_percepcao_body_exited(body: Node2D) -> void:
-	if body == player:
-		player = null
-		player_detectado = false

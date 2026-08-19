@@ -1,7 +1,43 @@
 [gd_scene format=3 uid="uid://cddfc30c5jyqa"]
 
 [ext_resource type="Script" uid="uid://dqkk1efi14ay" path="res://scripts_gd/blue_eagle.gd" id="1_xpq04"]
-[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_2cm5d"]
+[ext_resource type="Texture2D" uid="uid://busc226y26pus" path="res://assets/aguia.png" id="2_xpq04"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2cm5d"]
+atlas = ExtResource("2_xpq04")
+region = Rect2(0, 0, 20, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3ear"]
+atlas = ExtResource("2_xpq04")
+region = Rect2(20, 0, 20, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5bu8"]
+atlas = ExtResource("2_xpq04")
+region = Rect2(40, 0, 20, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_br352"]
+atlas = ExtResource("2_xpq04")
+region = Rect2(60, 0, 20, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2cm5d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3ear")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5bu8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_br352")
+}],
+"loop": 1,
+"name": &"voo",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(58, 48)
@@ -13,9 +49,9 @@ radius = 270.06665
 script = ExtResource("1_xpq04")
 metadata/_custom_type_script = "uid://bullfap4fo1nx"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1682955659]
-scale = Vector2(0.1059633, 0.08161512)
-texture = ExtResource("2_2cm5d")
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=1134216764]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"voo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1602803412]
 shape = SubResource("RectangleShape2D_g4v7s")

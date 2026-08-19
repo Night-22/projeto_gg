@@ -1,10 +1,86 @@
 [gd_scene format=3 uid="uid://dlvuq4wdaik12"]
 
 [ext_resource type="Script" uid="uid://bh0ty0h0uw5td" path="res://scripts_gd/lightning_wizard.gd" id="1_skvp1"]
-[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_v7vly"]
+[ext_resource type="Texture2D" uid="uid://b33nh25b4ekju" path="res://assets/magos-Sheet.png" id="2_skvp1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7vly"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(0, 245, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbodc"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(24, 245, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6pte"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(48, 245, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ak5u7"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(72, 245, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cg4xb"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(96, 245, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tit4i"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(0, 105, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nolu1"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(24, 105, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1rcu"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(48, 105, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd0eb"]
+atlas = ExtResource("2_skvp1")
+region = Rect2(72, 105, 24, 35)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qvian"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7vly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbodc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6pte")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ak5u7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cg4xb")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tit4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nolu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1rcu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd0eb")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(350, 375)
+size = Vector2(200, 425)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 106.47065
@@ -13,11 +89,13 @@ radius = 106.47065
 script = ExtResource("1_skvp1")
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=694689313]
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_v7vly")
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=1686834918]
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_qvian")
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2114120213]
+position = Vector2(2, 2)
 scale = Vector2(0.08, 0.08)
 shape = SubResource("RectangleShape2D_g4v7s")
 
@@ -29,6 +107,12 @@ shape = SubResource("CircleShape2D_g4v7s")
 [node name="Cooldown" type="Timer" parent="." unique_id=487114987]
 wait_time = 3.0
 
+[node name="rayCast" type="RayCast2D" parent="." unique_id=585972950]
+position = Vector2(-8, 19)
+target_position = Vector2(0, 35)
+
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+[connection signal="frame_changed" from="anim" to="." method="_on_anim_frame_changed"]
 [connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
 [connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

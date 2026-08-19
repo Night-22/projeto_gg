@@ -1,10 +1,58 @@
 [gd_scene format=3 uid="uid://bfcb2qgmgiy1l"]
 
 [ext_resource type="Script" uid="uid://rcds1die6rr6" path="res://scripts_gd/slime_planta.gd" id="1_pqvag"]
-[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="2_hel2k"]
+[ext_resource type="Texture2D" uid="uid://bedtsonbqwg3i" path="res://assets/slimes.png" id="2_pqvag"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hel2k"]
+atlas = ExtResource("2_pqvag")
+region = Rect2(0, 17, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8bg5"]
+atlas = ExtResource("2_pqvag")
+region = Rect2(27, 17, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fif86"]
+atlas = ExtResource("2_pqvag")
+region = Rect2(54, 17, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03jwp"]
+atlas = ExtResource("2_pqvag")
+region = Rect2(0, 85, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg86h"]
+atlas = ExtResource("2_pqvag")
+region = Rect2(27, 85, 27, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8opdm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hel2k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8bg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fif86")
+}],
+"loop": 1,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03jwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg86h")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dok6e"]
-size = Vector2(26, 24)
+size = Vector2(23, 12)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 51.78803
@@ -13,12 +61,12 @@ radius = 51.78803
 script = ExtResource("1_pqvag")
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1319798647]
-modulate = Color(0.12059059, 0.53529394, 0, 1)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_hel2k")
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=862915227]
+sprite_frames = SubResource("SpriteFrames_8opdm")
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1441950885]
+position = Vector2(1.5, 2)
 shape = SubResource("RectangleShape2D_dok6e")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=58222043]

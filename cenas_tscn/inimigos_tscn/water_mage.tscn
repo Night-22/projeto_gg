@@ -1,24 +1,104 @@
 [gd_scene format=3 uid="uid://boclk0ptqwhuo"]
 
 [ext_resource type="Script" uid="uid://dllu4s58qvdrt" path="res://scripts_gd/water_mage.gd" id="1_jyj7g"]
-[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_08now"]
+[ext_resource type="Texture2D" uid="uid://b33nh25b4ekju" path="res://assets/magos-Sheet.png" id="2_jyj7g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08now"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(0, 140, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybxy0"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(24, 140, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07vlm"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(48, 140, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6qbx"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(72, 140, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyr4n"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(96, 140, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l661d"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(0, 0, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0462"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(24, 0, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtv3w"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(48, 0, 24, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n44cb"]
+atlas = ExtResource("2_jyj7g")
+region = Rect2(72, 0, 24, 35)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08now")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybxy0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07vlm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6qbx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyr4n")
+}],
+"loop": 0,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l661d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0462")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtv3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n44cb")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(54, 58)
+size = Vector2(26, 46)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jyj7g"]
-radius = 357.07492
+radius = 228.81543
 
 [node name="Water_mage" type="CharacterBody2D" unique_id=507914644 groups=["Inimigo"]]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_jyj7g")
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1499113821]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_08now")
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=935931248]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"attack"
+frame = 4
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1057717433]
+position = Vector2(1, 9)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=59853123]
@@ -30,5 +110,8 @@ shape = SubResource("CircleShape2D_jyj7g")
 [node name="Cooldown" type="Timer" parent="." unique_id=392964402]
 wait_time = 3.0
 
+[connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
+[connection signal="frame_changed" from="anim" to="." method="_on_anim_frame_changed"]
 [connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
+[connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
