@@ -37,6 +37,12 @@ Inventario=""
 Craft_menu=""
 Bancada=""
 
+[gui]
+
+theme/default_font_hinting=2
+theme/default_theme_scale=2.5
+theme/custom_font="uid://bxls3mwagmlq3"
+
 [input]
 
 ui_focus_next={
@@ -148,3 +154,4 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true

@@ -272,7 +272,7 @@ offset_top = 267.0
 offset_right = 150.0
 offset_bottom = 291.0
 grow_horizontal = 2
-text = "ARANHA"
+text = "Diana a Aranha"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
@@ -345,6 +345,7 @@ scale = Vector2(23.58992, 15.039998)
 
 [node name="soundtrack" type="AudioStreamPlayer" parent="." unique_id=215040991]
 stream = ExtResource("10_1sj3y")
+parameters/looping = false
 
 [node name="Escada" parent="." unique_id=1403829435 instance=ExtResource("11_flnu0")]
 position = Vector2(88, 196.00002)

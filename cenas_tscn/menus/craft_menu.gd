@@ -50,6 +50,8 @@ var elemento_texturas = {
 @onready var custo_label: Label = $PainelDetalhes/Conteúdo/Custo
 @onready var quantidade_label: Label = $PainelDetalhes/Conteúdo/Quantidade
 @onready var botao_craftar: Button = $"PainelDetalhes/Conteúdo/BotaoCraftar"
+@onready var fonte = preload("uid://bxls3mwagmlq3")
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS

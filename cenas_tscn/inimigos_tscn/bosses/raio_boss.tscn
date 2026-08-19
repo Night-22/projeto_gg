@@ -158,7 +158,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"raio",
-"speed": 10.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -203,9 +203,7 @@ script = ExtResource("1_script")
 position = Vector2(0, -90)
 scale = Vector2(1.5, 1.863)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"soco"
-frame = 7
-frame_progress = 1.0
+animation = &"raio"
 
 [node name="Nucleo" type="Sprite2D" parent="." unique_id=1703592488]
 visible = false

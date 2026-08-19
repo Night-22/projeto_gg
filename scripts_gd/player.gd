@@ -114,6 +114,44 @@ var dash_timer = 0.0
 
 var air_dash_available = true
 
+@export var elemental_dash_speed := 250.0
+@export var elemental_dash_damage := 8
+@export var elemental_dash_mana_reward := 5
+
+var medalhao_ativo := -1
+
+var current_dash_element := -1
+
+var dash_hit_targets: Array = []
+
+var dash_invulnerable := false
+
+var medalhao_ids = {
+	0: "medalhao_fogo",
+	1: "medalhao_agua",
+	2: "medalhao_raio",
+	3: "medalhao_planta"
+}
+
+var medalhao_nomes = {
+	0: "Medalhão do Fogo",
+	1: "Medalhão da Água",
+	2: "Medalhão do Raio",
+	3: "Medalhão da Planta"
+}
+
+
+var element_particle_textures = {
+	0: preload("res://placeholder/fogo.png"),
+	1: preload("res://placeholder/agua.png"),
+	2: preload("res://placeholder/raio.png"),
+	3: preload("res://placeholder/planta.png")
+}
+
+@onready var dash_hit_box: Area2D = $dashHitBox
+@onready var dash_hit_box_collision: CollisionShape2D = $dashHitBox/collision
+@onready var dash_aura: CPUParticles2D = $dashAura
+
 var damage_knockback := Vector2.ZERO
 
 @export var knockback_force := 200.0
@@ -259,6 +297,15 @@ func _ready() -> void:
 
 	setup_spells()
 	update_imbued_element()
+
+	dash_hit_box.body_entered.connect(_on_dash_hit_box_body_entered)
+	dash_hit_box.area_entered.connect(_on_dash_hit_box_area_entered)
+
+
+	adicionar_item("medalhao_fogo", "Medalhão do Fogo", "res://placeholder/fogo.png")
+	adicionar_item("medalhao_agua", "Medalhão da Água", "res://placeholder/agua.png")
+	adicionar_item("medalhao_raio", "Medalhão do Raio", "res://placeholder/raio.png")
+	adicionar_item("medalhao_planta", "Medalhão da Planta", "res://placeholder/planta.png")
 
 
 func _physics_process(delta: float) -> void:
@@ -505,7 +552,7 @@ func morrer_e_respawnar() -> void:
 	lock_player()
 	anim.play("die")
 	await anim.animation_finished
-	var ultimo := SaveManager.obter_ultimo_save()
+	var ultimo = SaveManager.obter_ultimo_save()
 	if ultimo != -1:
 			await SaveManager.carregar_jogo(ultimo)
 	unlock_player()
@@ -556,6 +603,7 @@ func obter_dados_save() -> Dictionary:
 		"magias_desbloqueadas": spell_inventory.duplicate(),
 		"magias_equipadas": equipped_spells.duplicate(),
 		"itens": inventario_itens.duplicate(true),
+		"medalhao_ativo": medalhao_ativo,
 		"checkpoint_cena": caminho_cena,
 		"checkpoint_pos_x": respawn_position.x,
 		"checkpoint_pos_y": respawn_position.y
@@ -585,6 +633,11 @@ func aplicar_dados_save(dados: Dictionary) -> void:
 		equipped_spells.append(int(spell_id))
 
 	inventario_itens = dados.get("itens", [])
+
+	medalhao_ativo = int(dados.get("medalhao_ativo", -1))
+
+	if medalhao_ativo != -1 and !possui_medalhao(medalhao_ativo):
+		medalhao_ativo = -1
 
 	var pos_x = float(dados.get("checkpoint_pos_x", global_position.x))
 	var pos_y = float(dados.get("checkpoint_pos_y", global_position.y))
@@ -897,6 +950,136 @@ func _on_imbue_timer_timeout() -> void:
 	update_imbued_element()
 
 
+func possui_medalhao(elemento: int) -> bool:
+	if !medalhao_ids.has(elemento):
+		return false
+
+	var id = medalhao_ids[elemento]
+
+	for item in inventario_itens:
+		if item["id"] == id and item.get("quantidade", 0) > 0:
+			return true
+
+	return false
+
+
+func ativar_medalhao(elemento: int) -> bool:
+	if !medalhao_ids.has(elemento):
+		return false
+
+	if !possui_medalhao(elemento):
+		return false
+
+	medalhao_ativo = elemento
+
+	return true
+
+
+func desativar_medalhao() -> void:
+	medalhao_ativo = -1
+
+
+func alternar_medalhao(elemento: int) -> bool:
+	if medalhao_ativo == elemento:
+		desativar_medalhao()
+		return true
+
+	return ativar_medalhao(elemento)
+
+
+func obter_medalhao_ativo() -> int:
+	return medalhao_ativo
+
+
+func obter_cor_dash_atual() -> Color:
+	if current_dash_element != -1 and element_colors.has(current_dash_element):
+		return element_colors[current_dash_element]
+
+	return Color(1, 1, 1, 1)
+
+
+func iniciar_dash_elemental() -> void:
+	dash_hit_targets.clear()
+	dash_invulnerable = true
+
+	dash_hit_box_collision.disabled = false
+	dash_hit_box.monitoring = true
+
+	for inimigo in get_tree().get_nodes_in_group("Inimigo"):
+		if is_instance_valid(inimigo) and inimigo is CollisionObject2D:
+			add_collision_exception_with(inimigo)
+
+	if element_colors.has(current_dash_element):
+		dash_aura.color = element_colors[current_dash_element]
+
+	if element_particle_textures.has(current_dash_element):
+		dash_aura.texture = element_particle_textures[current_dash_element]
+
+	dash_aura.restart()
+	dash_aura.emitting = true
+
+
+func finalizar_dash_elemental() -> void:
+	dash_invulnerable = false
+
+	dash_hit_box.monitoring = false
+	dash_hit_box_collision.disabled = true
+
+	dash_aura.emitting = false
+
+	for inimigo in get_tree().get_nodes_in_group("Inimigo"):
+		if is_instance_valid(inimigo) and inimigo is CollisionObject2D:
+			remove_collision_exception_with(inimigo)
+
+	dash_hit_targets.clear()
+
+
+func _on_dash_hit_box_body_entered(body: Node2D) -> void:
+	if current_dash_element == -1:
+		return
+
+	if body == self:
+		return
+
+	if !body.is_in_group("Inimigo"):
+		return
+
+	if body in dash_hit_targets:
+		return
+
+	dash_hit_targets.append(body)
+
+	var dano = elemental_dash_damage
+
+	if body.has_method("_aplicar_elemento"):
+		dano = body._aplicar_elemento(
+			current_dash_element,
+			dano,
+			global_position.x
+		)
+
+	if body.has_method("_dano"):
+		body._dano(dano, global_position.x)
+
+	Mana = min(Mana + elemental_dash_mana_reward, max_mana)
+
+
+func _on_dash_hit_box_area_entered(area: Area2D) -> void:
+	if current_dash_element == -1:
+		return
+
+	if !area.is_in_group("ProjetilInimigo"):
+		return
+
+	if area in dash_hit_targets:
+		return
+
+	dash_hit_targets.append(area)
+
+	if is_instance_valid(area):
+		area.queue_free()
+
+
 func state_idle(delta):
 	anim.flip_h = last_direction < 0
 
@@ -1134,6 +1317,11 @@ func state_dash(delta):
 	anim.flip_h = last_direction < 0
 
 	if dash_timer <= 0:
+		if current_dash_element != -1:
+			finalizar_dash_elemental()
+
+		current_dash_element = -1
+
 		if is_on_floor():
 			var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
 
@@ -1219,11 +1407,15 @@ func start_dash():
 
 	dash_timer = dash_time
 	current_state = State.DASH
+	current_dash_element = medalhao_ativo
 
 	if last_direction == 0:
 		last_direction = 1
 
 	velocity.y = 0
+
+	if current_dash_element != -1:
+		iniciar_dash_elemental()
 
 
 func start_coyote():
@@ -1319,7 +1511,7 @@ func attack_to_direction(dir):
 
 
 func receber_dano(dano: int, origem_x: float) -> void:
-	if Life <= 0 or invulnerable:
+	if Life <= 0 or invulnerable or dash_invulnerable:
 		return
 
 	iniciar_iframe()
@@ -1504,6 +1696,7 @@ func create_dash_effect():
 	var playerCopyNode = anim.duplicate()
 	get_parent().add_child(playerCopyNode)
 	playerCopyNode.global_position = global_position
+	playerCopyNode.modulate = obter_cor_dash_atual()
 	playerCopyNode.modulate.a = 0.0
 
 	var animationTime = dash_timer / 2.0
@@ -1592,6 +1785,9 @@ func obter_pogo_velocity() -> float:
 func obter_dash_speed() -> float:
 	if dentro_da_agua:
 		return dash_speed_agua
+
+	if current_dash_element != -1:
+		return elemental_dash_speed
 
 	return dash_speed
 
