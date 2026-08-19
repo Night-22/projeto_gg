@@ -147,7 +147,7 @@ offset_top = 4.0
 offset_right = 382.0
 offset_bottom = 19.0
 theme_override_font_sizes/font_size = 10
-text = "CHEFE DE RAIO"
+text = "Rebecca, a mestra dos raios"
 horizontal_alignment = 1
 
 [node name="BarraVidaChefe" type="ProgressBar" parent="HudChefe/Interface" unique_id=283891761]
@@ -164,6 +164,7 @@ scale = Vector2(23.962223, 12.332323)
 
 [node name="soundtrack" type="AudioStreamPlayer" parent="." unique_id=659288758]
 stream = ExtResource("8_5aigr")
+parameters/looping = false
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=921431593]
 position = Vector2(190, 60)

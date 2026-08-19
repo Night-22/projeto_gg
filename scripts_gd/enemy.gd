@@ -17,8 +17,8 @@ enum ElementoNativo {
 @export var elemento_nativo: ElementoNativo = ElementoNativo.SEM_ELEMENTO
 @export var chance_drop_alma := 1.0
 
-@export var knockback_force := 300
-@export var knockback_up_force := -220
+@export var knockback_force := 100
+@export var knockback_up_force := -120
 @export var knockback_ataque := 30
 
 @onready var ray: RayCast2D = $rayCast

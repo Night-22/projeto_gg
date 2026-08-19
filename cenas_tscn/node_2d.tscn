@@ -90,16 +90,22 @@ position = Vector2(0.5, 8.5)
 shape = SubResource("RectangleShape2D_ydpk4")
 
 [node name="Hud" parent="." unique_id=249675550 instance=ExtResource("5_ebefr")]
+visible = false
 
 [node name="SpellInventory" parent="." unique_id=1732352662 instance=ExtResource("6_7juhd")]
+visible = false
 
 [node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("10_ne5t3")]
+visible = false
 
 [node name="BancadaMenu" parent="." unique_id=1183963467 instance=ExtResource("11_bancmenu")]
+visible = false
 
 [node name="SaveMenu" parent="." unique_id=2105074129 instance=ExtResource("12_savemenu")]
+visible = false
 
 [node name="InventarioGeral" parent="." unique_id=1844395041 instance=ExtResource("13_geninv")]
+visible = false
 
 [node name="Tilemap" type="Node2D" parent="." unique_id=45169895]
 

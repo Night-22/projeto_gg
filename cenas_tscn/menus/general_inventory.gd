@@ -26,6 +26,13 @@ var spell_names = {
 @onready var grid_magias: GridContainer = $Fundo/VBoxContainer/MagiasEquipadas/GridMagias
 @onready var grid_itens: GridContainer = $Fundo/VBoxContainer/Itens/GridItens
 
+var medalhao_elementos = {
+	"medalhao_fogo": 0,
+	"medalhao_agua": 1,
+	"medalhao_raio": 2,
+	"medalhao_planta": 3
+}
+
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -123,11 +130,35 @@ func atualizar_itens() -> void:
 
 		if i < player.inventario_itens.size():
 			var item = player.inventario_itens[i]
-			caixa.text = "%s x%d" % [item.get("nome", "?"), item.get("quantidade", 1)]
+			var texto = "%s x%d" % [item.get("nome", "?"), item.get("quantidade", 1)]
+			var id = item.get("id", "")
+
+			if medalhao_elementos.has(id):
+				var elemento = medalhao_elementos[id]
+
+				caixa.disabled = false
+
+				if player.obter_medalhao_ativo() == elemento:
+					caixa.text = texto + "\n[EQUIPADO]"
+					caixa.modulate = Color(1.0, 0.85, 0.3)
+				else:
+					caixa.text = texto
+
+				caixa.pressed.connect(_on_medalhao_pressed.bind(elemento))
+			else:
+				caixa.text = texto
 		else:
 			caixa.text = ""
 
 		grid_itens.add_child(caixa)
+
+
+func _on_medalhao_pressed(elemento: int) -> void:
+	if player == null:
+		return
+
+	player.alternar_medalhao(elemento)
+	atualizar_itens()
 
 
 func get_spell_name(spell_id) -> String:
