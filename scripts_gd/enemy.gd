@@ -60,6 +60,15 @@ var planta_icon = preload("res://placeholder/planta.png")
 
 var alma_scene = preload("res://cenas_tscn/itens/alma_elemental.tscn")
 
+
+var cores_particula_elemento = {
+	ElementoNativo.SEM_ELEMENTO: Color.WHITE,
+	ElementoNativo.FOGO: Color(1.0, 0.45, 0.0),
+	ElementoNativo.AGUA: Color(0.0, 1.125, 10.175),
+	ElementoNativo.RAIO: Color(1.0, 0.9, 0.0),
+	ElementoNativo.PLANTA: Color(0.3, 1.0, 0.3)
+}
+
 var element_icon_size = Vector2(24, 24)
 var element_icon_spacing = 4.0
 var element_icon_offset = Vector2(0, -40)
@@ -75,6 +84,10 @@ var eletrizacao_timer := 0.0
 
 var queimadura_tick_timer := 0.0
 var sobrecarga_tick_timer := 0.0
+
+var flash_shader = preload("res://gdshader/flash.gdshader")
+var flash_duration := 0.15
+var _flash_tween: Tween = null
 
 
 func _ready() -> void:
@@ -339,6 +352,60 @@ func atualizar_icones_elementais():
 		element_icons.append(icon)
 
 
+func obter_cor_particula() -> Color:
+	if cores_particula_elemento.has(elemento_nativo):
+		return cores_particula_elemento[elemento_nativo]
+
+	return Color.WHITE
+
+
+func piscar_dano() -> void:
+	var sprite = obter_sprite_flash()
+
+	if sprite == null:
+		return
+
+	var material := sprite.material as ShaderMaterial
+
+	if material == null or material.shader != flash_shader:
+		material = ShaderMaterial.new()
+		material.shader = flash_shader
+		sprite.material = material
+
+	material.set_shader_parameter("flash_color", obter_cor_particula())
+	material.set_shader_parameter("flash_amount", 1.0)
+
+	if _flash_tween != null and is_instance_valid(_flash_tween):
+		_flash_tween.kill()
+
+	_flash_tween = create_tween()
+	_flash_tween.tween_method(
+		func(valor): material.set_shader_parameter("flash_amount", valor),
+		1.0,
+		0.0,
+		flash_duration
+	)
+
+
+func obter_sprite_flash() -> CanvasItem:
+	var direto = get_node_or_null("anim")
+
+	if direto is CanvasItem:
+		return direto
+
+	var encontrados = find_children("*", "AnimatedSprite2D", true, false)
+
+	if encontrados.size() > 0:
+		return encontrados[0]
+
+	encontrados = find_children("*", "Sprite2D", true, false)
+
+	if encontrados.size() > 0:
+		return encontrados[0]
+
+	return null
+
+
 func obter_icone_elemento(tipo):
 	match tipo:
 		fogo:
@@ -414,7 +481,7 @@ func mostrar_dano(dano: int) -> void:
 	tween.finished.connect(label.queue_free)
 
 
-func _dano(dano: int, origem_x: float):
+func _dano(dano: int, origem_x: float, direcao_ataque: Vector2 = Vector2.ZERO):
 	if dead:
 		return
 
@@ -424,16 +491,25 @@ func _dano(dano: int, origem_x: float):
 
 	mostrar_dano(dano)
 
-	var direcao = sign(global_position.x - origem_x)
+	piscar_dano()
+
+	var direcao_knockback = sign(global_position.x - origem_x)
+
+	if direcao_knockback == 0:
+		direcao_knockback = -1
+
+	var direcao_particulas = direcao_ataque
+
+	if direcao_particulas == Vector2.ZERO:
+		direcao_particulas = Vector2(direcao_knockback, 0)
+
 	var particula = preload("res://particles/explosion.tscn").instantiate()
 
-	if direcao == 0:
-		direcao = -1
+	particula.configurar(self, obter_cor_particula(), direcao_particulas)
 
-	particula.global_position = global_position
 	get_parent().add_child(particula)
 
-	knockback.x = direcao * knockback_force
+	knockback.x = direcao_knockback * knockback_force
 	velocity.y = knockback_up_force
 
 	if Life <= 0:
