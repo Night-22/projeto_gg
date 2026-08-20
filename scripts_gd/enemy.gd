@@ -17,9 +17,12 @@ enum ElementoNativo {
 @export var elemento_nativo: ElementoNativo = ElementoNativo.SEM_ELEMENTO
 @export var chance_drop_alma := 1.0
 
-@export var knockback_force := 300
-@export var knockback_up_force := -220
+@export var knockback_force := 100
+@export var knockback_up_force := -120
 @export var knockback_ataque := 30
+
+#@onready var ray: RayCast2D = $rayCast
+
 
 var dead := false
 var elementosRecebidos = []
@@ -103,7 +106,12 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_wall():
 		dir *= -1
+		#ray.position.x = abs(ray.position.x) * dir
 
+	if is_on_floor():
+		dir *= -1
+		##ray.position.x = abs(ray.position.x) * dir
+		#$anim.flip_h = true
 
 func obter_elemento_nativo() -> int:
 	return elemento_nativo

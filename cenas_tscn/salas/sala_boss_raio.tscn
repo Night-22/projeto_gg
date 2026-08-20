@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bo86gs3gebcvv" path="res://cenas_tscn/inimigos_tscn/bosses/raio_boss.tscn" id="5_boss"]
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="7_7bfxw"]
+[ext_resource type="AudioStream" uid="uid://33remjykxlw6" path="res://assets/musicas/Beethoven Virus INSANE PIANO VERSION - Pianoly Official (youtube).mp3" id="8_5aigr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
 size = Vector2(28, 252)
@@ -102,12 +103,13 @@ shape = SubResource("RectangleShape2D_plataforma")
 one_way_collision = true
 
 [node name="RaioBoss" parent="." unique_id=1094024065 instance=ExtResource("5_boss")]
-position = Vector2(179, 26)
+position = Vector2(179, 55)
 scale = Vector2(0.5, 0.5)
 limite_esquerdo = -25.5
 limite_direito = 369.5
 distancia_plataforma_chao = 174.5
 posicoes_plataformas = PackedFloat32Array(70, 180, 290)
+tempo_aviso_raio = 1.2
 
 [node name="Player" parent="." unique_id=1746348835 instance=ExtResource("2_player")]
 position = Vector2(-25, 219)
@@ -145,7 +147,7 @@ offset_top = 4.0
 offset_right = 382.0
 offset_bottom = 19.0
 theme_override_font_sizes/font_size = 10
-text = "CHEFE DE RAIO"
+text = "Rebecca, a mestra dos raios"
 horizontal_alignment = 1
 
 [node name="BarraVidaChefe" type="ProgressBar" parent="HudChefe/Interface" unique_id=283891761]
@@ -159,5 +161,12 @@ show_percentage = false
 [node name="CameraLockArea" parent="." unique_id=1808650042 instance=ExtResource("7_7bfxw")]
 position = Vector2(169, 118)
 scale = Vector2(23.962223, 12.332323)
+
+[node name="soundtrack" type="AudioStreamPlayer" parent="." unique_id=659288758]
+stream = ExtResource("8_5aigr")
+parameters/looping = false
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=921431593]
+position = Vector2(190, 60)
 
 [connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]

@@ -1,8 +1,8 @@
 extends Enemy
 class_name SlimeAguaBoss
 
-@export var velocidade_perseguicao := 26.0
-@export var tempo_vida_maxima := 12.0
+@export var velocidade_perseguicao := 38.0
+@export var tempo_vida_maxima := 40.0
 
 var jogador: Node2D = null
 

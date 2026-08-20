@@ -6,6 +6,8 @@ extends Node2D
 @onready var barra_vida_chefe: ProgressBar = $HudChefe/Interface/BarraVidaChefe
 @onready var nome_chefe: Label = $HudChefe/Interface/NomeChefe
 @onready var plataforma_fase2: StaticBody2D = $PlataformaFase2
+@onready var soundtrack: AudioStreamPlayer = $soundtrack
+
 
 var luta_iniciada := false
 
@@ -47,6 +49,7 @@ func _on_gatilho_luta_body_entered(body: Node2D) -> void:
 
 	if boss:
 		boss.iniciar_luta()
+		soundtrack.play()
 
 
 func _on_chefe_derrotado() -> void:

@@ -609,8 +609,7 @@ wait_time = 0.6
 one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=884263791]
-position = Vector2(-1, -40)
-limit_smoothed = true
+position = Vector2(-1, -44)
 position_smoothing_enabled = true
 script = ExtResource("6_t5do6")
 
@@ -621,6 +620,54 @@ offset_top = -28.0
 offset_right = 36.0
 offset_bottom = -5.0
 theme_override_font_sizes/font_size = 10
+
+[node name="dashHitBox" type="Area2D" parent="." unique_id=-737673184]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="collision" type="CollisionShape2D" parent="dashHitBox" unique_id=-737673183]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_xojfc")
+disabled = true
+debug_color = Color(1, 0.7, 0.1, 0.42)
+
+[node name="dashAura" type="CPUParticles2D" parent="." unique_id=-737673182]
+emitting = false
+amount = 24
+lifetime = 0.4
+explosiveness = 0.15
+randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 12.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, -18)
+initial_velocity_min = 12.0
+initial_velocity_max = 34.0
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+scale_amount_min = 0.06
+scale_amount_max = 0.12
+
+[node name="healAura" type="CPUParticles2D" parent="." unique_id=-737673181]
+emitting = false
+amount = 16
+lifetime = 0.9
+explosiveness = 0.05
+randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2(0, -1)
+spread = 91.29
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 10.0
+linear_accel_min = -35.0
+radial_accel_min = -150.0
+radial_accel_max = -150.0
+scale_amount_max = 2.5
+color = Color(0.53, 1, 0.6, 0.85)
 
 [connection signal="animation_finished" from="anim" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="hurtBox" to="." method="_on_hurt_box_body_entered"]

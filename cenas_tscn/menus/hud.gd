@@ -2,8 +2,8 @@ extends CanvasLayer
 
 var player
 
-@onready var health_bar: ProgressBar = $Interface/HealthBar
-@onready var mana_bar: ProgressBar = $Interface/ManaBar
+@onready var health_bar: TextureProgressBar = $Interface/HealthBar
+@onready var mana_bar: TextureProgressBar = $Interface/ManaBar
 
 @onready var spell_1_name: Label = $Interface/SpellBar/SpellSlot1/Label
 @onready var spell_2_name: Label = $Interface/SpellBar/SpellSlot2/Label
@@ -84,7 +84,7 @@ func update_bars() -> void:
 
 	mana_bar.max_value = player.max_mana
 	mana_bar.value = player.Mana
-	mana_text.text = str(player.Mana) +  " / " + str(player.max_mana)
+	mana_text.text = str(player.Mana) +  " / "  + str(player.max_mana)
 
 
 func update_spell_names() -> void:

@@ -11,3 +11,6 @@ Speed = 0
 [node name="hurtBox" type="Area2D" parent="." unique_id=528143194]
 
 [node name="rayCast" type="RayCast2D" parent="." unique_id=1630025701]
+target_position = Vector2(0, 18)
+
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=225906166]

@@ -1,10 +1,58 @@
 [gd_scene format=3 uid="uid://dkyfji4im2qkl"]
 
 [ext_resource type="Script" uid="uid://lqg24fxy3cti" path="res://scripts_gd/slime_raio.gd" id="1_w6fp2"]
-[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="2_ub0mh"]
+[ext_resource type="Texture2D" uid="uid://bedtsonbqwg3i" path="res://assets/slimes.png" id="2_w6fp2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ub0mh"]
+atlas = ExtResource("2_w6fp2")
+region = Rect2(0, 51, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dok6e"]
+atlas = ExtResource("2_w6fp2")
+region = Rect2(27, 51, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yy0en"]
+atlas = ExtResource("2_w6fp2")
+region = Rect2(54, 51, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ij7dt"]
+atlas = ExtResource("2_w6fp2")
+region = Rect2(0, 119, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1styy"]
+atlas = ExtResource("2_w6fp2")
+region = Rect2(27, 119, 27, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gvqu7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ub0mh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dok6e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yy0en")
+}],
+"loop": 1,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ij7dt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1styy")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pqvag"]
-size = Vector2(26, 24)
+size = Vector2(19, 13)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 55.326305
@@ -13,12 +61,13 @@ radius = 55.326305
 script = ExtResource("1_w6fp2")
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1640050914]
-modulate = Color(0.31606364, 0.00010547854, 0.33688778, 1)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_ub0mh")
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=1974833792]
+sprite_frames = SubResource("SpriteFrames_gvqu7")
+animation = &"attack"
+frame_progress = 0.20313969
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1488953315]
+position = Vector2(-0.5, 1.5)
 shape = SubResource("RectangleShape2D_pqvag")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=1727589995]

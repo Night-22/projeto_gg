@@ -447,7 +447,7 @@ Life = 5
 knockback_ataque = 120
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("11_blw00")]
-position = Vector2(371, 281)
+position = Vector2(1618, -318)
 
 [node name="Flying2" parent="." unique_id=1786747674 instance=ExtResource("17_vqqwn")]
 position = Vector2(1626, -184)

@@ -77,6 +77,7 @@ var bola_raio_scene := preload("res://cenas_tscn/inimigos_tscn/bosses/bola_raio.
 @export var tempo_transicao := 0.55
 
 @onready var dash_hitbox: Area2D = $DashHitbox
+@onready var corpo: AnimatedSprite2D = $Corpo
 
 var lutando := false
 var jogador: Node2D = null
@@ -120,6 +121,12 @@ func iniciar_luta() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
+	if jogador.global_position.x <= 190:
+		corpo.flip_h = false
+	else:
+		corpo.flip_h = true
+	
 	if dead:
 		return
 
@@ -133,24 +140,31 @@ func _physics_process(delta: float) -> void:
 	match estado_atual:
 		Estado.IDLE_CHAO:
 			_estado_idle_chao(delta)
+			corpo.play("idle")
 		Estado.ANDANDO:
 			_estado_andando(delta)
 		Estado.PREPARANDO_ATAQUE_CHAO:
 			_estado_preparando_ataque_chao(delta)
 		Estado.ATAQUE_CHAO_DASH:
 			_estado_ataque_chao_dash(delta)
+			
+			corpo.play("soco")
 		Estado.ATAQUE_CHAO_BOLAS:
 			_estado_ataque_chao_bolas(delta)
+			
+			corpo.play("raio")
 		Estado.RECUPERANDO_QUEDA:
 			_estado_recuperando_queda(delta)
 		Estado.TRANSICAO_PARA_PLATAFORMA:
 			_estado_transicao_para_plataforma(delta)
 		Estado.IDLE_PLATAFORMA:
 			_estado_idle_plataforma(delta)
+			corpo.play("idle")
 		Estado.PREPARANDO_ATAQUE_PLATAFORMA:
 			_estado_preparando_ataque_plataforma(delta)
 		Estado.ATAQUE_PLATAFORMA:
 			_estado_ataque_plataforma(delta)
+			corpo.play("raio")
 		Estado.TRANSICAO_PARA_CHAO:
 			_estado_transicao_para_chao(delta)
 

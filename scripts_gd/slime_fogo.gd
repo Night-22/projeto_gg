@@ -15,12 +15,13 @@ extends Enemy
 @onready var area: Area2D = $percepcao
 @onready var timer: Timer = $Timer
 @onready var patrol_timer: Timer = $PatrolTimer
+@onready var anim: AnimatedSprite2D = $anim
 
 var player: Node2D = null
 
 var can_jump: bool = true
 var jumping: bool = false
-var chasing: bool = false
+var attacking: bool = false
 
 
 func _ready() -> void:
@@ -34,34 +35,30 @@ func _physics_process(delta: float) -> void:
 	if dead:
 		return
 
-	var player_dentro_da_altura: bool = false
+	var player_dentro_da_altura := false
 
 	if player != null and is_instance_valid(player):
-		var diferenca_y: float = abs(player.global_position.y - global_position.y)
+		var diferenca_y = abs(player.global_position.y - global_position.y)
 		player_dentro_da_altura = diferenca_y <= limite_altura
 
 	if player != null and is_instance_valid(player) and player_dentro_da_altura:
-		chasing = true
-		patrol_timer.stop()
-
-		var nova_direcao: float = sign(player.global_position.x - global_position.x)
-
-		if nova_direcao != 0.0:
-			dir = nova_direcao
-
 		if can_jump and is_on_floor():
 			iniciar_pulo_perseguicao()
-	else:
-		chasing = false
 
+	else:
 		if can_jump and is_on_floor():
 			iniciar_mini_pulo()
 
 	super._physics_process(delta)
 
+	if attacking:
+		anim.play("attack")
+	elif velocity.x != 0:
+		anim.play("walk")
 
 func iniciar_mini_pulo() -> void:
 	jumping = true
+	attacking = false
 	can_jump = false
 
 	Speed = mini_jump_speed
@@ -72,7 +69,13 @@ func iniciar_mini_pulo() -> void:
 
 func iniciar_pulo_perseguicao() -> void:
 	jumping = true
+	attacking = true
 	can_jump = false
+
+	var nova_direcao = sign(player.global_position.x - global_position.x)
+
+	if nova_direcao != 0:
+		dir = nova_direcao
 
 	Speed = leap_speed
 	velocity.y = leap_force
@@ -100,5 +103,5 @@ func _on_percepcao_body_entered(body: Node2D) -> void:
 func _on_percepcao_body_exited(body: Node2D) -> void:
 	if body == player:
 		player = null
-		chasing = false
+		attacking = false
 		patrol_timer.start()

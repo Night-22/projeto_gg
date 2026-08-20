@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://33remjykxlw6"
+path="res://.godot/imported/Beethoven Virus INSANE PIANO VERSION - Pianoly Official (youtube).mp3-aa1935dd6b3739aa5d0add7a2faa7b30.mp3str"
+
+[deps]
+
+source_file="res://assets/musicas/Beethoven Virus INSANE PIANO VERSION - Pianoly Official (youtube).mp3"
+dest_files=["res://.godot/imported/Beethoven Virus INSANE PIANO VERSION - Pianoly Official (youtube).mp3-aa1935dd6b3739aa5d0add7a2faa7b30.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

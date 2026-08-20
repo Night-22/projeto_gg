@@ -1,9 +1,20 @@
 [gd_scene format=3 uid="uid://bytt2gxhnkgtd"]
 
 [ext_resource type="Script" uid="uid://d64q2ahvpa6i" path="res://cenas_tscn/menus/hud.gd" id="1_ahplq"]
+[ext_resource type="Texture2D" uid="uid://cgihnu8h2uekd" path="res://assets/hud/icone_perso.png" id="2_4vek8"]
+[ext_resource type="Texture2D" uid="uid://c50uvail0l78o" path="res://assets/hud/preto_da_vida.png" id="3_ee3o1"]
+[ext_resource type="Texture2D" uid="uid://d1hvkel4qqcq1" path="res://assets/hud/vida.png" id="4_qxet8"]
+[ext_resource type="Texture2D" uid="uid://dreq1yqksu0jw" path="res://assets/hud/preto_da_stamina.png" id="5_8oxfb"]
+[ext_resource type="Texture2D" uid="uid://b4deswht2a7m3" path="res://assets/hud/stamina.png" id="6_0b6lw"]
 
 [node name="Hud" type="CanvasLayer" unique_id=249675550]
 script = ExtResource("1_ahplq")
+
+[node name="icone" type="TextureRect" parent="." unique_id=1725340622]
+offset_right = 153.0
+offset_bottom = 65.0
+scale = Vector2(1.1199999, 1)
+texture = ExtResource("2_4vek8")
 
 [node name="Interface" type="Control" parent="." unique_id=1726835691]
 layout_mode = 3
@@ -13,15 +24,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HealthBar" type="ProgressBar" parent="Interface" unique_id=1489437378]
+[node name="HealthBar" type="TextureProgressBar" parent="Interface" unique_id=1488110981]
 layout_mode = 1
-offset_left = 7.0
-offset_top = 6.0
-offset_right = 127.688446
-offset_bottom = 22.272598
-scale = Vector2(0.737436, 0.737436)
+offset_left = 56.000004
+offset_top = 11.000001
+offset_right = 187.53683
+offset_bottom = 43.0
+scale = Vector2(1.1115019, 1.1113931)
 value = 100.0
-show_percentage = false
+texture_under = ExtResource("3_ee3o1")
+texture_progress = ExtResource("4_qxet8")
 
 [node name="HealthText" type="Label" parent="Interface/HealthBar" unique_id=2089174677]
 layout_mode = 1
@@ -30,22 +42,24 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -35.17918
+offset_top = -10.601371
+offset_right = 115.820816
+offset_bottom = 44.39863
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.4230553, 0.312)
 
-[node name="ManaBar" type="ProgressBar" parent="Interface" unique_id=1350334871]
+[node name="ManaBar" type="TextureProgressBar" parent="Interface" unique_id=126292285]
 layout_mode = 1
-offset_left = 7.0
-offset_top = 22.0
-offset_right = 127.688446
-offset_bottom = 39.628647
-scale = Vector2(0.737436, 0.737436)
+offset_left = 56.0
+offset_top = 4.0
+offset_right = 176.68845
+offset_bottom = 36.0
+scale = Vector2(1.0296319, 1.4909453)
 value = 100.0
-show_percentage = false
+texture_under = ExtResource("5_8oxfb")
+texture_progress = ExtResource("6_0b6lw")
 
 [node name="ManaText" type="Label" parent="Interface/ManaBar" unique_id=374329060]
 layout_mode = 1
@@ -54,12 +68,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = 4.727577
+offset_top = 8.816471
+offset_right = 44.727577
+offset_bottom = 63.816467
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.20614238, 0.16590464)
 
 [node name="SpellBar" type="VBoxContainer" parent="Interface" unique_id=1731993230]
 custom_minimum_size = Vector2(70, 50)

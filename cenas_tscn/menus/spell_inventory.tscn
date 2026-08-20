@@ -42,7 +42,6 @@ size_flags_horizontal = 4
 columns = 4
 
 [node name="Water1" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1915124477]
-custom_maximum_size = Vector2(-1, 50)
 layout_mode = 2
 text = "Water 1"
 
