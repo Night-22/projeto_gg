@@ -2,36 +2,65 @@
 
 [ext_resource type="Script" uid="uid://kvwcc25cq4wx" path="res://cenas_tscn/prefabs/laser.gd" id="1_a17o7"]
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_bq32h"]
+[ext_resource type="Texture2D" uid="uid://btca0pqg7nhq2" path="res://assets/laser_desligado.png" id="3_wsv82"]
+[ext_resource type="Texture2D" uid="uid://rna2bognk0i3" path="res://assets/laser_aceso.png" id="4_xt05h"]
 
 [sub_resource type="Curve2D" id="Curve2D_wsv82"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -3, -2, 0, 0, 0, 0, 84, -2, 0, 0, 0, 0, 103, -1, 0, 0, 0, 0, 248, -1, 0, 0, 0, 0, 312, -1)
+"points": PackedVector2Array(0, 0, 0, 0, -3, -10.6666565, 0, 0, 0, 0, -3, 9, 0, 0, 0, 0, 449, 14, 0, 0, 0, 0, 449, -13)
 }
-point_count = 5
+point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(13, 151)
+size = Vector2(4, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_or5tp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_wsv82")
+}],
+"loop": 1,
+"name": &"desligado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xt05h")
+}],
+"loop": 1,
+"name": &"ligado",
+"speed": 5.0
+}]
 
 [node name="LaserPath" type="Path2D" unique_id=1075413229]
 curve = SubResource("Curve2D_wsv82")
 
 [node name="Laser" type="PathFollow2D" parent="." unique_id=1940096644]
-position = Vector2(-3, -2)
-loop = false
+position = Vector2(387.7711, 13.322689)
+rotation = 0.034469105
+progress = 410.4508
+rotates = false
 script = ExtResource("1_a17o7")
 
 [node name="Area2D" type="Area2D" parent="Laser" unique_id=469616266]
+position = Vector2(2.050506, 88.481895)
 
 [node name="Sprite2D" type="Sprite2D" parent="Laser/Area2D" unique_id=1237972691]
 modulate = Color(1, 0.23137255, 1, 1)
-position = Vector2(-4.7683716e-07, 0.9999981)
-scale = Vector2(0.022018349, 0.2611684)
+scale = Vector2(0.007968017, 0.2611684)
 texture = ExtResource("2_bq32h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Laser/Area2D" unique_id=1126661343]
-visible = false
 modulate = Color(0.13725491, 1, 0.45882353, 1)
-position = Vector2(0.5, 1.5)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Laser/Area2D" unique_id=1890035232]
+position = Vector2(0.17231077, -82.054695)
+rotation = -0.034469105
+scale = Vector2(1.0000002, 1.0000002)
+sprite_frames = SubResource("SpriteFrames_or5tp")
+animation = &"ligado"
 
 [connection signal="body_entered" from="Laser/Area2D" to="Laser" method="_on_area_2d_body_entered"]

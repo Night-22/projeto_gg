@@ -513,7 +513,7 @@ size = Vector2(425, 116)
 size = Vector2(992, 234)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nwi6n"]
-size = Vector2(310, 286)
+size = Vector2(325, 400)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6s4bm"]
 size = Vector2(552, 210)
@@ -527,7 +527,7 @@ size = Vector2(371, 222)
 size = Vector2(371, 273)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ylbax"]
-size = Vector2(438, 266)
+size = Vector2(412, 266)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2quh"]
 size = Vector2(412, 272)
@@ -734,6 +734,7 @@ position = Vector2(1186, -1342)
 scale = Vector2(0.2809853, -0.10424519)
 
 [node name="cameraLOCKAO" type="Node2D" parent="." unique_id=963486955]
+visible = false
 
 [node name="CameraLockArea" type="Area2D" parent="cameraLOCKAO" unique_id=1808650042]
 position = Vector2(1132, -440)
@@ -781,7 +782,7 @@ position = Vector2(1810, -440)
 script = ExtResource("13_ycre0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cameraLOCKAO/CameraLockArea6" unique_id=433873717]
-position = Vector2(8, -168)
+position = Vector2(0.5, -111)
 shape = SubResource("RectangleShape2D_nwi6n")
 
 [node name="CameraLockArea7" type="Area2D" parent="cameraLOCKAO" unique_id=479926170]
@@ -819,7 +820,7 @@ position = Vector2(1179, 56)
 script = ExtResource("13_ycre0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cameraLOCKAO/CameraLockArea12" unique_id=2028696724]
-position = Vector2(274, -64)
+position = Vector2(261, -64)
 shape = SubResource("RectangleShape2D_ylbax")
 
 [node name="CameraLockArea11" type="Area2D" parent="cameraLOCKAO" unique_id=1681430221]

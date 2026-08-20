@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://g6btgdy5ikcl"]
+
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="1_4yx7j"]
+[ext_resource type="Script" uid="uid://dcve2v07leqrg" path="res://scripts_gd/bala_torreta.gd" id="1_fpcbk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(26, 12.177896)
+
+[node name="bala_torreta" type="Area2D" unique_id=2079882264]
+script = ExtResource("1_fpcbk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=280075322]
+modulate = Color(0.87600714, 0.8760071, 0, 1)
+position = Vector2(-7.748604e-07, -1)
+scale = Vector2(0.04770642, 0.013745705)
+texture = ExtResource("1_4yx7j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=695741437]
+position = Vector2(0, -1)
+scale = Vector2(1, 0.65692794)
+shape = SubResource("RectangleShape2D_g4v7s")

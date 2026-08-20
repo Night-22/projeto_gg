@@ -127,5 +127,4 @@ tile_map_data = PackedByteArray("AAAOABwAAAALAAUAAAAPABwAAAAMAAUAAAAQABwAAAAMAAU
 tile_set = ExtResource("2_ne5t3")
 
 [node name="lightning_conjurer" parent="." unique_id=1195204345 instance=ExtResource("12_0fuwc")]
-visible = false
 position = Vector2(880, 514)

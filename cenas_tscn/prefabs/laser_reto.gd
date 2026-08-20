@@ -7,6 +7,7 @@ extends Area2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var anim : AnimatedSprite2D = get_node("AnimatedSprite2D")
 
 var ligado := false
 var pode_dar_dano := true
@@ -27,6 +28,8 @@ func ciclo_laser() -> void:
 
 func ligar() -> void:
 	ligado = true
+	anim.play("ligado")
+
 	sprite.visible = true
 	collision_shape.set_deferred("disabled", false)
 	
@@ -36,6 +39,7 @@ func ligar() -> void:
 
 func desligar() -> void:
 	ligado = false
+	anim.play("desligado")
 	sprite.visible = false
 	collision_shape.set_deferred("disabled", true)
 

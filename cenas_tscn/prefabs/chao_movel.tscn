@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://brh3k1o05d7mo"]
 
+[ext_resource type="Script" uid="uid://ceum515fb6uai" path="res://scripts_gd/chao_movel.gd" id="1_bqrb3"]
 [ext_resource type="TileSet" uid="uid://caoatfk5e2aee" path="res://tres/tilemap.tres" id="2_ejshp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(64, 16)
 
 [node name="chao_movel" type="AnimatableBody2D" unique_id=184351549]
+script = ExtResource("1_bqrb3")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=855526866]
 tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 5, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 5, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 5, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 5, 0, 0, 0)
