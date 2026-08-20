@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7qnngd0w0jdi"
-path="res://.godot/imported/agua.png-448517f7a9d95b64692cd351fc28d65d.ctex"
+uid="uid://ddfeiatpb4bee"
+path="res://.godot/imported/goltop-Sheet.png-a9aae18e5b00b72223a2d36842378f91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://placeholder/agua.png"
-dest_files=["res://.godot/imported/agua.png-448517f7a9d95b64692cd351fc28d65d.ctex"]
+source_file="res://assets/goltop-Sheet.png"
+dest_files=["res://.godot/imported/goltop-Sheet.png-a9aae18e5b00b72223a2d36842378f91.ctex"]
 
 [params]
 

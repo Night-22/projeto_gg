@@ -74,7 +74,7 @@ var slime_agua_boss_scene = preload("res://cenas_tscn/inimigos_tscn/bosses/slime
 @export var limite_esquerdo := -100.0
 @export var limite_direito := 300.0
 
-@export var altura_chao := 145.0
+@export var altura_chao := 240.0
 
 @export_group("Flutuação (Idle_Ar)")
 @export var amplitude_flutuacao := 5.0
@@ -201,6 +201,7 @@ var _teleporte_destino_x := 0.0
 @onready var nucleo_raio: Sprite2D = $NucleoRaio
 @onready var nucleo_fogo: Sprite2D = $NucleoFogo
 @onready var nucleo_agua: Sprite2D = $NucleoAgua
+@onready var corpo: AnimatedSprite2D = $Corpo
 
 
 func _ready() -> void:
@@ -243,6 +244,7 @@ func _physics_process(delta: float) -> void:
 	match estado_atual:
 		Estado.IDLE_AR:
 			_estado_idle_ar(delta)
+			corpo.play("idle")
 		Estado.PREPARANDO_ESPINHO:
 			_estado_preparando_espinho(delta)
 		Estado.ATAQUE_ESPINHO:
@@ -256,6 +258,7 @@ func _physics_process(delta: float) -> void:
 		Estado.FASE_DOIS:
 			_estado_fase_dois(delta)
 		Estado.FASE2_IDLE_MEIO, Estado.FASE2_IDLE_ESQUERDA, Estado.FASE2_IDLE_DIREITA:
+			corpo.play("idle")
 			_estado_fase2_idle(delta)
 		Estado.FASE2_TELEPORTANDO:
 			pass
@@ -276,6 +279,7 @@ func _physics_process(delta: float) -> void:
 		Estado.FASE_TRES:
 			_estado_fase_tres(delta)
 		Estado.FASE3_IDLE_MEIO, Estado.FASE3_IDLE_ESQUERDA, Estado.FASE3_IDLE_DIREITA:
+			corpo.play("idle")
 			_estado_fase3_idle(delta)
 		Estado.FASE3_TELEPORTANDO:
 			pass
@@ -978,7 +982,7 @@ func _invocar_espinhos() -> void:
 
 	var espinho: EspinhoBoss = espinho_scene.instantiate()
 
-	espinho.global_position = Vector2(centro_x, posicao_base.y + altura_chao)
+	espinho.global_position = Vector2(centro_x,  altura_chao)
 	espinho.largura = metade_arena
 	espinho.altura = altura_espinho
 	espinho.dano = dano_espinho

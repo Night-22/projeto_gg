@@ -21,7 +21,7 @@ enum ElementoNativo {
 @export var knockback_up_force := -120
 @export var knockback_ataque := 30
 
-@onready var ray: RayCast2D = $rayCast
+#@onready var ray: RayCast2D = $rayCast
 
 
 var dead := false
@@ -106,12 +106,12 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_wall():
 		dir *= -1
-		ray.position.x = abs(ray.position.x) * dir
+		#ray.position.x = abs(ray.position.x) * dir
 
-	if is_on_floor() and !ray.is_colliding():
+	if is_on_floor():
 		dir *= -1
-		ray.position.x = abs(ray.position.x) * dir
-		$anim.flip_h = true
+		##ray.position.x = abs(ray.position.x) * dir
+		#$anim.flip_h = true
 
 func obter_elemento_nativo() -> int:
 	return elemento_nativo

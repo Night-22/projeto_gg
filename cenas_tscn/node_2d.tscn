@@ -133,4 +133,4 @@ tile_map_data = PackedByteArray("AAAOABwAAAALAAUAAAAPABwAAAAMAAUAAAAQABwAAAAMAAU
 tile_set = ExtResource("2_ne5t3")
 
 [node name="lightning_wizard" parent="." unique_id=1407274623 instance=ExtResource("12_0fuwc")]
-position = Vector2(304, 411)
+position = Vector2(442, 480)

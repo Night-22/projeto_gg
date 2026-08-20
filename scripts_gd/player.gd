@@ -47,11 +47,36 @@ var input_locked := false
 
 var current_state = State.IDLE
 
-var Life = 50
-var max_life = 50
 
-var Mana = 500
-var max_mana = 500
+const BASE_MAX_LIFE := 10
+const BASE_HEAL_AMOUNT := 2
+const BASE_MAX_MANA := 100
+const BASE_MANA_RECUPERADA_POR_ATAQUE := 5
+const BASE_ATTACK_DAMAGE := 2
+
+
+const AMULETO_VIDA_ID := "amuleto_vida"
+const AMULETO_MANA_ID := "amuleto_mana"
+const AMULETO_DANO_ID := "amuleto_dano"
+
+const AMULETO_QUANTIDADE_MAXIMA := 5
+
+const AMULETO_VIDA_BONUS_VIDA_MAX := 10
+const AMULETO_VIDA_BONUS_CURA := 2
+
+const AMULETO_MANA_BONUS_MANA_MAX := 10
+const AMULETO_MANA_BONUS_RECUPERACAO_ATAQUE := 1
+
+const AMULETO_DANO_BONUS_DANO := 1
+
+var mana_recuperada_por_ataque := BASE_MANA_RECUPERADA_POR_ATAQUE
+var bonus_dano_ataque := 0
+
+var Life = 10
+var max_life = BASE_MAX_LIFE
+
+var Mana = 100
+var max_mana = BASE_MAX_MANA
 
 var almas_agua = 0
 var almas_fogo = 0
@@ -104,6 +129,8 @@ var last_direction = 1
 var can_attack = true
 var looking_up = false
 var looking_down = false
+
+var attack_hit_targets: Array = []
 
 var jump_count = 0
 var max_jumps = 1
@@ -259,13 +286,18 @@ var spell_lock_timer: Timer
 var imbue_timer: Timer
 var plataforma_timer: Timer
 
+@onready var heal_particles: CPUParticles2D = $healAura
+
 var heal_mana_cost = 35
 var heal_duration = 2.0
-var heal_amount = 20
+var heal_amount = BASE_HEAL_AMOUNT
 var heal_timer := 0.0
 var heal_mana_timer := 0.0
 var heal_mana_interval := 0.0
 var heal_mana_spent := 0
+var heal_grace_period := 0.35
+var heal_shake_strength := 2.5
+var heal_shake_duration := 0.22
 
 
 func _ready() -> void:
@@ -293,7 +325,7 @@ func _ready() -> void:
 	plataforma_timer.timeout.connect(_on_plataforma_timer_timeout)
 	add_child(plataforma_timer)
 
-	heal_mana_interval = heal_duration / float(heal_mana_cost)
+	heal_mana_interval = (heal_duration - heal_grace_period) / float(heal_mana_cost)
 
 	setup_spells()
 	update_imbued_element()
@@ -306,6 +338,11 @@ func _ready() -> void:
 	adicionar_item("medalhao_agua", "Medalhão da Água", "res://placeholder/agua.png")
 	adicionar_item("medalhao_raio", "Medalhão do Raio", "res://placeholder/raio.png")
 	adicionar_item("medalhao_planta", "Medalhão da Planta", "res://placeholder/planta.png")
+	adicionar_item("amuleto_vida", "Amuleto de vida", "res://placeholder/goat_do_mal.jpg", 5)
+	adicionar_item("amuleto_mana", "Amuleto de mana", "res://placeholder/goat_do_mal.jpg", 5)
+	adicionar_item("amuleto_ataque", "Amuleto de ataque", "res://placeholder/goat_do_mal.jpg", 5)
+
+	atualizar_atributos_amuletos()
 
 
 func _physics_process(delta: float) -> void:
@@ -426,6 +463,8 @@ func iniciar_cura() -> void:
 	heal_mana_timer = 0.0
 	heal_mana_spent = 0
 
+	heal_particles.emitting = true
+
 
 func state_heal(delta: float) -> void:
 	velocity = Vector2.ZERO
@@ -443,17 +482,20 @@ func state_heal(delta: float) -> void:
 		return
 
 	heal_timer += delta
-	heal_mana_timer += delta
 
-	while heal_mana_timer >= heal_mana_interval and heal_mana_spent < heal_mana_cost:
-		heal_mana_timer -= heal_mana_interval
 
-		if Mana <= 0:
-			cancelar_cura()
-			return
+	if heal_timer >= heal_grace_period:
+		heal_mana_timer += delta
 
-		Mana -= 1
-		heal_mana_spent += 1
+		while heal_mana_timer >= heal_mana_interval and heal_mana_spent < heal_mana_cost:
+			heal_mana_timer -= heal_mana_interval
+
+			if Mana <= 0:
+				cancelar_cura()
+				return
+
+			Mana -= 1
+			heal_mana_spent += 1
 
 	if heal_timer >= heal_duration:
 		if heal_mana_spent >= heal_mana_cost:
@@ -473,6 +515,8 @@ func cancelar_cura() -> void:
 	heal_mana_spent = 0
 	velocity = Vector2.ZERO
 
+	heal_particles.emitting = false
+
 
 func finalizar_cura() -> void:
 	current_state = State.IDLE
@@ -480,6 +524,9 @@ func finalizar_cura() -> void:
 	heal_mana_timer = 0.0
 	heal_mana_spent = 0
 	velocity = Vector2.ZERO
+
+	heal_particles.emitting = false
+	camera.shake(heal_shake_strength, heal_shake_duration)
 
 
 func entrar_na_bancada(nova_bancada) -> void:
@@ -558,18 +605,34 @@ func morrer_e_respawnar() -> void:
 	unlock_player()
 
 
+func identificar_amuleto(id: String) -> bool:
+	return id == AMULETO_VIDA_ID or id == AMULETO_MANA_ID or id == AMULETO_DANO_ID
+
+
 func adicionar_item(id: String, nome: String, icone: String = "", quantidade: int = 1) -> void:
 	for item in inventario_itens:
 		if item["id"] == id:
 			item["quantidade"] += quantidade
+
+			if identificar_amuleto(id):
+				item["quantidade"] = min(item["quantidade"], AMULETO_QUANTIDADE_MAXIMA)
+
+			atualizar_atributos_amuletos()
 			return
+
+	var quantidade_final = quantidade
+
+	if identificar_amuleto(id):
+		quantidade_final = min(quantidade, AMULETO_QUANTIDADE_MAXIMA)
 
 	inventario_itens.append({
 		"id": id,
 		"nome": nome,
 		"icone": icone,
-		"quantidade": quantidade
+		"quantidade": quantidade_final
 	})
+
+	atualizar_atributos_amuletos()
 
 
 func remover_item(id: String, quantidade: int = 1) -> void:
@@ -580,7 +643,38 @@ func remover_item(id: String, quantidade: int = 1) -> void:
 			if item["quantidade"] <= 0:
 				inventario_itens.erase(item)
 
+			atualizar_atributos_amuletos()
 			return
+
+
+func obter_quantidade_item(id: String) -> int:
+	for item in inventario_itens:
+		if item["id"] == id:
+			return item.get("quantidade", 0)
+
+	return 0
+
+
+func obter_bonus_dano_ataque() -> int:
+	return obter_quantidade_item(AMULETO_DANO_ID) * AMULETO_DANO_BONUS_DANO
+
+
+func atualizar_atributos_amuletos() -> void:
+	var qtd_vida = obter_quantidade_item(AMULETO_VIDA_ID)
+	var qtd_mana = obter_quantidade_item(AMULETO_MANA_ID)
+	var qtd_dano = obter_quantidade_item(AMULETO_DANO_ID)
+
+	max_life = BASE_MAX_LIFE + qtd_vida * AMULETO_VIDA_BONUS_VIDA_MAX
+	heal_amount = BASE_HEAL_AMOUNT + qtd_vida * AMULETO_VIDA_BONUS_CURA
+
+	max_mana = BASE_MAX_MANA + qtd_mana * AMULETO_MANA_BONUS_MANA_MAX
+	mana_recuperada_por_ataque = BASE_MANA_RECUPERADA_POR_ATAQUE + qtd_mana * AMULETO_MANA_BONUS_RECUPERACAO_ATAQUE
+
+	bonus_dano_ataque = qtd_dano * AMULETO_DANO_BONUS_DANO
+
+
+	Life = min(Life, max_life)
+	Mana = min(Mana, max_mana)
 
 
 
@@ -633,6 +727,8 @@ func aplicar_dados_save(dados: Dictionary) -> void:
 		equipped_spells.append(int(spell_id))
 
 	inventario_itens = dados.get("itens", [])
+
+	atualizar_atributos_amuletos()
 
 	medalhao_ativo = int(dados.get("medalhao_ativo", -1))
 
@@ -1192,23 +1288,23 @@ func state_jump(delta):
 
 func state_attack(_delta):
 	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
-
 	if Input.is_action_pressed("ataque") and can_attack:
 		can_attack = false
+		attack_hit_targets.clear()
 		attack_hit_box.disabled = false
 		attack_sprite.visible = true
 		attack_timer.start()
 
-	if last_direction < 0:
-		attack_to_direction("left")
-	else:
-		attack_to_direction("right")
+		if last_direction < 0:
+			attack_to_direction("left")
+		else:
+			attack_to_direction("right")
 
-	if looking_up:
-		attack_to_direction("up")
+		if looking_up:
+			attack_to_direction("up")
 
-	if looking_down:
-		attack_to_direction("down")
+		if looking_down:
+			attack_to_direction("down")
 
 	if is_on_floor():
 		if direction != 0:
@@ -1582,7 +1678,12 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 
 func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Inimigo"):
-		var dano = 2
+		if body in attack_hit_targets:
+			return
+
+		attack_hit_targets.append(body)
+
+		var dano = BASE_ATTACK_DAMAGE + obter_bonus_dano_ataque()
 
 		if imbued_element != -1:
 			if body.has_method("_aplicar_elemento"):
@@ -1592,9 +1693,10 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 					global_position.x
 				)
 
+		
 		body._dano(dano, global_position.x)
 
-		Mana = min(Mana + 10, max_mana)
+		Mana = min(Mana + mana_recuperada_por_ataque, max_mana)
 
 		if looking_down and !is_on_floor():
 			velocity.y = obter_pogo_velocity()
@@ -1621,6 +1723,7 @@ func _on_attack_timer_timeout() -> void:
 	can_attack = true
 	attack_sprite.visible = false
 	attack_hit_box.disabled = true
+	attack_hit_targets.clear()
 
 
 func pular_no_slime():
