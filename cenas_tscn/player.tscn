@@ -1,4 +1,4 @@
-    [gd_scene format=3 uid="uid://cn6ny6stqnxho"]
+[gd_scene format=3 uid="uid://cn6ny6stqnxho"]
 
 [ext_resource type="Script" uid="uid://byeh3d4t8q3nu" path="res://scripts_gd/player.gd" id="1_unwft"]
 [ext_resource type="Texture2D" uid="uid://b12dt5gxwsp37" path="res://assets/personagematacando-Sheet_mirror.png" id="2_t5do6"]
@@ -622,6 +622,7 @@ offset_bottom = -5.0
 theme_override_font_sizes/font_size = 10
 
 [node name="dashHitBox" type="Area2D" parent="." unique_id=-737673184]
+visible = false
 monitoring = false
 monitorable = false
 
@@ -648,6 +649,25 @@ angular_velocity_min = -90.0
 angular_velocity_max = 90.0
 scale_amount_min = 0.06
 scale_amount_max = 0.12
+
+[node name="healAura" type="CPUParticles2D" parent="." unique_id=-737673181]
+emitting = false
+amount = 16
+lifetime = 0.9
+explosiveness = 0.05
+randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2(0, -1)
+spread = 91.29
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 10.0
+linear_accel_min = -35.0
+radial_accel_min = -150.0
+radial_accel_max = -150.0
+scale_amount_max = 2.5
+color = Color(0.53, 1, 0.6, 0.85)
 
 [connection signal="animation_finished" from="anim" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="hurtBox" to="." method="_on_hurt_box_body_entered"]
