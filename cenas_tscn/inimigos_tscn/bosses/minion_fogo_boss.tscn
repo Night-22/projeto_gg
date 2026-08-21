@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dpp3keymif22m"]
 
 [ext_resource type="Script" uid="uid://c40w7bxmv10i2" path="res://scripts_gd/bosses/minion_fogo_boss.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2_visual"]
+[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="2_visual"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
 

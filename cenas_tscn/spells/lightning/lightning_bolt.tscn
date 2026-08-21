@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://8g5tf7tboxk8"]
 
 [ext_resource type="Script" uid="uid://ce3lfhqnsuj53" path="res://cenas_tscn/spells/lightning/lightning_bolt.gd" id="1_jviwv"]
-[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="2_v1tx1"]
+[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="2_v1tx1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(150, 25)
@@ -11,8 +11,8 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_jviwv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=657773728]
-position = Vector2(0.9999981, -1)
-scale = Vector2(4.5625005, 0.6875)
+position = Vector2(-1, -1)
+scale = Vector2(0.7787959, 0.09225092)
 texture = ExtResource("2_v1tx1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1374449493]

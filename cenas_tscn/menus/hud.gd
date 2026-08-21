@@ -80,11 +80,11 @@ func atualizar_visibilidade() -> void:
 func update_bars() -> void:
 	health_bar.max_value = player.max_life
 	health_bar.value = player.Life
-	health_text.text = str(player.Life) +  " / " + str(player.max_life)
+	health_text.text = str(player.Life) +  "/" + str(player.max_life)
 
 	mana_bar.max_value = player.max_mana
 	mana_bar.value = player.Mana
-	mana_text.text = str(player.Mana) +  " / "  + str(player.max_mana)
+	mana_text.text = str(player.Mana) +  "/" + str(player.max_mana)
 
 
 func update_spell_names() -> void:

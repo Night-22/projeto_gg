@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bo22gqbk27xf1"]
 
 [ext_resource type="Script" uid="uid://tl8a1k1m581m" path="res://cenas_tscn/spells/fire/fire_3_ground.gd" id="1_r8nko"]
-[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2_5el36"]
+[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="2_5el36"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i5iox"]
 size = Vector2(109, 26)
@@ -11,8 +11,8 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_r8nko")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=410096036]
-position = Vector2(1.0000019, -3)
-scale = Vector2(3.3124995, 0.6875)
+position = Vector2(0.49999976, -3.0000002)
+scale = Vector2(0.52153116, 0.09386282)
 texture = ExtResource("2_5el36")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=947265789]

@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://bf7ynubttrqyd"]
 
 [ext_resource type="Script" uid="uid://cry1fl0611okt" path="res://cenas_tscn/spells/fire/fire_2.gd" id="1_6ybfx"]
-[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2_h5egk"]
+[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="2_h5egk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
-size = Vector2(26, 60.344833)
+size = Vector2(20, 39)
 
 [node name="Fire2" type="Node2D" unique_id=1738226628]
 scale = Vector2(0.6, 0.58)
 script = ExtResource("1_6ybfx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=830853583]
-position = Vector2(1.6666663, -7.7586193)
-scale = Vector2(0.7291666, 1.7780173)
+position = Vector2(-1.0000014, -0.49999952)
+scale = Vector2(0.095693775, 0.14079423)
 texture = ExtResource("2_h5egk")
 
 [node name="HitBox" type="Area2D" parent="." unique_id=117295017]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=970018680]
-position = Vector2(2, -7.7586226)
+position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_yf5fn")

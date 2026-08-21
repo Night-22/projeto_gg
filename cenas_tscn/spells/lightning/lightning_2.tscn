@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://vyg1j3mrf632"]
 
 [ext_resource type="Script" uid="uid://b0v8c77g6cqon" path="res://cenas_tscn/spells/lightning/lightning_2.gd" id="1_8138s"]
-[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="2_6dyk1"]
+[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="2_6dyk1"]
 [ext_resource type="Script" uid="uid://bbl2xa3n44qw0" path="res://cenas_tscn/spells/lightning/lightning_ball.gd" id="3_6dyk1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
@@ -14,8 +14,8 @@ script = ExtResource("1_8138s")
 [node name="DurationTimer" type="Timer" parent="." unique_id=776641601]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2072034373]
-position = Vector2(2.999998, 3.999999)
-scale = Vector2(7.6875, 7.4999995)
+position = Vector2(1.4999962, -4.500004)
+scale = Vector2(1.356021, 0.9040591)
 texture = ExtResource("2_6dyk1")
 
 [node name="LightningArea" type="Area2D" parent="." unique_id=606094816]

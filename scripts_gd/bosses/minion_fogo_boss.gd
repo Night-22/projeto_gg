@@ -38,13 +38,11 @@ func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 
 
-func _dano(dano: int, origem_x: float, _direcao_ataque: Vector2 = Vector2.ZERO) -> void:
+func _dano(dano: int, origem_x: float) -> void:
 	if dead or explodindo:
 		return
 
 	mostrar_dano(dano)
-
-	piscar_dano()
 
 	var direcao := signf(global_position.x - origem_x)
 	if direcao == 0.0:

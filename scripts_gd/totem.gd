@@ -47,7 +47,7 @@ func die() -> void:
 	return
 
 
-func _dano(_dano: int, _origem_x: float, _direcao_ataque: Vector2 = Vector2.ZERO) -> void:
+func _dano(_dano: int, _origem_x: float) -> void:
 	return
 
 
