@@ -555,7 +555,7 @@ tile_set = SubResource("TileSet_g4v7s")
 position = Vector2(578, 198)
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("3_pgw6c")]
-position = Vector2(710, -1290)
+position = Vector2(1487, -201)
 
 [node name="plataforma_furavel2" parent="." unique_id=1424422267 instance=ExtResource("9_w5hnf")]
 position = Vector2(1459, -154)
@@ -710,7 +710,7 @@ player = NodePath("../Player")
 
 [node name="agua" type="Sprite2D" parent="agua" unique_id=888086153]
 material = SubResource("ShaderMaterial_yf5fn")
-position = Vector2(1088.125, -625.1875)
+position = Vector2(1088.125, -1480.0001)
 scale = Vector2(8.483398, 1721.625)
 texture = SubResource("GradientTexture1D_g4v7s")
 

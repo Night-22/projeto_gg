@@ -7,37 +7,42 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 214.18916
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vydg5"]
 size = Vector2(24, 10)
 
-[node name="torreta" type="Node2D" unique_id=2050616132]
+[node name="torreta" type="Node2D" unique_id=1861168217]
 script = ExtResource("1_0gsew")
 
-[node name="percepcao" type="Area2D" parent="." unique_id=853537981]
+[node name="percepcao" type="Area2D" parent="." unique_id=1277138534]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="percepcao" unique_id=409775174]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="percepcao" unique_id=4998510]
 shape = SubResource("CircleShape2D_g4v7s")
 
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=713804968]
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1916513789]
 target_position = Vector2(15, -3)
 
-[node name="parte_baixo" type="Sprite2D" parent="." unique_id=940343620]
-texture = ExtResource("2_3g8yx")
-
-[node name="parte_cima" type="Sprite2D" parent="." unique_id=1139000221]
-position = Vector2(0, -3)
+[node name="parte_cima" type="Sprite2D" parent="." unique_id=824149114]
+position = Vector2(0, 1)
 texture = ExtResource("3_n3rs2")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1589802632]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1066095302]
+position = Vector2(0, 4)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2012379404]
+[node name="parte_baixo" type="Sprite2D" parent="StaticBody2D" unique_id=29432399]
+texture = ExtResource("2_3g8yx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1023738572]
 position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_g4v7s")
+shape = SubResource("RectangleShape2D_vydg5")
 
-[node name="Timer" type="Timer" parent="." unique_id=1623654950]
-wait_time = 4.0
+[node name="Timer" type="Timer" parent="." unique_id=115438081]
+wait_time = 2.0
 autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1908364587]
+rect = Rect2(-7, -10, 13, 16)
 
 [connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
 [connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

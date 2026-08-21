@@ -610,6 +610,7 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=884263791]
 position = Vector2(-1, -44)
+limit_smoothed = true
 position_smoothing_enabled = true
 script = ExtResource("6_t5do6")
 
