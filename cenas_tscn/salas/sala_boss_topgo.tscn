@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="7_camlock"]
 [ext_resource type="AudioStream" uid="uid://bjvdbfbme717b" path="res://assets/musicas/soundtrack_corrigida.mp3" id="8_tddkw"]
+[ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="9_7pdnn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
 size = Vector2(28, 252)
@@ -48,6 +49,16 @@ texture = ExtResource("6_parede")
 position = Vector2(-6, 0)
 shape = SubResource("RectangleShape2D_parede")
 
+[node name="TopgoBoss" parent="." unique_id=39082022 instance=ExtResource("5_boss")]
+position = Vector2(174, 134)
+limite_esquerdo = -25.5
+limite_direito = 369.5
+tempo_aviso_espinho = 1.0
+tempo_ativo_espinho = 2
+tempo_aviso_raio = 1.0
+altura_fogo_zona = 300.0
+tempo_ativo_fogo_zona = 1.5
+
 [node name="Chao" type="StaticBody2D" parent="." unique_id=689380115]
 position = Vector2(165, 240)
 
@@ -76,16 +87,6 @@ position = Vector2(3, 0)
 shape = SubResource("RectangleShape2D_plataforma_fase2")
 disabled = true
 one_way_collision = true
-
-[node name="TopgoBoss" parent="." unique_id=39082022 instance=ExtResource("5_boss")]
-position = Vector2(174, 95)
-limite_esquerdo = -25.5
-limite_direito = 369.5
-tempo_aviso_espinho = 1.0
-tempo_ativo_espinho = 2
-tempo_aviso_raio = 1.0
-altura_fogo_zona = 300.0
-tempo_ativo_fogo_zona = 1.5
 
 [node name="Player" parent="." unique_id=1347411747 instance=ExtResource("2_player")]
 position = Vector2(-25, 219)
@@ -135,10 +136,14 @@ offset_bottom = 33.0
 show_percentage = false
 
 [node name="CameraLockArea" parent="." unique_id=2563963 instance=ExtResource("7_camlock")]
+visible = false
 position = Vector2(169, 118)
 scale = Vector2(23.962223, 12.332323)
 
 [node name="soundtrack" type="AudioStreamPlayer" parent="." unique_id=1978182221]
 stream = ExtResource("8_tddkw")
+
+[node name="InventarioGeral" parent="." unique_id=754743051 instance=ExtResource("9_7pdnn")]
+visible = false
 
 [connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]
