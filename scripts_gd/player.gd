@@ -11,6 +11,7 @@ enum State {
 	PLANAR,
 	DASH,
 	CLIMB,
+	HANGING,
 	HEAL,
 	DEAD
 }
@@ -196,6 +197,9 @@ var ladder = null
 var climbing_ladder = false
 var climb_speed = 120.0
 
+var cipo = null
+var hang_speed = 100.0
+
 var bancada = null
 
 var tem_checkpoint := false
@@ -367,7 +371,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 	
-	if current_state != State.CLIMB and current_state != State.HEAL and is_on_floor():
+	if current_state != State.CLIMB and current_state != State.HEAL and current_state != State.HANGING and is_on_floor():
 		jump_count = 0
 		air_dash_available = true
 
@@ -380,6 +384,11 @@ func _physics_process(delta: float) -> void:
 		if current_state != State.CLIMB and current_state != State.HEAL:
 			if Input.is_action_pressed("cima") or Input.is_action_pressed("baixo"):
 				entrar_na_escada(ladder)
+
+	if cipo != null and is_instance_valid(cipo):
+		if current_state != State.HANGING and current_state != State.HEAL and current_state != State.DEAD:
+			if !is_on_floor():
+				entrar_no_cipo(cipo)
 
 	if Input.is_action_just_pressed("interagir"):
 		if bancada != null and is_instance_valid(bancada):
@@ -422,6 +431,10 @@ func _physics_process(delta: float) -> void:
 		State.CLIMB:
 			state_climb(delta)
 			anim.play("climb")
+
+		State.HANGING:
+			state_hanging(delta)
+			anim.play("hanging")
 
 		State.HEAL:
 			state_heal(delta)
@@ -620,11 +633,6 @@ func curar_completo() -> void:
 
 
 func morrer_e_respawnar() -> void:
-	#Life = max_life
-	#Mana = max_mana
-
-	#global_position = respawn_position
-	#velocity = Vector2.ZERO
 	damage_knockback = Vector2.ZERO
 
 	cancelar_cura()
@@ -1510,8 +1518,43 @@ func state_climb(_delta):
 		return
 
 
+func state_hanging(_delta):
+	if cipo == null or !is_instance_valid(cipo):
+		current_state = State.FALL
+		return
+
+	global_position.x = cipo.global_position.x
+
+	var vertical_direction := 0.0
+
+	if Input.is_action_pressed("cima"):
+		vertical_direction -= 1.0
+
+	if Input.is_action_pressed("baixo"):
+		vertical_direction += 1.0
+
+	velocity.y = vertical_direction * hang_speed
+	velocity.x = 0
+
+	var direction := Input.get_action_strength("direita") - Input.get_action_strength("esquerda")
+
+	if direction != 0:
+		last_direction = direction
+
+	anim.flip_h = last_direction < 0
+
+	if Input.is_action_just_pressed("pulo"):
+		cipo = null
+		jump()
+		return
+
+	if Input.is_action_just_pressed("dash"):
+		cipo = null
+		start_dash()
+		return
+
+
 func state_dead():
-	#velocity += get_gravity() * get_physics_process_delta_time()
 	die()
 
 func jump():
@@ -1586,6 +1629,39 @@ func sair_da_escada(escada) -> void:
 			current_state = State.FALL
 
 	ladder = null
+
+
+func entrar_no_cipo(novo_cipo) -> void:
+	if novo_cipo == null:
+		return
+
+	if is_on_floor():
+		return
+
+	if current_state == State.HEAL or current_state == State.DEAD:
+		return
+
+	cipo = novo_cipo
+	current_state = State.HANGING
+
+	velocity = Vector2.ZERO
+	jump_count = 0
+	air_dash_available = true
+
+	global_position.x = cipo.global_position.x
+
+
+func sair_do_cipo(cipo_saindo = null) -> void:
+	if cipo_saindo != null and cipo != cipo_saindo:
+		return
+
+	if current_state == State.HANGING:
+		if is_on_floor():
+			current_state = State.IDLE
+		else:
+			current_state = State.FALL
+
+	cipo = null
 
 
 func esta_em_plataforma_furavel() -> bool:
