@@ -485,6 +485,8 @@ func _dano(dano: int, origem_x: float, direcao_ataque: Vector2 = Vector2.ZERO):
 	if dead:
 		return
 
+	Sfx.play("enemy_damage")
+
 	dano = roundi(dano * dano_aumentado)
 
 	Life -= dano

@@ -56,21 +56,29 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if !body.is_in_group("Inimigo"):
+	if body.is_in_group("Player"):
 		return
 
-	if body in enemies_hit:
+	if body.is_in_group("ProjetilJogador") or body.is_in_group("ProjetilInimigo"):
 		return
 
-	enemies_hit.append(body)
+	if body.is_in_group("Inimigo"):
+		if body in enemies_hit:
+			return
 
-	var dano = damage
+		enemies_hit.append(body)
 
-	if body.has_method("_aplicar_elemento"):
-		dano = body._aplicar_elemento(
-			3,
-			dano,
-			global_position.x
-		)
+		var dano = damage
 
-	body._dano(dano, global_position.x)
+		if body.has_method("_aplicar_elemento"):
+			dano = body._aplicar_elemento(
+				3,
+				dano,
+				global_position.x
+			)
+
+		body._dano(dano, global_position.x)
+		return
+
+	# Colidiu com algo que não toma dano (parede, chão, etc) -> destrói o projétil
+	queue_free()

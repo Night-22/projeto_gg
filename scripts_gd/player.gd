@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal alma_coletada(tipo_alma: int)
+
 enum State {
 	IDLE,
 	WALK,
@@ -137,14 +139,14 @@ var jump_count = 0
 var max_jumps = 1
 
 var dash_speed = 250.0
-var dash_time = 0.2
+var dash_time = 0.35
 var dash_timer = 0.0
 
 var air_dash_available = true
 
 @export var elemental_dash_speed := 250.0
-@export var elemental_dash_damage := 8
-@export var elemental_dash_mana_reward := 5
+@export var elemental_dash_damage := 1
+@export var elemental_dash_mana_reward := 0
 
 var medalhao_ativo := -1
 
@@ -351,6 +353,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	var estava_no_chao := is_on_floor()
+
 	if Life <= 0:
 		current_state = State.DEAD
 	
@@ -426,6 +430,11 @@ func _physics_process(delta: float) -> void:
 			state_dead()
 			anim.play("die")
 
+	if current_state == State.WALK:
+		Sfx.play_loop("footstep_stone")
+	else:
+		Sfx.stop_loop("footstep_stone")
+
 	if damage_knockback.length() > 10:
 		velocity.x = damage_knockback.x
 		velocity.y = damage_knockback.y
@@ -436,6 +445,14 @@ func _physics_process(delta: float) -> void:
 	)
 
 	move_and_slide()
+
+	var esta_no_chao := is_on_floor()
+
+	if !estava_no_chao and esta_no_chao and current_state != State.CLIMB:
+		Sfx.stop_tracked("hero_fall_start")
+		Sfx.play("hero_land")
+	elif estava_no_chao and !esta_no_chao and velocity.y >= 0 and current_state != State.DASH and current_state != State.CLIMB and !dentro_da_agua:
+		Sfx.play_tracked("hero_fall_start")
 
 
 func tentar_iniciar_cura() -> void:
@@ -469,6 +486,8 @@ func iniciar_cura() -> void:
 	heal_mana_spent = 0
 
 	heal_particles.emitting = true
+
+	Sfx.play_loop("focus_charging")
 
 
 func state_heal(delta: float) -> void:
@@ -522,6 +541,8 @@ func cancelar_cura() -> void:
 
 	heal_particles.emitting = false
 
+	Sfx.stop_loop("focus_charging")
+
 
 func finalizar_cura() -> void:
 	current_state = State.IDLE
@@ -532,6 +553,9 @@ func finalizar_cura() -> void:
 
 	heal_particles.emitting = false
 	camera.shake(heal_shake_strength, heal_shake_duration)
+
+	Sfx.stop_loop("focus_charging")
+	Sfx.play("focus_heal")
 
 
 func entrar_na_bancada(nova_bancada) -> void:
@@ -562,6 +586,8 @@ func interagir_com_bancada() -> void:
 
 
 func adicionar_alma(tipo_alma: int) -> void:
+	Sfx.play("soul_pickup")
+
 	match tipo_alma:
 		0:
 			almas_agua += 1
@@ -578,6 +604,8 @@ func adicionar_alma(tipo_alma: int) -> void:
 		3:
 			almas_planta += 1
 			print("almas de planta: ", almas_planta)
+
+	alma_coletada.emit(tipo_alma)
 
 
 func definir_checkpoint(pos: Vector2) -> void:
@@ -1300,6 +1328,8 @@ func state_attack(_delta):
 		attack_sprite.visible = true
 		attack_timer.start()
 
+		Sfx.play("sword")
+
 		if last_direction < 0:
 			attack_to_direction("left")
 		else:
@@ -1498,6 +1528,8 @@ func jump():
 	coyote_timer.stop()
 	current_state = State.JUMP
 
+	Sfx.play("hero_jump")
+
 
 func start_dash():
 	if !is_on_floor():
@@ -1516,7 +1548,10 @@ func start_dash():
 	velocity.y = 0
 
 	if current_dash_element != -1:
+		Sfx.play("hero_shade_dash")
 		iniciar_dash_elemental()
+	else:
+		Sfx.play("hero_dash")
 
 
 func start_coyote():
@@ -1622,6 +1657,8 @@ func receber_dano(dano: int, origem_x: float) -> void:
 	iniciar_iframe()
 
 	tremer_camera(5, 0.25)
+
+	Sfx.play("hero_damage")
 
 	if current_state == State.HEAL:
 		cancelar_cura()

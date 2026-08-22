@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cjl6ybjwx8xwy"
+path="res://.godot/imported/Focus Health Charging.mp3-ea4852f3c4675240a47eac2f48ce0d9d.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Focus Health Charging.mp3"
+dest_files=["res://.godot/imported/Focus Health Charging.mp3-ea4852f3c4675240a47eac2f48ce0d9d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cqs2w3yq5s8n6"
+path="res://.godot/imported/Enemy Damage.mp3-55d1523700c78fc0929d2ccd15e92197.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Enemy Damage.mp3"
+dest_files=["res://.godot/imported/Enemy Damage.mp3-55d1523700c78fc0929d2ccd15e92197.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

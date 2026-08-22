@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://d1hvkel4qqcq1" path="res://assets/hud/vida.png" id="4_qxet8"]
 [ext_resource type="Texture2D" uid="uid://dreq1yqksu0jw" path="res://assets/hud/preto_da_stamina.png" id="5_8oxfb"]
 [ext_resource type="Texture2D" uid="uid://b4deswht2a7m3" path="res://assets/hud/stamina.png" id="6_0b6lw"]
+[ext_resource type="Texture2D" path="res://placeholder/agua.png" id="7_agua"]
+[ext_resource type="Texture2D" path="res://placeholder/fogo.png" id="8_fogo"]
+[ext_resource type="Texture2D" path="res://placeholder/raio.png" id="9_raio"]
+[ext_resource type="Texture2D" path="res://placeholder/planta.png" id="10_planta"]
 
 [node name="Hud" type="CanvasLayer" unique_id=249675550]
 script = ExtResource("1_ahplq")
@@ -155,3 +159,93 @@ layout_mode = 0
 offset_top = -222.0
 offset_right = 40.0
 offset_bottom = -182.0
+
+[node name="AlmasHud" type="HBoxContainer" parent="Interface" unique_id=3010384001]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -104.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 16.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 6
+modulate = Color(1, 1, 1, 0)
+
+[node name="RowAgua" type="HBoxContainer" parent="Interface/AlmasHud" unique_id=3010384002]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="Interface/AlmasHud/RowAgua" unique_id=3010384003]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("7_agua")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Interface/AlmasHud/RowAgua" unique_id=3010384004]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 8
+vertical_alignment = 1
+text = "0"
+
+[node name="RowFogo" type="HBoxContainer" parent="Interface/AlmasHud" unique_id=3010384005]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="Interface/AlmasHud/RowFogo" unique_id=3010384006]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("8_fogo")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Interface/AlmasHud/RowFogo" unique_id=3010384007]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 8
+vertical_alignment = 1
+text = "0"
+
+[node name="RowRaio" type="HBoxContainer" parent="Interface/AlmasHud" unique_id=3010384008]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="Interface/AlmasHud/RowRaio" unique_id=3010384009]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("9_raio")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Interface/AlmasHud/RowRaio" unique_id=3010384010]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 8
+vertical_alignment = 1
+text = "0"
+
+[node name="RowPlanta" type="HBoxContainer" parent="Interface/AlmasHud" unique_id=3010384011]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="Icon" type="TextureRect" parent="Interface/AlmasHud/RowPlanta" unique_id=3010384012]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("10_planta")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Interface/AlmasHud/RowPlanta" unique_id=3010384013]
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 8
+vertical_alignment = 1
+text = "0"
