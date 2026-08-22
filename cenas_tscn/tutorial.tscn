@@ -589,6 +589,7 @@ position = Vector2(484, 556)
 scale = Vector2(8.23188, 22.486532)
 
 [node name="transicao" parent="." unique_id=1512231452 instance=ExtResource("26_dkhca")]
+position = Vector2(572, -144)
 
 [connection signal="destrancou" from="props/porta3" to="." method="_on_porta_3_destrancou"]
 [connection signal="body_entered" from="HUD_Tutorial/area_texto_tutorial/cura" to="." method="_on_cura_body_entered"]

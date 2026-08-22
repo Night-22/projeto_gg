@@ -939,7 +939,7 @@ progress = 476.07138
 voltar_por_tp = true
 
 [node name="Player" parent="." unique_id=2135435064 groups=["interage_com_liquido"] instance=ExtResource("2_n80gs")]
-position = Vector2(79, -155)
+position = Vector2(55, -106)
 
 [node name="mijo" type="Node2D" parent="." unique_id=1816425327]
 position = Vector2(-288, -10)

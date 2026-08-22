@@ -25,7 +25,6 @@ gradient = SubResource("Gradient_gqokq")
 
 [node name="transicao_cena" type="Area2D" parent="." unique_id=1429648885]
 script = ExtResource("1_g62g3")
-entrada_destino = "entrada_neutra_tutorial_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transicao_cena" unique_id=406743179]
 position = Vector2(-1, 0.5)

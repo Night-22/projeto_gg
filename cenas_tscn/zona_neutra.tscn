@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://cm3xil64ctpv6" path="res://cenas_tscn/inimigos_tscn/plant_wizard.tscn" id="12_hvy8n"]
 [ext_resource type="PackedScene" uid="uid://cjj87tb5uhqdj" path="res://cenas_tscn/prefabs/spike.tscn" id="13_vkgfb"]
 [ext_resource type="Script" uid="uid://c1rq37v3q2ii7" path="res://scripts_gd/elevador.gd" id="14_hjdki"]
+[ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="15_kn3bb"]
+[ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="16_g2cb7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8svo"]
 texture = ExtResource("4_a2tbi")
@@ -1003,6 +1005,24 @@ size = Vector2(16, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_33x8s"]
 size = Vector2(80, 3)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j2di"]
+size = Vector2(34, 19)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_57qmd"]
+shader = ExtResource("16_g2cb7")
+shader_parameter/AspectRatio = 1.5
+shader_parameter/Diamonds = 10.0
+shader_parameter/pixel_size = 0.08
+shader_parameter/height = -1.0
+shader_parameter/disable_pixel = false
+
+[sub_resource type="Gradient" id="Gradient_gqokq"]
+offsets = PackedFloat32Array(0, 0.9245283, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yf5fn"]
+gradient = SubResource("Gradient_gqokq")
+
 [node name="zona neutra" type="Node2D" unique_id=410013776]
 script = ExtResource("1_ned6s")
 
@@ -1022,7 +1042,7 @@ tile_map_data = PackedByteArray("AAAnAOn/AAALAAUAAAAoAOn/AAAMAAUAAAApAOn/AAALAAU
 tile_set = SubResource("TileSet_g4v7s")
 
 [node name="escada" type="TileMapLayer" parent="." unique_id=602697992]
-tile_map_data = PackedByteArray("AAAaAOj/AAALAAMAAAAaANz/AAALAAIAAAAaAOf/AAALAAIAAAAaAOb/AAALAAIAAAAaAOX/AAALAAIAAAAaAOT/AAALAAIAAAAaAOP/AAALAAIAAAAaAOL/AAALAAIAAAAaAOH/AAALAAIAAAAaAOD/AAALAAIAAAAaAN//AAALAAIAAAAaAN7/AAALAAIAAAAaAN3/AAALAAIAAAA/ANz/AAALAAEAAAA/AN3/AAALAAIAAAA/AN7/AAALAAIAAAA/AN//AAALAAIAAAA/AOD/AAALAAIAAAA/AOH/AAALAAIAAAA/AOL/AAALAAIAAAA/AOP/AAALAAIAAAA/AOT/AAALAAIAAAA/AOX/AAALAAIAAAA/AOb/AAALAAIAAAA/AOf/AAALAAIAAAA/AOj/AAALAAMAAAAoAOn/AAALAAEAAAAoAOr/AAALAAIAAAAoAOv/AAALAAIAAAAoAOz/AAALAAIAAAAoAO3/AAALAAIAAAAoAO7/AAALAAIAAAAoAO//AAALAAIAAAAoAPD/AAALAAIAAAAoAPH/AAALAAIAAAAoAPL/AAALAAIAAAAoAN//AAALAAEAAAAoAOD/AAALAAIAAAAoAOH/AAALAAIAAAAoAOL/AAALAAIAAAAoAOP/AAALAAIAAAAoAOT/AAALAAIAAAAoAOX/AAALAAIAAAAoAOb/AAALAAIAAAAoAOf/AAALAAIAAAAoAOj/AAALAAIAAAA8AOn/AAALAAEAAAA8AOr/AAALAAIAAAA8AOv/AAALAAIAAAA8AOz/AAALAAIAAAA8AO3/AAALAAIAAAA8AO7/AAALAAIAAAA8AO//AAALAAIAAAA8APD/AAALAAIAAAA8APH/AAALAAIAAAAaAOn/AAALAAEAAAAaAOr/AAALAAIAAAAaAOv/AAALAAIAAAAaAOz/AAALAAIAAAAaAO3/AAALAAIAAAAaAO7/AAALAAIAAAAaAO//AAALAAIAAAAaAPD/AAALAAIAAAAaAPH/AAALAAIAAAAaAPL/AAALAAIAAAAaAPP/AAALAAMAAADs//X/AAANAAEAAADs//b/AAANAAIAAADs//f/AAANAAIAAADs//j/AAANAAIAAADs//n/AAANAAIAAADs//r/AAANAAIAAADs//v/AAANAAIAAADs//z/AAANAAIAAADs//3/AAANAAEAAADs//7/AAANAAIAAADs////AAANAAMAAAAHAOz/AAALAAIAAAAHAO3/AAALAAIAAAAHAO7/AAALAAMAAAAHAOv/AAALAAIAAAAHAOr/AAALAAIAAAAHAOn/AAALAAIAAAAfANb/AAALAAIAAAAfANf/AAALAAIAAAAfANj/AAALAAMAAAAfANX/AAALAAIAAAAfANT/AAALAAIAAAAfANP/AAALAAIAAAAfANL/AAALAAIAAAAfANH/AAALAAIAAAA=")
+tile_map_data = PackedByteArray("AAAaAOj/AAALAAMAAAAaANz/AAALAAIAAAAaAOf/AAALAAIAAAAaAOb/AAALAAIAAAAaAOX/AAALAAIAAAAaAOT/AAALAAIAAAAaAOP/AAALAAIAAAAaAOL/AAALAAIAAAAaAOH/AAALAAIAAAAaAOD/AAALAAIAAAAaAN//AAALAAIAAAAaAN7/AAALAAIAAAAaAN3/AAALAAIAAAA/ANz/AAALAAEAAAA/AN3/AAALAAIAAAA/AN7/AAALAAIAAAA/AN//AAALAAIAAAA/AOD/AAALAAIAAAA/AOH/AAALAAIAAAA/AOL/AAALAAIAAAA/AOP/AAALAAIAAAA/AOT/AAALAAIAAAA/AOX/AAALAAIAAAA/AOb/AAALAAIAAAA/AOf/AAALAAIAAAA/AOj/AAALAAMAAAAoAOn/AAALAAEAAAAoAOr/AAALAAIAAAAoAOv/AAALAAIAAAAoAOz/AAALAAIAAAAoAO3/AAALAAIAAAAoAO7/AAALAAIAAAAoAO//AAALAAIAAAAoAPD/AAALAAIAAAAoAPH/AAALAAIAAAAoAPL/AAALAAIAAAAoAN//AAALAAEAAAAoAOD/AAALAAIAAAAoAOH/AAALAAIAAAAoAOL/AAALAAIAAAAoAOP/AAALAAIAAAAoAOT/AAALAAIAAAAoAOX/AAALAAIAAAAoAOb/AAALAAIAAAAoAOf/AAALAAIAAAAoAOj/AAALAAIAAAA8AOn/AAALAAEAAAA8AOr/AAALAAIAAAA8AOv/AAALAAIAAAA8AOz/AAALAAIAAAA8AO3/AAALAAIAAAA8AO7/AAALAAIAAAA8AO//AAALAAIAAAA8APD/AAALAAIAAAA8APH/AAALAAIAAAAaAOn/AAALAAEAAAAaAOr/AAALAAIAAAAaAOv/AAALAAIAAAAaAOz/AAALAAIAAAAaAO3/AAALAAIAAAAaAO7/AAALAAIAAAAaAO//AAALAAIAAAAaAPD/AAALAAIAAAAaAPH/AAALAAIAAAAaAPL/AAALAAIAAAAaAPP/AAALAAMAAADs//X/AAANAAEAAADs//b/AAANAAIAAADs//f/AAANAAIAAADs//j/AAANAAIAAADs//n/AAANAAIAAADs//r/AAANAAIAAADs//v/AAANAAIAAADs//z/AAANAAIAAADs//3/AAANAAEAAADs//7/AAANAAIAAADs////AAANAAMAAAAHAOz/AAALAAIAAAAHAO3/AAALAAIAAAAHAO7/AAALAAMAAAAHAOv/AAALAAIAAAAHAOr/AAALAAIAAAAHAOn/AAALAAIAAAAfANb/AAALAAIAAAAfANf/AAALAAIAAAAfANj/AAALAAMAAAAfANX/AAALAAIAAAAfANT/AAALAAIAAAAfANP/AAALAAIAAAAfANL/AAALAAIAAAAfANH/AAALAAIAAABzAAEAAAALAAIAAABzAAIAAAALAAIAAABzAAMAAAALAAMAAABzAP//AAALAAIAAABzAAAAAAALAAIAAABzAP3/AAALAAIAAABzAP7/AAALAAIAAABzAPv/AAALAAIAAABzAPz/AAALAAIAAABzAPn/AAALAAIAAABzAPr/AAALAAIAAABzAPf/AAALAAIAAABzAPj/AAALAAIAAABzAPb/AAALAAIAAAA=")
 tile_set = SubResource("TileSet_57qmd")
 
 [node name="portas" type="Node2D" parent="." unique_id=1577251940]
@@ -1066,7 +1086,7 @@ scale = Vector2(-1, 1.063)
 position = Vector2(450, -641)
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_bamsy")]
-position = Vector2(535, -383)
+position = Vector2(1786, 43)
 
 [node name="Flying" parent="." unique_id=187868775 instance=ExtResource("9_ed20d")]
 position = Vector2(697, -565)
@@ -1322,6 +1342,33 @@ shape = SubResource("RectangleShape2D_33x8s")
 [node name="entrada_raio_1" type="Marker2D" parent="." unique_id=1981555605]
 position = Vector2(-499, -172)
 
+[node name="entrada_planta_1" type="Marker2D" parent="." unique_id=2103886404]
+position = Vector2(1848, -140)
+
+[node name="Escada" parent="." unique_id=539706723 instance=ExtResource("6_phojr")]
+position = Vector2(1849.9999, -52)
+scale = Vector2(0.5614242, 1.15968)
+
+[node name="transicao" type="Node2D" parent="." unique_id=1512231452]
+position = Vector2(1844, -170)
+
+[node name="transicao_cena" type="Area2D" parent="transicao" unique_id=1429648885]
+script = ExtResource("15_kn3bb")
+cena_destino = 4
+entrada_destino = "entrada_neutra_1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="transicao/transicao_cena" unique_id=406743179]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_2j2di")
+
+[node name="Transicao_efeito" type="CanvasLayer" parent="transicao" unique_id=514070227]
+
+[node name="TextureRect" type="TextureRect" parent="transicao/Transicao_efeito" unique_id=60468529]
+material = SubResource("ShaderMaterial_57qmd")
+offset_right = 319.0
+offset_bottom = 238.0
+texture = SubResource("GradientTexture1D_yf5fn")
+
 [connection signal="body_entered" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_entered"]
 [connection signal="body_exited" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_exited"]
 [connection signal="body_entered" from="parede_de_fora_predio_direita" to="." method="_on_parede_de_fora_predio_direita_body_entered"]
@@ -1330,3 +1377,4 @@ position = Vector2(-499, -172)
 [connection signal="body_entered" from="elevador/ir_ate_segundo_andar" to="elevador" method="_on_ir_ate_segundo_andar_body_entered"]
 [connection signal="body_entered" from="elevador/elevador/descer_plataforma" to="elevador" method="_on_descer_plataforma_body_entered"]
 [connection signal="body_entered" from="elevador/elevador/subir_plataforma" to="elevador" method="_on_subir_plataforma_body_entered"]
+[connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]
