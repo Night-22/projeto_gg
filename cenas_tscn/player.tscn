@@ -468,7 +468,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ym2kn"]
-radius = 7.0
+radius = 6.0
 height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xojfc"]
@@ -574,8 +574,7 @@ sprite_frames = SubResource("SpriteFrames_tckef")
 animation = &"floor_hit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1481044837]
-visible = false
-position = Vector2(1, 0)
+position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_ym2kn")
 
 [node name="hurtBox" type="Area2D" parent="." unique_id=758181996]

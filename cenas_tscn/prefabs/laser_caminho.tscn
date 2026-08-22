@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://b708uqbm4f1c2"]
+[gd_scene format=3 uid="uid://bd370f16t01xf"]
 
-[ext_resource type="Script" uid="uid://bdqhyk3ju2odo" path="res://scripts_gd/laser_reto_2.gd" id="1_ndm5s"]
-[ext_resource type="Texture2D" uid="uid://btca0pqg7nhq2" path="res://assets/laser_desligado.png" id="3_0i172"]
-[ext_resource type="Texture2D" uid="uid://rna2bognk0i3" path="res://assets/laser_aceso.png" id="4_jt8om"]
-[ext_resource type="Shader" uid="uid://dn18jen4ywnrs" path="res://gdshader/laser_reto_2.gdshader" id="4_laft3"]
+[ext_resource type="Script" uid="uid://dsnvtxksfm71j" path="res://scripts_gd/path_laser.gd" id="1_hvc8o"]
+[ext_resource type="Shader" uid="uid://dn18jen4ywnrs" path="res://gdshader/laser_reto_2.gdshader" id="2_srud0"]
+[ext_resource type="Texture2D" uid="uid://btca0pqg7nhq2" path="res://assets/laser_desligado.png" id="3_7td5g"]
+[ext_resource type="Texture2D" uid="uid://rna2bognk0i3" path="res://assets/laser_aceso.png" id="4_425pv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ccn01"]
-shader = ExtResource("4_laft3")
+shader = ExtResource("2_srud0")
 shader_parameter/beams = 8
 shader_parameter/energy = 3.0
 shader_parameter/roughness = 8
@@ -25,7 +25,7 @@ shader_parameter/fixed_edge_size = 0.5
 shader_parameter/noise_scale = Vector2(1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pdave"]
-shader = ExtResource("4_laft3")
+shader = ExtResource("2_srud0")
 shader_parameter/beams = 2
 shader_parameter/energy = 3.0
 shader_parameter/roughness = 3
@@ -64,7 +64,7 @@ color_ramp = SubResource("GradientTexture1D_pdave")
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_0i172")
+"texture": ExtResource("3_7td5g")
 }],
 "loop": 1,
 "name": &"desligado",
@@ -72,34 +72,44 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_jt8om")
+"texture": ExtResource("4_425pv")
 }],
 "loop": 1,
 "name": &"ligado",
 "speed": 5.0
 }]
 
-[node name="LaserReto" type="Node2D" unique_id=920627313]
-script = ExtResource("1_ndm5s")
+[node name="laser_caminho" type="PathFollow2D" unique_id=312271886]
+rotation = -1.5707964
+rotates = false
+cubic_interp = false
+loop = false
+script = ExtResource("1_hvc8o")
+metadata/_edit_horizontal_guides_ = [-462.0]
 
-[node name="hit_impact" type="RayCast2D" parent="." unique_id=2081217554]
-scale = Vector2(4, 1.075)
-target_position = Vector2(0, 350)
+[node name="hit_impact" type="RayCast2D" parent="." unique_id=167816520]
+rotation = -1.5707964
+scale = Vector2(3.1599994, 1)
+target_position = Vector2(0, 477)
+collision_mask = 3
 
-[node name="laser_line" type="Line2D" parent="." unique_id=1161644302]
+[node name="laser_line" type="Line2D" parent="." unique_id=1089778968]
+visible = false
 material = SubResource("ShaderMaterial_ccn01")
-position = Vector2(0, 4)
-scale = Vector2(-8.619592, 1.9030353)
-points = PackedVector2Array(0, 1, 0, 4.2038107)
-texture_mode = 1
+position = Vector2(4, 0)
+rotation = 1.5707963
+scale = Vector2(8.619592, -1.9030353)
+points = PackedVector2Array(0, 1, 0, 28.901196)
+texture_mode = 2
 begin_cap_mode = 2
 
-[node name="Timer" type="Timer" parent="." unique_id=930502520]
+[node name="Timer" type="Timer" parent="." unique_id=229039548]
 wait_time = 3.0
 autostart = true
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1505245954]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1087620710]
 material = SubResource("ShaderMaterial_pdave")
+rotation = -1.5707964
 emitting = false
 amount = 64
 lifetime = 2.0
@@ -108,7 +118,8 @@ randomness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_laft3")
 
-[node name="torreta" type="AnimatedSprite2D" parent="." unique_id=1457623537]
+[node name="torreta" type="AnimatedSprite2D" parent="." unique_id=116652692]
+rotation = -1.5707964
 sprite_frames = SubResource("SpriteFrames_g4v7s")
 animation = &"desligado"
 autoplay = "desligado"

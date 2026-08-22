@@ -4,7 +4,6 @@ extends Node2D
 @onready var timer = get_node("Timer")
 @onready var bala = preload("res://cenas_tscn/prefabs/bala_torreta.tscn")
 @onready var sprite_cima = get_node("parte_cima")
-@onready var area = get_node("percepcao")
 
 var player
 var player_na_area := false
@@ -21,12 +20,15 @@ func _physics_process(_delta: float) -> void:
 
 func mirar():
 	ray_cast.target_position = to_local(player.position)
-	sprite_cima.rotation = global_position.angle_to_point(player.global_position)
+	if player_na_area and ray_cast.get_collider() == player:
+		sprite_cima.rotation = global_position.angle_to_point(player.global_position)
 
 
 func checar_player_colisao():
 	if player_na_area and ray_cast.get_collider() == player and timer.is_stopped():
 		timer.start()
+		
+	
 
 	elif (not player_na_area or ray_cast.get_collider() != player) and not timer.is_stopped():
 		timer.stop()

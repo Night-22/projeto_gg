@@ -752,7 +752,7 @@ rotates = false
 cubic_interp = false
 loop = false
 script = ExtResource("5_77fmt")
-voltar_por_tp = true
+percorrer_caminho = false
 metadata/_edit_horizontal_guides_ = [-462.0]
 
 [node name="hit_impact" type="RayCast2D" parent="LaserPath2/laser_caminho" unique_id=167816520]
@@ -800,7 +800,7 @@ rotates = false
 cubic_interp = false
 loop = false
 script = ExtResource("5_77fmt")
-voltar_por_tp = true
+percorrer_caminho = false
 metadata/_edit_horizontal_guides_ = [-462.0]
 
 [node name="hit_impact" type="RayCast2D" parent="LaserPath2/laser_caminho5" unique_id=1899790130]
@@ -894,52 +894,52 @@ curve = SubResource("Curve2D_h8dry")
 position = Vector2(50.473255, 10)
 rotation = 1.5707964
 progress = 59.508923
-voltar_por_tp = true
+percorrer_caminho = false
 
 [node name="laser_caminho2" parent="LaserPath" unique_id=361738025 instance=ExtResource("9_521ij")]
 position = Vector2(109.98218, 10)
 rotation = 1.5707964
 progress = 119.017845
-voltar_por_tp = true
+percorrer_caminho = false
 
 [node name="laser_caminho3" parent="LaserPath" unique_id=146043832 instance=ExtResource("9_521ij")]
 position = Vector2(169.49109, 10)
 rotation = 1.5707964
 progress = 178.52676
-voltar_por_tp = true
+percorrer_caminho = false
 
 [node name="laser_caminho4" parent="LaserPath" unique_id=122437411 instance=ExtResource("9_521ij")]
 position = Vector2(229.00002, 10)
 rotation = 1.5707964
 progress = 238.03569
-voltar_por_tp = true
+percorrer_caminho = false
 
 [node name="laser_caminho5" parent="LaserPath" unique_id=967856256 instance=ExtResource("9_521ij")]
 position = Vector2(288.50894, 10)
 rotation = 1.5707964
 progress = 297.54462
-voltar_por_tp = true
+percorrer_caminho = false
 
 [node name="laser_caminho6" parent="LaserPath" unique_id=649748159 instance=ExtResource("9_521ij")]
 position = Vector2(348.01785, 10)
 rotation = 1.5707964
 progress = 357.05353
-voltar_por_tp = true
+percorrer_caminho = false
 
 [node name="laser_caminho7" parent="LaserPath" unique_id=523296697 instance=ExtResource("9_521ij")]
 position = Vector2(407.5268, 10)
 rotation = 1.5707964
 progress = 416.56247
-voltar_por_tp = true
+percorrer_caminho = false
 
 [node name="laser_caminho8" parent="LaserPath" unique_id=1922147968 instance=ExtResource("9_521ij")]
 position = Vector2(452, -4)
 rotation = 1.5707964
 progress = 476.07138
-voltar_por_tp = true
+percorrer_caminho = false
 
 [node name="Player" parent="." unique_id=2135435064 groups=["interage_com_liquido"] instance=ExtResource("2_n80gs")]
-position = Vector2(79, -155)
+position = Vector2(-697, 60)
 
 [node name="mijo" type="Node2D" parent="." unique_id=1816425327]
 position = Vector2(-288, -10)

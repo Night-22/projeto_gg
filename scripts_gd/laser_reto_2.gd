@@ -17,21 +17,26 @@ var tween_duration := 0.15
 func _ready() -> void:
 	laser_line.visible = false
 	set_laser_color(laser_color)
+	impact_fx.top_level = true 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if !active:
 		return
 	
 	var end_point = hit_impact.target_position
+
 	if hit_impact.is_colliding():
-		end_point = to_local(hit_impact.get_collision_point())
-		impact_fx.global_position= hit_impact.get_collision_point()
+		end_point = laser_line.to_local(hit_impact.get_collision_point())
+		impact_fx.global_position = hit_impact.get_collision_point()
 		impact_fx.emitting = true
 		acertou_jogador()
+	else:
+		impact_fx.emitting = false
 	
-	
-	laser_line.points[0] = Vector2.ZERO
-	laser_line.points[1] = end_point
+	laser_line.points = PackedVector2Array([
+		Vector2.ZERO,
+		end_point
+	])
 	
 func fire():
 	anim.play("ligado")

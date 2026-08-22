@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://d0ckamjqllbf6"]
+
+[ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="1_g62g3"]
+[ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="2_mfku3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j2di"]
+size = Vector2(34, 19)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_57qmd"]
+shader = ExtResource("2_mfku3")
+shader_parameter/AspectRatio = 1.5
+shader_parameter/Diamonds = 10.0
+shader_parameter/pixel_size = 0.08
+shader_parameter/height = -1.0
+shader_parameter/disable_pixel = false
+
+[sub_resource type="Gradient" id="Gradient_gqokq"]
+offsets = PackedFloat32Array(0, 0.9245283, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yf5fn"]
+gradient = SubResource("Gradient_gqokq")
+
+[node name="transicao" type="Node2D" unique_id=1512231452]
+
+[node name="transicao_cena" type="Area2D" parent="." unique_id=1429648885]
+script = ExtResource("1_g62g3")
+entrada_destino = "entrada_neutra_tutorial_1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="transicao_cena" unique_id=406743179]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_2j2di")
+
+[node name="Transicao_efeito" type="CanvasLayer" parent="." unique_id=514070227]
+
+[node name="TextureRect" type="TextureRect" parent="Transicao_efeito" unique_id=60468529]
+material = SubResource("ShaderMaterial_57qmd")
+offset_right = 319.0
+offset_bottom = 238.0
+texture = SubResource("GradientTexture1D_yf5fn")
+
+[connection signal="body_entered" from="transicao_cena" to="transicao_cena" method="_on_body_entered"]
