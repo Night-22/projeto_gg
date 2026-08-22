@@ -55,6 +55,7 @@ animation = &"voo"
 frame_progress = 0.74955475
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1443085660]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_yf5fn")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=598871305]

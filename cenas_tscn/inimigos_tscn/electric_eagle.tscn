@@ -40,7 +40,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(28, 30)
+size = Vector2(20, 21)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 120.8139
@@ -54,6 +54,7 @@ sprite_frames = SubResource("SpriteFrames_g4v7s")
 animation = &"voo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1949403242]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=1712064557]
