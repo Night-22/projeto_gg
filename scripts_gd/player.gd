@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal alma_coletada(tipo_alma: int)
+
 enum State {
 	IDLE,
 	WALK,
@@ -48,35 +50,35 @@ var input_locked := false
 var current_state = State.IDLE
 
 
-const BASE_MAX_LIFE := 10
-const BASE_HEAL_AMOUNT := 2
-const BASE_MAX_MANA := 100
-const BASE_MANA_RECUPERADA_POR_ATAQUE := 5
-const BASE_ATTACK_DAMAGE := 2
+var base_max_life := 10
+var base_heal_amount := 2
+var base_max_mana := 100
+var base_mana_recuperada_por_ataque := 5
+var base_attack_damage := 2
 
 
-const AMULETO_VIDA_ID := "amuleto_vida"
-const AMULETO_MANA_ID := "amuleto_mana"
-const AMULETO_DANO_ID := "amuleto_dano"
+var amuleto_vida_id := "amuleto_vida"
+var amuleto_mana_id := "amuleto_mana"
+var amuleto_dano_id := "amuleto_dano"
 
-const AMULETO_QUANTIDADE_MAXIMA := 5
+var amuleto_quantidade_maxima := 5
 
-const AMULETO_VIDA_BONUS_VIDA_MAX := 10
-const AMULETO_VIDA_BONUS_CURA := 2
+var amuleto_vida_bonus_vida_max := 10
+var amuleto_vida_bonus_cura := 2
 
-const AMULETO_MANA_BONUS_MANA_MAX := 10
-const AMULETO_MANA_BONUS_RECUPERACAO_ATAQUE := 1
+var amuleto_mana_bonus_mana_max := 10
+var amuleto_mana_bonus_recuperacao_ataque := 1
 
-const AMULETO_DANO_BONUS_DANO := 1
+var amuleto_dano_bonus_dano := 1
 
-var mana_recuperada_por_ataque := BASE_MANA_RECUPERADA_POR_ATAQUE
+var mana_recuperada_por_ataque := base_mana_recuperada_por_ataque
 var bonus_dano_ataque := 0
 
 var Life = 10
-var max_life = BASE_MAX_LIFE
+var max_life = base_max_life
 
 var Mana = 100
-var max_mana = BASE_MAX_MANA
+var max_mana = base_max_mana
 
 var almas_agua = 0
 var almas_fogo = 0
@@ -126,6 +128,7 @@ var planar_gravity = 250.0
 var planar_max_fall_speed = 80.0
 
 var last_direction = 1
+var current_attack_direction := Vector2.RIGHT
 var can_attack = true
 var looking_up = false
 var looking_down = false
@@ -136,14 +139,14 @@ var jump_count = 0
 var max_jumps = 1
 
 var dash_speed = 250.0
-var dash_time = 0.2
+var dash_time = 0.35
 var dash_timer = 0.0
 
 var air_dash_available = true
 
 @export var elemental_dash_speed := 250.0
-@export var elemental_dash_damage := 8
-@export var elemental_dash_mana_reward := 5
+@export var elemental_dash_damage := 1
+@export var elemental_dash_mana_reward := 0
 
 var medalhao_ativo := -1
 
@@ -181,6 +184,10 @@ var element_particle_textures = {
 
 var damage_knockback := Vector2.ZERO
 
+var flash_shader = preload("res://gdshader/flash.gdshader")
+var flash_duration := 0.15
+var _flash_tween: Tween = null
+
 @export var knockback_force := 200.0
 @export var knockback_up_force := -100.0
 @export var slime_jump_velocity = -600.0
@@ -203,7 +210,7 @@ var imbued_element = -1
 var element_colors = {
 	0: Color(1.0, 0.45, 0.0),
 	1: Color(0.0, 1.125, 10.175),
-	2: Color(0.65, 0.0, 4.601),
+	2: Color(1.0, 0.9, 0.0),
 	3: Color(0.3, 1.0, 0.3)
 }
 
@@ -290,7 +297,7 @@ var plataforma_timer: Timer
 
 var heal_mana_cost = 35
 var heal_duration = 2.0
-var heal_amount = BASE_HEAL_AMOUNT
+var heal_amount = base_heal_amount
 var heal_timer := 0.0
 var heal_mana_timer := 0.0
 var heal_mana_interval := 0.0
@@ -340,12 +347,14 @@ func _ready() -> void:
 	adicionar_item("medalhao_planta", "Medalhão da Planta", "res://placeholder/planta.png")
 	adicionar_item("amuleto_vida", "Amuleto de vida", "res://placeholder/goat_do_mal.jpg", 5)
 	adicionar_item("amuleto_mana", "Amuleto de mana", "res://placeholder/goat_do_mal.jpg", 5)
-	adicionar_item("amuleto_ataque", "Amuleto de ataque", "res://placeholder/goat_do_mal.jpg", 5)
+	adicionar_item("amuleto_dano", "Amuleto de ataque", "res://placeholder/goat_do_mal.jpg", 5)
 
 	atualizar_atributos_amuletos()
 
 
 func _physics_process(delta: float) -> void:
+	var estava_no_chao := is_on_floor()
+
 	if Life <= 0:
 		current_state = State.DEAD
 	
@@ -421,6 +430,11 @@ func _physics_process(delta: float) -> void:
 			state_dead()
 			anim.play("die")
 
+	if current_state == State.WALK:
+		Sfx.play_loop("footstep_stone")
+	else:
+		Sfx.stop_loop("footstep_stone")
+
 	if damage_knockback.length() > 10:
 		velocity.x = damage_knockback.x
 		velocity.y = damage_knockback.y
@@ -431,6 +445,14 @@ func _physics_process(delta: float) -> void:
 	)
 
 	move_and_slide()
+
+	var esta_no_chao := is_on_floor()
+
+	if !estava_no_chao and esta_no_chao and current_state != State.CLIMB:
+		Sfx.stop_tracked("hero_fall_start")
+		Sfx.play("hero_land")
+	elif estava_no_chao and !esta_no_chao and velocity.y >= 0 and current_state != State.DASH and current_state != State.CLIMB and !dentro_da_agua:
+		Sfx.play_tracked("hero_fall_start")
 
 
 func tentar_iniciar_cura() -> void:
@@ -464,6 +486,8 @@ func iniciar_cura() -> void:
 	heal_mana_spent = 0
 
 	heal_particles.emitting = true
+
+	Sfx.play_loop("focus_charging")
 
 
 func state_heal(delta: float) -> void:
@@ -517,6 +541,8 @@ func cancelar_cura() -> void:
 
 	heal_particles.emitting = false
 
+	Sfx.stop_loop("focus_charging")
+
 
 func finalizar_cura() -> void:
 	current_state = State.IDLE
@@ -527,6 +553,9 @@ func finalizar_cura() -> void:
 
 	heal_particles.emitting = false
 	camera.shake(heal_shake_strength, heal_shake_duration)
+
+	Sfx.stop_loop("focus_charging")
+	Sfx.play("focus_heal")
 
 
 func entrar_na_bancada(nova_bancada) -> void:
@@ -557,6 +586,8 @@ func interagir_com_bancada() -> void:
 
 
 func adicionar_alma(tipo_alma: int) -> void:
+	Sfx.play("soul_pickup")
+
 	match tipo_alma:
 		0:
 			almas_agua += 1
@@ -573,6 +604,8 @@ func adicionar_alma(tipo_alma: int) -> void:
 		3:
 			almas_planta += 1
 			print("almas de planta: ", almas_planta)
+
+	alma_coletada.emit(tipo_alma)
 
 
 func definir_checkpoint(pos: Vector2) -> void:
@@ -606,7 +639,7 @@ func morrer_e_respawnar() -> void:
 
 
 func identificar_amuleto(id: String) -> bool:
-	return id == AMULETO_VIDA_ID or id == AMULETO_MANA_ID or id == AMULETO_DANO_ID
+	return id == amuleto_vida_id or id == amuleto_mana_id or id == amuleto_dano_id
 
 
 func adicionar_item(id: String, nome: String, icone: String = "", quantidade: int = 1) -> void:
@@ -615,7 +648,7 @@ func adicionar_item(id: String, nome: String, icone: String = "", quantidade: in
 			item["quantidade"] += quantidade
 
 			if identificar_amuleto(id):
-				item["quantidade"] = min(item["quantidade"], AMULETO_QUANTIDADE_MAXIMA)
+				item["quantidade"] = min(item["quantidade"], amuleto_quantidade_maxima)
 
 			atualizar_atributos_amuletos()
 			return
@@ -623,7 +656,7 @@ func adicionar_item(id: String, nome: String, icone: String = "", quantidade: in
 	var quantidade_final = quantidade
 
 	if identificar_amuleto(id):
-		quantidade_final = min(quantidade, AMULETO_QUANTIDADE_MAXIMA)
+		quantidade_final = min(quantidade, amuleto_quantidade_maxima)
 
 	inventario_itens.append({
 		"id": id,
@@ -656,21 +689,21 @@ func obter_quantidade_item(id: String) -> int:
 
 
 func obter_bonus_dano_ataque() -> int:
-	return obter_quantidade_item(AMULETO_DANO_ID) * AMULETO_DANO_BONUS_DANO
+	return obter_quantidade_item(amuleto_dano_id) * amuleto_dano_bonus_dano
 
 
 func atualizar_atributos_amuletos() -> void:
-	var qtd_vida = obter_quantidade_item(AMULETO_VIDA_ID)
-	var qtd_mana = obter_quantidade_item(AMULETO_MANA_ID)
-	var qtd_dano = obter_quantidade_item(AMULETO_DANO_ID)
+	var qtd_vida = obter_quantidade_item(amuleto_vida_id)
+	var qtd_mana = obter_quantidade_item(amuleto_mana_id)
+	var qtd_dano = obter_quantidade_item(amuleto_dano_id)
 
-	max_life = BASE_MAX_LIFE + qtd_vida * AMULETO_VIDA_BONUS_VIDA_MAX
-	heal_amount = BASE_HEAL_AMOUNT + qtd_vida * AMULETO_VIDA_BONUS_CURA
+	max_life = base_max_life + qtd_vida * amuleto_vida_bonus_vida_max
+	heal_amount = base_heal_amount + qtd_vida * amuleto_vida_bonus_cura
 
-	max_mana = BASE_MAX_MANA + qtd_mana * AMULETO_MANA_BONUS_MANA_MAX
-	mana_recuperada_por_ataque = BASE_MANA_RECUPERADA_POR_ATAQUE + qtd_mana * AMULETO_MANA_BONUS_RECUPERACAO_ATAQUE
+	max_mana = base_max_mana + qtd_mana * amuleto_mana_bonus_mana_max
+	mana_recuperada_por_ataque = base_mana_recuperada_por_ataque + qtd_mana * amuleto_mana_bonus_recuperacao_ataque
 
-	bonus_dano_ataque = qtd_dano * AMULETO_DANO_BONUS_DANO
+	bonus_dano_ataque = qtd_dano * amuleto_dano_bonus_dano
 
 
 	Life = min(Life, max_life)
@@ -1155,7 +1188,7 @@ func _on_dash_hit_box_body_entered(body: Node2D) -> void:
 		)
 
 	if body.has_method("_dano"):
-		body._dano(dano, global_position.x)
+		body._dano(dano, global_position.x, Vector2(last_direction, 0))
 
 	Mana = min(Mana + elemental_dash_mana_reward, max_mana)
 
@@ -1294,6 +1327,8 @@ func state_attack(_delta):
 		attack_hit_box.disabled = false
 		attack_sprite.visible = true
 		attack_timer.start()
+
+		Sfx.play("sword")
 
 		if last_direction < 0:
 			attack_to_direction("left")
@@ -1493,6 +1528,8 @@ func jump():
 	coyote_timer.stop()
 	current_state = State.JUMP
 
+	Sfx.play("hero_jump")
+
 
 func start_dash():
 	if !is_on_floor():
@@ -1511,7 +1548,10 @@ func start_dash():
 	velocity.y = 0
 
 	if current_dash_element != -1:
+		Sfx.play("hero_shade_dash")
 		iniciar_dash_elemental()
+	else:
+		Sfx.play("hero_dash")
 
 
 func start_coyote():
@@ -1579,6 +1619,7 @@ func attack_to_direction(dir):
 			attack_sprite.position = Vector2(10, 0)
 			attack_sprite.rotation = 0
 			attack_sprite.play("attack_side")
+			current_attack_direction = Vector2.RIGHT
 
 		"left":
 			anim.flip_h = true
@@ -1588,6 +1629,7 @@ func attack_to_direction(dir):
 			attack_sprite.position = Vector2(-10, 0)
 			attack_sprite.rotation = 0
 			attack_sprite.play("attack_side")
+			current_attack_direction = Vector2.LEFT
 
 		"up":
 			attack_sprite.flip_h = false
@@ -1596,6 +1638,7 @@ func attack_to_direction(dir):
 			attack_sprite.position = Vector2(-8, -20)
 			attack_sprite.rotation = 0
 			attack_sprite.play("attack_up_down")
+			current_attack_direction = Vector2.UP
 
 		"down":
 			attack_sprite.flip_h = false
@@ -1604,6 +1647,7 @@ func attack_to_direction(dir):
 			attack_sprite.position = Vector2(8, 20)
 			attack_sprite.rotation = 3
 			attack_sprite.play("attack_up_down")
+			current_attack_direction = Vector2.DOWN
 
 
 func receber_dano(dano: int, origem_x: float) -> void:
@@ -1614,12 +1658,16 @@ func receber_dano(dano: int, origem_x: float) -> void:
 
 	tremer_camera(5, 0.25)
 
+	Sfx.play("hero_damage")
+
 	if current_state == State.HEAL:
 		cancelar_cura()
 
 	Life -= dano
 
 	mostrar_dano(dano)
+
+	piscar_dano()
 
 	var direcao = sign(global_position.x - origem_x)
 
@@ -1667,6 +1715,33 @@ func die():
 	morrer_e_respawnar()
 
 
+
+func piscar_dano() -> void:
+	if anim == null:
+		return
+
+	var material := anim.material as ShaderMaterial
+
+	if material == null or material.shader != flash_shader:
+		material = ShaderMaterial.new()
+		material.shader = flash_shader
+		anim.material = material
+
+	material.set_shader_parameter("flash_color", Color.WHITE)
+	material.set_shader_parameter("flash_amount", 1.0)
+
+	if _flash_tween != null and is_instance_valid(_flash_tween):
+		_flash_tween.kill()
+
+	_flash_tween = create_tween()
+	_flash_tween.tween_method(
+		func(valor): material.set_shader_parameter("flash_amount", valor),
+		1.0,
+		0.0,
+		flash_duration
+	)
+
+
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 	if body is Totem_alavanca:
 		return
@@ -1683,7 +1758,7 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 
 		attack_hit_targets.append(body)
 
-		var dano = BASE_ATTACK_DAMAGE + obter_bonus_dano_ataque()
+		var dano = base_attack_damage + obter_bonus_dano_ataque()
 
 		if imbued_element != -1:
 			if body.has_method("_aplicar_elemento"):
@@ -1694,7 +1769,7 @@ func _on_attack_hit_box_body_entered(body: Node2D) -> void:
 				)
 
 		
-		body._dano(dano, global_position.x)
+		body._dano(dano, global_position.x, current_attack_direction)
 
 		Mana = min(Mana + mana_recuperada_por_ataque, max_mana)
 
@@ -1792,17 +1867,6 @@ func tremer_camera(intensidade: float = 5.0, duracao: float = 0.15) -> void:
 
 var freeze_tween: Tween
 
-#func freeze_time(duracao: float = 0.1) -> void:
-	#Engine.time_scale = 0.0
-	#
-	#await get_tree().create_timer(
-		#duracao,
-		#true,
-		#false,
-		#true
-	#).timeout
-	#
-	#Engine.time_scale = 1.0
 	
 func create_dash_effect():
 	var playerCopyNode = anim.duplicate()

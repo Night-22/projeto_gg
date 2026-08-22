@@ -67,18 +67,26 @@ func mover_sem_alvo(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if !body.is_in_group("Inimigo"):
+	if body.is_in_group("Player"):
 		return
 
-	var dano = damage
+	if body.is_in_group("ProjetilJogador") or body.is_in_group("ProjetilInimigo"):
+		return
 
-	if body.has_method("_aplicar_elemento"):
-		dano = body._aplicar_elemento(
-			3,
-			dano,
-			global_position.x
-		)
+	if body.is_in_group("Inimigo"):
+		var dano = damage
 
-	body._dano(dano, global_position.x)
+		if body.has_method("_aplicar_elemento"):
+			dano = body._aplicar_elemento(
+				3,
+				dano,
+				global_position.x
+			)
 
+		body._dano(dano, global_position.x)
+
+		queue_free()
+		return
+
+	# Colidiu com algo que não toma dano (parede, chão, etc) -> destrói o projétil
 	queue_free()

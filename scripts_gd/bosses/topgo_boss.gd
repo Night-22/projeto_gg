@@ -136,6 +136,10 @@ var slime_agua_boss_scene = preload("res://cenas_tscn/inimigos_tscn/bosses/slime
 @export var dano_tick_fogo2 := 3
 @export var intervalo_dano_fogo2 := 0.75
 
+@export var altura_plataforma_fogo2 := 180.0
+@export var largura_plataforma_fogo2 := 218.0
+@export var chance_fogo2_na_plataforma := 0.5
+
 @export_group("Fase 3 - Movimentação")
 @export var tempo_idle_fase3_min := 0.35
 @export var tempo_idle_fase3_max := 0.75
@@ -202,10 +206,12 @@ var _teleporte_destino_x := 0.0
 @onready var nucleo_fogo: Sprite2D = $NucleoFogo
 @onready var nucleo_agua: Sprite2D = $NucleoAgua
 @onready var corpo: AnimatedSprite2D = $Corpo
+@onready var collision: CollisionShape2D = $Collision
 
 
 func _ready() -> void:
 	super._ready()
+	
 
 	Life = vida_maxima_boss
 	max_elementos = 2
@@ -223,7 +229,7 @@ func _ready() -> void:
 func iniciar_luta() -> void:
 	if lutando or dead:
 		return
-
+	
 	lutando = true
 	jogador = get_tree().get_first_node_in_group("Player")
 	_trocar_estado(Estado.IDLE_AR)
@@ -622,7 +628,7 @@ func _invocar_minions_fogo() -> void:
 func _criar_minion_fogo(x: float) -> void:
 	var minion: CharacterBody2D = minion_fogo_scene.instantiate()
 
-	minion.global_position = Vector2(x, posicao_base.y + altura_chao - 16.0)
+	minion.global_position = Vector2(x, 240 - 16.0)
 
 	get_parent().add_child(minion)
 
@@ -694,12 +700,25 @@ func _estado_preparando_fogo2(delta: float) -> void:
 
 func _invocar_chama_chao() -> void:
 	var lado := -1 if randf() < 0.5 else 1
-	var origem_x = -50 if lado < 0 else 407
+	var na_plataforma := randf() < chance_fogo2_na_plataforma
+
+	var largura_total_chama: float
+	var origem_x: float
+	var altura_alvo: float
+
+	if na_plataforma:
+		largura_total_chama = largura_plataforma_fogo2
+		origem_x = -50 if lado < 0 else 407
+		altura_alvo = altura_plataforma_fogo2
+	else:
+		largura_total_chama = 500
+		origem_x = -50 if lado < 0 else 407
+		altura_alvo = altura_chao
 
 	var chama: Area2D = chama_chao_scene.instantiate()
 
-	chama.global_position = Vector2(origem_x, posicao_base.y + altura_chao)
-	chama.largura_total = 500
+	chama.global_position = Vector2(origem_x, altura_alvo)
+	chama.largura_total = largura_total_chama
 	chama.altura = altura_chama
 	chama.lado_inicial = lado
 	chama.tempo_aviso = tempo_aviso_fogo2

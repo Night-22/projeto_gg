@@ -16,6 +16,12 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		return
+
+	if body.is_in_group("ProjetilJogador") or body.is_in_group("ProjetilInimigo"):
+		return
+
 	if body.is_in_group("Inimigo"):
 		var dano = damage
 
@@ -29,3 +35,6 @@ func _on_body_entered(body: Node2D) -> void:
 		body._dano(dano, global_position.x)
 
 		return
+
+	# Colidiu com algo que não toma dano (parede, chão, etc) -> destrói o projétil
+	queue_free()

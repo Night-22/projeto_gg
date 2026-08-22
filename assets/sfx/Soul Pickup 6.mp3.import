@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bk4oywqf5f4tv"
+path="res://.godot/imported/Soul Pickup 6.mp3-cf92eb3779b55e069301655978db721d.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Soul Pickup 6.mp3"
+dest_files=["res://.godot/imported/Soul Pickup 6.mp3-cf92eb3779b55e069301655978db721d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

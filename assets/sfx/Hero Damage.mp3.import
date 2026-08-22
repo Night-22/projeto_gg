@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dea0xb13lgxfn"
+path="res://.godot/imported/Hero Damage.mp3-d60e42fc783ec21f7eb2430710a45852.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/Hero Damage.mp3"
+dest_files=["res://.godot/imported/Hero Damage.mp3-d60e42fc783ec21f7eb2430710a45852.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

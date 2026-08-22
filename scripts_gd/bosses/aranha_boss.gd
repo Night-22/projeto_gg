@@ -585,11 +585,11 @@ func atualizar_pernas_por_vida() -> void:
 			quantidade_a_matar -= 1
 
 
-func _dano(dano: int, origem_x: float):
+func _dano(dano: int, origem_x: float, direcao_ataque: Vector2 = Vector2.ZERO):
 	if dead:
 		return
 
-	super._dano(dano, origem_x)
+	super._dano(dano, origem_x, direcao_ataque)
 
 	if not dead:
 		atualizar_pernas_por_vida()

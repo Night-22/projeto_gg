@@ -18,10 +18,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -34.0
-offset_top = -22.5
-offset_right = 34.0
-offset_bottom = 22.5
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -32,13 +32,14 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 16
 text = "Magias"
 
 [node name="InventoryGrid" type="GridContainer" parent="Background/MarginContainer/VBoxContainer" unique_id=1640806350]
-custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
 columns = 4
 
 [node name="Water1" type="Button" parent="Background/MarginContainer/VBoxContainer/InventoryGrid" unique_id=1915124477]
@@ -113,27 +114,37 @@ size_flags_vertical = 4
 [node name="EquippedTitle" type="Label" parent="Background/MarginContainer/VBoxContainer" unique_id=525051337]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 14
 text = "Magias Equipadas"
 
 [node name="EquippedGrid" type="GridContainer" parent="Background/MarginContainer/VBoxContainer" unique_id=1918677656]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
 columns = 4
 
 [node name="Slot1" type="Button" parent="Background/MarginContainer/VBoxContainer/EquippedGrid" unique_id=2007864856]
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Slot 1"
 
 [node name="Slot2" type="Button" parent="Background/MarginContainer/VBoxContainer/EquippedGrid" unique_id=1708242037]
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Slot 2"
 
 [node name="Slot3" type="Button" parent="Background/MarginContainer/VBoxContainer/EquippedGrid" unique_id=940134084]
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Slot 3"
 
 [node name="Slot4" type="Button" parent="Background/MarginContainer/VBoxContainer/EquippedGrid" unique_id=1309330123]
+custom_minimum_size = Vector2(64, 24)
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Slot 4"
