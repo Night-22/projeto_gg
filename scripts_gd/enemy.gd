@@ -119,12 +119,8 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_wall():
 		dir *= -1
-		#ray.position.x = abs(ray.position.x) * dir
+		$anim.flip_h = dir > 0
 
-	if is_on_floor():
-		dir *= -1
-		##ray.position.x = abs(ray.position.x) * dir
-		#$anim.flip_h = true
 
 func obter_elemento_nativo() -> int:
 	return elemento_nativo

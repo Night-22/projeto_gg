@@ -106,10 +106,12 @@ shape = SubResource("CircleShape2D_g4v7s")
 
 [node name="Cooldown" type="Timer" parent="." unique_id=487114987]
 wait_time = 3.0
+one_shot = true
 
 [node name="rayCast" type="RayCast2D" parent="." unique_id=585972950]
-position = Vector2(-8, 19)
+position = Vector2(-10, -9)
 target_position = Vector2(0, 35)
+collision_mask = 7
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="frame_changed" from="anim" to="." method="_on_anim_frame_changed"]

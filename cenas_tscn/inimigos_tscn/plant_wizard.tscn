@@ -80,7 +80,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(23, 49)
+size = Vector2(24, 43)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yf5fn"]
 radius = 128.06248
@@ -90,12 +90,12 @@ script = ExtResource("1_6ukqg")
 metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
 [node name="anim" type="AnimatedSprite2D" parent="." unique_id=1657690912]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_2iqx6")
 animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=822718149]
-position = Vector2(1.5, 7.5)
+position = Vector2(1, 4.5)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=1270146181]
@@ -104,7 +104,11 @@ shape = SubResource("RectangleShape2D_g4v7s")
 shape = SubResource("CircleShape2D_yf5fn")
 
 [node name="Cooldown" type="Timer" parent="." unique_id=515545652]
-wait_time = 3.0
+wait_time = 2.0
+one_shot = true
+
+[node name="rayCast" type="RayCast2D" parent="." unique_id=733189018]
+position = Vector2(-16, -14)
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="frame_changed" from="anim" to="." method="_on_anim_frame_changed"]

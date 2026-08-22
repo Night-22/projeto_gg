@@ -19,6 +19,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		if body.has_method("receber_dano"):
 			body.receber_dano(damage, global_position.x)
+			queue_free()
 		return
 
 	# Colidiu com algo que não toma dano (parede, chão, etc) -> destrói o projétil

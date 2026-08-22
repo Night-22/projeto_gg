@@ -2,6 +2,13 @@ extends Node
 
 const SAVE_DIR = "user://saves/"
 const MAX_SLOTS = 3
+const CHECKPOINT_PATH = SAVE_DIR + "checkpoint.save"
+
+# Cena onde todo novo jogo sempre começa.
+const CENA_INICIAL := "res://cenas_tscn/tutorial.tscn"
+
+
+const MAGIAS_INICIAIS := [0, 4, 8, 12]
 
 
 func _ready() -> void:
@@ -65,6 +72,42 @@ func salvar_jogo(slot: int, player) -> bool:
 	return true
 
 
+func _dados_novo_jogo() -> Dictionary:
+	return {
+		"vida": 10,
+		"vida_max": 10,
+		"mana": 100,
+		"mana_max": 100,
+		"almas_agua": 0,
+		"almas_fogo": 0,
+		"almas_raio": 0,
+		"almas_planta": 0,
+		"magias_desbloqueadas": MAGIAS_INICIAIS.duplicate(),
+		"magias_equipadas": MAGIAS_INICIAIS.duplicate(),
+		"itens": [],
+		"itens_vistos": [],
+		"medalhao_ativo": -1,
+		"data_hora": Time.get_datetime_string_from_system(),
+		"checkpoint_cena": CENA_INICIAL
+	}
+
+func novo_jogo(slot: int) -> bool:
+	if slot < 1 or slot > MAX_SLOTS:
+		return false
+
+	var dados := _dados_novo_jogo()
+
+	var file = FileAccess.open(_caminho_slot(slot), FileAccess.WRITE)
+
+	if file == null:
+		return false
+
+	file.store_string(JSON.stringify(dados))
+	file.close()
+
+	return await _aplicar_dados_carregados(dados)
+
+
 func carregar_jogo(slot: int) -> bool:
 	if !slot_existe(slot):
 		return false
@@ -74,6 +117,67 @@ func carregar_jogo(slot: int) -> bool:
 	if dados.is_empty():
 		return false
 
+	return await _aplicar_dados_carregados(dados)
+
+
+func salvar_checkpoint(player) -> bool:
+	if player == null or !is_instance_valid(player):
+		return false
+
+	if !player.has_method("obter_dados_save"):
+		return false
+
+	var dados: Dictionary = player.obter_dados_save()
+	dados["data_hora"] = Time.get_datetime_string_from_system()
+
+	var file = FileAccess.open(CHECKPOINT_PATH, FileAccess.WRITE)
+
+	if file == null:
+		return false
+
+	file.store_string(JSON.stringify(dados))
+	file.close()
+
+	return true
+
+
+func existe_checkpoint() -> bool:
+	return FileAccess.file_exists(CHECKPOINT_PATH)
+
+
+func obter_dados_checkpoint() -> Dictionary:
+	if !existe_checkpoint():
+		return {}
+
+	var file = FileAccess.open(CHECKPOINT_PATH, FileAccess.READ)
+
+	if file == null:
+		return {}
+
+	var texto = file.get_as_text()
+	file.close()
+
+	var json = JSON.new()
+
+	if json.parse(texto) != OK:
+		return {}
+
+	if typeof(json.data) != TYPE_DICTIONARY:
+		return {}
+
+	return json.data
+
+
+func carregar_checkpoint() -> bool:
+	var dados = obter_dados_checkpoint()
+
+	if dados.is_empty():
+		return false
+
+	return await _aplicar_dados_carregados(dados)
+
+
+func _aplicar_dados_carregados(dados: Dictionary) -> bool:
 	var cena_alvo: String = dados.get("checkpoint_cena", "")
 	var cena_atual = get_tree().current_scene
 

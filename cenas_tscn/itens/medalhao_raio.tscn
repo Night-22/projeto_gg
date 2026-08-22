@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cxls3qhetw16b"]
+
+[ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 18.027756
+
+[node name="MedalhaoRaio" type="Area2D" unique_id=493520083]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1")
+item_id = "medalhao_raio"
+item_nome = "Medalhão do Raio"
+item_icone_path = "res://placeholder/raio.png"
+descricao_desbloqueio = "Um medalhão que parece gritar com a fúria de uma tempestade presa.
+Equipe-o para imbuir seu dash com o poder do raio.
+Use o menu de itens para trocar o elemento equipado."
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=289822612]
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1162209722]
+shape = SubResource("CircleShape2D_1")

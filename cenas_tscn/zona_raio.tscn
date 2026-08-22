@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ql61pf2vn4bs" path="res://scripts_gd/torreta.gd" id="4_n10d6"]
 [ext_resource type="Texture2D" uid="uid://dcianr4bfdyj3" path="res://assets/torreta/torre baixo.png" id="5_7ic1o"]
 [ext_resource type="Script" uid="uid://dsnvtxksfm71j" path="res://scripts_gd/path_laser.gd" id="5_77fmt"]
+[ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="5_pyhdu"]
 [ext_resource type="Texture2D" uid="uid://b8hxo8dvqwsgj" path="res://assets/torreta/SAbo23.png" id="6_lktyf"]
 [ext_resource type="Shader" uid="uid://dn18jen4ywnrs" path="res://gdshader/laser_reto_2.gdshader" id="7_521ij"]
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="7_ad1xr"]
@@ -739,6 +740,14 @@ tile_set = SubResource("TileSet_yf5fn")
 [node name="Escada" parent="." unique_id=1403829435 instance=ExtResource("1_15wm2")]
 position = Vector2(40, -271)
 scale = Vector2(0.34801432, 0.47593477)
+
+[node name="Bancada" parent="." unique_id=139153692 instance=ExtResource("5_pyhdu")]
+position = Vector2(10, -90)
+scale = Vector2(0.672671, 0.58093554)
+
+[node name="Bancada2" parent="." unique_id=4490240 instance=ExtResource("5_pyhdu")]
+position = Vector2(16, -208)
+scale = Vector2(0.672671, 0.58093554)
 
 [node name="LaserPath2" type="Path2D" parent="." unique_id=2021133189]
 position = Vector2(-614, 126)

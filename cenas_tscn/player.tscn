@@ -7,6 +7,13 @@
 [ext_resource type="Script" uid="uid://c5mjtgl2idcb" path="res://scripts_gd/camera_2d.gd" id="6_t5do6"]
 [ext_resource type="Script" uid="uid://ih2a73fllkq5" path="res://OclussionOutline.gd" id="6_xrwlx"]
 [ext_resource type="Texture2D" uid="uid://debrota50q766" path="res://assets/personagem-Sheet (1).png" id="7_tw7kf"]
+[ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="8_cmbli"]
+[ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="9_ox2ky"]
+[ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="10_1unn6"]
+[ext_resource type="PackedScene" path="res://cenas_tscn/menus/bancada_menu.tscn" id="11_cmbli"]
+[ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="12_svmnu"]
+[ext_resource type="PackedScene" path="res://cenas_tscn/menus/game_over_menu.tscn" id="13_gomnu"]
+[ext_resource type="PackedScene" path="res://cenas_tscn/menus/pause_menu.tscn" id="14_pause"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g4v7s"]
 
@@ -471,8 +478,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ym2kn"]
-radius = 6.0
-height = 20.0
+radius = 4.0
+height = 16.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xojfc"]
 size = Vector2(14, 28)
@@ -677,6 +684,29 @@ radial_accel_min = -150.0
 radial_accel_max = -150.0
 scale_amount_max = 2.5
 color = Color(0.53, 1, 0.6, 0.85)
+
+[node name="Hud" parent="." unique_id=249675550 instance=ExtResource("7_a0w80")]
+visible = false
+
+[node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("8_cmbli")]
+visible = false
+
+[node name="SpellInventory" parent="." unique_id=1732352662 instance=ExtResource("9_ox2ky")]
+visible = false
+
+[node name="InventarioGeral" parent="." unique_id=754743051 instance=ExtResource("10_1unn6")]
+visible = false
+
+[node name="BancadaMenu" parent="." unique_id=372078859 instance=ExtResource("11_cmbli")]
+visible = false
+
+[node name="SaveMenu" parent="." unique_id=2105074130 instance=ExtResource("12_svmnu")]
+
+[node name="GameOverMenu" parent="." instance=ExtResource("13_gomnu")]
+visible = false
+
+[node name="PauseMenu" parent="." instance=ExtResource("14_pause")]
+visible = false
 
 [connection signal="animation_finished" from="anim" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="hurtBox" to="." method="_on_hurt_box_body_entered"]

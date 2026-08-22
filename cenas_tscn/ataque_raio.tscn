@@ -1,19 +1,21 @@
 [gd_scene format=3 uid="uid://b7b1re07g34ah"]
 
-[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="1_jpbys"]
+[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="1_jpbys"]
 [ext_resource type="Script" uid="uid://bw8fh6uesboib" path="res://scripts_gd/ataque_raio.gd" id="1_s8h2p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(22, 32)
+size = Vector2(17, 18)
 
 [node name="ataque_raio" type="Area2D" unique_id=119323177]
 script = ExtResource("1_s8h2p")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1164102278]
-scale = Vector2(0.117801055, 0.118081175)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_jpbys")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=708506109]
+position = Vector2(-0.49999997, 0)
+scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -91,6 +91,7 @@ var almas_planta = 0
 @export var friction = 6.7
 
 @onready var anim: AnimatedSprite2D = $anim
+@onready var game_over_menu = $GameOverMenu
 @onready var attack_hit_box: CollisionShape2D = $attackHitBox/collision
 @onready var attack_sprite: AnimatedSprite2D = $attackHitBox/attack_sprite
 @onready var attack_timer: Timer = $attackTimer
@@ -140,7 +141,7 @@ var jump_count = 0
 var max_jumps = 1
 
 var dash_speed = 250.0
-var dash_time = 0.35
+var dash_time = 0.2
 var dash_timer = 0.0
 
 var air_dash_available = true
@@ -189,8 +190,8 @@ var flash_shader = preload("res://gdshader/flash.gdshader")
 var flash_duration := 0.15
 var _flash_tween: Tween = null
 
-@export var knockback_force := 200.0
-@export var knockback_up_force := -100.0
+@export var knockback_force := 50.0
+@export var knockback_up_force := -40.0
 @export var slime_jump_velocity = -600.0
 
 var ladder = null
@@ -206,7 +207,11 @@ var tem_checkpoint := false
 var respawn_position := Vector2.ZERO
 
 
+var esta_morrendo := false
+
+
 var inventario_itens: Array = []
+var itens_vistos: Array = []
 
 var current_element = -1
 var imbued_element = -1
@@ -344,22 +349,13 @@ func _ready() -> void:
 	dash_hit_box.body_entered.connect(_on_dash_hit_box_body_entered)
 	dash_hit_box.area_entered.connect(_on_dash_hit_box_area_entered)
 
-
-	adicionar_item("medalhao_fogo", "Medalhão do Fogo", "res://placeholder/fogo.png")
-	adicionar_item("medalhao_agua", "Medalhão da Água", "res://placeholder/agua.png")
-	adicionar_item("medalhao_raio", "Medalhão do Raio", "res://placeholder/raio.png")
-	adicionar_item("medalhao_planta", "Medalhão da Planta", "res://placeholder/planta.png")
-	adicionar_item("amuleto_vida", "Amuleto de vida", "res://placeholder/goat_do_mal.jpg", 5)
-	adicionar_item("amuleto_mana", "Amuleto de mana", "res://placeholder/goat_do_mal.jpg", 5)
-	adicionar_item("amuleto_dano", "Amuleto de ataque", "res://placeholder/goat_do_mal.jpg", 5)
-
 	atualizar_atributos_amuletos()
 
 
 func _physics_process(delta: float) -> void:
 	var estava_no_chao := is_on_floor()
 
-	if Life <= 0:
+	if Life <= 0 and not esta_morrendo:
 		current_state = State.DEAD
 	
 	if dentro_da_agua:
@@ -624,6 +620,7 @@ func adicionar_alma(tipo_alma: int) -> void:
 func definir_checkpoint(pos: Vector2) -> void:
 	tem_checkpoint = true
 	respawn_position = pos
+	SaveManager.salvar_checkpoint(self)
 
 
 func curar_completo() -> void:
@@ -633,21 +630,54 @@ func curar_completo() -> void:
 
 
 func morrer_e_respawnar() -> void:
+	if esta_morrendo:
+		return
+
+	esta_morrendo = true
+
 	damage_knockback = Vector2.ZERO
 
 	cancelar_cura()
-	current_state = State.IDLE
+	current_state = State.DEAD
 	lock_player()
+
+	game_over_menu.iniciar_morte()
+
 	anim.play("die")
 	await anim.animation_finished
-	var ultimo = SaveManager.obter_ultimo_save()
-	if ultimo != -1:
+
+	game_over_menu.mostrar_menu()
+
+	var escolha: String = await game_over_menu.escolha_feita
+
+	if escolha == "menu":
+		get_tree().change_scene_to_file("res://cenas_tscn/menus/main_menu.tscn")
+		return
+
+	if SaveManager.existe_checkpoint():
+		await SaveManager.carregar_checkpoint()
+	else:
+		var ultimo = SaveManager.obter_ultimo_save()
+		if ultimo != -1:
 			await SaveManager.carregar_jogo(ultimo)
+
+	current_state = State.IDLE
+	esta_morrendo = false
+
 	unlock_player()
 
 
 func identificar_amuleto(id: String) -> bool:
 	return id == amuleto_vida_id or id == amuleto_mana_id or id == amuleto_dano_id
+
+
+func item_ja_foi_visto(id: String) -> bool:
+	return itens_vistos.has(id)
+
+
+func marcar_item_como_visto(id: String) -> void:
+	if !itens_vistos.has(id):
+		itens_vistos.append(id)
 
 
 func adicionar_item(id: String, nome: String, icone: String = "", quantidade: int = 1) -> void:
@@ -738,6 +768,7 @@ func obter_dados_save() -> Dictionary:
 		"magias_desbloqueadas": spell_inventory.duplicate(),
 		"magias_equipadas": equipped_spells.duplicate(),
 		"itens": inventario_itens.duplicate(true),
+		"itens_vistos": itens_vistos.duplicate(),
 		"medalhao_ativo": medalhao_ativo,
 		"checkpoint_cena": caminho_cena,
 		"checkpoint_pos_x": respawn_position.x,
@@ -768,6 +799,11 @@ func aplicar_dados_save(dados: Dictionary) -> void:
 		equipped_spells.append(int(spell_id))
 
 	inventario_itens = dados.get("itens", [])
+
+	itens_vistos.clear()
+
+	for id in dados.get("itens_vistos", []):
+		itens_vistos.append(String(id))
 
 	atualizar_atributos_amuletos()
 
@@ -1788,6 +1824,9 @@ func mostrar_dano(dano: int) -> void:
 
 
 func die():
+	if esta_morrendo:
+		return
+
 	morrer_e_respawnar()
 
 

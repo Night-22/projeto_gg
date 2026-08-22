@@ -84,7 +84,7 @@ func todas_alavancas_ativas() -> bool:
 	return true
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not alavancas.is_empty():
 
 		#seguranca

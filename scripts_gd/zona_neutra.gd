@@ -69,5 +69,5 @@ func fade_predio(predio: CanvasItem, mostrar: bool, tween_atual: Tween) -> void:
 		tween_esquerda = novo_tween
 
 
-func _on_area_botao_subir_body_entered(body: Node2D) -> void:
+func _on_area_botao_subir_body_entered(_body: Node2D) -> void:
 	pass # Replace with function body.

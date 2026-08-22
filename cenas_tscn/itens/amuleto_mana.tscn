@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://tjtuqarprd0e"]
+
+[ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 18.027756
+
+[node name="AmuletoMana" type="Area2D" unique_id=1783851345]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1")
+item_id = "amuleto_mana"
+item_nome = "Amuleto de mana"
+item_icone_path = "res://placeholder/goat_do_mal.jpg"
+descricao_desbloqueio = "Um amuleto que ressoa com energia arcana latente.
+Aumenta sua mana máxima e a recuperação de mana por ataque.
+Você pode carregar até 5 amuletos de mana ao mesmo tempo."
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=776120360]
+position = Vector2(-0.022019506, 5.9604645e-07)
+scale = Vector2(0.044036694, 0.048109964)
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1909747816]
+shape = SubResource("CircleShape2D_1")
