@@ -3,6 +3,14 @@
 [ext_resource type="Script" uid="uid://cu2wpe0ujqliu" path="res://scripts_gd/slime_fogo.gd" id="1_hrtam"]
 [ext_resource type="Texture2D" uid="uid://bedtsonbqwg3i" path="res://assets/slimes.png" id="2_hrtam"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0f4w"]
+atlas = ExtResource("2_hrtam")
+region = Rect2(0, 102, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aweg5"]
+atlas = ExtResource("2_hrtam")
+region = Rect2(27, 102, 27, 17)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hrtam"]
 atlas = ExtResource("2_hrtam")
 region = Rect2(0, 34, 27, 17)
@@ -15,16 +23,19 @@ region = Rect2(27, 34, 27, 17)
 atlas = ExtResource("2_hrtam")
 region = Rect2(54, 34, 27, 17)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k0f4w"]
-atlas = ExtResource("2_hrtam")
-region = Rect2(0, 102, 27, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aweg5"]
-atlas = ExtResource("2_hrtam")
-region = Rect2(27, 102, 27, 17)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k0f4w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aweg5")
+}],
+"loop": 1,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hrtam")
@@ -34,17 +45,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bhejh")
-}],
-"loop": 1,
-"name": &"attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_k0f4w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aweg5")
 }],
 "loop": 1,
 "name": &"walk",
@@ -63,7 +63,7 @@ metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 
 [node name="anim" type="AnimatedSprite2D" parent="." unique_id=1021723171]
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"attack"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=658636997]
 position = Vector2(1.5, 2.5)

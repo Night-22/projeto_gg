@@ -3,6 +3,14 @@
 [ext_resource type="Script" uid="uid://bil8cjcpg8g2d" path="res://scripts_gd/slime_agua.gd" id="1_fmh24"]
 [ext_resource type="Texture2D" uid="uid://bedtsonbqwg3i" path="res://assets/slimes.png" id="2_fmh24"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmh24"]
+atlas = ExtResource("2_fmh24")
+region = Rect2(0, 68, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kp6k1"]
+atlas = ExtResource("2_fmh24")
+region = Rect2(27, 68, 27, 17)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_axb2h"]
 atlas = ExtResource("2_fmh24")
 region = Rect2(0, 0, 27, 17)
@@ -15,16 +23,19 @@ region = Rect2(27, 0, 27, 17)
 atlas = ExtResource("2_fmh24")
 region = Rect2(54, 0, 27, 17)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fmh24"]
-atlas = ExtResource("2_fmh24")
-region = Rect2(0, 68, 27, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kp6k1"]
-atlas = ExtResource("2_fmh24")
-region = Rect2(27, 68, 27, 17)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmh24")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kp6k1")
+}],
+"loop": 1,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_axb2h")
@@ -34,17 +45,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qgxaj")
-}],
-"loop": 1,
-"name": &"attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fmh24")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kp6k1")
 }],
 "loop": 1,
 "name": &"walk",
@@ -65,8 +65,8 @@ metadata/_custom_type_script = "uid://cn1m5131s4q2h"
 [node name="anim" type="AnimatedSprite2D" parent="." unique_id=1170398175]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"attack"
-frame_progress = 0.30297682
+animation = &"walk"
+frame_progress = 0.15265593
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1258044184]
 position = Vector2(2, 3)

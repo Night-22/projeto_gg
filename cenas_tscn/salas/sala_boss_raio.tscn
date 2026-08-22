@@ -110,6 +110,7 @@ limite_direito = 369.5
 distancia_plataforma_chao = 174.5
 posicoes_plataformas = PackedFloat32Array(70, 180, 290)
 tempo_aviso_raio = 1.2
+elemento_nativo = 3
 
 [node name="Player" parent="." unique_id=1746348835 instance=ExtResource("2_player")]
 position = Vector2(-25, 219)

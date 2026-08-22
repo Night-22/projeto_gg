@@ -122,7 +122,7 @@ func iniciar_luta() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if jogador.global_position.x <= 190:
+	if jogador.global_position.x <= global_position.x:
 		corpo.flip_h = false
 	else:
 		corpo.flip_h = true

@@ -693,11 +693,12 @@ visible = false
 visible = false
 
 [node name="SaveMenu" parent="." unique_id=2105074130 instance=ExtResource("12_svmnu")]
-
-[node name="GameOverMenu" parent="." instance=ExtResource("13_gomnu")]
 visible = false
 
-[node name="PauseMenu" parent="." instance=ExtResource("14_pause")]
+[node name="GameOverMenu" parent="." unique_id=246419191 instance=ExtResource("13_gomnu")]
+visible = false
+
+[node name="PauseMenu" parent="." unique_id=557730535 instance=ExtResource("14_pause")]
 visible = false
 
 [connection signal="animation_finished" from="anim" to="." method="_on_animated_sprite_2d_animation_finished"]

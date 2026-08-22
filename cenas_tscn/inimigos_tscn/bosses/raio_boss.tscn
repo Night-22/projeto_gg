@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cinpl3vh3j5jf" path="res://scripts_gd/bosses/raio_boss.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://b3u6j30gwwys5" path="res://assets/boss_raio.png" id="2_akit2"]
-[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="3_nucleo"]
+[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="3_nucleo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ub6w5"]
 atlas = ExtResource("2_akit2")
@@ -187,7 +187,7 @@ animations = [{
 }],
 "loop": 0,
 "name": &"soco",
-"speed": 15.0
+"speed": 18.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
@@ -203,7 +203,7 @@ script = ExtResource("1_script")
 position = Vector2(0, -90)
 scale = Vector2(1.5, 1.863)
 sprite_frames = SubResource("SpriteFrames_g4v7s")
-animation = &"raio"
+animation = &"soco"
 
 [node name="Nucleo" type="Sprite2D" parent="." unique_id=1703592488]
 visible = false

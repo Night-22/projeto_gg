@@ -119,7 +119,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
-size = Vector2(92, 84.5)
+size = Vector2(92, 133)
 
 [node name="TopgoBoss" type="CharacterBody2D" unique_id=656860668 groups=["Boss", "Inimigo"]]
 script = ExtResource("1_script")
@@ -159,6 +159,5 @@ scale = Vector2(0.10224779, 0.13647152)
 texture = ExtResource("6_htojr")
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=682320344]
-position = Vector2(-2, 6.75)
+position = Vector2(-2, 8.5)
 shape = SubResource("RectangleShape2D_corpo")
-disabled = true

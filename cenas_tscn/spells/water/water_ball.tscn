@@ -1,18 +1,18 @@
 [gd_scene format=3 uid="uid://c1noossytufch"]
 
 [ext_resource type="Script" uid="uid://bq4ekjum06wp2" path="res://cenas_tscn/spells/water/water_ball.gd" id="1_i7r27"]
-[ext_resource type="Texture2D" uid="uid://ck8lmcrqidd5h" path="res://placeholder/agua.png" id="2_j38cq"]
+[ext_resource type="Texture2D" uid="uid://7qnngd0w0jdi" path="res://placeholder/agua.png" id="2_j38cq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 55.145264
+radius = 18.110771
 
 [node name="WaterBall" type="Area2D" unique_id=356553288]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_i7r27")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=35979745]
-position = Vector2(-0.4999981, 9.536743e-07)
-scale = Vector2(0.39912277, 0.36286917)
+position = Vector2(1.0000019, 4.7683716e-07)
+scale = Vector2(1.3124999, 1.25)
 texture = ExtResource("2_j38cq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=205076827]

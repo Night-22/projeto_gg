@@ -21,6 +21,8 @@ enum ElementoNativo {
 @export var knockback_up_force := -120
 @export var knockback_ataque := 30
 
+@export var causa_dano_por_contato := true
+
 #@onready var ray: RayCast2D = $rayCast
 
 

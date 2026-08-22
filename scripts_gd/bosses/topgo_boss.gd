@@ -212,6 +212,7 @@ var _teleporte_destino_x := 0.0
 func _ready() -> void:
 	super._ready()
 	
+	causa_dano_por_contato = false
 
 	Life = vida_maxima_boss
 	max_elementos = 2
@@ -219,6 +220,12 @@ func _ready() -> void:
 
 	posicao_base = global_position
 	jogador = get_tree().get_first_node_in_group("Player")
+
+	# O corpo do boss não deve empurrar/travar o jogador fisicamente,
+	# só os ataques (que usam áreas próprias) devem interagir com ele.
+	if jogador and is_instance_valid(jogador):
+		add_collision_exception_with(jogador)
+		jogador.add_collision_exception_with(self)
 
 	posicao_x_meio = posicao_base.x
 	posicao_x_esquerda = limite_esquerdo + margem_lateral_fase2
@@ -253,10 +260,12 @@ func _physics_process(delta: float) -> void:
 			corpo.play("idle")
 		Estado.PREPARANDO_ESPINHO:
 			_estado_preparando_espinho(delta)
+			corpo.play("attack")
 		Estado.ATAQUE_ESPINHO:
 			_estado_ataque_espinho(delta)
 		Estado.PREPARANDO_RAIO:
 			_estado_preparando_raio(delta)
+			corpo.play("attack")
 		Estado.ATAQUE_RAIO:
 			_estado_ataque_raio(delta)
 		Estado.IDLE_GRITO:
@@ -270,14 +279,17 @@ func _physics_process(delta: float) -> void:
 			pass
 		Estado.FASE2_PREPARANDO_FOGO1:
 			_estado_preparando_fogo1(delta)
+			corpo.play("attack")
 		Estado.FASE2_ATAQUE_FOGO1:
 			pass
 		Estado.FASE2_PREPARANDO_AGUA:
 			_estado_preparando_agua_fase2(delta)
+			corpo.play("attack")
 		Estado.FASE2_ATAQUE_AGUA:
 			pass
 		Estado.FASE2_PREPARANDO_FOGO2:
 			_estado_preparando_fogo2(delta)
+			corpo.play("attack")
 		Estado.FASE2_ATAQUE_FOGO2:
 			pass
 		Estado.IDLE_GRITO2:
@@ -291,18 +303,22 @@ func _physics_process(delta: float) -> void:
 			pass
 		Estado.FASE3_PREPARANDO_ESPINHO_RADIAL:
 			_estado_preparando_espinho_radial(delta)
+			corpo.play("attack")
 		Estado.FASE3_ATAQUE_ESPINHO_RADIAL:
 			pass
 		Estado.FASE3_PREPARANDO_FOGO_ZONA:
 			_estado_preparando_fogo_zona(delta)
+			corpo.play("attack")
 		Estado.FASE3_ATAQUE_FOGO_ZONA:
 			pass
 		Estado.FASE3_PREPARANDO_RAIO_VARREDURA:
 			_estado_preparando_raio_varredura(delta)
+			corpo.play("attack")
 		Estado.FASE3_ATAQUE_RAIO_VARREDURA:
 			pass
 		Estado.FASE3_PREPARANDO_SLIMES:
 			_estado_preparando_slimes(delta)
+			corpo.play("attack")
 		Estado.FASE3_ATAQUE_SLIMES:
 			pass
 

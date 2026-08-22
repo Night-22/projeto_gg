@@ -3,6 +3,14 @@
 [ext_resource type="Script" uid="uid://rcds1die6rr6" path="res://scripts_gd/slime_planta.gd" id="1_pqvag"]
 [ext_resource type="Texture2D" uid="uid://bedtsonbqwg3i" path="res://assets/slimes.png" id="2_pqvag"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_03jwp"]
+atlas = ExtResource("2_pqvag")
+region = Rect2(0, 85, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg86h"]
+atlas = ExtResource("2_pqvag")
+region = Rect2(27, 85, 27, 17)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hel2k"]
 atlas = ExtResource("2_pqvag")
 region = Rect2(0, 17, 27, 17)
@@ -15,16 +23,19 @@ region = Rect2(27, 17, 27, 17)
 atlas = ExtResource("2_pqvag")
 region = Rect2(54, 17, 27, 17)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_03jwp"]
-atlas = ExtResource("2_pqvag")
-region = Rect2(0, 85, 27, 17)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kg86h"]
-atlas = ExtResource("2_pqvag")
-region = Rect2(27, 85, 27, 17)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_8opdm"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03jwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kg86h")
+}],
+"loop": 1,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hel2k")
@@ -34,17 +45,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fif86")
-}],
-"loop": 1,
-"name": &"attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_03jwp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kg86h")
 }],
 "loop": 1,
 "name": &"walk",

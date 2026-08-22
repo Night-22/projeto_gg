@@ -7,10 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="6_7juhd"]
 [ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="7_r7ct6"]
 [ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="8_wcvwo"]
-[ext_resource type="PackedScene" uid="uid://dlvuq4wdaik12" path="res://cenas_tscn/inimigos_tscn/lightning_wizard.tscn" id="12_0fuwc"]
-[ext_resource type="PackedScene" uid="uid://buom658k7oy5" path="res://cenas_tscn/itens/medalhao_agua.tscn" id="13_andi0"]
+[ext_resource type="PackedScene" uid="uid://dchqpas3ef5eo" path="res://cenas_tscn/inimigos_tscn/slime_agua.tscn" id="9_0fuwc"]
+[ext_resource type="PackedScene" uid="uid://6clagx1h2pnp" path="res://cenas_tscn/inimigos_tscn/slime_fogo.tscn" id="10_v6uql"]
+[ext_resource type="PackedScene" uid="uid://bfcb2qgmgiy1l" path="res://cenas_tscn/inimigos_tscn/slime_planta.tscn" id="11_andi0"]
+[ext_resource type="PackedScene" uid="uid://dkyfji4im2qkl" path="res://cenas_tscn/inimigos_tscn/slime_raio.tscn" id="12_ymgsy"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="13_geninv"]
-[ext_resource type="PackedScene" uid="uid://byvbs2nx8chrd" path="res://cenas_tscn/itens/medalhao_fogo.tscn" id="14_ymgsy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)
@@ -122,12 +123,14 @@ position = Vector2(-277, -463)
 tile_map_data = PackedByteArray("AAAOABwAAAALAAUAAAAPABwAAAAMAAUAAAAQABwAAAAMAAUAAAARABwAAAAMAAUAAAASABwAAAAMAAUAAAATABwAAAALAAUAABA=")
 tile_set = ExtResource("2_ne5t3")
 
-[node name="lightning_wizard" parent="." unique_id=1407274623 instance=ExtResource("12_0fuwc")]
-position = Vector2(417, 328)
-elemento_nativo = 3
+[node name="Slime_agua" parent="." unique_id=803833005 instance=ExtResource("9_0fuwc")]
+position = Vector2(334, 528)
 
-[node name="MedalhaoAgua" parent="." unique_id=1599843702 instance=ExtResource("13_andi0")]
-position = Vector2(254, 523)
+[node name="slime_fogo" parent="." unique_id=1410727227 instance=ExtResource("10_v6uql")]
+position = Vector2(399, 533)
 
-[node name="MedalhaoFogo" parent="." unique_id=1107021835 instance=ExtResource("14_ymgsy")]
-position = Vector2(304, 525)
+[node name="slime_planta" parent="." unique_id=176387286 instance=ExtResource("11_andi0")]
+position = Vector2(474, 528)
+
+[node name="slime_raio" parent="." unique_id=998757178 instance=ExtResource("12_ymgsy")]
+position = Vector2(557, 535)
