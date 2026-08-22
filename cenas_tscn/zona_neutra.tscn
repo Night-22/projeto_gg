@@ -1319,6 +1319,9 @@ tile_set = SubResource("TileSet_p1u0y")
 position = Vector2(-1, 1.5)
 shape = SubResource("RectangleShape2D_33x8s")
 
+[node name="entrada_raio_1" type="Marker2D" parent="." unique_id=1981555605]
+position = Vector2(-499, -172)
+
 [connection signal="body_entered" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_entered"]
 [connection signal="body_exited" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_exited"]
 [connection signal="body_entered" from="parede_de_fora_predio_direita" to="." method="_on_parede_de_fora_predio_direita_body_entered"]

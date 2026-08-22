@@ -108,7 +108,11 @@ position = Vector2(-1.5, -14.5)
 shape = SubResource("CircleShape2D_jyj7g")
 
 [node name="Cooldown" type="Timer" parent="." unique_id=392964402]
-wait_time = 3.0
+wait_time = 2.0
+one_shot = true
+
+[node name="rayCast" type="RayCast2D" parent="." unique_id=1463846498]
+position = Vector2(-16, -14)
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="frame_changed" from="anim" to="." method="_on_anim_frame_changed"]

@@ -1,23 +1,51 @@
 [gd_scene format=3 uid="uid://bdiogikbancoy"]
 
 [ext_resource type="Script" uid="uid://be0mhjtuhq5km" path="res://cenas_tscn/prefabs/laser_reto.gd" id="1_084qi"]
+[ext_resource type="Texture2D" uid="uid://btca0pqg7nhq2" path="res://assets/laser_desligado.png" id="2_crgk5"]
 [ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2_ritxh"]
+[ext_resource type="Texture2D" uid="uid://rna2bognk0i3" path="res://assets/laser_aceso.png" id="3_f12sl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(20, 195)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_crgk5")
+}],
+"loop": 1,
+"name": &"desligado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_f12sl")
+}],
+"loop": 1,
+"name": &"ligado",
+"speed": 5.0
+}]
+
 [node name="LaserReto" type="Area2D" unique_id=2075955930]
 script = ExtResource("1_084qi")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1597435894]
-modulate = Color(0.050980393, 1, 0.019607844, 1)
-position = Vector2(4.7683716e-07, 1.9073486e-06)
-scale = Vector2(0.029357797, 0.33161512)
-texture = ExtResource("2_ritxh")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=483562949]
-position = Vector2(0, -0.5)
+position = Vector2(-1.9073486e-06, 104.50002)
+scale = Vector2(0.04265149, 1)
 shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1548096741]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"desligado"
+autoplay = "desligado"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1661177561]
+modulate = Color(1, 1, 0, 1)
+self_modulate = Color(1, 1, 0, 1)
+position = Vector2(1.335144e-05, 104.5)
+scale = Vector2(0.0015651959, 0.33505154)
+texture = ExtResource("2_ritxh")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,10 +1,14 @@
 extends PathFollow2D
 
-@export var velocidade := 150.0
+@export var velocidade := 50.0
+@export var posicao_inicial := 0.0
 
-var indo = true
+var indo := true
 
-func _process(delta):
+func _ready() -> void:
+	progress = posicao_inicial
+
+func _process(delta: float) -> void:
 	var caminho = get_parent().curve
 
 	if caminho == null:
@@ -24,8 +28,3 @@ func _process(delta):
 		if progress <= 0:
 			progress = 0
 			indo = true
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		body.receber_dano(10, global_position.x)

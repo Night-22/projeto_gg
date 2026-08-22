@@ -40,10 +40,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(58, 48)
+size = Vector2(24, 24)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 270.06665
+radius = 124.16924
 
 [node name="Blue_eagle" type="CharacterBody2D" unique_id=1060966006 groups=["Inimigo"]]
 script = ExtResource("1_xpq04")

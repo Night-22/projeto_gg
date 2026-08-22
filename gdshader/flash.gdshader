@@ -19,5 +19,5 @@ void vertex() {
 void fragment() {
 	vec4 tex_color = texture(TEXTURE, UV);
 	vec3 cor_final = mix(tex_color.rgb, flash_color.rgb, flash_amount);
-	COLOR = vec4(cor_final, tex_color.a) * v_modulate;
+	COLOR = vec4(cor_final, tex_color.a) * modulate;
 }

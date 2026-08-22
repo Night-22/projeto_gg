@@ -4,7 +4,6 @@
 
 [node name="Enemy" type="CharacterBody2D" unique_id=2057617426]
 script = ExtResource("1_7k104")
-Speed = 0
 
 [node name="Collision" type="CollisionShape2D" parent="." unique_id=1532078903]
 
