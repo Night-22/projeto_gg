@@ -7,66 +7,54 @@ extends Flying
 
 var player: Node2D = null
 var atacando := false
-var ja_atacou := false
-
-var patrulhando := true
-var ponto_inicial_x: float
 
 @export var distancia_do_ataque := 10.0
-@export var distancia_seguranca := 50.0
-@export var velocidade_perseguicao := 80.0
 @export var velocidade_patrulha := 40.0
-@export var distancia_patrulha := 100
 
 @export var angulo_dos_tiros := 40.0
 
 
 func _ready() -> void:
-	ponto_inicial_x = global_position.x
-	
 	anim.play("voo")
 
 
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
-	
+
 	if player != null and player_esta_na_percepcao():
-	
-		patrulhando = false
-	
-		var distancia_x = player.global_position.x - global_position.x
-	
-		if abs(distancia_x) > distancia_seguranca:
-			dir = sign(distancia_x)
-			velocity.x = dir * velocidade_perseguicao
-		else:
-			velocity.x = 0.0
-		velocity.y = 0.0
-	
+		# Player à vista: para no lugar, encara e atira.
+		velocity = Vector2.ZERO
+
+		olhar_para_player()
+
+		if !atacando and cooldown.is_stopped():
+			disparar_rajada()
 	else:
-	
-		patrulhando = true
-	
+		# Patrulha normal: anda até bater em parede ou em
+		# outro inimigo, aí vira, igual aos demais inimigos.
 		velocity.x = dir * velocidade_patrulha
 		velocity.y = 0.0
-	
-		if global_position.x <= ponto_inicial_x - distancia_patrulha:
-			dir = 1
-	
-		elif global_position.x >= ponto_inicial_x + distancia_patrulha:
-			dir = -1
-	
+
+		if velocity.x > 0:
+			anim.flip_h = true
+		elif velocity.x < 0:
+			anim.flip_h = false
+
 	move_and_slide()
-	
+
+	if is_on_wall():
+		dir *= -1
+
 	if !anim.is_playing() or anim.animation != "voo":
 		anim.play("voo")
-	
-	if velocity.x > 0:
-		anim.flip_h = true
-	elif velocity.x < 0:
-		anim.flip_h = false
 
+
+func olhar_para_player() -> void:
+	if player.global_position.x > global_position.x:
+		anim.flip_h = true
+	else:
+		anim.flip_h = false
 
 
 func _on_percepcao_body_entered(body: Node2D) -> void:
@@ -74,11 +62,9 @@ func _on_percepcao_body_entered(body: Node2D) -> void:
 		return
 
 	player = body
-	patrulhando = false
 
-	if !ja_atacou and !atacando:
-		ja_atacou = true
-		call_deferred("disparar_rajada")
+	if !atacando and cooldown.is_stopped():
+		disparar_rajada()
 
 
 func disparar_rajada() -> void:
@@ -108,7 +94,6 @@ func disparar_agua(direcao: Vector2) -> void:
 	get_parent().add_child(ataque)
 
 
-
 func player_esta_na_percepcao() -> bool:
 	for body in percepcao.get_overlapping_bodies():
 		if body.is_in_group("Player"):
@@ -127,5 +112,3 @@ func _on_cooldown_timeout() -> void:
 func _on_percepcao_body_exited(body: Node2D) -> void:
 	if body == player:
 		player = null
-		patrulhando = true
-		atacando = false

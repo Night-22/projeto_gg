@@ -17,13 +17,22 @@ enum ElementoNativo {
 @export var elemento_nativo: ElementoNativo = ElementoNativo.SEM_ELEMENTO
 @export var chance_drop_alma := 1.0
 
-@export var knockback_force := 100
-@export var knockback_up_force := -120
-@export var knockback_ataque := 30
+@export var knockback_force := 20
+@export var knockback_up_force := -20
+@export var knockback_ataque := 10
 
 @export var causa_dano_por_contato := true
 
-@onready var ray: RayCast2D = $ray_floor
+@onready var ray: RayCast2D = get_node_or_null("ray_floor")
+
+
+func _enter_tree() -> void:
+	set_collision_mask_value(2, true)
+
+	var ray_floor := get_node_or_null("ray_floor")
+
+	if ray_floor is RayCast2D:
+		ray_floor.set_collision_mask_value(2, true)
 
 
 var dead := false
@@ -91,6 +100,9 @@ var flash_shader = preload("res://gdshader/flash.gdshader")
 var flash_duration := 0.15
 var _flash_tween: Tween = null
 
+@export var intervalo_minimo_virar := 0.25
+var _cooldown_virar := 0.0
+
 
 func _ready() -> void:
 
@@ -102,6 +114,9 @@ func _physics_process(delta: float) -> void:
 		return
 
 	processar_reacoes(delta)
+
+	if _cooldown_virar > 0.0:
+		_cooldown_virar -= delta
 
 	if imobilizado:
 		velocity = Vector2.ZERO
@@ -119,9 +134,16 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	if is_on_wall() or not ray.is_colliding():
+	var sem_chao := ray != null and not ray.is_colliding()
+
+	if (is_on_wall() or sem_chao) and _cooldown_virar <= 0.0:
 		dir *= -1
-		$anim.flip_h = dir > 0
+		_cooldown_virar = intervalo_minimo_virar
+
+		var anim_node := get_node_or_null("anim")
+
+		if anim_node:
+			anim_node.flip_h = dir > 0
 
 
 func obter_elemento_nativo() -> int:
