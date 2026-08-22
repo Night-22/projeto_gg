@@ -1,10 +1,39 @@
 [gd_scene format=3 uid="uid://6dqbypo6pxym"]
 
 [ext_resource type="Script" uid="uid://comd5bjedmb6v" path="res://scripts_gd/flying.gd" id="1_sih1y"]
+[ext_resource type="Texture2D" uid="uid://busc226y26pus" path="res://assets/aguia.png" id="2_sih1y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4usim"]
+atlas = ExtResource("2_sih1y")
+region = Rect2(0, 51, 20, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i67kw"]
+atlas = ExtResource("2_sih1y")
+region = Rect2(20, 34, 20, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61bej"]
+atlas = ExtResource("2_sih1y")
+region = Rect2(40, 17, 20, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qeo2a"]
+atlas = ExtResource("2_sih1y")
+region = Rect2(60, 0, 20, 17)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gnbo4"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4usim")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i67kw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61bej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qeo2a")
+}],
 "loop": 1,
 "name": &"voo",
 "speed": 5.0
@@ -26,8 +55,10 @@ knockback_ataque = 80
 metadata/_custom_type_script = "uid://bullfap4fo1nx"
 
 [node name="anim" type="AnimatedSprite2D" parent="." unique_id=1120799092]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_gnbo4")
 animation = &"voo"
+frame_progress = 0.8541893
 
 [node name="collision" type="CollisionShape2D" parent="." unique_id=518803161]
 shape = SubResource("RectangleShape2D_g4v7s")

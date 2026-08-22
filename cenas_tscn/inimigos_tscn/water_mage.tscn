@@ -114,6 +114,9 @@ one_shot = true
 [node name="rayCast" type="RayCast2D" parent="." unique_id=1463846498]
 position = Vector2(-16, -14)
 
+[node name="ray_floor" type="RayCast2D" parent="." unique_id=1373959612]
+target_position = Vector2(0, 42)
+
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="frame_changed" from="anim" to="." method="_on_anim_frame_changed"]
 [connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]

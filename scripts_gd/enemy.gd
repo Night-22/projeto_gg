@@ -23,7 +23,7 @@ enum ElementoNativo {
 
 @export var causa_dano_por_contato := true
 
-#@onready var ray: RayCast2D = $rayCast
+@onready var ray: RayCast2D = $ray_floor
 
 
 var dead := false
@@ -119,7 +119,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	if is_on_wall():
+	if is_on_wall() or not ray.is_colliding():
 		dir *= -1
 		$anim.flip_h = dir > 0
 

@@ -80,6 +80,10 @@ wait_time = 2.5
 [node name="PatrolTimer" type="Timer" parent="." unique_id=1940866606]
 autostart = true
 
+[node name="ray_floor" type="RayCast2D" parent="." unique_id=1411363936]
+position = Vector2(2, 3)
+target_position = Vector2(0, 18)
+
 [connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
 [connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

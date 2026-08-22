@@ -8,32 +8,34 @@ extends Enemy
 @export var leap_speed: float = 140.0
 @export var leap_force: float = -280.0
 
-@export var jump_cooldown: float = 0.8
-@export var patrol_time: float = 2.0
 @export var limite_altura: float = 30.0
 
 @onready var area: Area2D = $percepcao
 @onready var timer: Timer = $Timer
-@onready var patrol_timer: Timer = $PatrolTimer
 @onready var anim: AnimatedSprite2D = $anim
+@onready var ray_floor: RayCast2D = $ray_floor
 
 var player: Node2D = null
 
-var can_jump: bool = true
-var jumping: bool = false
-var attacking: bool = false
+var can_jump := true
+var jumping := false
+var attacking := false
+
+var ray_position_x := 0.0
 
 
 func _ready() -> void:
-	patrol_timer.wait_time = patrol_time
-	patrol_timer.start()
-
-	timer.wait_time = jump_cooldown
+	Speed = walk_speed
+	ray_position_x = abs(ray_floor.position.x)
+	atualizar_direcao()
 
 
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
+
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 
 	var player_dentro_da_altura := false
 
@@ -41,20 +43,49 @@ func _physics_process(delta: float) -> void:
 		var diferenca_y = abs(player.global_position.y - global_position.y)
 		player_dentro_da_altura = diferenca_y <= limite_altura
 
+		if player_dentro_da_altura and not jumping:
+			var nova_direcao = sign(
+				player.global_position.x - global_position.x
+			)
+
+			if nova_direcao != 0:
+				dir = nova_direcao
+				atualizar_direcao()
+
 	if player != null and is_instance_valid(player) and player_dentro_da_altura:
 		if can_jump and is_on_floor():
 			iniciar_pulo_perseguicao()
-
 	else:
 		if can_jump and is_on_floor():
 			iniciar_mini_pulo()
 
-	super._physics_process(delta)
+	if knockback.length() > 10:
+		velocity.x = knockback.x
+		knockback.x = move_toward(
+			knockback.x,
+			0,
+			500 * delta
+		)
+	else:
+		velocity.x = dir * Speed
+
+	move_and_slide()
+
+	ray_floor.force_raycast_update()
+
+	if is_on_floor() and not ray_floor.is_colliding() and not attacking:
+		dir *= -1
+		atualizar_direcao()
+
+	if is_on_wall() and not attacking:
+		dir *= -1
+		atualizar_direcao()
 
 	if attacking:
 		anim.play("attack")
 	elif velocity.x != 0:
 		anim.play("walk")
+
 
 func iniciar_mini_pulo() -> void:
 	jumping = true
@@ -72,10 +103,13 @@ func iniciar_pulo_perseguicao() -> void:
 	attacking = true
 	can_jump = false
 
-	var nova_direcao = sign(player.global_position.x - global_position.x)
+	var nova_direcao = sign(
+		player.global_position.x - global_position.x
+	)
 
 	if nova_direcao != 0:
 		dir = nova_direcao
+		atualizar_direcao()
 
 	Speed = leap_speed
 	velocity.y = leap_force
@@ -83,25 +117,24 @@ func iniciar_pulo_perseguicao() -> void:
 	timer.start()
 
 
+func atualizar_direcao() -> void:
+	ray_floor.position.x = ray_position_x * dir
+	anim.flip_h = dir > 0
+
+
 func _on_timer_timeout() -> void:
 	can_jump = true
-
-
-func _on_patrol_timer_timeout() -> void:
-	if player == null or !is_instance_valid(player):
-		dir *= -1
-
-	patrol_timer.start()
+	jumping = false
+	attacking = false
+	Speed = walk_speed
 
 
 func _on_percepcao_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player = body
-		patrol_timer.stop()
 
 
 func _on_percepcao_body_exited(body: Node2D) -> void:
 	if body == player:
 		player = null
 		attacking = false
-		patrol_timer.start()

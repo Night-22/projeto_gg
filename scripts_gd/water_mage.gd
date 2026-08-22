@@ -4,11 +4,14 @@ extends Enemy
 @onready var cooldown: Timer = $Cooldown
 @onready var ray_cast: RayCast2D = $rayCast
 @onready var anim: AnimatedSprite2D = $anim
+@onready var percepcao: Area2D = $percepcao
 
-var player: Node2D
+var player: Node2D = null
+
 var atacando := false
 var tiro_disparado := false
 var player_detectado := false
+var player_visivel := false
 
 @export var alcance_maximo := 180.0
 @export var distancia_do_cajado := 20.0
@@ -17,11 +20,7 @@ var dir_patrol := -1
 
 
 func _ready() -> void:
-	player = get_tree().get_first_node_in_group("Player")
-
-	# Guarda a direção inicial da patrulha
 	dir_patrol = dir
-
 	anim.play("walk")
 
 
@@ -29,40 +28,31 @@ func _physics_process(delta: float) -> void:
 	if dead:
 		return
 
-	if player == null:
-		player = get_tree().get_first_node_in_group("Player")
+	if player_detectado and player != null and is_instance_valid(player):
+		atualizar_raycast()
+		verificar_player()
 
-		if player == null:
-			super._physics_process(delta)
-			return
-
-	atualizar_raycast()
-	verificar_player()
-
-	if player_detectado:
-		# Guarda a direção da patrulha
-		# antes de zerar
-		if dir != 0:
+		if player_visivel:
 			dir_patrol = dir
 
-		# Faz o Enemy parar horizontalmente
-		dir = 0
+			olhar_para_player()
+			tentar_atacar()
 
-		olhar_para_player()
-		tentar_atacar()
+			velocity.x = 0
 
-	else:
-		# Recupera a direção da patrulha
-		dir = dir_patrol
+			if knockback.length() <= 10:
+				move_and_slide()
 
-	# Enemy continua cuidando da física,
-	# knockback, gravidade, colisões etc.
+			return
+
+	dir = dir_patrol
+
 	super._physics_process(delta)
 
-	# Se estiver detectando o Player e não estiver
-	# sofrendo knockback, garante que fique parado.
-	if player_detectado and knockback.length() <= 10:
-		velocity.x = 0
+	dir_patrol = dir
+
+	if not atacando:
+		anim.play("walk")
 
 
 func atualizar_raycast() -> void:
@@ -71,7 +61,10 @@ func atualizar_raycast() -> void:
 
 
 func verificar_player() -> void:
-	player_detectado = false
+	player_visivel = false
+
+	if player == null or !is_instance_valid(player):
+		return
 
 	var distancia := global_position.distance_to(player.global_position)
 
@@ -83,11 +76,8 @@ func verificar_player() -> void:
 
 	var collider = ray_cast.get_collider()
 
-	if collider == null:
-		return
-
-	if collider.is_in_group("Player"):
-		player_detectado = true
+	if collider != null and collider.is_in_group("Player"):
+		player_visivel = true
 
 
 func olhar_para_player() -> void:
@@ -150,3 +140,17 @@ func _on_anim_animation_finished() -> void:
 
 	atacando = false
 	tiro_disparado = false
+
+
+func _on_percepcao_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		player = body
+		player_detectado = true
+
+
+func _on_percepcao_body_exited(body: Node2D) -> void:
+	if body == player:
+		player_detectado = false
+		player_visivel = false
+		player = null
+		atacando = false
