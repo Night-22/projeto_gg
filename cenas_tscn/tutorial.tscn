@@ -19,10 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="15_phy2f"]
 [ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="16_6o3if"]
 [ext_resource type="PackedScene" uid="uid://ke6kanckcx4q" path="res://cenas_tscn/inimigos_tscn/fire_wizard.tscn" id="16_urwnf"]
-[ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="17_blw00"]
 [ext_resource type="PackedScene" uid="uid://6dqbypo6pxym" path="res://cenas_tscn/inimigos_tscn/flying.tscn" id="17_vqqwn"]
-[ext_resource type="PackedScene" path="res://cenas_tscn/menus/bancada_menu.tscn" id="18_3mhvm"]
-[ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="19_urwnf"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="20_vqqwn"]
 [ext_resource type="PackedScene" uid="uid://d0ckamjqllbf6" path="res://cenas_tscn/transicao.tscn" id="26_dkhca"]
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="26_pvrew"]
@@ -570,15 +567,6 @@ scale = Vector2(0.089579746, 0.1683125)
 visible = false
 
 [node name="SpellInventory" parent="." unique_id=1732352662 instance=ExtResource("16_6o3if")]
-visible = false
-
-[node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("17_blw00")]
-visible = false
-
-[node name="BancadaMenu" parent="." unique_id=63037626 instance=ExtResource("18_3mhvm")]
-visible = false
-
-[node name="SaveMenu" parent="." unique_id=1861813984 instance=ExtResource("19_urwnf")]
 visible = false
 
 [node name="InventarioGeral" parent="." unique_id=754743051 instance=ExtResource("20_vqqwn")]

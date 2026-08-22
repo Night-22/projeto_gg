@@ -65,7 +65,7 @@ var ataques_porradao: Array[String] = [
 	"pata_medio_direita"
 ]
 
-var _colisao_porradao_ativa := false
+#var _colisao_porradao_ativa := false
 
 @onready var hitbox_esquerda: Area2D = $Pata_Porrada_esquerda
 @onready var hitbox_direita: Area2D = $Pata_porrada_direita

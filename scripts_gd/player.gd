@@ -140,8 +140,8 @@ var jump_count = 0
 var max_jumps = 1
 
 var dash_speed = 250.0
-var dash_time = 0.35
-var dash_timer = 0.5
+var dash_time = 0.2
+var dash_timer = 0.0
 
 var air_dash_available = true
 
@@ -189,8 +189,8 @@ var flash_shader = preload("res://gdshader/flash.gdshader")
 var flash_duration := 0.15
 var _flash_tween: Tween = null
 
-@export var knockback_force := 200.0
-@export var knockback_up_force := -100.0
+@export var knockback_force := 50.0
+@export var knockback_up_force := -40.0
 @export var slime_jump_velocity = -600.0
 
 var ladder = null
@@ -616,6 +616,7 @@ func adicionar_alma(tipo_alma: int) -> void:
 func definir_checkpoint(pos: Vector2) -> void:
 	tem_checkpoint = true
 	respawn_position = pos
+	SaveManager.salvar_checkpoint(self)
 
 
 func curar_completo() -> void:
@@ -632,9 +633,14 @@ func morrer_e_respawnar() -> void:
 	lock_player()
 	anim.play("die")
 	await anim.animation_finished
-	var ultimo = SaveManager.obter_ultimo_save()
-	if ultimo != -1:
+
+	if SaveManager.existe_checkpoint():
+		await SaveManager.carregar_checkpoint()
+	else:
+		var ultimo = SaveManager.obter_ultimo_save()
+		if ultimo != -1:
 			await SaveManager.carregar_jogo(ultimo)
+
 	unlock_player()
 
 

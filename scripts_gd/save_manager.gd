@@ -2,6 +2,7 @@ extends Node
 
 const SAVE_DIR = "user://saves/"
 const MAX_SLOTS = 3
+const CHECKPOINT_PATH = SAVE_DIR + "checkpoint.save"
 
 
 func _ready() -> void:
@@ -74,6 +75,69 @@ func carregar_jogo(slot: int) -> bool:
 	if dados.is_empty():
 		return false
 
+	return await _aplicar_dados_carregados(dados)
+
+
+# Salva um checkpoint automático (posição, itens, vida, etc), separado dos
+# slots manuais. Usado pelas bancadas ao interagir, e no respawn ao morrer.
+func salvar_checkpoint(player) -> bool:
+	if player == null or !is_instance_valid(player):
+		return false
+
+	if !player.has_method("obter_dados_save"):
+		return false
+
+	var dados: Dictionary = player.obter_dados_save()
+	dados["data_hora"] = Time.get_datetime_string_from_system()
+
+	var file = FileAccess.open(CHECKPOINT_PATH, FileAccess.WRITE)
+
+	if file == null:
+		return false
+
+	file.store_string(JSON.stringify(dados))
+	file.close()
+
+	return true
+
+
+func existe_checkpoint() -> bool:
+	return FileAccess.file_exists(CHECKPOINT_PATH)
+
+
+func obter_dados_checkpoint() -> Dictionary:
+	if !existe_checkpoint():
+		return {}
+
+	var file = FileAccess.open(CHECKPOINT_PATH, FileAccess.READ)
+
+	if file == null:
+		return {}
+
+	var texto = file.get_as_text()
+	file.close()
+
+	var json = JSON.new()
+
+	if json.parse(texto) != OK:
+		return {}
+
+	if typeof(json.data) != TYPE_DICTIONARY:
+		return {}
+
+	return json.data
+
+
+func carregar_checkpoint() -> bool:
+	var dados = obter_dados_checkpoint()
+
+	if dados.is_empty():
+		return false
+
+	return await _aplicar_dados_carregados(dados)
+
+
+func _aplicar_dados_carregados(dados: Dictionary) -> bool:
 	var cena_alvo: String = dados.get("checkpoint_cena", "")
 	var cena_atual = get_tree().current_scene
 

@@ -7,11 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="6_7juhd"]
 [ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="7_r7ct6"]
 [ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="8_wcvwo"]
-[ext_resource type="PackedScene" uid="uid://mclffitbrwmy" path="res://cenas_tscn/menus/craft_menu.tscn" id="10_ne5t3"]
-[ext_resource type="PackedScene" path="res://cenas_tscn/menus/bancada_menu.tscn" id="11_bancmenu"]
 [ext_resource type="PackedScene" uid="uid://dlvuq4wdaik12" path="res://cenas_tscn/inimigos_tscn/lightning_wizard.tscn" id="12_0fuwc"]
-[ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="12_savemenu"]
+[ext_resource type="PackedScene" uid="uid://buom658k7oy5" path="res://cenas_tscn/itens/medalhao_agua.tscn" id="13_andi0"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="13_geninv"]
+[ext_resource type="PackedScene" uid="uid://byvbs2nx8chrd" path="res://cenas_tscn/itens/medalhao_fogo.tscn" id="14_ymgsy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)
@@ -95,15 +94,6 @@ visible = false
 [node name="SpellInventory" parent="." unique_id=1732352662 instance=ExtResource("6_7juhd")]
 visible = false
 
-[node name="CraftMenu" parent="." unique_id=621457444 instance=ExtResource("10_ne5t3")]
-visible = false
-
-[node name="BancadaMenu" parent="." unique_id=1183963467 instance=ExtResource("11_bancmenu")]
-visible = false
-
-[node name="SaveMenu" parent="." unique_id=2105074129 instance=ExtResource("12_savemenu")]
-visible = false
-
 [node name="InventarioGeral" parent="." unique_id=1844395041 instance=ExtResource("13_geninv")]
 visible = false
 
@@ -135,3 +125,9 @@ tile_set = ExtResource("2_ne5t3")
 [node name="lightning_wizard" parent="." unique_id=1407274623 instance=ExtResource("12_0fuwc")]
 position = Vector2(417, 328)
 elemento_nativo = 3
+
+[node name="MedalhaoAgua" parent="." unique_id=1599843702 instance=ExtResource("13_andi0")]
+position = Vector2(254, 523)
+
+[node name="MedalhaoFogo" parent="." unique_id=1107021835 instance=ExtResource("14_ymgsy")]
+position = Vector2(304, 525)
