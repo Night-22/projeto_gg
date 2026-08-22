@@ -91,6 +91,7 @@ var almas_planta = 0
 @export var friction = 6.7
 
 @onready var anim: AnimatedSprite2D = $anim
+@onready var game_over_menu = $GameOverMenu
 @onready var attack_hit_box: CollisionShape2D = $attackHitBox/collision
 @onready var attack_sprite: AnimatedSprite2D = $attackHitBox/attack_sprite
 @onready var attack_timer: Timer = $attackTimer
@@ -204,6 +205,9 @@ var bancada = null
 
 var tem_checkpoint := false
 var respawn_position := Vector2.ZERO
+
+
+var esta_morrendo := false
 
 
 var inventario_itens: Array = []
@@ -351,7 +355,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var estava_no_chao := is_on_floor()
 
-	if Life <= 0:
+	if Life <= 0 and not esta_morrendo:
 		current_state = State.DEAD
 	
 	if dentro_da_agua:
@@ -626,13 +630,29 @@ func curar_completo() -> void:
 
 
 func morrer_e_respawnar() -> void:
+	if esta_morrendo:
+		return
+
+	esta_morrendo = true
+
 	damage_knockback = Vector2.ZERO
 
 	cancelar_cura()
-	current_state = State.IDLE
+	current_state = State.DEAD
 	lock_player()
+
+	game_over_menu.iniciar_morte()
+
 	anim.play("die")
 	await anim.animation_finished
+
+	game_over_menu.mostrar_menu()
+
+	var escolha: String = await game_over_menu.escolha_feita
+
+	if escolha == "menu":
+		get_tree().change_scene_to_file("res://cenas_tscn/menus/main_menu.tscn")
+		return
 
 	if SaveManager.existe_checkpoint():
 		await SaveManager.carregar_checkpoint()
@@ -640,6 +660,9 @@ func morrer_e_respawnar() -> void:
 		var ultimo = SaveManager.obter_ultimo_save()
 		if ultimo != -1:
 			await SaveManager.carregar_jogo(ultimo)
+
+	current_state = State.IDLE
+	esta_morrendo = false
 
 	unlock_player()
 
@@ -1801,6 +1824,9 @@ func mostrar_dano(dano: int) -> void:
 
 
 func die():
+	if esta_morrendo:
+		return
+
 	morrer_e_respawnar()
 
 

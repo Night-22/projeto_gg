@@ -4,6 +4,12 @@ const SAVE_DIR = "user://saves/"
 const MAX_SLOTS = 3
 const CHECKPOINT_PATH = SAVE_DIR + "checkpoint.save"
 
+# Cena onde todo novo jogo sempre começa.
+const CENA_INICIAL := "res://cenas_tscn/tutorial.tscn"
+
+
+const MAGIAS_INICIAIS := [0, 4, 8, 12]
+
 
 func _ready() -> void:
 	if !DirAccess.dir_exists_absolute(SAVE_DIR):
@@ -66,6 +72,42 @@ func salvar_jogo(slot: int, player) -> bool:
 	return true
 
 
+func _dados_novo_jogo() -> Dictionary:
+	return {
+		"vida": 10,
+		"vida_max": 10,
+		"mana": 100,
+		"mana_max": 100,
+		"almas_agua": 0,
+		"almas_fogo": 0,
+		"almas_raio": 0,
+		"almas_planta": 0,
+		"magias_desbloqueadas": MAGIAS_INICIAIS.duplicate(),
+		"magias_equipadas": MAGIAS_INICIAIS.duplicate(),
+		"itens": [],
+		"itens_vistos": [],
+		"medalhao_ativo": -1,
+		"data_hora": Time.get_datetime_string_from_system(),
+		"checkpoint_cena": CENA_INICIAL
+	}
+
+func novo_jogo(slot: int) -> bool:
+	if slot < 1 or slot > MAX_SLOTS:
+		return false
+
+	var dados := _dados_novo_jogo()
+
+	var file = FileAccess.open(_caminho_slot(slot), FileAccess.WRITE)
+
+	if file == null:
+		return false
+
+	file.store_string(JSON.stringify(dados))
+	file.close()
+
+	return await _aplicar_dados_carregados(dados)
+
+
 func carregar_jogo(slot: int) -> bool:
 	if !slot_existe(slot):
 		return false
@@ -78,8 +120,6 @@ func carregar_jogo(slot: int) -> bool:
 	return await _aplicar_dados_carregados(dados)
 
 
-# Salva um checkpoint automático (posição, itens, vida, etc), separado dos
-# slots manuais. Usado pelas bancadas ao interagir, e no respawn ao morrer.
 func salvar_checkpoint(player) -> bool:
 	if player == null or !is_instance_valid(player):
 		return false
