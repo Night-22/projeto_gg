@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="11_w5hnf"]
 [ext_resource type="PackedScene" uid="uid://cjj87tb5uhqdj" path="res://cenas_tscn/prefabs/spike.tscn" id="12_6r22q"]
 [ext_resource type="Script" uid="uid://kare8a42dwa4" path="res://camera_lock_area.gd" id="13_ycre0"]
+[ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="14_5y736"]
+[ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="15_ylbax"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6r22q"]
 texture = ExtResource("1_oisns")
@@ -535,6 +537,24 @@ size = Vector2(412, 272)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3a7g3"]
 size = Vector2(74, 358)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j2di"]
+size = Vector2(34, 19)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_57qmd"]
+shader = ExtResource("15_ylbax")
+shader_parameter/AspectRatio = 1.5
+shader_parameter/Diamonds = 10.0
+shader_parameter/pixel_size = 0.08
+shader_parameter/height = -1.0
+shader_parameter/disable_pixel = false
+
+[sub_resource type="Gradient" id="Gradient_gqokq"]
+offsets = PackedFloat32Array(0, 0.9245283, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yf5fn"]
+gradient = SubResource("Gradient_gqokq")
+
 [node name="zona_agua" type="Node2D" unique_id=1576019114]
 metadata/_edit_vertical_guides_ = [110.0]
 
@@ -839,6 +859,29 @@ script = ExtResource("13_ycre0")
 position = Vector2(-2, -169)
 shape = SubResource("RectangleShape2D_3a7g3")
 
+[node name="transicao" type="Node2D" parent="." unique_id=1512231452]
+position = Vector2(18, 75)
+
+[node name="transicao_cena" type="Area2D" parent="transicao" unique_id=1429648885]
+script = ExtResource("14_5y736")
+entrada_destino = "entrada_zona_neutra_agua"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="transicao/transicao_cena" unique_id=406743179]
+position = Vector2(-1, 0.5)
+scale = Vector2(1, 4.7243013)
+shape = SubResource("RectangleShape2D_2j2di")
+
+[node name="Transicao_efeito" type="CanvasLayer" parent="transicao" unique_id=514070227]
+
+[node name="TextureRect" type="TextureRect" parent="transicao/Transicao_efeito" unique_id=60468529]
+material = SubResource("ShaderMaterial_57qmd")
+offset_right = 319.0
+offset_bottom = 238.0
+texture = SubResource("GradientTexture1D_yf5fn")
+
+[node name="zona_agua_entrada_neutra" type="Marker2D" parent="." unique_id=1958563820]
+position = Vector2(55, 99)
+
 [connection signal="body_entered" from="correnteza9/correnteza9" to="correnteza9/correnteza9" method="_on_body_entered"]
 [connection signal="body_exited" from="correnteza9/correnteza9" to="correnteza9/correnteza9" method="_on_body_exited"]
 [connection signal="body_entered" from="correnteza9/correnteza2" to="correnteza9/correnteza2" method="_on_body_entered"]
@@ -879,3 +922,4 @@ shape = SubResource("RectangleShape2D_3a7g3")
 [connection signal="body_exited" from="cameraLOCKAO/CameraLockArea11" to="cameraLOCKAO/CameraLockArea11" method="_on_body_exited"]
 [connection signal="body_entered" from="cameraLOCKAO/CameraLockArea13" to="cameraLOCKAO/CameraLockArea13" method="_on_body_entered"]
 [connection signal="body_exited" from="cameraLOCKAO/CameraLockArea13" to="cameraLOCKAO/CameraLockArea13" method="_on_body_exited"]
+[connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]

@@ -1023,6 +1023,24 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_yf5fn"]
 gradient = SubResource("Gradient_gqokq")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kn3bb"]
+size = Vector2(34, 62)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g2cb7"]
+shader = ExtResource("16_g2cb7")
+shader_parameter/AspectRatio = 1.5
+shader_parameter/Diamonds = 10.0
+shader_parameter/pixel_size = 0.08
+shader_parameter/height = -1.0
+shader_parameter/disable_pixel = false
+
+[sub_resource type="Gradient" id="Gradient_h1wsf"]
+offsets = PackedFloat32Array(0, 0.9245283, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qo0ah"]
+gradient = SubResource("Gradient_h1wsf")
+
 [node name="zona neutra" type="Node2D" unique_id=410013776]
 script = ExtResource("1_ned6s")
 
@@ -1086,7 +1104,7 @@ scale = Vector2(-1, 1.063)
 position = Vector2(450, -641)
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_bamsy")]
-position = Vector2(1786, 43)
+position = Vector2(1780, 39)
 
 [node name="Flying" parent="." unique_id=187868775 instance=ExtResource("9_ed20d")]
 position = Vector2(697, -565)
@@ -1369,6 +1387,29 @@ offset_right = 319.0
 offset_bottom = 238.0
 texture = SubResource("GradientTexture1D_yf5fn")
 
+[node name="transicao2" type="Node2D" parent="." unique_id=223702231]
+
+[node name="transicao_cena" type="Area2D" parent="transicao2" unique_id=299779456]
+position = Vector2(1923, 46)
+script = ExtResource("15_kn3bb")
+cena_destino = 1
+entrada_destino = "zona_agua_entrada_neutra"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="transicao2/transicao_cena" unique_id=2006086893]
+position = Vector2(5, -14)
+shape = SubResource("RectangleShape2D_kn3bb")
+
+[node name="Transicao_efeito" type="CanvasLayer" parent="transicao2" unique_id=205296711]
+
+[node name="TextureRect" type="TextureRect" parent="transicao2/Transicao_efeito" unique_id=821878011]
+material = SubResource("ShaderMaterial_g2cb7")
+offset_right = 319.0
+offset_bottom = 238.0
+texture = SubResource("GradientTexture1D_qo0ah")
+
+[node name="entrada_zona_neutra_agua" type="Marker2D" parent="." unique_id=1947538495]
+position = Vector2(1887, 52)
+
 [connection signal="body_entered" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_entered"]
 [connection signal="body_exited" from="parede_de_fora_predio_esquerda" to="." method="_on_parede_de_fora_predio_esquerda_body_exited"]
 [connection signal="body_entered" from="parede_de_fora_predio_direita" to="." method="_on_parede_de_fora_predio_direita_body_entered"]
@@ -1378,3 +1419,4 @@ texture = SubResource("GradientTexture1D_yf5fn")
 [connection signal="body_entered" from="elevador/elevador/descer_plataforma" to="elevador" method="_on_descer_plataforma_body_entered"]
 [connection signal="body_entered" from="elevador/elevador/subir_plataforma" to="elevador" method="_on_subir_plataforma_body_entered"]
 [connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]
+[connection signal="body_entered" from="transicao2/transicao_cena" to="transicao2/transicao_cena" method="_on_body_entered"]

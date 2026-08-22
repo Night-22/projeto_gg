@@ -19,28 +19,28 @@ enum Zona {
 
 var zonas = {
 	Zona.ZONA_TUTORIAL:
-		preload("res://cenas_tscn/tutorial.tscn"),
+		"res://cenas_tscn/tutorial.tscn",
 
 	Zona.ZONA_AGUA:
-		preload("res://cenas_tscn/zona_agua.tscn"),
+		"res://cenas_tscn/zona_agua.tscn",
 
 	Zona.ZONA_NEUTRA:
-		preload("res://cenas_tscn/zona_neutra.tscn"),
+		"res://cenas_tscn/zona_neutra.tscn",
 
 	Zona.ZONA_RAIO:
-		preload("res://cenas_tscn/zona_raio.tscn"),
+		"res://cenas_tscn/zona_raio.tscn",
 
 	Zona.ZONA_TERRA:
-		preload("res://cenas_tscn/zona_terra.tscn"),
+		"res://cenas_tscn/zona_terra.tscn",
 
 	Zona.SALA_BOSS_ARANHA:
-		preload("res://cenas_tscn/salas/sala_boss_aranha.tscn"),
+		"res://cenas_tscn/salas/sala_boss_aranha.tscn",
 
 	Zona.SALA_BOSS_RAIO:
-		preload("res://cenas_tscn/salas/sala_boss_raio.tscn"),
+		"res://cenas_tscn/salas/sala_boss_raio.tscn",
 
 	Zona.SALA_BOSS_TOPGO:
-		preload("res://cenas_tscn/salas/sala_boss_topgo.tscn")
+		"res://cenas_tscn/salas/sala_boss_topgo.tscn"
 }
 
 
@@ -50,17 +50,16 @@ func _on_body_entered(body: Node2D) -> void:
 
 	body.lock_player()
 
-	var cena = zonas.get(cena_destino)
+	var caminho_cena = zonas.get(cena_destino)
 
-	if cena == null:
+	if caminho_cena == null:
 		print("cena de destino invalida.")
 		body.unlock_player()
 		return
 
 	await Transicao.trocar_cena(
-		cena.resource_path,
+		caminho_cena,
 		entrada_destino
 	)
 
 	body.unlock_player()
-	
