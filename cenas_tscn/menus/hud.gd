@@ -18,6 +18,15 @@ var player
 @onready var health_text: Label = $Interface/HealthBar/HealthText
 @onready var mana_text: Label = $Interface/ManaBar/ManaText
 
+@onready var almas_hud: HBoxContainer = $Interface/AlmasHud
+@onready var almas_label_agua: Label = $Interface/AlmasHud/RowAgua/Label
+@onready var almas_label_fogo: Label = $Interface/AlmasHud/RowFogo/Label
+@onready var almas_label_raio: Label = $Interface/AlmasHud/RowRaio/Label
+@onready var almas_label_planta: Label = $Interface/AlmasHud/RowPlanta/Label
+
+var _almas_tween: Tween
+var _player_signals_conectados := false
+
 
 
 
@@ -46,6 +55,10 @@ func _ready() -> void:
 
 	player = get_tree().get_first_node_in_group("Player")
 
+	almas_hud.modulate.a = 0.0
+
+	conectar_sinais_player()
+
 	update_spell_names()
 	update_selected_spell()
 	update_cooldowns()
@@ -60,10 +73,52 @@ func _process(_delta: float) -> void:
 		if player == null:
 			return
 
+	conectar_sinais_player()
+
 	update_bars()
 	update_spell_names()
 	update_selected_spell()
 	update_cooldowns()
+
+
+func conectar_sinais_player() -> void:
+	if _player_signals_conectados:
+		return
+
+	if player == null or !is_instance_valid(player):
+		return
+
+	if !player.has_signal("alma_coletada"):
+		return
+
+	player.alma_coletada.connect(_on_alma_coletada)
+	_player_signals_conectados = true
+	atualizar_labels_almas()
+
+
+func _on_alma_coletada(_tipo_alma: int) -> void:
+	atualizar_labels_almas()
+	mostrar_almas_hud()
+
+
+func atualizar_labels_almas() -> void:
+	if player == null:
+		return
+
+	almas_label_agua.text = str(player.almas_agua)
+	almas_label_fogo.text = str(player.almas_fogo)
+	almas_label_raio.text = str(player.almas_raio)
+	almas_label_planta.text = str(player.almas_planta)
+
+
+func mostrar_almas_hud() -> void:
+	if _almas_tween != null and _almas_tween.is_valid():
+		_almas_tween.kill()
+
+	_almas_tween = create_tween()
+	_almas_tween.tween_property(almas_hud, "modulate:a", 1.0, 0.25)
+	_almas_tween.tween_interval(2.5)
+	_almas_tween.tween_property(almas_hud, "modulate:a", 0.0, 0.5)
 
 
 func atualizar_visibilidade() -> void:

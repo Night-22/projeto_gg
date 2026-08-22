@@ -10,8 +10,16 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if !body.is_in_group("Player"):
+	if body.is_in_group("Inimigo"):
 		return
-		
-	if body.has_method("receber_dano"):
-		body.receber_dano(damage, global_position.x)
+
+	if body.is_in_group("ProjetilJogador") or body.is_in_group("ProjetilInimigo"):
+		return
+
+	if body.is_in_group("Player"):
+		if body.has_method("receber_dano"):
+			body.receber_dano(damage, global_position.x)
+		return
+
+	# Colidiu com algo que não toma dano (parede, chão, etc) -> destrói o projétil
+	queue_free()

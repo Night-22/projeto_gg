@@ -102,7 +102,8 @@ func criar_inventario() -> void:
 		var button = Button.new()
 
 		button.text = get_spell_name(spell_id)
-		button.custom_minimum_size = Vector2(140, 55)
+		button.custom_minimum_size = Vector2(64, 24)
+		button.add_theme_font_size_override("font_size", 8)
 		button.focus_mode = Control.FOCUS_ALL
 
 		button.pressed.connect(

@@ -103,6 +103,7 @@ func atualizar_magias() -> void:
 
 		caixa.text = get_spell_name(spell_id)
 		caixa.custom_minimum_size = Vector2(72, 40)
+		caixa.add_theme_font_size_override("font_size", 8)
 		caixa.disabled = true
 		caixa.focus_mode = Control.FOCUS_NONE
 
@@ -125,6 +126,7 @@ func atualizar_itens() -> void:
 		var caixa := Button.new()
 
 		caixa.custom_minimum_size = Vector2(50, 32)
+		caixa.add_theme_font_size_override("font_size", 7)
 		caixa.disabled = true
 		caixa.focus_mode = Control.FOCUS_NONE
 
