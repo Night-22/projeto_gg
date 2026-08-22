@@ -11,7 +11,7 @@ var distancia_coleta := 30.0
 var coletando := false
 var player = null
 
-var altura_flutuacao := 2.5
+var altura_flutuacao := 10
 var duracao_flutuacao := 0.9
 
 @onready var sprite: Sprite2D = $Sprite2D

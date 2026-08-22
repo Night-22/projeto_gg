@@ -83,7 +83,7 @@ animations = [{
 size = Vector2(26, 46)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jyj7g"]
-radius = 228.81543
+radius = 121.50926
 
 [node name="Water_mage" type="CharacterBody2D" unique_id=507914644 groups=["Inimigo"]]
 scale = Vector2(0.5, 0.5)
