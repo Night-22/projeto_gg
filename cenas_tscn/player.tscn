@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b12dt5gxwsp37" path="res://assets/personagematacando-Sheet_mirror.png" id="2_t5do6"]
 [ext_resource type="Texture2D" uid="uid://bxic8v772ciwq" path="res://assets/personagematualizada-Sheet_mirror.png" id="2_uo3cy"]
 [ext_resource type="Texture2D" uid="uid://7cf1ayu454i2" path="res://assets/personagematualizada-Sheet.png" id="3_t5do6"]
+[ext_resource type="Script" uid="uid://ih2a73fllkq5" path="res://OclussionOutline.gd" id="6_ko0ih"]
 [ext_resource type="Script" uid="uid://c5mjtgl2idcb" path="res://scripts_gd/camera_2d.gd" id="6_t5do6"]
 [ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="7_a0w80"]
 [ext_resource type="Texture2D" uid="uid://debrota50q766" path="res://assets/personagem-Sheet (1).png" id="7_tw7kf"]
@@ -569,17 +570,21 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=2135435064 groups=["Player"]]
+[node name="Player" type="CharacterBody2D" unique_id=2135435064 groups=["Player", "interage_com_liquido"]]
 collision_mask = 7
 script = ExtResource("1_unwft")
 knockback_force = 280.0
 
-[node name="anim" type="AnimatedSprite2D" parent="." unique_id=1488943503]
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=1488943503 node_paths=PackedStringArray("source", "camera")]
 texture_filter = 1
 position = Vector2(-0.74999994, -1.9999999)
 scale = Vector2(0.98275864, 1)
 sprite_frames = SubResource("SpriteFrames_tckef")
 animation = &"floor_hit"
+script = ExtResource("6_ko0ih")
+source = NodePath(".")
+camera = NodePath("../Camera2D")
+occluder_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1481044837]
 position = Vector2(0, 2)

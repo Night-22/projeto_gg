@@ -43,7 +43,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc_corpo"]
-size = Vector2(11, 8)
+size = Vector2(10, 7)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pc_percepcao"]
 radius = 28.01785
@@ -51,7 +51,7 @@ radius = 28.01785
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc_boca"]
 size = Vector2(28, 14)
 
-[node name="planta_carnivora" type="CharacterBody2D" unique_id=1985811001 groups=["Inimigo"]]
+[node name="planta_carnivora" type="CharacterBody2D" unique_id=1985811001]
 script = ExtResource("1_pc001")
 Life = 12
 Speed = 0
@@ -62,7 +62,7 @@ animation = &"vulneravel"
 frame_progress = 0.6506819
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=994193766]
-position = Vector2(-0.5, 4)
+position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_pc_corpo")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=1761682212]
