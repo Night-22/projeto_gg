@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dcpx06mt1eb8t"]
+
+[ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 18.027756
+
+[node name="AmuletoDano" type="Area2D" unique_id=1127651677]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1")
+item_id = "amuleto_dano"
+item_nome = "Amuleto de ataque"
+item_icone_path = "res://placeholder/goat_do_mal.jpg"
+descricao_desbloqueio = "Um amuleto afiado como uma lâmina rebelde.
+Aumenta o dano dos seus ataques corpo a corpo.
+Você pode carregar até 5 amuletos de ataque ao mesmo tempo."
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1171142310]
+position = Vector2(-0.022017002, 0)
+scale = Vector2(0.044036694, 0.048109967)
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=160247808]
+shape = SubResource("CircleShape2D_1")

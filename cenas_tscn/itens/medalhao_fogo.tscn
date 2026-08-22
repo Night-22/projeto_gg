@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://byvbs2nx8chrd"]
+
+[ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 18.027756
+
+[node name="MedalhaoFogo" type="Area2D" unique_id=1107021835]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1")
+item_id = "medalhao_fogo"
+item_nome = "Medalhão do Fogo"
+item_icone_path = "res://placeholder/fogo.png"
+descricao_desbloqueio = "Um medalhão que guarda o calor de chamas antigas.
+Equipe-o para imbuir seu dash com o poder do fogo.
+Use o menu de itens para trocar o elemento equipado."
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=765218408]
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1822437767]
+shape = SubResource("CircleShape2D_1")

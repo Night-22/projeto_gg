@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://buom658k7oy5"]
+
+[ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://7qnngd0w0jdi" path="res://placeholder/agua.png" id="2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 18.027756
+
+[node name="MedalhaoAgua" type="Area2D" unique_id=1599843702]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1")
+item_id = "medalhao_agua"
+item_nome = "Medalhão da Água"
+item_icone_path = "res://placeholder/agua.png"
+descricao_desbloqueio = "Um medalhão que pulsa com a calma das correntes profundas.
+Equipe-o para imbuir seu dash com o poder da água.
+Use o menu de itens para trocar o elemento equipado."
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=637727780]
+texture = ExtResource("2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=139478263]
+shape = SubResource("CircleShape2D_1")

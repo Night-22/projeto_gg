@@ -1,6 +1,5 @@
 [gd_scene format=4 uid="uid://coi1jg7fjtgob"]
 
-[ext_resource type="PackedScene" uid="uid://dyo62kew5k4jp" path="res://cenas_tscn/prefabs/cipo.tscn" id="1_andi0"]
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="1_wtcfe"]
 [ext_resource type="TileSet" uid="uid://caoatfk5e2aee" path="res://tres/tilemap.tres" id="2_ne5t3"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_smc2o"]
@@ -13,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://dlvuq4wdaik12" path="res://cenas_tscn/inimigos_tscn/lightning_wizard.tscn" id="12_0fuwc"]
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="12_savemenu"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="13_geninv"]
-[ext_resource type="PackedScene" uid="uid://c4l1q15settn4" path="res://cenas_tscn/inimigos_tscn/planta_carnivora.tscn" id="14_ymgsy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
 size = Vector2(1149, 92)
@@ -25,9 +23,6 @@ size = Vector2(98, 11)
 size = Vector2(25, 69)
 
 [node name="Node2D" type="Node2D" unique_id=2123985184]
-
-[node name="Cipo" parent="." unique_id=1526749266 instance=ExtResource("1_andi0")]
-position = Vector2(140, 430)
 
 [node name="Escada" parent="." unique_id=1403829435 instance=ExtResource("8_wcvwo")]
 position = Vector2(269, 379)
@@ -138,10 +133,5 @@ tile_map_data = PackedByteArray("AAAOABwAAAALAAUAAAAPABwAAAAMAAUAAAAQABwAAAAMAAU
 tile_set = ExtResource("2_ne5t3")
 
 [node name="lightning_wizard" parent="." unique_id=1407274623 instance=ExtResource("12_0fuwc")]
-position = Vector2(442, 480)
+position = Vector2(417, 328)
 elemento_nativo = 3
-
-[node name="planta_carnivora" parent="." unique_id=1985811001 instance=ExtResource("14_ymgsy")]
-position = Vector2(219, 528)
-tempo_agitada = 1.0
-tempo_vulneravel = 2.0

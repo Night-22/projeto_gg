@@ -141,7 +141,7 @@ var max_jumps = 1
 
 var dash_speed = 250.0
 var dash_time = 0.35
-var dash_timer = 0.0
+var dash_timer = 0.5
 
 var air_dash_available = true
 
@@ -207,6 +207,7 @@ var respawn_position := Vector2.ZERO
 
 
 var inventario_itens: Array = []
+var itens_vistos: Array = []
 
 var current_element = -1
 var imbued_element = -1
@@ -343,15 +344,6 @@ func _ready() -> void:
 
 	dash_hit_box.body_entered.connect(_on_dash_hit_box_body_entered)
 	dash_hit_box.area_entered.connect(_on_dash_hit_box_area_entered)
-
-
-	adicionar_item("medalhao_fogo", "Medalhão do Fogo", "res://placeholder/fogo.png")
-	adicionar_item("medalhao_agua", "Medalhão da Água", "res://placeholder/agua.png")
-	adicionar_item("medalhao_raio", "Medalhão do Raio", "res://placeholder/raio.png")
-	adicionar_item("medalhao_planta", "Medalhão da Planta", "res://placeholder/planta.png")
-	adicionar_item("amuleto_vida", "Amuleto de vida", "res://placeholder/goat_do_mal.jpg", 5)
-	adicionar_item("amuleto_mana", "Amuleto de mana", "res://placeholder/goat_do_mal.jpg", 5)
-	adicionar_item("amuleto_dano", "Amuleto de ataque", "res://placeholder/goat_do_mal.jpg", 5)
 
 	atualizar_atributos_amuletos()
 
@@ -650,6 +642,15 @@ func identificar_amuleto(id: String) -> bool:
 	return id == amuleto_vida_id or id == amuleto_mana_id or id == amuleto_dano_id
 
 
+func item_ja_foi_visto(id: String) -> bool:
+	return itens_vistos.has(id)
+
+
+func marcar_item_como_visto(id: String) -> void:
+	if !itens_vistos.has(id):
+		itens_vistos.append(id)
+
+
 func adicionar_item(id: String, nome: String, icone: String = "", quantidade: int = 1) -> void:
 	for item in inventario_itens:
 		if item["id"] == id:
@@ -738,6 +739,7 @@ func obter_dados_save() -> Dictionary:
 		"magias_desbloqueadas": spell_inventory.duplicate(),
 		"magias_equipadas": equipped_spells.duplicate(),
 		"itens": inventario_itens.duplicate(true),
+		"itens_vistos": itens_vistos.duplicate(),
 		"medalhao_ativo": medalhao_ativo,
 		"checkpoint_cena": caminho_cena,
 		"checkpoint_pos_x": respawn_position.x,
@@ -768,6 +770,11 @@ func aplicar_dados_save(dados: Dictionary) -> void:
 		equipped_spells.append(int(spell_id))
 
 	inventario_itens = dados.get("itens", [])
+
+	itens_vistos.clear()
+
+	for id in dados.get("itens_vistos", []):
+		itens_vistos.append(String(id))
 
 	atualizar_atributos_amuletos()
 

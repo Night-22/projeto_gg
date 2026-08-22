@@ -43,7 +43,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc_corpo"]
-size = Vector2(20, 24)
+size = Vector2(11, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pc_percepcao"]
 radius = 28.01785
@@ -62,7 +62,7 @@ animation = &"vulneravel"
 frame_progress = 0.6506819
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=994193766]
-position = Vector2(0, 4)
+position = Vector2(-0.5, 4)
 shape = SubResource("RectangleShape2D_pc_corpo")
 
 [node name="percepcao" type="Area2D" parent="." unique_id=1761682212]
