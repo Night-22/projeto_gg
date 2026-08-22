@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://c4l1q15settn4"]
+
+[ext_resource type="Script" uid="uid://cgco0pxi0uia8" path="res://scripts_gd/planta_carnivora.gd" id="1_pc001"]
+[ext_resource type="Texture2D" uid="uid://cptlyubnqw1cq" path="res://placeholder/planta_carnivora_placeholder/escondida.png" id="2_pc001"]
+[ext_resource type="Texture2D" uid="uid://bf82ttiulfm71" path="res://placeholder/planta_carnivora_placeholder/agitada.png" id="3_pc001"]
+[ext_resource type="Texture2D" uid="uid://d0xmg4xp6mmb6" path="res://placeholder/planta_carnivora_placeholder/mordendo.png" id="4_pc001"]
+[ext_resource type="Texture2D" uid="uid://cp1hxjl06nmhw" path="res://placeholder/planta_carnivora_placeholder/vulneravel.png" id="5_pc001"]
+[ext_resource type="Texture2D" uid="uid://dr50yo72vrlcq" path="res://placeholder/planta_carnivora_placeholder/mordida_indicador.png" id="6_pc001"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pc001"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_pc001")
+}],
+"loop": 1,
+"name": &"agitada",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pc001")
+}],
+"loop": 1,
+"name": &"escondida",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_pc001")
+}],
+"loop": 1,
+"name": &"mordendo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_pc001")
+}],
+"loop": 1,
+"name": &"vulneravel",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pc_corpo"]
+size = Vector2(20, 24)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pc_percepcao"]
+radius = 28.01785
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pc_boca"]
+size = Vector2(28, 14)
+
+[node name="planta_carnivora" type="CharacterBody2D" unique_id=1985811001 groups=["Inimigo"]]
+script = ExtResource("1_pc001")
+Life = 12
+Speed = 0
+
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=1222207309]
+sprite_frames = SubResource("SpriteFrames_pc001")
+animation = &"vulneravel"
+frame_progress = 0.6506819
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=994193766]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_pc_corpo")
+
+[node name="percepcao" type="Area2D" parent="." unique_id=1761682212]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="percepcao" unique_id=2123265119]
+shape = SubResource("CircleShape2D_pc_percepcao")
+debug_color = Color(0.9, 0.6, 0.1, 0.30980393)
+
+[node name="boca" type="Area2D" parent="." unique_id=2076919708]
+position = Vector2(0, -8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boca" unique_id=881696015]
+shape = SubResource("RectangleShape2D_pc_boca")
+debug_color = Color(0.9, 0.1, 0.1, 0.41960785)
+
+[node name="indicador" type="Sprite2D" parent="boca" unique_id=1370469937]
+visible = false
+texture = ExtResource("6_pc001")
+
+[node name="EstadoTimer" type="Timer" parent="." unique_id=1362239928]
+one_shot = true
+
+[connection signal="body_entered" from="percepcao" to="." method="_on_percepcao_body_entered"]
+[connection signal="body_exited" from="percepcao" to="." method="_on_percepcao_body_exited"]
+[connection signal="timeout" from="EstadoTimer" to="." method="_on_estado_timer_timeout"]

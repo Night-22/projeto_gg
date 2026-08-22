@@ -38,6 +38,7 @@ Player=""
 Inventario=""
 Craft_menu=""
 Bancada=""
+interage_com_liquido=""
 
 [gui]
 

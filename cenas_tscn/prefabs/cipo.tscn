@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dyo62kew5k4jp"]
+
+[ext_resource type="Script" uid="uid://bhpa3x2lpqbjf" path="res://cenas_tscn/prefabs/cipo.gd" id="1_cp001"]
+[ext_resource type="Texture2D" uid="uid://bx8pdqo1hbub2" path="res://placeholder/cipo_placeholder/cipo.png" id="2_cp001"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cp001"]
+size = Vector2(20, 160)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+radius = 7.0
+
+[node name="Cipo" type="Area2D" unique_id=1526749266]
+script = ExtResource("1_cp001")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=28044182]
+texture = ExtResource("2_cp001")
+
+[node name="AreaPendurar" type="Area2D" parent="." unique_id=356983807]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPendurar" unique_id=1114328208]
+shape = SubResource("RectangleShape2D_cp001")
+debug_color = Color(0.3, 0.9, 0.2, 0.4196078)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1043506510]
+position = Vector2(0, -71)
+shape = SubResource("CircleShape2D_g4v7s")
+
+[connection signal="body_entered" from="AreaPendurar" to="." method="_on_area_pendurar_body_entered"]
+[connection signal="body_exited" from="AreaPendurar" to="." method="_on_area_pendurar_body_exited"]

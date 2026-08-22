@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://b708uqbm4f1c2"]
+
+[ext_resource type="Script" uid="uid://bdqhyk3ju2odo" path="res://scripts_gd/laser_reto_2.gd" id="1_ndm5s"]
+[ext_resource type="Texture2D" uid="uid://btca0pqg7nhq2" path="res://assets/laser_desligado.png" id="3_0i172"]
+[ext_resource type="Texture2D" uid="uid://rna2bognk0i3" path="res://assets/laser_aceso.png" id="4_jt8om"]
+[ext_resource type="Shader" uid="uid://dn18jen4ywnrs" path="res://gdshader/laser_reto_2.gdshader" id="4_laft3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ccn01"]
+shader = ExtResource("4_laft3")
+shader_parameter/beams = 8
+shader_parameter/energy = 3.0
+shader_parameter/roughness = 8
+shader_parameter/frequency = 10
+shader_parameter/speed = 1.0
+shader_parameter/thickness = 0.01600000076
+shader_parameter/outline_thickness = 0.0250000011875
+shader_parameter/beam_difference = 1.0
+shader_parameter/glow = 0.0
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Color(0.9098039, 1, 0, 1)
+shader_parameter/outline_color = Color(0.980274, 0.85557956, 0.26871693, 1)
+shader_parameter/progress = 1.0
+shader_parameter/y_offset = 0.0
+shader_parameter/fixed_edge_size = 0.5
+shader_parameter/noise_scale = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdave"]
+shader = ExtResource("4_laft3")
+shader_parameter/beams = 2
+shader_parameter/energy = 3.0
+shader_parameter/roughness = 3
+shader_parameter/frequency = 10
+shader_parameter/speed = 1.0
+shader_parameter/thickness = 0.10000000149012
+shader_parameter/outline_thickness = 0.10000000149012
+shader_parameter/beam_difference = 1.0
+shader_parameter/glow = 0.0
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Color(0.9098039, 1, 0, 1)
+shader_parameter/outline_color = Color(0.9344767, 0.8785317, 0.15780619, 1)
+shader_parameter/progress = 1.0
+shader_parameter/y_offset = 0.0
+shader_parameter/fixed_edge_size = 0.05
+shader_parameter/noise_scale = Vector2(1, 1)
+
+[sub_resource type="Gradient" id="Gradient_laft3"]
+colors = PackedColorArray(0.8178211, 0.8550698, 0, 1, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pdave"]
+gradient = SubResource("Gradient_laft3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_laft3"]
+particle_flag_disable_z = true
+angle_min = 35.00001
+angle_max = 70.000015
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+color_ramp = SubResource("GradientTexture1D_pdave")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0i172")
+}],
+"loop": 1,
+"name": &"desligado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_jt8om")
+}],
+"loop": 1,
+"name": &"ligado",
+"speed": 5.0
+}]
+
+[node name="LaserReto" type="Node2D" unique_id=920627313]
+script = ExtResource("1_ndm5s")
+
+[node name="hit_impact" type="RayCast2D" parent="." unique_id=2081217554]
+scale = Vector2(4, 1.075)
+target_position = Vector2(0, 350)
+
+[node name="laser_line" type="Line2D" parent="." unique_id=1161644302]
+material = SubResource("ShaderMaterial_ccn01")
+position = Vector2(0, 4)
+scale = Vector2(-8.619592, 1.9030353)
+points = PackedVector2Array(0, 1, 0, 4.2038107)
+texture_mode = 1
+begin_cap_mode = 2
+
+[node name="Timer" type="Timer" parent="." unique_id=930502520]
+wait_time = 3.0
+autostart = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1505245954]
+material = SubResource("ShaderMaterial_pdave")
+emitting = false
+amount = 64
+lifetime = 2.0
+speed_scale = 4.0
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_laft3")
+
+[node name="torreta" type="AnimatedSprite2D" parent="." unique_id=1457623537]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+animation = &"desligado"
+autoplay = "desligado"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

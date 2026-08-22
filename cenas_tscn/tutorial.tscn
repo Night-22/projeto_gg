@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://c7inqq1bh8uw5" path="res://cenas_tscn/prefabs/plataforma_furavel.tscn" id="12_3mhvm"]
 [ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="12_bltfd"]
 [ext_resource type="PackedScene" uid="uid://brh3k1o05d7mo" path="res://cenas_tscn/prefabs/chao_movel.tscn" id="14_blw00"]
-[ext_resource type="Script" uid="uid://ceum515fb6uai" path="res://scripts_gd/chao_movel.gd" id="15_3mhvm"]
 [ext_resource type="PackedScene" uid="uid://bytt2gxhnkgtd" path="res://cenas_tscn/menus/hud.tscn" id="15_phy2f"]
 [ext_resource type="PackedScene" uid="uid://b18w3gpastgrh" path="res://cenas_tscn/menus/spell_inventory.tscn" id="16_6o3if"]
 [ext_resource type="PackedScene" uid="uid://ke6kanckcx4q" path="res://cenas_tscn/inimigos_tscn/fire_wizard.tscn" id="16_urwnf"]
@@ -25,9 +24,8 @@
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/bancada_menu.tscn" id="18_3mhvm"]
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="19_urwnf"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="20_vqqwn"]
+[ext_resource type="PackedScene" uid="uid://d0ckamjqllbf6" path="res://cenas_tscn/transicao.tscn" id="26_dkhca"]
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="26_pvrew"]
-[ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="27_dkhca"]
-[ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="28_gqokq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_foa2r"]
 texture = ExtResource("2_3b82o")
@@ -276,24 +274,6 @@ size = Vector2(10, 67.4375)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_33x8s"]
 size = Vector2(393, 259.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j2di"]
-size = Vector2(34, 19)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_57qmd"]
-shader = ExtResource("27_dkhca")
-shader_parameter/AspectRatio = 1.5
-shader_parameter/Diamonds = 10.0
-shader_parameter/pixel_size = 0.08
-shader_parameter/height = -1.0
-shader_parameter/disable_pixel = false
-
-[sub_resource type="Gradient" id="Gradient_gqokq"]
-offsets = PackedFloat32Array(0, 0.9245283, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_yf5fn"]
-gradient = SubResource("Gradient_gqokq")
-
 [node name="tutorial" type="Node2D" unique_id=1036654232]
 script = ExtResource("1_1j7gv")
 
@@ -423,7 +403,6 @@ position = Vector2(1640, -131)
 
 [node name="chao_movel" parent="props" unique_id=184351549 instance=ExtResource("14_blw00")]
 position = Vector2(1537, 82)
-script = ExtResource("15_3mhvm")
 distancia = 170.0
 velocidade = 150.0
 
@@ -609,24 +588,7 @@ visible = false
 position = Vector2(484, 556)
 scale = Vector2(8.23188, 22.486532)
 
-[node name="transicao" type="Node2D" parent="." unique_id=1638708991]
-
-[node name="transicao_cena" type="Area2D" parent="transicao" unique_id=1846352332]
-position = Vector2(1665, -439)
-script = ExtResource("28_gqokq")
-entrada_destino = "entrada_neutra_tutorial_1"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="transicao/transicao_cena" unique_id=1732492704]
-position = Vector2(-1, 0.5)
-shape = SubResource("RectangleShape2D_2j2di")
-
-[node name="Transicao_efeito" type="CanvasLayer" parent="transicao" unique_id=597763588]
-
-[node name="TextureRect" type="TextureRect" parent="transicao/Transicao_efeito" unique_id=1421861286]
-material = SubResource("ShaderMaterial_57qmd")
-offset_right = 319.0
-offset_bottom = 238.0
-texture = SubResource("GradientTexture1D_yf5fn")
+[node name="transicao" parent="." unique_id=1512231452 instance=ExtResource("26_dkhca")]
 
 [connection signal="destrancou" from="props/porta3" to="." method="_on_porta_3_destrancou"]
 [connection signal="body_entered" from="HUD_Tutorial/area_texto_tutorial/cura" to="." method="_on_cura_body_entered"]
@@ -643,4 +605,3 @@ texture = SubResource("GradientTexture1D_yf5fn")
 [connection signal="body_exited" from="HUD_Tutorial/area_texto_tutorial/escada" to="." method="_on_escada_body_exited"]
 [connection signal="body_entered" from="HUD_Tutorial/area_texto_tutorial/reacao_elemental" to="." method="_on_reacao_elemental_body_entered"]
 [connection signal="body_exited" from="HUD_Tutorial/area_texto_tutorial/reacao_elemental" to="." method="_on_reacao_elemental_body_exited"]
-[connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]

@@ -48,14 +48,19 @@ func _on_body_entered(body: Node2D) -> void:
 	if !body.is_in_group("Player"):
 		return
 
+	body.lock_player()
+
 	var cena = zonas.get(cena_destino)
 
 	if cena == null:
 		print("cena de destino invalida.")
+		body.unlock_player()
 		return
 
-	# inicia a troca de cena
-	Transicao.trocar_cena(
+	await Transicao.trocar_cena(
 		cena.resource_path,
 		entrada_destino
 	)
+
+	body.unlock_player()
+	
