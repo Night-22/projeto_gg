@@ -563,6 +563,24 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_yf5fn"]
 gradient = SubResource("Gradient_gqokq")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bqdo4"]
+size = Vector2(34, 19)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qo0ah"]
+shader = ExtResource("15_ylbax")
+shader_parameter/AspectRatio = 1.5
+shader_parameter/Diamonds = 10.0
+shader_parameter/pixel_size = 0.08
+shader_parameter/height = -1.0
+shader_parameter/disable_pixel = false
+
+[sub_resource type="Gradient" id="Gradient_pe5rb"]
+offsets = PackedFloat32Array(0, 0.9245283, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pwnm3"]
+gradient = SubResource("Gradient_pe5rb")
+
 [node name="zona_agua" type="Node2D" unique_id=1576019114]
 metadata/_edit_vertical_guides_ = [110.0]
 
@@ -791,6 +809,7 @@ position = Vector2(1186, -1342)
 scale = Vector2(0.2809853, -0.10424519)
 
 [node name="cameraLOCKAO" type="Node2D" parent="." unique_id=963486955]
+visible = false
 
 [node name="CameraLockArea" type="Area2D" parent="cameraLOCKAO" unique_id=1808650042]
 position = Vector2(1085, -444.99994)
@@ -1073,7 +1092,7 @@ position = Vector2(325, -510)
 scale = Vector2(0.12993363, 0.16000003)
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("3_pgw6c")]
-position = Vector2(1203, -672)
+position = Vector2(66, 79)
 knockback_force = 100.0
 knockback_up_force = -30.0
 
@@ -1117,6 +1136,30 @@ scale = Vector2(0.05371325, 0.3014378)
 [node name="plataforma_furavel13" parent="." unique_id=620523405 instance=ExtResource("9_w5hnf")]
 position = Vector2(1096.0001, -1274)
 scale = Vector2(0.052165303, 0.2962525)
+
+[node name="transicao2" type="Node2D" parent="." unique_id=761593327]
+position = Vector2(323, -1613)
+
+[node name="transicao_cena" type="Area2D" parent="transicao2" unique_id=209192166]
+script = ExtResource("14_5y736")
+cena_destino = 4
+entrada_destino = "transicao_agua"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="transicao2/transicao_cena" unique_id=572833174]
+position = Vector2(-26, 2)
+scale = Vector2(1.3768526, -10.923924)
+shape = SubResource("RectangleShape2D_bqdo4")
+
+[node name="Transicao_efeito" type="CanvasLayer" parent="transicao2" unique_id=1480603334]
+
+[node name="TextureRect" type="TextureRect" parent="transicao2/Transicao_efeito" unique_id=317147199]
+material = SubResource("ShaderMaterial_qo0ah")
+offset_right = 319.0
+offset_bottom = 238.0
+texture = SubResource("GradientTexture1D_pwnm3")
+
+[node name="transicao_agua_1" type="Marker2D" parent="." unique_id=306953213]
+position = Vector2(337, -1606)
 
 [connection signal="body_entered" from="correnteza9/correnteza9" to="correnteza9/correnteza9" method="_on_body_entered"]
 [connection signal="body_exited" from="correnteza9/correnteza9" to="correnteza9/correnteza9" method="_on_body_exited"]
@@ -1165,3 +1208,4 @@ scale = Vector2(0.052165303, 0.2962525)
 [connection signal="body_entered" from="cameraLOCKAO/CameraLockArea16" to="cameraLOCKAO/CameraLockArea16" method="_on_body_entered"]
 [connection signal="body_exited" from="cameraLOCKAO/CameraLockArea16" to="cameraLOCKAO/CameraLockArea16" method="_on_body_exited"]
 [connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]
+[connection signal="body_entered" from="transicao2/transicao_cena" to="transicao2/transicao_cena" method="_on_body_entered"]

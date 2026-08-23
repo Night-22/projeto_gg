@@ -15,6 +15,7 @@ var tween_duration := 0.15
 
 
 func _ready() -> void:
+	stop()
 	laser_line.visible = false
 	set_laser_color(laser_color)
 	impact_fx.top_level = true 
@@ -93,4 +94,7 @@ func acertou_jogador() -> void:
 	var objeto = hit_impact.get_collider()
 
 	if objeto.is_in_group("Player"):
+		if objeto.current_state == objeto.State.DEAD:
+			return
 		objeto.receber_dano(5, global_position.x)
+		

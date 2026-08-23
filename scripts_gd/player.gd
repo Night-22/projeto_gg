@@ -628,12 +628,14 @@ func curar_completo() -> void:
 	Mana = max_mana
 
 
-
 func morrer_e_respawnar() -> void:
 	if esta_morrendo:
 		return
 
 	esta_morrendo = true
+	invulnerable = true
+	iframe_timer = 0.0
+	modulate.a = 1.0
 
 	damage_knockback = Vector2.ZERO
 
@@ -661,11 +663,12 @@ func morrer_e_respawnar() -> void:
 		if ultimo != -1:
 			await SaveManager.carregar_jogo(ultimo)
 
+	
 	current_state = State.IDLE
 	esta_morrendo = false
+	invulnerable = false
 
 	unlock_player()
-
 
 func identificar_amuleto(id: String) -> bool:
 	return id == amuleto_vida_id or id == amuleto_mana_id or id == amuleto_dano_id
