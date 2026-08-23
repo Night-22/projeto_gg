@@ -11,6 +11,7 @@ var tween_terceiro: Tween
 
 
 func _ready() -> void:
+	
 	predio_direita.visible = true
 	predio_esquerda.visible = true
 	terceiro_predio.visible = true

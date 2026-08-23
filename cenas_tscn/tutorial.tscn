@@ -615,7 +615,7 @@ offset_bottom = 238.0
 texture = SubResource("GradientTexture1D_pwnm3")
 
 [node name="entrada_neutra_2" type="Marker2D" parent="." unique_id=847571082]
-position = Vector2(1658, -303)
+position = Vector2(1673, -399)
 
 [node name="entrada_neutra_1" type="Marker2D" parent="." unique_id=955562819]
 position = Vector2(1705, 200)

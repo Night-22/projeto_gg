@@ -1402,6 +1402,7 @@ position = Vector2(73, -625)
 
 [node name="transicao_cena" type="Area2D" parent="transicao3" unique_id=1133879673]
 script = ExtResource("26_dkhx7")
+entrada_destino = "entrada_raio_2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transicao3/transicao_cena" unique_id=1824923468]
 position = Vector2(65.5, 25)
