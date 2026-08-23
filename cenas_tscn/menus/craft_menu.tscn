@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://mclffitbrwmy"]
 
 [ext_resource type="Script" uid="uid://bhnb4w6yc4ufg" path="res://cenas_tscn/menus/craft_menu.gd" id="0_craft"]
-[ext_resource type="Texture2D" uid="uid://ck8lmcrqidd5h" path="res://placeholder/agua.png" id="1_sw6j1"]
-[ext_resource type="Texture2D" uid="uid://crlw7kfpv1o38" path="res://placeholder/fogo.png" id="2_1igbi"]
+[ext_resource type="Texture2D" uid="uid://7qnngd0w0jdi" path="res://placeholder/agua.png" id="1_sw6j1"]
+[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2_1igbi"]
 [ext_resource type="FontFile" uid="uid://bxls3mwagmlq3" path="res://assets/BitPotionExt.ttf" id="2_em680"]
-[ext_resource type="Texture2D" uid="uid://cvx34lbmdhbdy" path="res://placeholder/raio.png" id="3_em680"]
-[ext_resource type="Texture2D" uid="uid://biau3j3v2umoy" path="res://placeholder/planta.png" id="4_mopib"]
+[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="3_em680"]
+[ext_resource type="Texture2D" uid="uid://bl8yxg4t41iow" path="res://placeholder/planta.png" id="4_mopib"]
 
 [node name="CraftMenu" type="CanvasLayer" unique_id=621457444 groups=["Craft_menu"]]
 process_mode = 3
@@ -46,19 +46,20 @@ grow_vertical = 0
 
 [node name="AlmasContainer" type="HBoxContainer" parent="." unique_id=959388311]
 custom_maximum_size = Vector2(600, 360)
-offset_left = 18.0
+offset_left = 15.0
 offset_top = 32.0
-offset_right = 558.0
+offset_right = 555.0
 offset_bottom = 392.0
 scale = Vector2(0.23053364, 0.23053364)
 theme_override_constants/separation = 60
 
 [node name="Agua" type="HBoxContainer" parent="AlmasContainer" unique_id=1233539205]
-custom_minimum_size = Vector2(10, 10)
-custom_maximum_size = Vector2(90, 90)
+custom_minimum_size = Vector2(100, 10)
+custom_maximum_size = Vector2(140, 90)
 layout_mode = 2
 
 [node name="Icone" type="TextureRect" parent="AlmasContainer/Agua" unique_id=1763605853]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 texture = ExtResource("1_sw6j1")
 
@@ -69,10 +70,12 @@ theme_override_font_sizes/font_size = 28
 text = "6"
 
 [node name="Fogo" type="HBoxContainer" parent="AlmasContainer" unique_id=1187628810]
+custom_minimum_size = Vector2(100, 0)
 custom_maximum_size = Vector2(90, 90)
 layout_mode = 2
 
 [node name="Icone" type="TextureRect" parent="AlmasContainer/Fogo" unique_id=1031950388]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 texture = ExtResource("2_1igbi")
 
@@ -82,10 +85,12 @@ theme_override_font_sizes/font_size = 28
 text = "7"
 
 [node name="Raio" type="HBoxContainer" parent="AlmasContainer" unique_id=972895481]
+custom_minimum_size = Vector2(100, 0)
 custom_maximum_size = Vector2(90, 90)
 layout_mode = 2
 
 [node name="Icone" type="TextureRect" parent="AlmasContainer/Raio" unique_id=1722052881]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 texture = ExtResource("3_em680")
 
@@ -95,10 +100,12 @@ theme_override_font_sizes/font_size = 28
 text = "6"
 
 [node name="Planta" type="HBoxContainer" parent="AlmasContainer" unique_id=2130284505]
+custom_minimum_size = Vector2(100, 0)
 custom_maximum_size = Vector2(90, 90)
 layout_mode = 2
 
 [node name="Icone" type="TextureRect" parent="AlmasContainer/Planta" unique_id=803149214]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 texture = ExtResource("4_mopib")
 

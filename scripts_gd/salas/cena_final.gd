@@ -1,18 +1,12 @@
 extends Node2D
 
-## Sala final simples do jogo.
-## O player chega aqui pela passagem que abre quando o Topgo é derrotado
-## (ver sala_boss_topgo.gd -> _abrir_passagem() -> PassagemLateral).
-## Aqui o player fica travado, o painel de "fim de jogo" aparece com
-## um fade e o botão devolve pro menu principal.
-
 @onready var player: Node2D = get_node_or_null("Player")
 @onready var painel_final: CanvasLayer = $PainelFinal
 @onready var fundo: ColorRect = $PainelFinal/Fundo
 @onready var botao_menu: Button = $PainelFinal/Fundo/VBoxContainer/BotaoMenu
 
 const TEMPO_ESPERA := 1.2
-const TEMPO_FADE := 1.4
+const TEMPO_FADE := 0.5
 
 
 func _ready() -> void:

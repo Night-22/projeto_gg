@@ -86,8 +86,6 @@ func _apagar_musica_chefe() -> void:
 	tween.tween_callback(soundtrack.stop)
 
 
-## instantaneo = true quando a sala já carrega com o chefe derrotado
-## (não precisa tocar animação, o estado já está "resolvido").
 func _abrir_passagem(instantaneo: bool = false) -> void:
 	var passagem := get_node_or_null("PassagemLateral")
 

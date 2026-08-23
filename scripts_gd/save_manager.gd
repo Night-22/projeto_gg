@@ -184,16 +184,9 @@ func carregar_checkpoint() -> bool:
 
 
 func _aplicar_dados_carregados(dados: Dictionary) -> bool:
-	# Precisa acontecer ANTES da troca de cena: se a cena de destino for a sala
-	# de algum chefe, o _ready() dela já confere GerenciadorChefes.foi_derrotado()
-	# pra decidir se o chefe reaparece ou não. Se atualizássemos isso depois da
-	# troca de cena, a sala leria o estado antigo (de antes do checkpoint) e o
-	# chefe podia continuar marcado como morto por engano.
 	GerenciadorChefes.carregar_lista(dados.get("chefes_derrotados", []))
 
-	# mesmo motivo: se a sala de destino tiver um medalhão/amuleto, o
-	# item_coletavel.gd dela confere GerenciadorItens.foi_coletado() no
-	# _ready() pra decidir se ainda aparece no chão ou não.
+
 	GerenciadorItens.carregar_lista(dados.get("itens_coletados_mundo", []))
 
 	var cena_alvo: String = dados.get("checkpoint_cena", "")
