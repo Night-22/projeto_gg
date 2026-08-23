@@ -316,9 +316,33 @@ var heal_shake_strength := 2.5
 var heal_shake_duration := 0.22
 
 
+
+@export var queimadura_maxima := 100.0
+@export var velocidade_queimadura := 10.0
+@export var velocidade_resfriamento := 25.0
+@export var intervalo_dano_queimadura := 1.0
+@export var velocidade_resfriamento_agua := 25.0
+
+
+var queimadura := 0.0
+var dentro_da_zona_fogo := false
+var dano_queimadura_timer := 0.0
+
+
+@onready var vinheta_fogo:= get_node("Fogo/Sprite2D")
+@onready var vinheta_fogo_material: ShaderMaterial = vinheta_fogo.material as ShaderMaterial
+
+
+
+
+
+
 func _ready() -> void:
 	add_to_group("Player")
-
+	
+	if vinheta_fogo_material != null:
+		vinheta_fogo_material.set_shader_parameter("radius", 0.0)
+	
 	respawn_position = global_position
 
 	_limite_padrao_esquerdo = camera.limit_left
@@ -354,10 +378,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	var estava_no_chao := is_on_floor()
-
+	
 	if Life <= 0 and not esta_morrendo:
 		current_state = State.DEAD
 	
+	atualizar_queimadura(delta)
 	if dentro_da_agua:
 		atualizar_respiracao(delta)
 	
@@ -681,7 +706,6 @@ func item_ja_foi_visto(id: String) -> bool:
 func marcar_item_como_visto(id: String) -> void:
 	if !itens_vistos.has(id):
 		itens_vistos.append(id)
-
 
 func adicionar_item(id: String, nome: String, icone: String = "", quantidade: int = 1) -> void:
 	for item in inventario_itens:
@@ -2126,3 +2150,34 @@ func resetar_tempo_respirar() -> void:
 
 	respiracao_label.visible = false
 	respiracao_label.modulate.a = 1.0
+	
+func atualizar_queimadura(delta: float) -> void:
+	
+	if dentro_da_agua:
+		queimadura -= velocidade_resfriamento_agua * delta
+
+	elif dentro_da_zona_fogo:
+		queimadura += velocidade_queimadura * delta
+
+	
+	else:
+		queimadura -= velocidade_resfriamento * delta
+
+	queimadura = clamp(queimadura, 0.0, queimadura_maxima)
+
+	
+	var intensidade := queimadura / queimadura_maxima
+
+	if vinheta_fogo_material != null:
+		vinheta_fogo_material.set_shader_parameter("radius", intensidade)
+
+	
+	if queimadura >= queimadura_maxima:
+		dano_queimadura_timer -= delta
+
+		if dano_queimadura_timer <= 0.0:
+			#n sei como q faz pra tirar o knocback
+			receber_dano(1, 0)
+			dano_queimadura_timer = intervalo_dano_queimadura
+	else:
+		dano_queimadura_timer = 0.0

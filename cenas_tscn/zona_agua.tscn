@@ -942,7 +942,6 @@ position = Vector2(18, 75)
 
 [node name="transicao_cena" type="Area2D" parent="transicao" unique_id=1429648885]
 script = ExtResource("14_5y736")
-entrada_destino = "entrada_zona_neutra_agua"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transicao/transicao_cena" unique_id=406743179]
 position = Vector2(-1, 0.5)
@@ -1143,7 +1142,7 @@ position = Vector2(323, -1613)
 [node name="transicao_cena" type="Area2D" parent="transicao2" unique_id=209192166]
 script = ExtResource("14_5y736")
 cena_destino = 4
-entrada_destino = "transicao_agua"
+entrada_destino = "entrada_agua"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transicao2/transicao_cena" unique_id=572833174]
 position = Vector2(-26, 2)

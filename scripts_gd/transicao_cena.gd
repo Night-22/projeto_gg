@@ -9,7 +9,8 @@ enum Zona {
 	ZONA_TERRA,
 	SALA_BOSS_ARANHA,
 	SALA_BOSS_RAIO,
-	SALA_BOSS_TOPGO
+	SALA_BOSS_TOPGO,
+	ZONA_FOGO
 }
 
 
@@ -40,7 +41,10 @@ var zonas = {
 		"res://cenas_tscn/salas/sala_boss_raio.tscn",
 
 	Zona.SALA_BOSS_TOPGO:
-		"res://cenas_tscn/salas/sala_boss_topgo.tscn"
+		"res://cenas_tscn/salas/sala_boss_topgo.tscn",
+
+	Zona.ZONA_FOGO:
+		"res://zona_fogo.tscn"
 }
 
 

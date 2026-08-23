@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/save_menu.tscn" id="12_svmnu"]
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/game_over_menu.tscn" id="13_gomnu"]
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/pause_menu.tscn" id="14_pause"]
+[ext_resource type="Shader" uid="uid://dyv0vofxb32o3" path="res://gdshader/vinheta.gdshader" id="16_1pynu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wcb67"]
 atlas = ExtResource("2_t5do6")
@@ -570,10 +571,23 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf5fn"]
+shader = ExtResource("16_1pynu")
+shader_parameter/radius = 1.0
+shader_parameter/speed = 3.0000001425
+shader_parameter/effect_color = Color(0.251, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_wmeht"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g4v7s"]
+gradient = SubResource("Gradient_wmeht")
+
 [node name="Player" type="CharacterBody2D" unique_id=2135435064 groups=["Player", "interage_com_liquido"]]
 collision_mask = 7
 script = ExtResource("1_unwft")
 knockback_force = 280.0
+velocidade_queimadura = 3.0
+velocidade_resfriamento = 30.0
 
 [node name="anim" type="AnimatedSprite2D" parent="." unique_id=1488943503 node_paths=PackedStringArray("source", "camera")]
 texture_filter = 1
@@ -682,6 +696,17 @@ radial_accel_min = -150.0
 radial_accel_max = -150.0
 scale_amount_max = 2.5
 color = Color(0.53, 1, 0.6, 0.85)
+
+[node name="Fogo" type="CanvasLayer" parent="." unique_id=747516939]
+
+[node name="Sprite2D" type="TextureRect" parent="Fogo" unique_id=2074023098]
+material = SubResource("ShaderMaterial_yf5fn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_g4v7s")
 
 [node name="Hud" parent="." unique_id=249675550 instance=ExtResource("7_a0w80")]
 visible = false
