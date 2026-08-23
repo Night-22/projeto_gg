@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="7_camlock"]
 [ext_resource type="AudioStream" uid="uid://bjvdbfbme717b" path="res://assets/musicas/soundtrack_corrigida.mp3" id="8_tddkw"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="9_7pdnn"]
+[ext_resource type="Script" uid="uid://dt02ffq484yv3" path="res://scripts_gd/passagem_lateral.gd" id="10_passagem"]
+[ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="11_transicao"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
 size = Vector2(28, 252)
@@ -21,6 +23,15 @@ size = Vector2(218, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gatilho"]
 size = Vector2(9, 69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_area_passagem_final"]
+size = Vector2(16, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_parede_topo"]
+size = Vector2(28, 142)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_passagem_topgo"]
+size = Vector2(28, 100)
 
 [node name="SalaBossTopgo" type="Node2D" unique_id=1775463381]
 script = ExtResource("1_sala")
@@ -38,16 +49,30 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_parede")
 
 [node name="ParedeDireita" type="StaticBody2D" parent="." unique_id=989543388]
-position = Vector2(407, 122)
+position = Vector2(407, 67)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParedeDireita" unique_id=98335340]
 position = Vector2(-5.5000114, -7.6293945e-06)
-scale = Vector2(0.22656232, 1.9453125)
+scale = Vector2(0.22656232, 1.0962)
 texture = ExtResource("6_parede")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeDireita" unique_id=2062331814]
 position = Vector2(-6, 0)
-shape = SubResource("RectangleShape2D_parede")
+shape = SubResource("RectangleShape2D_parede_topo")
+
+[node name="PassagemLateral" type="StaticBody2D" parent="."]
+position = Vector2(407, 188)
+script = ExtResource("10_passagem")
+area_transicao_path = NodePath("../AreaPassagemFinal")
+
+[node name="Sprite2D" type="Sprite2D" parent="PassagemLateral"]
+position = Vector2(-5.5000114, -7.6293945e-06)
+scale = Vector2(0.22656232, 0.77195)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassagemLateral"]
+position = Vector2(-6, 0)
+shape = SubResource("RectangleShape2D_passagem_topgo")
 
 [node name="TopgoBoss" parent="." unique_id=39082022 instance=ExtResource("5_boss")]
 position = Vector2(174, 134)
@@ -146,4 +171,16 @@ stream = ExtResource("8_tddkw")
 [node name="InventarioGeral" parent="." unique_id=754743051 instance=ExtResource("9_7pdnn")]
 visible = false
 
+[node name="AreaPassagemFinal" type="Area2D" parent="." unique_id=1277052183]
+position = Vector2(418, 122)
+monitoring = false
+script = ExtResource("11_transicao")
+cena_destino = 10
+entrada_destino = "EntradaFinal"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPassagemFinal" unique_id=1894800443]
+position = Vector2(-37, 66)
+shape = SubResource("RectangleShape2D_area_passagem_final")
+
 [connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]
+[connection signal="body_entered" from="AreaPassagemFinal" to="AreaPassagemFinal" method="_on_body_entered"]

@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bhghq6v0h5wfp" path="res://cenas_tscn/prefabs/bancada.tscn" id="7_r7ct6"]
 [ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="8_wcvwo"]
 [ext_resource type="PackedScene" uid="uid://dchqpas3ef5eo" path="res://cenas_tscn/inimigos_tscn/slime_agua.tscn" id="9_0fuwc"]
+[ext_resource type="PackedScene" uid="uid://c4l1q15settn4" path="res://cenas_tscn/inimigos_tscn/planta_carnivora.tscn" id="10_ne5t3"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="13_geninv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e48y"]
@@ -42,7 +43,7 @@ position = Vector2(573.5, 598)
 shape = SubResource("RectangleShape2D_0e48y")
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_smc2o")]
-position = Vector2(414, 329)
+position = Vector2(91, 532)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=344345065]
 position = Vector2(273, 458)
@@ -122,3 +123,6 @@ tile_set = ExtResource("2_ne5t3")
 
 [node name="Slime_agua" parent="." unique_id=803833005 instance=ExtResource("9_0fuwc")]
 position = Vector2(284, 428)
+
+[node name="planta_carnivora" parent="." unique_id=1985811001 groups=["Inimigo"] instance=ExtResource("10_ne5t3")]
+position = Vector2(267, 524)

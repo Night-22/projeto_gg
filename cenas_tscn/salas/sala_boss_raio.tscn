@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://c7inqq1bh8uw5" path="res://cenas_tscn/prefabs/plataforma_furavel.tscn" id="12_o70k5"]
 [ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="13_wwt3b"]
 [ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="14_o70k5"]
+[ext_resource type="Script" path="res://scripts_gd/passagem_lateral.gd" id="15_passagem"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nofv1"]
 texture = ExtResource("2_72dem")
@@ -531,6 +532,12 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_yf5fn"]
 gradient = SubResource("Gradient_gqokq")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_passagem"]
+size = Vector2(12, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_area_passagem"]
+size = Vector2(16, 90)
+
 [node name="SalaBossRaio" type="Node2D" unique_id=765142088]
 script = ExtResource("1_sala")
 
@@ -678,6 +685,31 @@ position = Vector2(7, -8)
 tile_map_data = PackedByteArray("AAACAAQAAAALAAkAAAADAAQAAAAMAAkAAAAEAAQAAAAMAAkAAAAFAAQAAAALAAkAABAJAAQAAAALAAkAAAAKAAQAAAAMAAkAAAALAAQAAAAMAAkAAAAMAAQAAAALAAkAABAQAAQAAAALAAkAAAARAAQAAAAMAAkAAAASAAQAAAAMAAkAAAATAAQAAAALAAkAABA=")
 tile_set = SubResource("TileSet_3gngh")
 
+[node name="PassagemLateral" type="StaticBody2D" parent="."]
+position = Vector2(390, 195)
+script = ExtResource("15_passagem")
+area_transicao_path = NodePath("../AreaPassagemRaio")
+
+[node name="Sprite2D" type="Sprite2D" parent="PassagemLateral"]
+scale = Vector2(0.09375, 0.703125)
+texture = ExtResource("6_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassagemLateral"]
+shape = SubResource("RectangleShape2D_passagem")
+
+[node name="AreaPassagemRaio" type="Area2D" parent="."]
+position = Vector2(404, 195)
+monitoring = false
+script = ExtResource("13_wwt3b")
+cena_destino = 8
+entrada_destino = "EntradaMedalhaoRaio"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPassagemRaio"]
+shape = SubResource("RectangleShape2D_area_passagem")
+
+[node name="VoltaPassagemRaio" type="Marker2D" parent="."]
+position = Vector2(372, 195)
+
 [node name="transicao" type="Node2D" parent="." unique_id=1512231452]
 
 [node name="transicao_cena" type="Area2D" parent="transicao" unique_id=1429648885]
@@ -700,4 +732,5 @@ offset_bottom = 238.0
 texture = SubResource("GradientTexture1D_yf5fn")
 
 [connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]
+[connection signal="body_entered" from="AreaPassagemRaio" to="AreaPassagemRaio" method="_on_body_entered"]
 [connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]

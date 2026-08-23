@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://d3bptit2cqy1"]
+
+[ext_resource type="Script" uid="uid://bqpgrk5j4qcp4" path="res://scripts_gd/salas/cena_final.gd" id="1_final"]
+[ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_player"]
+[ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="3_parede"]
+[ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="4_camlock"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chao"]
+size = Vector2(168, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_parede"]
+size = Vector2(12, 120)
+
+[node name="CenaFinal" type="Node2D" unique_id=1342007392]
+script = ExtResource("1_final")
+
+[node name="Chao" type="StaticBody2D" parent="." unique_id=836546892]
+position = Vector2(84, 106)
+
+[node name="Sprite2D" type="Sprite2D" parent="Chao" unique_id=1139011128]
+scale = Vector2(1.3125, 0.09375)
+texture = ExtResource("3_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chao" unique_id=893494604]
+shape = SubResource("RectangleShape2D_chao")
+
+[node name="ParedeEsquerda" type="StaticBody2D" parent="." unique_id=1865577535]
+position = Vector2(0, 50)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParedeEsquerda" unique_id=200342930]
+scale = Vector2(0.09375, 0.9375)
+texture = ExtResource("3_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeEsquerda" unique_id=50610869]
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="ParedeDireita" type="StaticBody2D" parent="." unique_id=1468294651]
+position = Vector2(168, 50)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParedeDireita" unique_id=42294626]
+scale = Vector2(0.09375, 0.9375)
+texture = ExtResource("3_parede")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParedeDireita" unique_id=1576025382]
+shape = SubResource("RectangleShape2D_parede")
+
+[node name="EntradaFinal" type="Marker2D" parent="." unique_id=219480997]
+position = Vector2(20, 90)
+
+[node name="Player" parent="." unique_id=1056978581 instance=ExtResource("2_player")]
+position = Vector2(84, 90)
+
+[node name="CameraLockArea" parent="." unique_id=411463496 instance=ExtResource("4_camlock")]
+position = Vector2(84, 50)
+scale = Vector2(8.4, 6)
+
+[node name="PainelFinal" type="CanvasLayer" parent="." unique_id=604422997]
+layer = 10
+
+[node name="Fundo" type="ColorRect" parent="PainelFinal" unique_id=1636223272]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.043137256, 0.043137256, 0.09019608, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PainelFinal/Fundo" unique_id=1864786736]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="TituloFinal" type="Label" parent="PainelFinal/Fundo/VBoxContainer" unique_id=1357530902]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 16
+text = "FIM DE JOGO"
+horizontal_alignment = 1
+
+[node name="SubtituloFinal" type="Label" parent="PainelFinal/Fundo/VBoxContainer" unique_id=2112568443]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "Você derrotou Topgo e completou a jornada."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Espaco" type="Control" parent="PainelFinal/Fundo/VBoxContainer" unique_id=1668886981]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="BotaoMenu" type="Button" parent="PainelFinal/Fundo/VBoxContainer" unique_id=767291913]
+custom_minimum_size = Vector2(140, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 8
+text = "Voltar ao Menu"

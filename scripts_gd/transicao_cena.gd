@@ -9,7 +9,10 @@ enum Zona {
 	ZONA_TERRA,
 	SALA_BOSS_ARANHA,
 	SALA_BOSS_RAIO,
-	SALA_BOSS_TOPGO
+	SALA_BOSS_TOPGO,
+	SALA_MEDALHAO_RAIO,
+	SALA_MEDALHAO_PLANTA,
+	CENA_FINAL
 }
 
 
@@ -40,7 +43,16 @@ var zonas = {
 		"res://cenas_tscn/salas/sala_boss_raio.tscn",
 
 	Zona.SALA_BOSS_TOPGO:
-		"res://cenas_tscn/salas/sala_boss_topgo.tscn"
+		"res://cenas_tscn/salas/sala_boss_topgo.tscn",
+
+	Zona.SALA_MEDALHAO_RAIO:
+		"res://cenas_tscn/salas/sala_medalhao_raio.tscn",
+
+	Zona.SALA_MEDALHAO_PLANTA:
+		"res://cenas_tscn/salas/sala_medalhao_planta.tscn",
+
+	Zona.CENA_FINAL:
+		"res://cenas_tscn/salas/cena_final.tscn"
 }
 
 

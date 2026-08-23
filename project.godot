@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 SaveManager="*uid://dlslfvx85r2ei"
 Transicao="*uid://dnbhuan51ihr8"
+GerenciadorChefes="*res://scripts_gd/gerenciador_chefes.gd"
+GerenciadorItens="*res://scripts_gd/gerenciador_itens.gd"
 Opcoes="*res://scripts_gd/opcoes.gd"
 Sfx="*res://scripts_gd/sfx.gd"
 DesbloquearItemTela="*res://cenas_tscn/menus/desbloquear_item_tela.tscn"

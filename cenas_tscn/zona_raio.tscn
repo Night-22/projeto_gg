@@ -691,9 +691,6 @@ size = Vector2(199, 915)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xl666"]
 size = Vector2(769, 185)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3200"]
-size = Vector2(24, 10)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_33x8s"]
 size = Vector2(210, 159)
 
@@ -767,18 +764,23 @@ scale = Vector2(0.672671, 0.58093554)
 position = Vector2(16, -208)
 scale = Vector2(0.672671, 0.58093554)
 
+[node name="Bancada3" parent="." unique_id=1078422988 instance=ExtResource("5_pyhdu")]
+position = Vector2(-678, 79.99997)
+scale = Vector2(0.672671, 0.58093554)
+
 [node name="LaserPath2" type="Path2D" parent="." unique_id=2021133189]
 position = Vector2(-614, 126)
 scale = Vector2(1.0089285, 1)
 curve = SubResource("Curve2D_vrv3x")
 
 [node name="laser_caminho" type="PathFollow2D" parent="LaserPath2" unique_id=312271886]
-position = Vector2(-0.9911499, 0)
+position = Vector2(30.725666, -11)
 rotation = -1.5707964
 rotates = false
 cubic_interp = false
 loop = false
 script = ExtResource("5_77fmt")
+velocidade = 30.0
 voltar_por_tp = true
 metadata/_edit_horizontal_guides_ = [-462.0]
 
@@ -820,13 +822,14 @@ animation = &"desligado"
 autoplay = "desligado"
 
 [node name="laser_caminho5" type="PathFollow2D" parent="LaserPath2" unique_id=1031925501]
-position = Vector2(79.3118, -15)
+position = Vector2(106.05308, -15)
 rotation = -1.5707964
 progress = 95.30295
 rotates = false
 cubic_interp = false
 loop = false
 script = ExtResource("5_77fmt")
+velocidade = 30.0
 voltar_por_tp = true
 metadata/_edit_horizontal_guides_ = [-462.0]
 
@@ -876,41 +879,25 @@ curve = SubResource("Curve2D_3wxne")
 position = Vector2(12.884949, 88.84958)
 rotation = 0.0
 progress = 105.71683
-
-[node name="laser_caminho2" parent="LaserPath3" unique_id=829529651 instance=ExtResource("9_521ij")]
-position = Vector2(12.884949, 194.5664)
-rotation = 0.0
-progress = 211.43365
+velocidade = 30.0
 
 [node name="laser_caminho3" parent="LaserPath3" unique_id=35724500 instance=ExtResource("9_521ij")]
-position = Vector2(12.884949, 300.28323)
+position = Vector2(12.884949, 318)
 rotation = 0.0
 progress = 317.15048
-
-[node name="laser_caminho4" parent="LaserPath3" unique_id=639447025 instance=ExtResource("9_521ij")]
-position = Vector2(12.884949, 406.00006)
-rotation = 0.0
-progress = 422.8673
+velocidade = 30.0
 
 [node name="laser_caminho5" parent="LaserPath3" unique_id=1669806643 instance=ExtResource("9_521ij")]
-position = Vector2(12.884949, 511.7168)
+position = Vector2(13.8761, 545)
 rotation = 0.0
 progress = 528.5841
+velocidade = 30.0
 
 [node name="laser_caminho6" parent="LaserPath3" unique_id=215793762 instance=ExtResource("9_521ij")]
-position = Vector2(12.884949, 617.43365)
+position = Vector2(12.884949, 712)
 rotation = 0.0
 progress = 634.30096
-
-[node name="laser_caminho7" parent="LaserPath3" unique_id=1914031819 instance=ExtResource("9_521ij")]
-position = Vector2(12.884949, 723.1505)
-rotation = 0.0
-progress = 740.0178
-
-[node name="laser_caminho8" parent="LaserPath3" unique_id=1349584095 instance=ExtResource("9_521ij")]
-position = Vector2(-1.9822998, 814)
-rotation = 0.0
-progress = 845.7346
+velocidade = 30.0
 
 [node name="LaserPath" type="Path2D" parent="." unique_id=1983674681]
 position = Vector2(-461.04465, -698)
@@ -966,7 +953,9 @@ progress = 476.07138
 voltar_por_tp = true
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_n80gs")]
-position = Vector2(-752, 67)
+position = Vector2(61, -98)
+knockback_force = 140.0
+knockback_up_force = -20.0
 
 [node name="mijo" type="Node2D" parent="." unique_id=1816425327]
 position = Vector2(-288, -10)
@@ -978,7 +967,7 @@ surface_color = Color(0.8950013, 1, 0.44266662, 1)
 water_fill_color = Color(0.83137256, 0.9529412, 0, 1)
 
 [node name="Laser_central" parent="." unique_id=869694486 instance=ExtResource("11_f3200")]
-position = Vector2(-310, -424)
+position = Vector2(-367, -424)
 
 [node name="torreta" type="Node2D" parent="." unique_id=1861168217 groups=["Torreta"]]
 position = Vector2(-212, -232)
@@ -1318,65 +1307,7 @@ position = Vector2(-641, -576)
 scale = Vector2(-1, 1.063)
 
 [node name="Laser_central2" parent="." unique_id=467964429 instance=ExtResource("11_f3200")]
-position = Vector2(-687, -445)
-
-[node name="torreta3" type="Node2D" parent="." unique_id=1292533679 groups=["Torreta"]]
-position = Vector2(-496, -168)
-script = ExtResource("4_n10d6")
-
-[node name="RayCast2D" type="RayCast2D" parent="torreta3" unique_id=1969271916]
-target_position = Vector2(15, -3)
-
-[node name="parte_cima" type="Sprite2D" parent="torreta3" unique_id=929897338]
-position = Vector2(0, 5)
-texture = ExtResource("6_lktyf")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="torreta3" unique_id=835254171]
-position = Vector2(0, 4)
-rotation = 3.1415927
-
-[node name="parte_baixo" type="Sprite2D" parent="torreta3/StaticBody2D" unique_id=1117421966]
-texture = ExtResource("5_7ic1o")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="torreta3/StaticBody2D" unique_id=606814216]
-position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_f3200")
-
-[node name="Timer" type="Timer" parent="torreta3" unique_id=1266534185]
-wait_time = 2.0
-autostart = true
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="torreta3" unique_id=1643092910]
-rect = Rect2(-7, -10, 13, 16)
-
-[node name="torreta5" type="Node2D" parent="." unique_id=602609200 groups=["Torreta"]]
-position = Vector2(-668, -161)
-script = ExtResource("4_n10d6")
-
-[node name="RayCast2D" type="RayCast2D" parent="torreta5" unique_id=1443714760]
-target_position = Vector2(15, -3)
-
-[node name="parte_cima" type="Sprite2D" parent="torreta5" unique_id=526507142]
-position = Vector2(-2, 1)
-texture = ExtResource("6_lktyf")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="torreta5" unique_id=422023239]
-position = Vector2(0, 1)
-rotation = -1.5707964
-
-[node name="parte_baixo" type="Sprite2D" parent="torreta5/StaticBody2D" unique_id=1305998224]
-texture = ExtResource("5_7ic1o")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="torreta5/StaticBody2D" unique_id=950011911]
-position = Vector2(0, 7)
-shape = SubResource("RectangleShape2D_f3200")
-
-[node name="Timer" type="Timer" parent="torreta5" unique_id=908376212]
-wait_time = 2.0
-autostart = true
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="torreta5" unique_id=2094866390]
-rect = Rect2(-7, -10, 13, 16)
+position = Vector2(-678, -437)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1872771720]
 script = ExtResource("12_ygpjq")
@@ -1510,12 +1441,6 @@ position = Vector2(171, -74)
 [connection signal="timeout" from="torreta2/Timer" to="torreta2" method="_on_timer_timeout"]
 [connection signal="screen_entered" from="torreta2/VisibleOnScreenNotifier2D" to="torreta2" method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="torreta2/VisibleOnScreenNotifier2D" to="torreta2" method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="timeout" from="torreta3/Timer" to="torreta3" method="_on_timer_timeout"]
-[connection signal="screen_entered" from="torreta3/VisibleOnScreenNotifier2D" to="torreta3" method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="torreta3/VisibleOnScreenNotifier2D" to="torreta3" method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="timeout" from="torreta5/Timer" to="torreta5" method="_on_timer_timeout"]
-[connection signal="screen_entered" from="torreta5/VisibleOnScreenNotifier2D" to="torreta5" method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="torreta5/VisibleOnScreenNotifier2D" to="torreta5" method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]
 [connection signal="body_entered" from="transicao2/transicao_cena" to="transicao2/transicao_cena" method="_on_body_entered"]

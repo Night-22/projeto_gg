@@ -68,6 +68,22 @@ func trocar_cena(caminho_cena: String, nome_entrada: String = "") -> void:
 
 	await tween_saida.finished
 
+	# guarda o estado do jogador atual ANTES de trocar de cena. O Player é
+	# instanciado de novo dentro de cada sala (cada .tscn tem sua própria
+	# cópia de player.tscn), então change_scene_to_file() abaixo destrói o
+	# Player atual e cria um novo do zero, com os valores padrão do script.
+	# Sem isso, vida, mana, itens, magias e medalhões coletados na sala se
+	# perderiam toda vez que o jogador trocasse de sala.
+	var jogador_antigo := get_tree().get_first_node_in_group("Player")
+	var dados_jogador := {}
+
+	if (
+		jogador_antigo != null
+		and is_instance_valid(jogador_antigo)
+		and jogador_antigo.has_method("obter_dados_save")
+	):
+		dados_jogador = jogador_antigo.obter_dados_save()
+
 	# troca a cena
 	var erro := get_tree().change_scene_to_file(caminho_cena)
 
@@ -81,6 +97,11 @@ func trocar_cena(caminho_cena: String, nome_entrada: String = "") -> void:
 
 	# espera o player
 	var player = await esperar_player()
+
+	# restaura o estado do jogador (vida, mana, itens, magias, medalhão
+	# equipado, etc) na nova instância que acabou de nascer com essa sala.
+	if !dados_jogador.is_empty() and player.has_method("aplicar_dados_save"):
+		player.aplicar_dados_save(dados_jogador)
 
 	# procura a entrada
 	if nome_entrada != "":

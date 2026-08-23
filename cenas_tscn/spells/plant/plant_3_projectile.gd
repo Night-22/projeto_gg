@@ -8,7 +8,7 @@ var duration_timer = 0.0
 
 var speed = 250.0
 var detection_range = 450.0
-var damage = 6
+var damage = 100
 
 
 func iniciar(owner_player, _direction: float, spell_duration: float) -> void:

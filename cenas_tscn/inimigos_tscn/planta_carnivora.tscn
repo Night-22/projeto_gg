@@ -43,7 +43,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc_corpo"]
-size = Vector2(10, 7)
+size = Vector2(12, 9)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pc_percepcao"]
 radius = 28.01785

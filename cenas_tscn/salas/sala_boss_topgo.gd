@@ -9,6 +9,8 @@ extends Node2D
 @onready var soundtrack: AudioStreamPlayer = $soundtrack
 
 
+const ID_CHEFE := "topgo"
+
 var luta_iniciada := false
 
 #var italo: Guimaraes 
@@ -24,6 +26,9 @@ func _ready() -> void:
 		boss.fase_um_concluida.connect(_on_fase_um_concluida)
 		boss.fase_dois_concluida.connect(_on_fase_dois_concluida)
 		boss.zona_fogo_escolhida.connect(_on_zona_fogo_escolhida)
+
+	if GerenciadorChefes.foi_derrotado(ID_CHEFE):
+		_configurar_sala_com_chefe_ja_morto()
 
 
 func _process(_delta: float) -> void:
@@ -56,10 +61,46 @@ func _on_gatilho_luta_body_entered(body: Node2D) -> void:
 func _on_chefe_derrotado() -> void:
 	nome_chefe.text = "TOPGO DERROTADO"
 
+	GerenciadorChefes.marcar_derrotado(ID_CHEFE)
+	_apagar_musica_chefe()
+	_abrir_passagem()
+
 	await get_tree().create_timer(4.0).timeout
 
 	if is_instance_valid(hud_chefe):
 		hud_chefe.visible = false
+
+
+func _configurar_sala_com_chefe_ja_morto() -> void:
+	if is_instance_valid(boss):
+		boss.dead = true
+		boss.visible = false
+		boss.set_physics_process(false)
+		boss.set_collision_layer_value(1, false)
+		boss.set_collision_mask_value(1, false)
+
+	if is_instance_valid(gatilho):
+		gatilho.monitoring = false
+
+	_abrir_passagem(true)
+
+
+func _apagar_musica_chefe() -> void:
+	if not is_instance_valid(soundtrack) or not soundtrack.playing:
+		return
+
+	var tween := create_tween()
+	tween.tween_property(soundtrack, "volume_db", -40.0, 2.0)
+	tween.tween_callback(soundtrack.stop)
+
+
+## instantaneo = true quando a sala já carrega com o chefe derrotado
+## (não precisa tocar animação, o estado já está "resolvido").
+func _abrir_passagem(instantaneo: bool = false) -> void:
+	var passagem := get_node_or_null("PassagemLateral")
+
+	if passagem and passagem.has_method("abrir"):
+		passagem.abrir(instantaneo)
 
 
 func _on_fase_um_concluida() -> void:
@@ -100,7 +141,7 @@ func _transformar_arena_fase_tres() -> void:
 	if not is_instance_valid(boss):
 		return
 
-	for parede in [$ParedeEsquerda, $ParedeDireita]:
+	for parede in [$ParedeEsquerda, $ParedeDireita, $PassagemLateral]:
 		if is_instance_valid(parede):
 			var tween := create_tween()
 			tween.tween_property(parede, "modulate", Color(1.0, 0.55, 0.45), 0.6)

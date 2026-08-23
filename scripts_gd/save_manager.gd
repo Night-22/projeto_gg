@@ -60,6 +60,8 @@ func salvar_jogo(slot: int, player) -> bool:
 
 	var dados: Dictionary = player.obter_dados_save()
 	dados["data_hora"] = Time.get_datetime_string_from_system()
+	dados["chefes_derrotados"] = GerenciadorChefes.obter_lista_derrotados()
+	dados["itens_coletados_mundo"] = GerenciadorItens.obter_lista_coletados()
 
 	var file = FileAccess.open(_caminho_slot(slot), FileAccess.WRITE)
 
@@ -87,6 +89,8 @@ func _dados_novo_jogo() -> Dictionary:
 		"itens": [],
 		"itens_vistos": [],
 		"medalhao_ativo": -1,
+		"chefes_derrotados": [],
+		"itens_coletados_mundo": [],
 		"data_hora": Time.get_datetime_string_from_system(),
 		"checkpoint_cena": CENA_INICIAL
 	}
@@ -129,6 +133,8 @@ func salvar_checkpoint(player) -> bool:
 
 	var dados: Dictionary = player.obter_dados_save()
 	dados["data_hora"] = Time.get_datetime_string_from_system()
+	dados["chefes_derrotados"] = GerenciadorChefes.obter_lista_derrotados()
+	dados["itens_coletados_mundo"] = GerenciadorItens.obter_lista_coletados()
 
 	var file = FileAccess.open(CHECKPOINT_PATH, FileAccess.WRITE)
 
@@ -178,6 +184,18 @@ func carregar_checkpoint() -> bool:
 
 
 func _aplicar_dados_carregados(dados: Dictionary) -> bool:
+	# Precisa acontecer ANTES da troca de cena: se a cena de destino for a sala
+	# de algum chefe, o _ready() dela já confere GerenciadorChefes.foi_derrotado()
+	# pra decidir se o chefe reaparece ou não. Se atualizássemos isso depois da
+	# troca de cena, a sala leria o estado antigo (de antes do checkpoint) e o
+	# chefe podia continuar marcado como morto por engano.
+	GerenciadorChefes.carregar_lista(dados.get("chefes_derrotados", []))
+
+	# mesmo motivo: se a sala de destino tiver um medalhão/amuleto, o
+	# item_coletavel.gd dela confere GerenciadorItens.foi_coletado() no
+	# _ready() pra decidir se ainda aparece no chão ou não.
+	GerenciadorItens.carregar_lista(dados.get("itens_coletados_mundo", []))
+
 	var cena_alvo: String = dados.get("checkpoint_cena", "")
 	var cena_atual = get_tree().current_scene
 

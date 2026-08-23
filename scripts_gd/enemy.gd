@@ -10,7 +10,7 @@ enum ElementoNativo {
 }
 
 
-@export var Life = 50
+@export var Life: int = 10
 @export var Speed = 60
 @export var JUMP_FORCE = -200
 @export var dir = -1
