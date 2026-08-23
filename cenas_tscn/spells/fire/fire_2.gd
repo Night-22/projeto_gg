@@ -13,7 +13,7 @@ var duration_timer: Timer
 
 @onready var hit_box: Area2D = $HitBox
 @onready var collision: CollisionShape2D = $HitBox/CollisionShape2D
-@onready var spell_sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 
 
 func _ready() -> void:
@@ -31,7 +31,7 @@ func _ready() -> void:
 	hit_box.body_entered.connect(_on_hit_box_body_entered)
 
 	collision.disabled = true
-	spell_sprite.visible = false
+	sprite.visible = false
 
 
 func use(owner_player) -> void:
@@ -51,7 +51,8 @@ func use(owner_player) -> void:
 	active = true
 
 	collision.disabled = false
-	spell_sprite.visible = true
+	sprite.visible = true
+	sprite.play("default")
 
 	duration_timer.start()
 	cooldown_timer.start()
@@ -74,14 +75,14 @@ func atualizar_direcao() -> void:
 		hit_box.position = Vector2(30, 0)
 		hit_box.scale.x = 1
 
-		spell_sprite.position = Vector2(30, 0)
-		spell_sprite.flip_h = false
+		sprite.position = Vector2(30, 0)
+		sprite.flip_h = false
 	else:
 		hit_box.position = Vector2(-30, 0)
 		hit_box.scale.x = -1
 
-		spell_sprite.position = Vector2(-30, 0)
-		spell_sprite.flip_h = true
+		sprite.position = Vector2(-30, 0)
+		sprite.flip_h = true
 
 
 func _on_hit_box_body_entered(body: Node2D) -> void:
@@ -110,7 +111,7 @@ func _on_duration_timeout() -> void:
 func finalizar_magia() -> void:
 	active = false
 	collision.disabled = true
-	spell_sprite.visible = false
+	sprite.visible = false
 	player = null
 
 

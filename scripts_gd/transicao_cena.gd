@@ -13,7 +13,8 @@ enum Zona {
 	SALA_MEDALHAO_RAIO,
 	SALA_MEDALHAO_PLANTA,
 	CENA_FINAL,
-	ZONA_FOGO
+	ZONA_FOGO,
+	SALA_PORTA_ELEMENTAL
 }
 
 
@@ -56,7 +57,10 @@ var zonas = {
 		"res://cenas_tscn/salas/cena_final.tscn",
 		
 	Zona.ZONA_FOGO:
-		"res://zona_fogo.tscn"
+		"res://zona_fogo.tscn",
+
+	Zona.SALA_PORTA_ELEMENTAL:
+		"res://cenas_tscn/salas/sala_porta_elemental.tscn"
 }
 
 

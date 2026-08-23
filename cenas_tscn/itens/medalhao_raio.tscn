@@ -1,7 +1,43 @@
 [gd_scene format=3 uid="uid://cxls3qhetw16b"]
 
 [ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bxfo55p5jdo0y" path="res://assets/medalhoes.png" id="2_6o85y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1cgm"]
+atlas = ExtResource("2_6o85y")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir5ha"]
+atlas = ExtResource("2_6o85y")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etomk"]
+atlas = ExtResource("2_6o85y")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfn8e"]
+atlas = ExtResource("2_6o85y")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1cgm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir5ha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etomk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfn8e")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 1.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.027756
@@ -16,8 +52,10 @@ descricao_desbloqueio = "Um medalhão que parece gritar com a fúria de uma temp
 Equipe-o para imbuir seu dash com o poder do raio.
 Use o menu de itens para trocar o elemento equipado."
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=289822612]
-texture = ExtResource("2")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1924901016]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame_progress = 0.41400093
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1162209722]
 shape = SubResource("CircleShape2D_1")

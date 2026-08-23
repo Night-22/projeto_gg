@@ -1,7 +1,43 @@
 [gd_scene format=3 uid="uid://bo22gqbk27xf1"]
 
 [ext_resource type="Script" uid="uid://tl8a1k1m581m" path="res://cenas_tscn/spells/fire/fire_3_ground.gd" id="1_r8nko"]
-[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2_5el36"]
+[ext_resource type="Texture2D" uid="uid://bar860wfljhum" path="res://assets/magia_fogo3.png" id="2_r8nko"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8nko"]
+atlas = ExtResource("2_r8nko")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5el36"]
+atlas = ExtResource("2_r8nko")
+region = Rect2(48, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbur5"]
+atlas = ExtResource("2_r8nko")
+region = Rect2(96, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c5th"]
+atlas = ExtResource("2_r8nko")
+region = Rect2(144, 0, 48, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8nko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5el36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbur5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c5th")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i5iox"]
 size = Vector2(109, 26)
@@ -10,10 +46,11 @@ size = Vector2(109, 26)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_r8nko")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=410096036]
-position = Vector2(1.0000019, -3)
-scale = Vector2(3.3124995, 0.6875)
-texture = ExtResource("2_5el36")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1416405609]
+position = Vector2(1.0000019, -8.75)
+scale = Vector2(3.3124995, 1.40625)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame_progress = 0.40964854
 
 [node name="Area2D" type="Area2D" parent="." unique_id=947265789]
 

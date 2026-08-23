@@ -14,13 +14,13 @@ var player = null
 var altura_flutuacao := 10
 var duracao_flutuacao := 0.9
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	iniciar_flutuacao()
-
+	sprite.play("default")
 
 func iniciar_flutuacao() -> void:
 	var y_base = sprite.position.y

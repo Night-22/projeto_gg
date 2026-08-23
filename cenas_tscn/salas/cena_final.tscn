@@ -56,6 +56,7 @@ scale = Vector2(8.4, 6)
 
 [node name="PainelFinal" type="CanvasLayer" parent="." unique_id=604422997]
 layer = 10
+visible = false
 
 [node name="Fundo" type="ColorRect" parent="PainelFinal" unique_id=1636223272]
 anchors_preset = 15

@@ -1,7 +1,43 @@
 [gd_scene format=3 uid="uid://buom658k7oy5"]
 
 [ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://7qnngd0w0jdi" path="res://placeholder/agua.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bxfo55p5jdo0y" path="res://assets/medalhoes.png" id="2_mjpp7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouspj"]
+atlas = ExtResource("2_mjpp7")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uwux"]
+atlas = ExtResource("2_mjpp7")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnqps"]
+atlas = ExtResource("2_mjpp7")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5152s"]
+atlas = ExtResource("2_mjpp7")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouspj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2uwux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnqps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5152s")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 1.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.027756
@@ -16,8 +52,10 @@ descricao_desbloqueio = "Um medalhão que pulsa com a calma das correntes profun
 Equipe-o para imbuir seu dash com o poder da água.
 Use o menu de itens para trocar o elemento equipado."
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=637727780]
-texture = ExtResource("2")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1351598097]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame_progress = 0.78555495
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=139478263]
 shape = SubResource("CircleShape2D_1")

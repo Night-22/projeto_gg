@@ -1,7 +1,18 @@
 [gd_scene format=3 uid="uid://tjtuqarprd0e"]
 
 [ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2"]
+[ext_resource type="Texture2D" uid="uid://s7fnxjk246mu" path="res://assets/mana.png" id="2_sxo4h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sxo4h")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.027756
@@ -11,15 +22,15 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1")
 item_id = "amuleto_mana"
 item_nome = "Amuleto de mana"
-item_icone_path = "res://placeholder/goat_do_mal.jpg"
+item_icone_path = "res://assets/mana.png"
 descricao_desbloqueio = "Um amuleto que ressoa com energia arcana latente.
 Aumenta sua mana máxima e a recuperação de mana por ataque.
 Você pode carregar até 5 amuletos de mana ao mesmo tempo."
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=776120360]
-position = Vector2(-0.022019506, 5.9604645e-07)
-scale = Vector2(0.044036694, 0.048109964)
-texture = ExtResource("2")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=184875914]
+position = Vector2(-1, -1.000001)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1909747816]
 shape = SubResource("CircleShape2D_1")

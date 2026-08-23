@@ -245,7 +245,7 @@ var spell_scenes = {
 var equipped_spells = [
 	Spell.WATER_4,
 	Spell.FIRE_4,
-	Spell.LIGHTNING_4,
+	Spell.FIRE_4,
 	Spell.PLANT_3
 ]
 

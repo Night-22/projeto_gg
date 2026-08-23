@@ -1,7 +1,43 @@
 [gd_scene format=3 uid="uid://did1udcxwgdm8"]
 
 [ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bl8yxg4t41iow" path="res://placeholder/planta.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bxfo55p5jdo0y" path="res://assets/medalhoes.png" id="2_bp2u0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4u8sl"]
+atlas = ExtResource("2_bp2u0")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5r384"]
+atlas = ExtResource("2_bp2u0")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pd1rr"]
+atlas = ExtResource("2_bp2u0")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvxx4"]
+atlas = ExtResource("2_bp2u0")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4u8sl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5r384")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pd1rr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvxx4")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 1.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.027756
@@ -16,8 +52,11 @@ descricao_desbloqueio = "Um medalhão envolto em raízes que nunca secam.
 Equipe-o para imbuir seu dash com o poder da planta.
 Use o menu de itens para trocar o elemento equipado."
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=163809953]
-texture = ExtResource("2")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=330203230]
+position = Vector2(2.3841858e-07, -2.3841858e-07)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame_progress = 0.71839297
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1890597137]
 shape = SubResource("CircleShape2D_1")

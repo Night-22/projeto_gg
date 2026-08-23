@@ -12,7 +12,8 @@ var player = null
 var active = false
 
 @onready var area: Area2D = $Area2D
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite2D
+
 
 
 func _ready() -> void:
@@ -28,6 +29,7 @@ func _ready() -> void:
 
 	area.monitoring = false
 	sprite.visible = false
+	
 
 	duration_timer.timeout.connect(_on_duration_timeout)
 	area.body_entered.connect(_on_area_body_entered)
@@ -50,6 +52,7 @@ func use(caster) -> void:
 	active = true
 	area.monitoring = true
 	sprite.visible = true
+	sprite.play("default")
 
 	cooldown_timer.start()
 	duration_timer.start()

@@ -5,7 +5,7 @@ extends Node2D
 @onready var fundo: ColorRect = $PainelFinal/Fundo
 @onready var botao_menu: Button = $PainelFinal/Fundo/VBoxContainer/BotaoMenu
 
-const TEMPO_ESPERA := 1.2
+const TEMPO_ESPERA := 0.0
 const TEMPO_FADE := 0.5
 
 

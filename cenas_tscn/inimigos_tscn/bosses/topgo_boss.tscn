@@ -133,14 +133,12 @@ frame = 9
 frame_progress = 1.0
 
 [node name="NucleoPlanta" type="Sprite2D" parent="." unique_id=2017957064]
-visible = false
 modulate = Color(0.55, 1, 0.55, 1)
 position = Vector2(-16, -20)
 scale = Vector2(0.12, 0.12)
 texture = ExtResource("3_planta")
 
 [node name="NucleoRaio" type="Sprite2D" parent="." unique_id=773026059]
-visible = false
 modulate = Color(1, 0.95, 0.5, 1)
 position = Vector2(16, -20)
 scale = Vector2(0.12, 0.12)

@@ -1,7 +1,29 @@
 [gd_scene format=3 uid="uid://d7tgk7bxr2ig"]
 
 [ext_resource type="Script" uid="uid://1dppbd2ulcfb" path="res://cenas_tscn/spells/fire/fire_4_projectile.gd" id="1_3ko2i"]
-[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2_yb5kf"]
+[ext_resource type="Texture2D" uid="uid://d11nrpntgoeqo" path="res://assets/magia_fogo4.png" id="2_yb5kf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7k2yn"]
+atlas = ExtResource("2_yb5kf")
+region = Rect2(0, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yd20"]
+atlas = ExtResource("2_yb5kf")
+region = Rect2(16, 0, 16, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7k2yn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yd20")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 18.0
@@ -13,10 +35,11 @@ radius = 32.01562
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_3ko2i")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=387903168]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=25982388]
 position = Vector2(-9.536743e-07, 1.9073486e-06)
 scale = Vector2(1.375, 1.25)
-texture = ExtResource("2_yb5kf")
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame_progress = 0.84894097
 
 [node name="Area2D" type="Area2D" parent="." unique_id=523187007]
 

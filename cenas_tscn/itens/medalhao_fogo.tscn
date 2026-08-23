@@ -1,7 +1,43 @@
 [gd_scene format=3 uid="uid://byvbs2nx8chrd"]
 
 [ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bxfo55p5jdo0y" path="res://assets/medalhoes.png" id="2_ow3wl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kjlp"]
+atlas = ExtResource("2_ow3wl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vwpj"]
+atlas = ExtResource("2_ow3wl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1uhg"]
+atlas = ExtResource("2_ow3wl")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb1ii"]
+atlas = ExtResource("2_ow3wl")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kjlp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vwpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1uhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb1ii")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 1.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.027756
@@ -16,8 +52,11 @@ descricao_desbloqueio = "Um medalhão que guarda o calor de chamas antigas.
 Equipe-o para imbuir seu dash com o poder do fogo.
 Use o menu de itens para trocar o elemento equipado."
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=765218408]
-texture = ExtResource("2")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1702694854]
+position = Vector2(2.3841858e-07, -2.3841858e-07)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame_progress = 0.47939116
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1822437767]
 shape = SubResource("CircleShape2D_1")

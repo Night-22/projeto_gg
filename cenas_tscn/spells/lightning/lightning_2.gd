@@ -11,7 +11,7 @@ var cooldown_remaining = 0.0
 var locked_position := Vector2.ZERO
 
 @onready var duration_timer: Timer = $DurationTimer
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 @onready var lightning_area: Area2D = $LightningArea
 
 
@@ -53,7 +53,8 @@ func use(owner_player) -> void:
 
 	sprite.visible = true
 	lightning_area.monitoring = true
-
+	sprite.play("default")
+	
 	duration_timer.start(duration)
 
 

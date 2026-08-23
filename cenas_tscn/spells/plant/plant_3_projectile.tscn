@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3w0icqfr003l"]
 
 [ext_resource type="Script" uid="uid://cl5fyavgfeknv" path="res://cenas_tscn/spells/plant/plant_3_projectile.gd" id="1_8gnqf"]
-[ext_resource type="Texture2D" uid="uid://biau3j3v2umoy" path="res://placeholder/planta.png" id="2_ixec8"]
+[ext_resource type="Texture2D" uid="uid://dvomc81uhyi1w" path="res://assets/planta_ataque3.png" id="2_8gnqf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 15.0
@@ -11,9 +11,9 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_8gnqf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=869830801]
-position = Vector2(6.556511e-07, 3.5762787e-07)
-scale = Vector2(0.10924369, 0.09285714)
-texture = ExtResource("2_ixec8")
+position = Vector2(0, 0.42105255)
+scale = Vector2(1.2499999, 1.1578946)
+texture = ExtResource("2_8gnqf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=174152834]
 shape = SubResource("CircleShape2D_g4v7s")

@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://3tf1hey3pyul"]
 
 [ext_resource type="Script" uid="uid://ceqilcsfnr0bs" path="res://cenas_tscn/spells/water/water_drop.gd" id="1_rf00g"]
-[ext_resource type="Texture2D" uid="uid://ck8lmcrqidd5h" path="res://placeholder/agua.png" id="2_8iwqm"]
+[ext_resource type="Texture2D" uid="uid://chgwwo6ahoj38" path="res://assets/magia_agua3.png" id="2_rf00g"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 19.026299
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(34, 14)
 
 [node name="WaterDrop" type="Area2D" unique_id=1372594357]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_rf00g")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1945603445]
-position = Vector2(-0.5, -2.000002)
-scale = Vector2(0.11842105, 0.11814345)
-texture = ExtResource("2_8iwqm")
+position = Vector2(-1.1629052, -2.555112)
+scale = Vector2(2.9674191, 3.4448886)
+texture = ExtResource("2_rf00g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1003048387]
-position = Vector2(0, -2)
-shape = SubResource("CircleShape2D_g4v7s")
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_yf5fn")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -3,7 +3,7 @@ extends Node2D
 var duration = 3.0
 var damage = 5
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 @onready var duration_timer: Timer = $DurationTimer
 @onready var area: Area2D = $Area2D
 
@@ -12,7 +12,7 @@ func iniciar(tempo: float) -> void:
 	duration = tempo
 	duration_timer.start(duration)
 	sprite.visible = true
-
+	sprite.play("default")
 
 func _ready() -> void:
 	area.body_entered.connect(_on_area_2d_body_entered)

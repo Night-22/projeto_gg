@@ -4,6 +4,7 @@ var player = null
 var direction := Vector2.ZERO
 var speed := 700.0
 var damage := 50
+@onready var sprite: AnimatedSprite2D = $Sprite2D
 
 
 func setup(owner_player, shot_direction: Vector2) -> void:
@@ -13,7 +14,7 @@ func setup(owner_player, shot_direction: Vector2) -> void:
 
 func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
-
+	sprite.play("default")
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):

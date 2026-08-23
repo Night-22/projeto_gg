@@ -1,7 +1,57 @@
 [gd_scene format=3 uid="uid://c1noossytufch"]
 
 [ext_resource type="Script" uid="uid://bq4ekjum06wp2" path="res://cenas_tscn/spells/water/water_ball.gd" id="1_i7r27"]
-[ext_resource type="Texture2D" uid="uid://7qnngd0w0jdi" path="res://placeholder/agua.png" id="2_j38cq"]
+[ext_resource type="Texture2D" uid="uid://dhgjbglbkm3tg" path="res://assets/magia_agua4.png" id="2_i7r27"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j38cq"]
+atlas = ExtResource("2_i7r27")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iu8sr"]
+atlas = ExtResource("2_i7r27")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxos0"]
+atlas = ExtResource("2_i7r27")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uxxe"]
+atlas = ExtResource("2_i7r27")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7atbe"]
+atlas = ExtResource("2_i7r27")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_im0cn"]
+atlas = ExtResource("2_i7r27")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j38cq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iu8sr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxos0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4uxxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7atbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_im0cn")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 18.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 18.110771
@@ -10,10 +60,12 @@ radius = 18.110771
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_i7r27")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=35979745]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=2107955093]
 position = Vector2(1.0000019, 4.7683716e-07)
 scale = Vector2(1.3124999, 1.25)
-texture = ExtResource("2_j38cq")
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame = 5
+frame_progress = 0.1563852
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=205076827]
 shape = SubResource("CircleShape2D_g4v7s")

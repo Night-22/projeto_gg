@@ -1,7 +1,18 @@
 [gd_scene format=3 uid="uid://66dvw0m1iao7"]
 
 [ext_resource type="Script" uid="uid://b06y7yw8mby6" path="res://cenas_tscn/itens/item_coletavel.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://cdh82hsiqsdqk" path="res://placeholder/goat_do_mal.jpg" id="2"]
+[ext_resource type="Texture2D" uid="uid://ckaakt5xdc0mx" path="res://assets/vida.png" id="2_w867j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_w867j")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1"]
 radius = 18.027756
@@ -11,15 +22,15 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1")
 item_id = "amuleto_vida"
 item_nome = "Amuleto de vida"
-item_icone_path = "res://placeholder/goat_do_mal.jpg"
+item_icone_path = "res://assets/vida.png"
 descricao_desbloqueio = "Um amuleto que pulsa como um suspiro de vida.
 Aumenta sua vida máxima e a sua cura.
 Você pode carregar até 5 amuletos de vida ao mesmo tempo."
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=586432380]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=746671368]
 position = Vector2(-0.025687337, 0)
-scale = Vector2(0.051376145, 0.05498282)
-texture = ExtResource("2")
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1624350694]
 shape = SubResource("CircleShape2D_1")

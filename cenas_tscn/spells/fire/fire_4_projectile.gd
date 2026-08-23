@@ -9,6 +9,7 @@ var damage = 10
 var explosion_damage = 12
 
 var exploded = false
+@onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 
 
 func iniciar(owner_player, initial_velocity: Vector2) -> void:
@@ -23,6 +24,7 @@ func _physics_process(delta: float) -> void:
 	if exploded:
 		return
 
+	sprite_2d.play("default")
 	velocity.y += gravity * delta
 
 	position += velocity * delta

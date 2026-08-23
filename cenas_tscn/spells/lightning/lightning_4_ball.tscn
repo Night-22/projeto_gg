@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cww6gnplrgwqb"]
 
 [ext_resource type="Script" uid="uid://dh2ocrftb5i3y" path="res://cenas_tscn/spells/lightning/lightning_4_ball.gd" id="1_a01t1"]
-[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="2_0326w"]
+[ext_resource type="Texture2D" uid="uid://fvq3xgb2gwmg" path="res://assets/magia_raio4.png" id="2_a01t1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 28.0
+radius = 22.0
 
 [node name="Lightning4Ball" type="Area2D" unique_id=1664520629]
 scale = Vector2(0.5, 0.5)
@@ -12,8 +12,8 @@ script = ExtResource("1_a01t1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1886420719]
 position = Vector2(-1.1920929e-06, 1.9073486e-06)
-scale = Vector2(1.25, 1.25)
-texture = ExtResource("2_0326w")
+scale = Vector2(4.8002143, 4.656195)
+texture = ExtResource("2_a01t1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=101554752]
 shape = SubResource("CircleShape2D_g4v7s")

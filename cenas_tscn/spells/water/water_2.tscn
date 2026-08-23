@@ -1,10 +1,46 @@
 [gd_scene format=3 uid="uid://dqscfa2oxfdme"]
 
 [ext_resource type="Script" uid="uid://lawiumpymxyr" path="res://cenas_tscn/spells/water/water_2.gd" id="1_erto3"]
-[ext_resource type="Texture2D" uid="uid://ck8lmcrqidd5h" path="res://placeholder/agua.png" id="2_rnaoq"]
+[ext_resource type="Texture2D" uid="uid://dqnhcdm88tryx" path="res://assets/magia_agua2.png" id="2_rnaoq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
 radius = 50.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnaoq"]
+atlas = ExtResource("2_rnaoq")
+region = Rect2(0, 0, 41, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8jbb"]
+atlas = ExtResource("2_rnaoq")
+region = Rect2(41, 0, 41, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1k38"]
+atlas = ExtResource("2_rnaoq")
+region = Rect2(82, 0, 41, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8u11"]
+atlas = ExtResource("2_rnaoq")
+region = Rect2(123, 0, 41, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rnaoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8jbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1k38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8u11")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="Water2" type="Node2D" unique_id=1468875115]
 scale = Vector2(0.5, 0.5)
@@ -15,7 +51,9 @@ script = ExtResource("1_erto3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1939693114]
 shape = SubResource("CircleShape2D_g4v7s")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1421704337]
-position = Vector2(2.000001, -2)
-scale = Vector2(0.35964912, 0.37130803)
-texture = ExtResource("2_rnaoq")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1147846280]
+position = Vector2(6, -2.000001)
+rotation = 1.5757583
+scale = Vector2(4.083333, 7.3136563)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame_progress = 0.3087355
