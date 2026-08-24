@@ -1,20 +1,42 @@
 [gd_scene format=3 uid="uid://um5us0mapds5"]
 
 [ext_resource type="Script" uid="uid://b5aawqaiy71pq" path="res://scripts_gd/ataque_fogo.gd" id="1_kjnv6"]
-[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2_w8qqb"]
+[ext_resource type="Texture2D" uid="uid://d11nrpntgoeqo" path="res://assets/magia_fogo4.png" id="2_3na6m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwn87"]
+atlas = ExtResource("2_3na6m")
+region = Rect2(0, 0, 16, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0dmb"]
+atlas = ExtResource("2_3na6m")
+region = Rect2(16, 0, 16, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_72rak"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwn87")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0dmb")
+}],
+"loop": 1,
+"name": &"sla",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
-size = Vector2(17, 16)
+size = Vector2(6, 12)
 
 [node name="ataque_fogo" type="Area2D" unique_id=1309946704]
 script = ExtResource("1_kjnv6")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=380425858]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_w8qqb")
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=677612728]
+sprite_frames = SubResource("SpriteFrames_72rak")
+animation = &"sla"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=918055759]
-position = Vector2(-0.5, 0)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_yf5fn")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,20 +1,48 @@
 [gd_scene format=3 uid="uid://dkav088li386c"]
 
 [ext_resource type="Script" uid="uid://cpwdou77oundv" path="res://scripts_gd/ataque_planta.gd" id="1_xu0qe"]
-[ext_resource type="Texture2D" uid="uid://bl8yxg4t41iow" path="res://placeholder/planta.png" id="2_rl22i"]
+[ext_resource type="Texture2D" uid="uid://dvomc81uhyi1w" path="res://assets/planta_ataque3.png" id="2_xu0qe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl22i"]
+atlas = ExtResource("2_xu0qe")
+region = Rect2(0, 0, 16, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajho7"]
+atlas = ExtResource("2_xu0qe")
+region = Rect2(0, 6, 16, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fb5qi"]
+atlas = ExtResource("2_xu0qe")
+region = Rect2(0, 12, 16, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gw5p6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl22i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajho7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fb5qi")
+}],
+"loop": 1,
+"name": &"sla",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(16, 17)
+size = Vector2(14, 4)
 
 [node name="ataque_planta" type="Area2D" unique_id=513216134]
 script = ExtResource("1_xu0qe")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1400902501]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_rl22i")
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=531305855]
+sprite_frames = SubResource("SpriteFrames_gw5p6")
+animation = &"sla"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=51048304]
-position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_g4v7s")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
