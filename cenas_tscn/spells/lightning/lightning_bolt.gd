@@ -4,7 +4,7 @@ var player = null
 var direction := Vector2.ZERO
 
 var speed := 1200.0
-var damage := 8
+var damage := 10
 
 
 func setup(owner_player, shot_direction: Vector2) -> void:

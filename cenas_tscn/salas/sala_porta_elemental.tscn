@@ -14,10 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="12_iconraio"]
 [ext_resource type="Texture2D" uid="uid://bl8yxg4t41iow" path="res://placeholder/planta.png" id="13_iconplanta"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="14_geninv"]
-[ext_resource type="PackedScene" uid="uid://buom658k7oy5" path="res://cenas_tscn/itens/medalhao_agua.tscn" id="15_at1cn"]
-[ext_resource type="PackedScene" uid="uid://byvbs2nx8chrd" path="res://cenas_tscn/itens/medalhao_fogo.tscn" id="16_6hffe"]
-[ext_resource type="PackedScene" uid="uid://cxls3qhetw16b" path="res://cenas_tscn/itens/medalhao_raio.tscn" id="17_7270b"]
-[ext_resource type="PackedScene" uid="uid://did1udcxwgdm8" path="res://cenas_tscn/itens/medalhao_planta.tscn" id="18_0qkva"]
 [ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="19_6hffe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1wajj"]
@@ -436,21 +432,6 @@ position = Vector2(346, 3)
 position = Vector2(-163.24359, 16.499823)
 rotation = 1.5707432
 shape = SubResource("RectangleShape2D_kqyvr")
-
-[node name="MedalhaoAgua" parent="." unique_id=1599843702 instance=ExtResource("15_at1cn")]
-position = Vector2(-95, 105)
-
-[node name="MedalhaoFogo" parent="." unique_id=1107021835 instance=ExtResource("16_6hffe")]
-position = Vector2(-61, 114)
-scale = Vector2(0.25, 0.25)
-
-[node name="MedalhaoRaio" parent="." unique_id=493520083 instance=ExtResource("17_7270b")]
-position = Vector2(-72, 84)
-scale = Vector2(0.125, 0.125)
-
-[node name="MedalhaoPlanta" parent="." unique_id=1188654507 instance=ExtResource("18_0qkva")]
-position = Vector2(-42, 99)
-scale = Vector2(0.0625, 0.0625)
 
 [node name="transicao" type="Node2D" parent="." unique_id=1512231452]
 position = Vector2(200, 131)

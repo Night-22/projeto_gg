@@ -28,6 +28,10 @@
 [ext_resource type="Script" uid="uid://bs8ulsuv2ncbd" path="res://scripts_gd/water.gd" id="24_2hjbo"]
 [ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="26_dkhx7"]
 [ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="27_pyhdu"]
+[ext_resource type="PackedScene" uid="uid://tjtuqarprd0e" path="res://cenas_tscn/itens/amuleto_mana.tscn" id="29_hkdyl"]
+[ext_resource type="PackedScene" uid="uid://dcpx06mt1eb8t" path="res://cenas_tscn/itens/amuleto_dano.tscn" id="30_5o6it"]
+[ext_resource type="PackedScene" uid="uid://bpph17ubtqfoc" path="res://cenas_tscn/inimigos_tscn/electric_eagle.tscn" id="31_fm4vl"]
+[ext_resource type="PackedScene" uid="uid://dkyfji4im2qkl" path="res://cenas_tscn/inimigos_tscn/slime_raio.tscn" id="32_0u235"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h8dry"]
 texture = ExtResource("11_u3luq")
@@ -757,11 +761,11 @@ position = Vector2(40, -271)
 scale = Vector2(0.34801432, 0.47593477)
 
 [node name="Bancada" parent="." unique_id=139153692 instance=ExtResource("5_pyhdu")]
-position = Vector2(10, -90)
+position = Vector2(13, -78)
 scale = Vector2(0.672671, 0.58093554)
 
 [node name="Bancada2" parent="." unique_id=4490240 instance=ExtResource("5_pyhdu")]
-position = Vector2(16, -208)
+position = Vector2(-445, -573)
 scale = Vector2(0.672671, 0.58093554)
 
 [node name="Bancada3" parent="." unique_id=1078422988 instance=ExtResource("5_pyhdu")]
@@ -910,22 +914,10 @@ rotation = 1.5707964
 progress = 59.508923
 voltar_por_tp = true
 
-[node name="laser_caminho2" parent="LaserPath" unique_id=361738025 instance=ExtResource("9_521ij")]
-position = Vector2(109.98218, 10)
-rotation = 1.5707964
-progress = 119.017845
-voltar_por_tp = true
-
 [node name="laser_caminho3" parent="LaserPath" unique_id=146043832 instance=ExtResource("9_521ij")]
 position = Vector2(169.49109, 10)
 rotation = 1.5707964
 progress = 178.52676
-voltar_por_tp = true
-
-[node name="laser_caminho4" parent="LaserPath" unique_id=122437411 instance=ExtResource("9_521ij")]
-position = Vector2(229.00002, 10)
-rotation = 1.5707964
-progress = 238.03569
 voltar_por_tp = true
 
 [node name="laser_caminho5" parent="LaserPath" unique_id=967856256 instance=ExtResource("9_521ij")]
@@ -934,22 +926,10 @@ rotation = 1.5707964
 progress = 297.54462
 voltar_por_tp = true
 
-[node name="laser_caminho6" parent="LaserPath" unique_id=649748159 instance=ExtResource("9_521ij")]
-position = Vector2(348.01785, 10)
-rotation = 1.5707964
-progress = 357.05353
-voltar_por_tp = true
-
 [node name="laser_caminho7" parent="LaserPath" unique_id=523296697 instance=ExtResource("9_521ij")]
 position = Vector2(407.5268, 10)
 rotation = 1.5707964
 progress = 416.56247
-voltar_por_tp = true
-
-[node name="laser_caminho8" parent="LaserPath" unique_id=1922147968 instance=ExtResource("9_521ij")]
-position = Vector2(452, -4)
-rotation = 1.5707964
-progress = 476.07138
 voltar_por_tp = true
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_n80gs")]
@@ -1422,6 +1402,26 @@ position = Vector2(113, -564)
 
 [node name="entrada_neutra_1" type="Marker2D" parent="." unique_id=581495336]
 position = Vector2(171, -74)
+
+[node name="AmuletoMana" parent="." unique_id=1783851345 instance=ExtResource("29_hkdyl")]
+position = Vector2(72, -585)
+
+[node name="AmuletoDano" parent="." unique_id=1127651677 instance=ExtResource("30_5o6it")]
+position = Vector2(-494, -114)
+
+[node name="inimigos" type="Node2D" parent="." unique_id=98944322]
+
+[node name="Electric_eagle" parent="inimigos" unique_id=1002422070 instance=ExtResource("31_fm4vl")]
+position = Vector2(-125, -105)
+
+[node name="slime_raio" parent="inimigos" unique_id=998757178 instance=ExtResource("32_0u235")]
+position = Vector2(-563, -351)
+
+[node name="Electric_eagle2" parent="inimigos" unique_id=45674876 instance=ExtResource("31_fm4vl")]
+position = Vector2(-533, -624)
+
+[node name="slime_raio2" parent="inimigos" unique_id=1260129075 instance=ExtResource("32_0u235")]
+position = Vector2(-46, -318)
 
 [connection signal="timeout" from="LaserPath2/laser_caminho/Timer" to="LaserPath2/laser_caminho" method="_on_timer_timeout"]
 [connection signal="timeout" from="LaserPath2/laser_caminho5/Timer" to="LaserPath2/laser_caminho5" method="_on_timer_timeout"]

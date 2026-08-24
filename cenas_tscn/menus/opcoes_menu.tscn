@@ -1,6 +1,42 @@
-[gd_scene format=3 uid="uid://itdyd0p64ba"]
+[gd_scene load_steps=11 format=3 uid="uid://itdyd0p64ba"]
 
 [ext_resource type="Script" uid="uid://cp3ykqm52yyya" path="res://cenas_tscn/menus/opcoes_menu.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://ciiq4k0smyhcj" path="res://assets/menus/bola_do_som.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://ck80m0fy2txla" path="res://assets/menus/som_parte_Debaixo.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dn5g5bhskgdrr" path="res://assets/menus/botoes_menu1.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bwlgk4usxyhdt" path="res://assets/menus/botoes_menu2.png" id="5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider_bg"]
+texture = ExtResource("3")
+texture_margin_left = 8.0
+texture_margin_top = 2.0
+texture_margin_right = 8.0
+texture_margin_bottom = 2.0
+modulate_color = Color(0.32, 0.28, 0.4, 0.9)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slider_fill"]
+texture = ExtResource("3")
+texture_margin_left = 8.0
+texture_margin_top = 2.0
+texture_margin_right = 8.0
+texture_margin_bottom = 2.0
+modulate_color = Color(0.62, 0.51, 0.86, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_voltar_normal"]
+texture = ExtResource("4")
+texture_margin_left = 10.0
+texture_margin_top = 8.0
+texture_margin_right = 10.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_voltar_hover"]
+texture = ExtResource("5")
+texture_margin_left = 10.0
+texture_margin_top = 8.0
+texture_margin_right = 10.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
 
 [node name="OpcoesMenu" type="CanvasLayer" unique_id=1707653890]
 layer = 2
@@ -13,7 +49,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.9)
+color = Color(0.05, 0.03, 0.09, 0.88)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Fundo" unique_id=2044610187]
 layout_mode = 1
@@ -39,8 +75,13 @@ theme_override_font_sizes/font_size = 7
 text = "Volume Geral"
 
 [node name="SliderMaster" type="HSlider" parent="Fundo/VBoxContainer" unique_id=1041074774]
-custom_minimum_size = Vector2(150, 10)
+custom_minimum_size = Vector2(140, 16)
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("2")
+theme_override_icons/grabber_highlight = ExtResource("2")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_slider_fill")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_slider_fill")
 max_value = 1.0
 step = 0.01
 value = 1.0
@@ -51,8 +92,13 @@ theme_override_font_sizes/font_size = 7
 text = "Música"
 
 [node name="SliderMusica" type="HSlider" parent="Fundo/VBoxContainer" unique_id=1949965424]
-custom_minimum_size = Vector2(150, 10)
+custom_minimum_size = Vector2(140, 16)
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("2")
+theme_override_icons/grabber_highlight = ExtResource("2")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_slider_fill")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_slider_fill")
 max_value = 1.0
 step = 0.01
 value = 1.0
@@ -63,8 +109,13 @@ theme_override_font_sizes/font_size = 7
 text = "Efeitos Sonoros"
 
 [node name="SliderSfx" type="HSlider" parent="Fundo/VBoxContainer" unique_id=920378097]
-custom_minimum_size = Vector2(150, 10)
+custom_minimum_size = Vector2(140, 16)
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("2")
+theme_override_icons/grabber_highlight = ExtResource("2")
+theme_override_styles/slider = SubResource("StyleBoxTexture_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_slider_fill")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_slider_fill")
 max_value = 1.0
 step = 0.01
 value = 1.0
@@ -75,7 +126,12 @@ theme_override_font_sizes/font_size = 7
 text = "Mudo"
 
 [node name="BotaoVoltar" type="Button" parent="Fundo/VBoxContainer" unique_id=577948884]
-custom_minimum_size = Vector2(150, 14)
+custom_minimum_size = Vector2(120, 20)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.15, 0.13, 0.2, 1)
 theme_override_font_sizes/font_size = 8
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_voltar_normal")
+theme_override_styles/hover = SubResource("StyleBoxTexture_voltar_hover")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_voltar_hover")
 text = "Voltar"

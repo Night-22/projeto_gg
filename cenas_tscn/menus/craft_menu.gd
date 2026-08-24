@@ -38,6 +38,23 @@ var elemento_texturas = {
 	3: preload("res://placeholder/planta.png")
 }
 
+
+var elemento_botao_normal = {
+	0: preload("res://assets/menus/botao_fogo1.png"),
+	1: preload("res://assets/menus/botao_agua1.png"),
+	2: preload("res://assets/menus/botao_raio1.png"),
+	3: preload("res://assets/menus/botao_planta1.png")
+}
+
+var elemento_botao_hover = {
+	0: preload("res://assets/menus/botao_fogo_hover.png"),
+	1: preload("res://assets/menus/botao_agua_hover.png"),
+	2: preload("res://assets/menus/botao_raio_hover.png"),
+	3: preload("res://assets/menus/botao_planta2.png")
+}
+
+var textura_botao_craftar = preload("res://assets/menus/botao_craftar_magia.png")
+
 @onready var almas_agua_label: Label = $AlmasContainer/Agua/Quantidade
 @onready var almas_fogo_label: Label = $AlmasContainer/Fogo/Quantidade
 @onready var almas_raio_label: Label = $AlmasContainer/Raio/Quantidade
@@ -49,7 +66,7 @@ var elemento_texturas = {
 @onready var nome_label: Label = $PainelDetalhes/Conteúdo/Nome
 @onready var custo_label: Label = $PainelDetalhes/Conteúdo/Custo
 @onready var quantidade_label: Label = $PainelDetalhes/Conteúdo/Quantidade
-@onready var botao_craftar: Button = $"PainelDetalhes/Conteúdo/BotaoCraftar"
+@onready var botao_craftar: Button = $"PainelDetalhes/BotaoCraftar"
 @onready var fonte = preload("uid://bxls3mwagmlq3")
 
 
@@ -60,6 +77,8 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
 
 	visible = false
+
+	aplicar_estilo_botao_craftar()
 
 	criar_grid_magias()
 	atualizar_almas()
@@ -150,7 +169,8 @@ func criar_grid_magias() -> void:
 		var button := Button.new()
 
 		button.text = get_spell_name(spell_id)
-		button.custom_minimum_size = Vector2(140, 50)
+		button.custom_minimum_size = Vector2(71, 14)
+		button.add_theme_font_size_override("font_size", 7)
 		button.focus_mode = Control.FOCUS_ALL
 
 		button.pressed.connect(
@@ -158,7 +178,61 @@ func criar_grid_magias() -> void:
 				selecionar_magia(id)
 		)
 
+		var elemento_da_magia = player.obter_elemento_da_magia(spell_id)
+		aplicar_estilo_botao_magia(button, elemento_da_magia)
+
 		grid_magias.add_child(button)
+
+func criar_stylebox_botao(textura: Texture2D, margem: int = 5, cor: Color = Color(1, 1, 1, 1)) -> StyleBoxTexture:
+	var estilo := StyleBoxTexture.new()
+	estilo.texture = textura
+	estilo.texture_margin_left = margem
+	estilo.texture_margin_right = margem
+	estilo.texture_margin_top = margem
+	estilo.texture_margin_bottom = margem
+	estilo.content_margin_left = 6
+	estilo.content_margin_right = 6
+	estilo.content_margin_top = 2
+	estilo.content_margin_bottom = 2
+	estilo.modulate_color = cor
+	return estilo
+
+func aplicar_estilo_botao_magia(button: Button, elemento: int) -> void:
+	var textura_normal = elemento_botao_normal.get(elemento)
+
+	if textura_normal == null:
+		return
+
+	var textura_hover = elemento_botao_hover.get(elemento, textura_normal)
+
+	var estilo_normal = criar_stylebox_botao(textura_normal, 3)
+	var estilo_hover = criar_stylebox_botao(textura_hover, 3)
+
+	button.add_theme_stylebox_override("normal", estilo_normal)
+	button.add_theme_stylebox_override("hover", estilo_hover)
+	button.add_theme_stylebox_override("pressed", estilo_hover)
+	button.add_theme_stylebox_override("focus", estilo_hover)
+
+	button.add_theme_color_override("font_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_hover_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_focus_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	button.add_theme_constant_override("outline_size", 2)
+
+func aplicar_estilo_botao_craftar() -> void:
+	var estilo_normal = criar_stylebox_botao(textura_botao_craftar, 4)
+	var estilo_hover = criar_stylebox_botao(textura_botao_craftar, 4, Color(1.2, 1.2, 1.2, 1))
+	var estilo_disabled = criar_stylebox_botao(textura_botao_craftar, 4, Color(0.45, 0.45, 0.45, 1))
+
+	botao_craftar.add_theme_stylebox_override("normal", estilo_normal)
+	botao_craftar.add_theme_stylebox_override("hover", estilo_hover)
+	botao_craftar.add_theme_stylebox_override("pressed", estilo_hover)
+	botao_craftar.add_theme_stylebox_override("disabled", estilo_disabled)
+
+	botao_craftar.add_theme_color_override("font_color", Color(1, 1, 1))
+	botao_craftar.add_theme_color_override("font_disabled_color", Color(0.85, 0.85, 0.85))
+	botao_craftar.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	botao_craftar.add_theme_constant_override("outline_size", 2)
 
 func selecionar_magia(spell_id: int) -> void:
 	selected_spell = spell_id

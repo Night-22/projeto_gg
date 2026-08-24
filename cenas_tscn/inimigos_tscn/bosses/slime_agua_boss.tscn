@@ -1,20 +1,49 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://64cljkxulq1g"]
 
-[ext_resource type="Script" path="res://scripts_gd/bosses/slime_agua_boss.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://placeholder/agua.png" id="2_visual"]
+[ext_resource type="Script" uid="uid://dhygexdfsmuuh" path="res://scripts_gd/bosses/slime_agua_boss.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bedtsonbqwg3i" path="res://assets/slimes.png" id="2_uuwbc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_38vjg"]
+atlas = ExtResource("2_uuwbc")
+region = Rect2(0, 0, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3d01"]
+atlas = ExtResource("2_uuwbc")
+region = Rect2(27, 0, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y11pd"]
+atlas = ExtResource("2_uuwbc")
+region = Rect2(54, 0, 27, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_38vjg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3d01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y11pd")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
 size = Vector2(18, 18)
 
-[node name="SlimeAguaBoss" type="CharacterBody2D" groups=["Inimigo"]]
+[node name="SlimeAguaBoss" type="CharacterBody2D" unique_id=1146883999 groups=["Inimigo"]]
 script = ExtResource("1_script")
 Life = 2
 Speed = 26
 
-[node name="Visual" type="Sprite2D" parent="."]
+[node name="Visual" type="AnimatedSprite2D" parent="." unique_id=209142044]
 modulate = Color(0.55, 0.8, 1, 1)
 scale = Vector2(0.09, 0.09)
-texture = ExtResource("2_visual")
+sprite_frames = SubResource("SpriteFrames_g4v7s")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=629498479]
 shape = SubResource("RectangleShape2D_corpo")

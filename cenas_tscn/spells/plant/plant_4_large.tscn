@@ -1,7 +1,50 @@
 [gd_scene format=3 uid="uid://7qqvxldgaopv"]
 
 [ext_resource type="Script" uid="uid://n4c3isui0h1" path="res://cenas_tscn/spells/plant/vine.gd" id="1_xdw1s"]
-[ext_resource type="Texture2D" uid="uid://biau3j3v2umoy" path="res://placeholder/planta.png" id="2_n0kk8"]
+[ext_resource type="Texture2D" uid="uid://dnud3vny8pcw7" path="res://assets/magia_planta4.png" id="2_xdw1s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n0kk8"]
+atlas = ExtResource("2_xdw1s")
+region = Rect2(0, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5n3e"]
+atlas = ExtResource("2_xdw1s")
+region = Rect2(8, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7g10"]
+atlas = ExtResource("2_xdw1s")
+region = Rect2(16, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os7df"]
+atlas = ExtResource("2_xdw1s")
+region = Rect2(24, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwe11"]
+atlas = ExtResource("2_xdw1s")
+region = Rect2(32, 0, 8, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n0kk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5n3e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7g10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_os7df")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwe11")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 13.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(60, 169)
@@ -10,10 +53,12 @@ size = Vector2(60, 169)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_xdw1s")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1530067386]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=767687612]
 position = Vector2(0.5000019, -63.000004)
-scale = Vector2(0.24789916, 0.6)
-texture = ExtResource("2_n0kk8")
+scale = Vector2(6.860958, 9.615959)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame = 3
+frame_progress = 0.97777903
 
 [node name="Area2D" type="Area2D" parent="." unique_id=117845425]
 

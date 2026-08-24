@@ -74,7 +74,7 @@ var slime_agua_boss_scene = preload("res://cenas_tscn/inimigos_tscn/bosses/slime
 @export var limite_esquerdo := -100.0
 @export var limite_direito := 300.0
 
-@export var altura_chao := 240.0
+@export var altura_chao := 250.0
 
 @export_group("Flutuação (Idle_Ar)")
 @export var amplitude_flutuacao := 5.0
@@ -136,8 +136,7 @@ var slime_agua_boss_scene = preload("res://cenas_tscn/inimigos_tscn/bosses/slime
 @export var dano_tick_fogo2 := 3
 @export var intervalo_dano_fogo2 := 0.75
 
-@export var altura_plataforma_fogo2 := 180.0
-@export var largura_plataforma_fogo2 := 218.0
+@export var altura_plataforma_fogo2 := 200.0
 @export var chance_fogo2_na_plataforma := 0.5
 
 @export_group("Fase 3 - Movimentação")
@@ -723,7 +722,7 @@ func _invocar_chama_chao() -> void:
 	var altura_alvo: float
 
 	if na_plataforma:
-		largura_total_chama = largura_plataforma_fogo2
+		largura_total_chama = 500
 		origem_x = -50 if lado < 0 else 407
 		altura_alvo = altura_plataforma_fogo2
 	else:

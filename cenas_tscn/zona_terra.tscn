@@ -1247,55 +1247,72 @@ texture = SubResource("GradientTexture1D_pwnm3")
 [node name="planta_carnivora" parent="inimigos" unique_id=1985811001 groups=["Inimigo"] instance=ExtResource("5_x1hyi")]
 position = Vector2(127, 158)
 Life = 10
+elemento_nativo = 4
 
 [node name="planta_carnivora3" parent="inimigos" unique_id=247828799 groups=["Inimigo"] instance=ExtResource("5_x1hyi")]
 position = Vector2(-35, -659)
 Life = 10
+elemento_nativo = 4
 
 [node name="planta_carnivora4" parent="inimigos" unique_id=2102403168 groups=["Inimigo"] instance=ExtResource("5_x1hyi")]
 position = Vector2(223, -658)
 Life = 10
+elemento_nativo = 4
 
 [node name="planta_carnivora2" parent="inimigos" unique_id=205427459 groups=["Inimigo"] instance=ExtResource("5_x1hyi")]
 position = Vector2(-364.00003, -541.00006)
 rotation = 1.588078
 Life = 10
+elemento_nativo = 4
 
 [node name="planta_carnivora5" parent="inimigos" unique_id=1023524275 groups=["Inimigo"] instance=ExtResource("5_x1hyi")]
 position = Vector2(-194, -215.99998)
 rotation = 4.7132096
 Life = 10
+elemento_nativo = 4
 
 [node name="planta_carnivora6" parent="inimigos" unique_id=2026141338 groups=["Inimigo"] instance=ExtResource("5_x1hyi")]
 position = Vector2(-79, -60)
 rotation = 3.1471303
 Life = 10
+elemento_nativo = 4
 
 [node name="slime_planta" parent="inimigos" unique_id=176387286 instance=ExtResource("17_7tbov")]
 position = Vector2(97, -651)
+elemento_nativo = 4
 
 [node name="slime_planta2" parent="inimigos" unique_id=91660821 instance=ExtResource("17_7tbov")]
 position = Vector2(-115, -764)
+elemento_nativo = 4
 
 [node name="slime_planta3" parent="inimigos" unique_id=2048731606 instance=ExtResource("17_7tbov")]
 position = Vector2(-2, -764)
+elemento_nativo = 4
 
 [node name="plant_wizard2" parent="inimigos" unique_id=1241531326 instance=ExtResource("18_tfd4s")]
 position = Vector2(-44, -432)
 scale = Vector2(0.643849, 0.5882575)
+elemento_nativo = 4
 
 [node name="plant_wizard3" parent="inimigos" unique_id=1448620273 instance=ExtResource("18_tfd4s")]
 position = Vector2(313.99997, -400)
 scale = Vector2(0.643849, 0.5882575)
+elemento_nativo = 4
 
 [node name="Poison eagle4" parent="inimigos" unique_id=600106352 instance=ExtResource("19_a7ej3")]
 position = Vector2(83, -1094)
+Life = 6
+elemento_nativo = 4
 
 [node name="Poison eagle3" parent="inimigos" unique_id=1798536103 instance=ExtResource("19_a7ej3")]
 position = Vector2(-336, -906)
+Life = 6
+elemento_nativo = 4
 
 [node name="Poison eagle2" parent="inimigos" unique_id=1778823255 instance=ExtResource("19_a7ej3")]
 position = Vector2(141, -334)
+Life = 6
+elemento_nativo = 4
 
 [connection signal="body_entered" from="Bancada" to="Bancada" method="_on_body_entered"]
 [connection signal="body_exited" from="Bancada" to="Bancada" method="_on_body_exited"]

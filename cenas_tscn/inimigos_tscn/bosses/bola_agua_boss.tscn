@@ -1,7 +1,57 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts_gd/bosses/bola_agua_boss.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://placeholder/agua.png" id="2_visual"]
+[ext_resource type="Texture2D" uid="uid://dhgjbglbkm3tg" path="res://assets/magia_agua4.png" id="2_visual"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bola0"]
+atlas = ExtResource("2_visual")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bola1"]
+atlas = ExtResource("2_visual")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bola2"]
+atlas = ExtResource("2_visual")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bola3"]
+atlas = ExtResource("2_visual")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bola4"]
+atlas = ExtResource("2_visual")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bola5"]
+atlas = ExtResource("2_visual")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bola"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bola0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bola1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bola2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bola3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bola4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bola5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 14.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bola"]
 radius = 16.0
@@ -9,10 +59,10 @@ radius = 16.0
 [node name="BolaAguaBoss" type="Area2D"]
 script = ExtResource("1_script")
 
-[node name="Visual" type="Sprite2D" parent="."]
-modulate = Color(0.6, 0.85, 1, 1)
-scale = Vector2(0.16, 0.16)
-texture = ExtResource("2_visual")
+[node name="Visual" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.35, 1.35)
+sprite_frames = SubResource("SpriteFrames_bola")
+animation = &"default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bola")

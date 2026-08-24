@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bk45va1uoed6h"]
 
 [ext_resource type="Script" uid="uid://cj1axiowt0c47" path="res://cenas_tscn/menus/general_inventory.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://8h5lt3l4eo3l" path="res://assets/menus/inventario.png" id="2_fundo"]
 
 [node name="InventarioGeral" type="CanvasLayer" unique_id=754743051]
 process_mode = 3
@@ -15,50 +16,41 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.85)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Fundo" unique_id=342544114]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 8.0
-offset_right = -10.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 6
-
-[node name="Titulo" type="Label" parent="Fundo/VBoxContainer" unique_id=1235471502]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 16
+[node name="Titulo" type="Label" parent="." unique_id=1235471502]
+offset_left = 0.0
+offset_top = 2.0
+offset_right = 320.0
+offset_bottom = 15.0
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "Inventário"
 horizontal_alignment = 1
 
-[node name="MagiasEquipadas" type="VBoxContainer" parent="Fundo/VBoxContainer" unique_id=1695861334]
-layout_mode = 2
+[node name="PainelFundo" type="TextureRect" parent="." unique_id=3902215588]
+offset_left = 26.0
+offset_top = 18.0
+offset_right = 294.0
+offset_bottom = 236.0
+texture = ExtResource("2_fundo")
+expand_mode = 1
+stretch_mode = 0
 
-[node name="LabelMagias" type="Label" parent="Fundo/VBoxContainer/MagiasEquipadas" unique_id=1986954048]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Magias equipadas"
-
-[node name="GridMagias" type="GridContainer" parent="Fundo/VBoxContainer/MagiasEquipadas" unique_id=1612103842]
-layout_mode = 2
-theme_override_constants/h_separation = 4
+[node name="GridMagias" type="GridContainer" parent="." unique_id=1612103842]
+offset_left = 45.0
+offset_top = 33.0
+offset_right = 269.0
+offset_bottom = 50.0
+theme_override_constants/h_separation = 32
 theme_override_constants/v_separation = 4
 columns = 4
 
-[node name="Itens" type="VBoxContainer" parent="Fundo/VBoxContainer" unique_id=1047554388]
-layout_mode = 2
-
-[node name="LabelItens" type="Label" parent="Fundo/VBoxContainer/Itens" unique_id=2121698884]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Itens"
-
-[node name="GridItens" type="GridContainer" parent="Fundo/VBoxContainer/Itens" unique_id=1965769676]
-layout_mode = 2
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
+[node name="GridItens" type="GridContainer" parent="." unique_id=1965769676]
+offset_left = 38.0
+offset_top = 70.0
+offset_right = 276.0
+offset_bottom = 197.0
+theme_override_constants/h_separation = 27
+theme_override_constants/v_separation = 19
 columns = 4

@@ -6,6 +6,9 @@
 [ext_resource type="FontFile" uid="uid://bxls3mwagmlq3" path="res://assets/BitPotionExt.ttf" id="2_em680"]
 [ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="3_em680"]
 [ext_resource type="Texture2D" uid="uid://bl8yxg4t41iow" path="res://placeholder/planta.png" id="4_mopib"]
+[ext_resource type="Texture2D" uid="uid://bwvq4h26jdati" path="res://assets/menus/craftar.png" id="5_fundo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_transparente"]
 
 [node name="CraftMenu" type="CanvasLayer" unique_id=621457444 groups=["Craft_menu"]]
 process_mode = 3
@@ -20,111 +23,126 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Titulo" type="Label" parent="." unique_id=2018610770]
-texture_filter = 2
-offset_left = 118.00001
-offset_right = 458.0
-offset_bottom = 63.0
-scale = Vector2(0.68302894, 0.68302894)
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("2_em680")
-theme_override_font_sizes/font_size = 45
-text = "Craft de magias"
-
-[node name="HSeparator" type="HSeparator" parent="." unique_id=1617447782]
-anchors_preset = 12
-anchor_top = 1.0
+[node name="PainelFundo" type="TextureRect" parent="." unique_id=3902215587]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 364.0
-offset_top = -486.0
-offset_right = 364.0
-offset_bottom = -482.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+texture = ExtResource("5_fundo")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Titulo" type="Label" parent="." unique_id=2018610770]
+texture_filter = 2
+offset_left = 14.0
+offset_top = 14.0
+offset_right = 154.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("2_em680")
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "Craft de magias"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="AlmasContainer" type="HBoxContainer" parent="." unique_id=959388311]
-custom_maximum_size = Vector2(600, 360)
-offset_left = 15.0
-offset_top = 32.0
-offset_right = 555.0
-offset_bottom = 392.0
-scale = Vector2(0.23053364, 0.23053364)
-theme_override_constants/separation = 60
+offset_left = 9.0
+offset_top = 58.0
+offset_right = 157.0
+offset_bottom = 78.0
+theme_override_constants/separation = 8
 
 [node name="Agua" type="HBoxContainer" parent="AlmasContainer" unique_id=1233539205]
-custom_minimum_size = Vector2(100, 10)
-custom_maximum_size = Vector2(140, 90)
+custom_minimum_size = Vector2(34, 16)
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="Icone" type="TextureRect" parent="AlmasContainer/Agua" unique_id=1763605853]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(14, 14)
 layout_mode = 2
 texture = ExtResource("1_sw6j1")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Quantidade" type="Label" parent="AlmasContainer/Agua" unique_id=276433753]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_em680")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "6"
 
 [node name="Fogo" type="HBoxContainer" parent="AlmasContainer" unique_id=1187628810]
-custom_minimum_size = Vector2(100, 0)
-custom_maximum_size = Vector2(90, 90)
+custom_minimum_size = Vector2(34, 16)
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="Icone" type="TextureRect" parent="AlmasContainer/Fogo" unique_id=1031950388]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(14, 14)
 layout_mode = 2
 texture = ExtResource("2_1igbi")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Quantidade" type="Label" parent="AlmasContainer/Fogo" unique_id=1079866056]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "7"
 
 [node name="Raio" type="HBoxContainer" parent="AlmasContainer" unique_id=972895481]
-custom_minimum_size = Vector2(100, 0)
-custom_maximum_size = Vector2(90, 90)
+custom_minimum_size = Vector2(34, 16)
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="Icone" type="TextureRect" parent="AlmasContainer/Raio" unique_id=1722052881]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(14, 14)
 layout_mode = 2
 texture = ExtResource("3_em680")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Quantidade" type="Label" parent="AlmasContainer/Raio" unique_id=435857336]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "6"
 
 [node name="Planta" type="HBoxContainer" parent="AlmasContainer" unique_id=2130284505]
-custom_minimum_size = Vector2(100, 0)
-custom_maximum_size = Vector2(90, 90)
+custom_minimum_size = Vector2(34, 16)
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="Icone" type="TextureRect" parent="AlmasContainer/Planta" unique_id=803149214]
-custom_minimum_size = Vector2(80, 0)
+custom_minimum_size = Vector2(14, 14)
 layout_mode = 2
 texture = ExtResource("4_mopib")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Quantidade" type="Label" parent="AlmasContainer/Planta" unique_id=660645809]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 10
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "7"
 
 [node name="PainelMagias" type="PanelContainer" parent="." unique_id=1142632731]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 99.0
-offset_top = 237.99998
-offset_right = -221.0
-offset_bottom = 38.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.4256724, 0.40245274)
+offset_left = 9.0
+offset_top = 82.0
+offset_right = 157.0
+offset_bottom = 230.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_transparente")
 
 [node name="Margem" type="MarginContainer" parent="PainelMagias" unique_id=805229538]
 layout_mode = 2
@@ -134,50 +152,71 @@ layout_mode = 2
 
 [node name="GridMagias" type="GridContainer" parent="PainelMagias/Margem/GridContainer" unique_id=2011838793]
 layout_mode = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 4
 columns = 2
 
-[node name="PainelDetalhes" type="PanelContainer" parent="." unique_id=292827455]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 190.99998
-offset_top = 89.0
-offset_right = 228.0
-offset_bottom = 124.19705
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.3554751, 0.3554751)
+[node name="PainelDetalhes" type="Control" parent="." unique_id=292827455]
+offset_left = 160.0
+offset_top = 10.0
+offset_right = 308.0
+offset_bottom = 227.0
 
 [node name="Conteúdo" type="VBoxContainer" parent="PainelDetalhes" unique_id=1254638024]
 layout_mode = 2
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 144.0
+offset_bottom = 140.0
+theme_override_constants/separation = 4
 
 [node name="Nome" type="Label" parent="PainelDetalhes/Conteúdo" unique_id=1104498846]
 texture_filter = 1
 layout_mode = 2
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "Selecione uma magia"
 horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Icone" type="TextureRect" parent="PainelDetalhes/Conteúdo" unique_id=2116279718]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+size_flags_horizontal = 4
 expand_mode = 1
 stretch_mode = 5
 
 [node name="Elemento" type="Label" parent="PainelDetalhes/Conteúdo" unique_id=705980488]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 
 [node name="Custo" type="Label" parent="PainelDetalhes/Conteúdo" unique_id=274425912]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 
 [node name="Quantidade" type="Label" parent="PainelDetalhes/Conteúdo" unique_id=24907059]
 layout_mode = 2
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 
-[node name="BotaoCraftar" type="Button" parent="PainelDetalhes/Conteúdo" unique_id=1754814337]
+[node name="BotaoCraftar" type="Button" parent="PainelDetalhes" unique_id=1754814337]
 layout_mode = 2
+offset_left = 15.0
+offset_top = 146.0
+offset_right = 135.0
+offset_bottom = 172.0
+theme_override_font_sizes/font_size = 8
 disabled = true
 text = "Craftar"
 
-[connection signal="pressed" from="PainelDetalhes/Conteúdo/BotaoCraftar" to="." method="_on_botao_craftar_pressed"]
+[connection signal="pressed" from="PainelDetalhes/BotaoCraftar" to="." method="_on_botao_craftar_pressed"]

@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bo86gs3gebcvv" path="res://cenas_tscn/inimigos_tscn/bosses/raio_boss.tscn" id="5_boss"]
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="7_7bfxw"]
+[ext_resource type="Texture2D" uid="uid://csca6b3n25kt" path="res://assets/vida_boss_preta.png" id="7_7iis1"]
 [ext_resource type="AudioStream" uid="uid://33remjykxlw6" path="res://assets/musicas/Beethoven Virus INSANE PIANO VERSION - Pianoly Official (youtube).mp3" id="8_5aigr"]
+[ext_resource type="Texture2D" uid="uid://cbaaow34l25du" path="res://assets/vida_bossvermelho.png" id="8_rwo6g"]
 [ext_resource type="TileSet" uid="uid://caoatfk5e2aee" path="res://tres/tilemap.tres" id="10_7n2dv"]
 [ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="11_wwt3b"]
 [ext_resource type="PackedScene" uid="uid://c7inqq1bh8uw5" path="res://cenas_tscn/prefabs/plataforma_furavel.tscn" id="12_o70k5"]
@@ -594,10 +596,12 @@ one_way_collision = true
 [node name="RaioBoss" parent="." unique_id=1094024065 instance=ExtResource("5_boss")]
 position = Vector2(179, 55)
 scale = Vector2(0.5, 0.5)
+vida_maxima_boss = 200
 limite_esquerdo = -25.5
 limite_direito = 369.5
 distancia_plataforma_chao = 174.5
 posicoes_plataformas = PackedFloat32Array(70, 180, 290)
+dano_bola_raio = 5
 tempo_aviso_raio = 1.2
 elemento_nativo = 3
 
@@ -614,7 +618,6 @@ visible = false
 visible = false
 
 [node name="HudChefe" type="CanvasLayer" parent="." unique_id=1095167948]
-visible = false
 
 [node name="Interface" type="Control" parent="HudChefe" unique_id=2011777730]
 layout_mode = 3
@@ -629,21 +632,23 @@ mouse_filter = 2
 
 [node name="NomeChefe" type="Label" parent="HudChefe/Interface" unique_id=2100650956]
 layout_mode = 0
-offset_left = 82.0
+offset_left = 91.0
 offset_top = 4.0
-offset_right = 382.0
+offset_right = 391.0
 offset_bottom = 19.0
 theme_override_font_sizes/font_size = 10
 text = "Rebecca, a mestra dos raios"
 horizontal_alignment = 1
 
-[node name="BarraVidaChefe" type="ProgressBar" parent="HudChefe/Interface" unique_id=283891761]
+[node name="BarraVidaChefe" type="TextureProgressBar" parent="HudChefe/Interface" unique_id=815492335]
 layout_mode = 0
-offset_left = 107.0
+offset_left = 181.0
 offset_top = 17.0
-offset_right = 356.0
+offset_right = 430.0
 offset_bottom = 33.0
-show_percentage = false
+scale = Vector2(0.90290856, 1.2329898)
+texture_under = ExtResource("7_7iis1")
+texture_progress = ExtResource("8_rwo6g")
 
 [node name="CameraLockArea" parent="." unique_id=1808650042 instance=ExtResource("7_7bfxw")]
 visible = false
@@ -685,29 +690,29 @@ position = Vector2(7, -8)
 tile_map_data = PackedByteArray("AAACAAQAAAALAAkAAAADAAQAAAAMAAkAAAAEAAQAAAAMAAkAAAAFAAQAAAALAAkAABAJAAQAAAALAAkAAAAKAAQAAAAMAAkAAAALAAQAAAAMAAkAAAAMAAQAAAALAAkAABAQAAQAAAALAAkAAAARAAQAAAAMAAkAAAASAAQAAAAMAAkAAAATAAQAAAALAAkAABA=")
 tile_set = SubResource("TileSet_3gngh")
 
-[node name="PassagemLateral" type="StaticBody2D" parent="." unique_id=1327073494]
+[node name="PassagemLateral" type="StaticBody2D" parent="." unique_id=428167730]
 position = Vector2(390, 195)
 script = ExtResource("15_passagem")
 area_transicao_path = NodePath("../AreaPassagemRaio")
 
-[node name="Sprite2D" type="Sprite2D" parent="PassagemLateral" unique_id=1481351329]
+[node name="Sprite2D" type="Sprite2D" parent="PassagemLateral" unique_id=1284055559]
 scale = Vector2(0.09375, 0.703125)
 texture = ExtResource("6_parede")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PassagemLateral" unique_id=1025102459]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PassagemLateral" unique_id=1237355430]
 shape = SubResource("RectangleShape2D_passagem")
 
-[node name="AreaPassagemRaio" type="Area2D" parent="." unique_id=926666297]
+[node name="AreaPassagemRaio" type="Area2D" parent="." unique_id=924128614]
 position = Vector2(404, 195)
 monitoring = false
 script = ExtResource("13_wwt3b")
 cena_destino = 8
 entrada_destino = "EntradaMedalhaoRaio"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPassagemRaio" unique_id=421772587]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPassagemRaio" unique_id=1823593264]
 shape = SubResource("RectangleShape2D_area_passagem")
 
-[node name="VoltaPassagemRaio" type="Marker2D" parent="." unique_id=461164612]
+[node name="VoltaPassagemRaio" type="Marker2D" parent="." unique_id=442793034]
 position = Vector2(372, 195)
 
 [node name="transicao" type="Node2D" parent="." unique_id=1512231452]

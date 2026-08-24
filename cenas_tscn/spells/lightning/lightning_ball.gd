@@ -2,7 +2,7 @@ extends Area2D
 
 var player = null
 
-var damage = 4
+var damage = 8
 var damage_cooldown = 0.5
 
 var enemies_hit = {}

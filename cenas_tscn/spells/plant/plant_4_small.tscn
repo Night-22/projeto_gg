@@ -1,7 +1,50 @@
 [gd_scene format=3 uid="uid://uj1yfu0sg60p"]
 
 [ext_resource type="Script" uid="uid://n4c3isui0h1" path="res://cenas_tscn/spells/plant/vine.gd" id="1_r8raf"]
-[ext_resource type="Texture2D" uid="uid://biau3j3v2umoy" path="res://placeholder/planta.png" id="2_ewyod"]
+[ext_resource type="Texture2D" uid="uid://dnud3vny8pcw7" path="res://assets/magia_planta4.png" id="2_r8raf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewyod"]
+atlas = ExtResource("2_r8raf")
+region = Rect2(0, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_euxro"]
+atlas = ExtResource("2_r8raf")
+region = Rect2(8, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h3ac"]
+atlas = ExtResource("2_r8raf")
+region = Rect2(16, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_15g7u"]
+atlas = ExtResource("2_r8raf")
+region = Rect2(24, 0, 8, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1jt5"]
+atlas = ExtResource("2_r8raf")
+region = Rect2(32, 0, 8, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewyod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_euxro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h3ac")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_15g7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1jt5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 13.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(23, 43)
@@ -10,9 +53,9 @@ size = Vector2(23, 43)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_r8raf")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=539008595]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1816546746]
 scale = Vector2(0.1, 0.15)
-texture = ExtResource("2_ewyod")
+sprite_frames = SubResource("SpriteFrames_g4v7s")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1589520208]
 

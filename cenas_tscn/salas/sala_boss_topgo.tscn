@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="7_camlock"]
 [ext_resource type="AudioStream" uid="uid://bjvdbfbme717b" path="res://assets/musicas/soundtrack_corrigida.mp3" id="8_tddkw"]
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="9_7pdnn"]
+[ext_resource type="Texture2D" uid="uid://csca6b3n25kt" path="res://assets/vida_boss_preta.png" id="10_gsvgt"]
 [ext_resource type="Script" uid="uid://dt02ffq484yv3" path="res://scripts_gd/passagem_lateral.gd" id="10_passagem"]
+[ext_resource type="Texture2D" uid="uid://cbaaow34l25du" path="res://assets/vida_bossvermelho.png" id="11_tlrkw"]
 [ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="11_transicao"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gsvgt"]
@@ -291,6 +293,7 @@ tile_set = SubResource("TileSet_g4v7s")
 
 [node name="TopgoBoss" parent="." unique_id=39082022 instance=ExtResource("5_boss")]
 position = Vector2(173, 141)
+vida_maxima_boss = 330
 limite_esquerdo = -25.5
 limite_direito = 369.5
 tempo_aviso_espinho = 1.0
@@ -348,7 +351,7 @@ position = Vector2(-6, 0)
 shape = SubResource("RectangleShape2D_passagem_topgo")
 
 [node name="Chao" type="StaticBody2D" parent="." unique_id=689380115]
-position = Vector2(165, 251)
+position = Vector2(165, 250)
 
 [node name="Sprite2D" type="Sprite2D" parent="Chao" unique_id=627119441]
 visible = false
@@ -362,7 +365,7 @@ shape = SubResource("RectangleShape2D_chao")
 
 [node name="PlataformaFase2" type="StaticBody2D" parent="." unique_id=1053710184 groups=["PlataformaFuravel"]]
 visible = false
-position = Vector2(172, 199)
+position = Vector2(172, 200)
 collision_layer = 2
 collision_mask = 0
 
@@ -393,7 +396,6 @@ visible = false
 visible = false
 
 [node name="HudChefe" type="CanvasLayer" parent="." unique_id=689840333]
-visible = false
 
 [node name="Interface" type="Control" parent="HudChefe" unique_id=2113795162]
 layout_mode = 3
@@ -408,21 +410,22 @@ mouse_filter = 2
 
 [node name="NomeChefe" type="Label" parent="HudChefe/Interface" unique_id=1002657853]
 layout_mode = 0
-offset_left = 82.0
+offset_left = 90.0
 offset_top = 4.0
-offset_right = 382.0
+offset_right = 390.0
 offset_bottom = 19.0
 theme_override_font_sizes/font_size = 10
 text = "TOPGO"
 horizontal_alignment = 1
 
-[node name="BarraVidaChefe" type="ProgressBar" parent="HudChefe/Interface" unique_id=406185280]
+[node name="BarraVidaChefe" type="TextureProgressBar" parent="HudChefe/Interface" unique_id=1267044283]
 layout_mode = 0
-offset_left = 107.0
+offset_left = 172.0
 offset_top = 17.0
-offset_right = 356.0
+offset_right = 421.0
 offset_bottom = 33.0
-show_percentage = false
+texture_under = ExtResource("10_gsvgt")
+texture_progress = ExtResource("11_tlrkw")
 
 [node name="CameraLockArea" parent="." unique_id=2563963 instance=ExtResource("7_camlock")]
 position = Vector2(171.00002, 138)
