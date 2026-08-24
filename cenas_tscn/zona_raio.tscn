@@ -774,7 +774,7 @@ scale = Vector2(1.0089285, 1)
 curve = SubResource("Curve2D_vrv3x")
 
 [node name="laser_caminho" type="PathFollow2D" parent="LaserPath2" unique_id=312271886]
-position = Vector2(30.725666, -11)
+position = Vector2(-0.9911499, 0)
 rotation = -1.5707964
 rotates = false
 cubic_interp = false
@@ -822,7 +822,7 @@ animation = &"desligado"
 autoplay = "desligado"
 
 [node name="laser_caminho5" type="PathFollow2D" parent="LaserPath2" unique_id=1031925501]
-position = Vector2(106.05308, -15)
+position = Vector2(79.3118, -15)
 rotation = -1.5707964
 progress = 95.30295
 rotates = false
@@ -882,19 +882,19 @@ progress = 105.71683
 velocidade = 30.0
 
 [node name="laser_caminho3" parent="LaserPath3" unique_id=35724500 instance=ExtResource("9_521ij")]
-position = Vector2(12.884949, 318)
+position = Vector2(12.884949, 300.28323)
 rotation = 0.0
 progress = 317.15048
 velocidade = 30.0
 
 [node name="laser_caminho5" parent="LaserPath3" unique_id=1669806643 instance=ExtResource("9_521ij")]
-position = Vector2(13.8761, 545)
+position = Vector2(12.884949, 511.7168)
 rotation = 0.0
 progress = 528.5841
 velocidade = 30.0
 
 [node name="laser_caminho6" parent="LaserPath3" unique_id=215793762 instance=ExtResource("9_521ij")]
-position = Vector2(12.884949, 712)
+position = Vector2(12.884949, 617.43365)
 rotation = 0.0
 progress = 634.30096
 velocidade = 30.0
@@ -953,7 +953,7 @@ progress = 476.07138
 voltar_por_tp = true
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_n80gs")]
-position = Vector2(61, -98)
+position = Vector2(-696, -738)
 knockback_force = 140.0
 knockback_up_force = -20.0
 
@@ -1362,6 +1362,7 @@ scale = Vector2(2.04, 1)
 [node name="transicao_cena" type="Area2D" parent="transicao2" unique_id=15837567]
 script = ExtResource("26_dkhx7")
 cena_destino = 6
+entrada_destino = "entrada_raio"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transicao2/transicao_cena" unique_id=1428763986]
 position = Vector2(-0.98040295, -13)

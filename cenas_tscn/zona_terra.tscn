@@ -923,7 +923,7 @@ tile_map_data = PackedByteArray("AAAXALj/AAALAAIAAAAXALn/AAALAAIAAAAXALr/AAALAAM
 tile_set = SubResource("TileSet_3gngh")
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_018e7")]
-position = Vector2(222, 173)
+position = Vector2(357, -1138)
 
 [node name="Cipos" type="Node2D" parent="." unique_id=518210661]
 
@@ -1054,7 +1054,7 @@ position = Vector2(120, -1152)
 scale = Vector2(0.33121583, 0.5904112)
 
 [node name="AmuletoDano" parent="Cipos" unique_id=1127651677 instance=ExtResource("15_iev4q")]
-position = Vector2(-81, -271)
+position = Vector2(266, -42)
 
 [node name="water" parent="." unique_id=1816425327 instance=ExtResource("7_xjtag")]
 position = Vector2(-96, -285)

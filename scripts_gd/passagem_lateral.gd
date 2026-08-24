@@ -3,7 +3,7 @@ class_name PassagemLateral
 
 @export var area_transicao_path: NodePath
 
-@onready var sprite: Sprite2D = get_node_or_null("Sprite2D")
+@onready var sprite = get_node_or_null("Sprite2D")
 @onready var colisao: CollisionShape2D = get_node_or_null("CollisionShape2D")
 
 var aberta := false
