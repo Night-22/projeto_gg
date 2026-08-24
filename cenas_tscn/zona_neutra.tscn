@@ -3,7 +3,6 @@
 [ext_resource type="TileSet" uid="uid://caoatfk5e2aee" path="res://tres/tilemap.tres" id="1_1chkc"]
 [ext_resource type="Script" uid="uid://bal36y15m3wlk" path="res://scripts_gd/zona_neutra.gd" id="1_ned6s"]
 [ext_resource type="PackedScene" uid="uid://cn6ny6stqnxho" path="res://cenas_tscn/player.tscn" id="2_bamsy"]
-[ext_resource type="Texture2D" uid="uid://3g3qspr1ues6" path="res://assets/WhatsApp Image 2026-08-23 at 20.09.06.jpeg" id="2_bqdo4"]
 [ext_resource type="PackedScene" uid="uid://bqji6js0mgris" path="res://cenas_tscn/prefabs/porta_madeira.tscn" id="3_a2tbi"]
 [ext_resource type="Texture2D" uid="uid://b3n31milsreq3" path="res://assets/tilemap.png" id="3_t8svo"]
 [ext_resource type="Texture2D" uid="uid://cq7pkbbmqfjet" path="res://assets/tilemap (1).png" id="4_a2tbi"]
@@ -1305,13 +1304,6 @@ gradient = SubResource("Gradient_sge2b")
 
 [node name="zona neutra" type="Node2D" unique_id=410013776]
 script = ExtResource("1_ned6s")
-
-[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1163316657]
-texture_filter = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1146145813]
-position = Vector2(-10, 296)
-texture = ExtResource("2_bqdo4")
 
 [node name="entrada_neutra_tutorial_1" type="Marker2D" parent="." unique_id=1062911978]
 position = Vector2(-311, -61)
