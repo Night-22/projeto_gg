@@ -43,7 +43,7 @@ animations = [{
 size = Vector2(20, 21)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
-radius = 120.8139
+radius = 58.00862
 
 [node name="Electric_eagle" type="CharacterBody2D" unique_id=1002422070 groups=["Inimigo"]]
 script = ExtResource("1_8r8vn")

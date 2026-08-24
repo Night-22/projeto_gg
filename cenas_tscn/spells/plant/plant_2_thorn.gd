@@ -12,7 +12,7 @@ var returning = false
 var elapsed_time = 0.0
 var duration = 5.0
 
-var damage = 15
+var damage = 6
 
 var enemies_hit = []
 

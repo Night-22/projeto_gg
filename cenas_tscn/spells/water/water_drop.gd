@@ -1,7 +1,7 @@
 extends Area2D
 
 var speed = 700.0
-var damage = 2
+var damage = 3
 var direction = Vector2.RIGHT
 var player = null
 var max_distance = 1300.0

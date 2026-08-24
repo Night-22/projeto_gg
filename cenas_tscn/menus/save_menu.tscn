@@ -1,6 +1,32 @@
-[gd_scene format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://cenas_tscn/menus/save_menu.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://vi7101w18m4p" path="res://assets/menus/botao_save.png" id="2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slot_normal"]
+texture = ExtResource("2")
+texture_margin_left = 60.0
+texture_margin_top = 12.0
+texture_margin_right = 60.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slot_hover"]
+texture = ExtResource("2")
+texture_margin_left = 60.0
+texture_margin_top = 12.0
+texture_margin_right = 60.0
+texture_margin_bottom = 12.0
+modulate_color = Color(1.2, 1.15, 1.3, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slot_disabled"]
+texture = ExtResource("2")
+texture_margin_left = 60.0
+texture_margin_top = 12.0
+texture_margin_right = 60.0
+texture_margin_bottom = 12.0
+modulate_color = Color(0.5, 0.5, 0.55, 0.6)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
 
 [node name="SaveMenu" type="CanvasLayer"]
 process_mode = 3
@@ -34,16 +60,40 @@ text = "Salvar o Jogo"
 horizontal_alignment = 1
 
 [node name="Slot1" type="Button" parent="Fundo/VBoxContainer"]
-custom_minimum_size = Vector2(170, 24)
+custom_minimum_size = Vector2(230, 44)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6, 0.6, 0.65, 1)
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_slot_normal")
+theme_override_styles/hover = SubResource("StyleBoxTexture_slot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_slot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_slot_disabled")
 text = "Slot 1 - Vazio"
 
 [node name="Slot2" type="Button" parent="Fundo/VBoxContainer"]
-custom_minimum_size = Vector2(170, 24)
+custom_minimum_size = Vector2(230, 44)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6, 0.6, 0.65, 1)
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_slot_normal")
+theme_override_styles/hover = SubResource("StyleBoxTexture_slot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_slot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_slot_disabled")
 text = "Slot 2 - Vazio"
 
 [node name="Slot3" type="Button" parent="Fundo/VBoxContainer"]
-custom_minimum_size = Vector2(170, 24)
+custom_minimum_size = Vector2(230, 44)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.6, 0.6, 0.65, 1)
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
+theme_override_styles/normal = SubResource("StyleBoxTexture_slot_normal")
+theme_override_styles/hover = SubResource("StyleBoxTexture_slot_hover")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_slot_hover")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_slot_disabled")
 text = "Slot 3 - Vazio"

@@ -1,9 +1,5 @@
 extends Node
 
-## Gerenciador global de efeitos sonoros.
-## Uso: Sfx.play("sword") / Sfx.play_loop("focus_charging") / Sfx.stop_loop("focus_charging")
-## Quando existe mais de um arquivo para a mesma ação, um é escolhido aleatoriamente.
-
 const POOL_SIZE := 16
 
 var sounds: Dictionary = {
@@ -67,8 +63,7 @@ func _ready() -> void:
 		_pool.append(player)
 
 
-## Toca um efeito sonoro de uma vez. Se houver várias opções para o nome,
-## uma delas é escolhida aleatoriamente.
+
 func play(sound_name: String, volume_db: float = 0.0) -> void:
 	if not sounds.has(sound_name):
 		push_warning("Sfx: som '%s' não existe" % sound_name)
@@ -87,8 +82,7 @@ func play(sound_name: String, volume_db: float = 0.0) -> void:
 	player.play()
 
 
-## Toca um som em loop (usa um player dedicado por nome, não o pool).
-## Se já estiver tocando esse loop, não faz nada.
+
 func play_loop(sound_name: String, volume_db: float = 0.0) -> void:
 	if not sounds.has(sound_name):
 		push_warning("Sfx: som '%s' não existe" % sound_name)
@@ -119,14 +113,13 @@ func play_loop(sound_name: String, volume_db: float = 0.0) -> void:
 	player.play()
 
 
-## Para um som que está tocando em loop.
+
 func stop_loop(sound_name: String) -> void:
 	if _loop_players.has(sound_name):
 		_loop_players[sound_name].stop()
 
 
-## Toca um som de uma vez, mas usando um player dedicado por nome (não o pool),
-## o que permite pará-lo depois com stop_tracked(). Não força loop no stream.
+
 func play_tracked(sound_name: String, volume_db: float = 0.0) -> void:
 	if not sounds.has(sound_name):
 		push_warning("Sfx: som '%s' não existe" % sound_name)
@@ -150,7 +143,6 @@ func play_tracked(sound_name: String, volume_db: float = 0.0) -> void:
 	player.play()
 
 
-## Para um som iniciado com play_tracked().
 func stop_tracked(sound_name: String) -> void:
 	if _tracked_players.has(sound_name):
 		_tracked_players[sound_name].stop()
@@ -161,5 +153,5 @@ func _get_free_player() -> AudioStreamPlayer:
 		if not player.playing:
 			return player
 
-	# Todos ocupados: rouba o mais antigo (primeiro da lista) para não travar o som.
+	
 	return _pool[0]

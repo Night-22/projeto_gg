@@ -1,7 +1,36 @@
 [gd_scene format=3 uid="uid://dpp3keymif22m"]
 
 [ext_resource type="Script" uid="uid://c40w7bxmv10i2" path="res://scripts_gd/bosses/minion_fogo_boss.gd" id="1_script"]
-[ext_resource type="Texture2D" uid="uid://2dm8mjrcbokh" path="res://placeholder/fogo.png" id="2_visual"]
+[ext_resource type="Texture2D" uid="uid://bedtsonbqwg3i" path="res://assets/slimes.png" id="2_q78kr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7fknx"]
+atlas = ExtResource("2_q78kr")
+region = Rect2(0, 34, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilihl"]
+atlas = ExtResource("2_q78kr")
+region = Rect2(27, 34, 27, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2mdk"]
+atlas = ExtResource("2_q78kr")
+region = Rect2(54, 34, 27, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7fknx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilihl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2mdk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_corpo"]
 
@@ -13,11 +42,10 @@ script = ExtResource("1_script")
 Life = 1
 Speed = 0
 
-[node name="Visual" type="Sprite2D" parent="." unique_id=2037210682]
+[node name="Visual" type="AnimatedSprite2D" parent="." unique_id=1328270691]
 modulate = Color(1, 0.55, 0.3, 1)
-position = Vector2(-0.5000019, 0.50000095)
 scale = Vector2(0.13875598, 0.13357401)
-texture = ExtResource("2_visual")
+sprite_frames = SubResource("SpriteFrames_g4v7s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=934813956]
 shape = SubResource("RectangleShape2D_corpo")

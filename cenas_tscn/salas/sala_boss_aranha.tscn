@@ -9,7 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://d1gqqii31eauk" path="res://icon.svg" id="6_parede"]
 [ext_resource type="TileSet" uid="uid://caoatfk5e2aee" path="res://tres/tilemap.tres" id="7_18gdx"]
 [ext_resource type="Script" uid="uid://kare8a42dwa4" path="res://camera_lock_area.gd" id="8_5k0ax"]
+[ext_resource type="Texture2D" uid="uid://csca6b3n25kt" path="res://assets/vida_boss_preta.png" id="9_2v51p"]
 [ext_resource type="AudioStream" uid="uid://brwwyayvmg3oj" path="res://assets/musicas/Spider Dance - Toby Fox (youtube).mp3" id="10_1sj3y"]
+[ext_resource type="Texture2D" uid="uid://cbaaow34l25du" path="res://assets/vida_bossvermelho.png" id="10_ktg1a"]
 [ext_resource type="PackedScene" uid="uid://hybms7ye30td" path="res://cenas_tscn/prefabs/escada.tscn" id="11_flnu0"]
 [ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="12_5k0ax"]
 [ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="13_immln"]
@@ -440,21 +442,22 @@ text = "VASCO a Aranha"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="BarraVidaChefe" type="ProgressBar" parent="HudChefe/Interface" unique_id=1225040551]
+[node name="BarraVidaChefe" type="TextureProgressBar" parent="HudChefe/Interface" unique_id=1653447942]
 z_index = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.503125
-anchor_top = -0.05
-anchor_right = 0.503125
-anchor_bottom = -0.05
+anchor_left = 0.7125
+anchor_top = -0.020833334
+anchor_right = 0.7125
+anchor_bottom = -0.020833334
 offset_left = -194.0
 offset_top = 249.0
 offset_right = 206.0
 offset_bottom = 265.0
 grow_horizontal = 2
-scale = Vector2(0.7377439, 1.2137743)
-show_percentage = false
+scale = Vector2(1.2562675, 1.5888187)
+texture_under = ExtResource("9_2v51p")
+texture_progress = ExtResource("10_ktg1a")
 metadata/_edit_use_anchors_ = true
 
 [node name="AranhaBoss" parent="." unique_id=1360233921 node_paths=PackedStringArray("parede_esquerda", "parede_direita", "player") instance=ExtResource("5_boss")]
@@ -462,6 +465,9 @@ position = Vector2(219, 129)
 parede_esquerda = NodePath("../ParedeEsquerda")
 parede_direita = NodePath("../ParedeDireita")
 player = NodePath("../Player")
+dano_porradao = 7
+dano_mordida = 10
+dano_teia = 12
 knockback_force = 0
 knockback_up_force = 0
 knockback_ataque = 0

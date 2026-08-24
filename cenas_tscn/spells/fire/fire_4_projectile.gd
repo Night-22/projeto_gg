@@ -5,7 +5,7 @@ var player = null
 var velocity := Vector2.ZERO
 var gravity := 1000.0
 
-var damage = 10
+var damage = 6
 var explosion_damage = 12
 
 var exploded = false

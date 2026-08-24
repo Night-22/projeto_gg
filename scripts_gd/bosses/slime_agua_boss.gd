@@ -5,11 +5,13 @@ class_name SlimeAguaBoss
 @export var tempo_vida_maxima := 40.0
 
 var jogador: Node2D = null
+@onready var visual: AnimatedSprite2D = $Visual
 
 
 func _ready() -> void:
 	super._ready()
 
+	visual.play("default")
 	Speed = velocidade_perseguicao
 	max_elementos = 2
 

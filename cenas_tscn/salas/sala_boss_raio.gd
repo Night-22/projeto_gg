@@ -3,7 +3,7 @@ extends Node2D
 @onready var boss: RaioBoss = $RaioBoss
 @onready var gatilho: Area2D = $GatilhoLuta
 @onready var hud_chefe: CanvasLayer = $HudChefe
-@onready var barra_vida_chefe: ProgressBar = $HudChefe/Interface/BarraVidaChefe
+@onready var barra_vida_chefe: TextureProgressBar = $HudChefe/Interface/BarraVidaChefe
 @onready var nome_chefe: Label = $HudChefe/Interface/NomeChefe
 @onready var soundtrack: AudioStreamPlayer = $soundtrack
 

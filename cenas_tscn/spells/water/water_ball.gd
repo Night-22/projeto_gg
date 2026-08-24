@@ -3,7 +3,7 @@ extends Area2D
 var player = null
 var direction := Vector2.ZERO
 var speed := 700.0
-var damage := 50
+var damage := 7
 @onready var sprite: AnimatedSprite2D = $Sprite2D
 
 

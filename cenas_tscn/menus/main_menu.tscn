@@ -2,31 +2,60 @@
 
 [ext_resource type="Script" uid="uid://djj77qaedwbyg" path="res://cenas_tscn/menus/main_menu.gd" id="1"]
 [ext_resource type="PackedScene" path="res://cenas_tscn/menus/slots_menu.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://cenas_tscn/menus/opcoes_menu.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://itdyd0p64ba" path="res://cenas_tscn/menus/opcoes_menu.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://oke2sghga5e5" path="res://assets/menus/menu_principal.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dl4q46um6etps" path="res://assets/menus/botao1.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://chijh2vc6rwcf" path="res://assets/menus/botao_hover.png" id="6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_normal"]
+texture = ExtResource("5")
+texture_margin_left = 8.0
+texture_margin_top = 6.0
+texture_margin_right = 8.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hover"]
+texture = ExtResource("6")
+texture_margin_left = 8.0
+texture_margin_top = 6.0
+texture_margin_right = 8.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_disabled"]
+texture = ExtResource("5")
+texture_margin_left = 8.0
+texture_margin_top = 6.0
+texture_margin_right = 8.0
+texture_margin_bottom = 6.0
+modulate_color = Color(0.55, 0.55, 0.55, 0.65)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_focus"]
 
 [node name="MainMenu" type="CanvasLayer" unique_id=1761737229]
 script = ExtResource("1")
 
-[node name="Fundo" type="ColorRect" parent="." unique_id=1790287456]
+[node name="Fundo" type="TextureRect" parent="." unique_id=1790287456]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.043137256, 0.043137256, 0.09019608, 1)
+texture = ExtResource("4")
+expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Fundo" unique_id=544428931]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 0.6
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 0.6
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 5
 
 [node name="Titulo" type="Label" parent="Fundo/VBoxContainer" unique_id=1678568683]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 13
@@ -34,6 +63,7 @@ text = "The Arcane Corsair"
 horizontal_alignment = 1
 
 [node name="Subtitulo" type="Label" parent="Fundo/VBoxContainer" unique_id=1896097844]
+visible = false
 modulate = Color(1, 1, 1, 0.5)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -41,31 +71,63 @@ theme_override_font_sizes/font_size = 6
 horizontal_alignment = 1
 
 [node name="Espaco" type="Control" parent="Fundo/VBoxContainer" unique_id=527863909]
-custom_minimum_size = Vector2(0, 6)
+custom_minimum_size = Vector2(0, 2)
 layout_mode = 2
 
 [node name="BotaoNovoJogo" type="Button" parent="Fundo/VBoxContainer" unique_id=346163429]
-custom_minimum_size = Vector2(120, 14)
+custom_minimum_size = Vector2(121, 29)
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.13, 0.09, 0.28, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.4, 0.4, 0.45, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxTexture_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hover")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hover")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_disabled")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 text = "Novo Jogo"
 
 [node name="BotaoContinuar" type="Button" parent="Fundo/VBoxContainer" unique_id=1850093137]
-custom_minimum_size = Vector2(120, 14)
+custom_minimum_size = Vector2(121, 29)
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.13, 0.09, 0.28, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.4, 0.4, 0.45, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxTexture_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hover")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hover")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_disabled")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 text = "Continuar"
 
 [node name="BotaoOpcoes" type="Button" parent="Fundo/VBoxContainer" unique_id=563316379]
-custom_minimum_size = Vector2(120, 14)
+custom_minimum_size = Vector2(121, 29)
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.13, 0.09, 0.28, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxTexture_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hover")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 text = "Opções"
 
 [node name="BotaoSair" type="Button" parent="Fundo/VBoxContainer" unique_id=1757318335]
-custom_minimum_size = Vector2(120, 14)
+custom_minimum_size = Vector2(121, 29)
 layout_mode = 2
-theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.13, 0.09, 0.28, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxTexture_normal")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hover")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hover")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_focus")
 text = "Sair do Jogo"
 
 [node name="SlotsMenu" parent="." unique_id=1263462625 instance=ExtResource("2")]

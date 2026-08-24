@@ -1518,32 +1518,43 @@ surface_line_thickness = 4.0
 
 [node name="slime_fogo" parent="inimigos" unique_id=1410727227 instance=ExtResource("27_wthqf")]
 position = Vector2(929, -495)
+elemento_nativo = 2
 
 [node name="slime_fogo4" parent="inimigos" unique_id=1761925319 instance=ExtResource("27_wthqf")]
 position = Vector2(1312, -842)
+elemento_nativo = 2
 
 [node name="slime_fogo5" parent="inimigos" unique_id=94230314 instance=ExtResource("27_wthqf")]
 position = Vector2(104, -812)
+elemento_nativo = 2
 
 [node name="slime_fogo2" parent="inimigos" unique_id=503688632 instance=ExtResource("27_wthqf")]
 position = Vector2(-526, -141)
+elemento_nativo = 2
 
 [node name="slime_fogo3" parent="inimigos" unique_id=1530173591 instance=ExtResource("27_wthqf")]
 position = Vector2(-428, -141)
+elemento_nativo = 2
 
 [node name="fire_wizard" parent="inimigos" unique_id=2065534413 instance=ExtResource("28_tojck")]
 position = Vector2(254, -527)
 scale = Vector2(0.5721248, 0.5788711)
+elemento_nativo = 2
 
 [node name="fire_wizard2" parent="inimigos" unique_id=274526884 instance=ExtResource("28_tojck")]
 position = Vector2(-384.99997, 3.000001)
 scale = Vector2(0.5187009, 0.53441525)
+elemento_nativo = 2
 
 [node name="phoenix" parent="inimigos" unique_id=904614313 instance=ExtResource("29_r7q1k")]
 position = Vector2(1037, -948)
+Life = 6
+elemento_nativo = 2
 
 [node name="phoenix2" parent="inimigos" unique_id=1391901366 instance=ExtResource("29_r7q1k")]
 position = Vector2(-639, -1151)
+Life = 6
+elemento_nativo = 2
 
 [connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]
 [connection signal="body_entered" from="elevador_fogo/ir_ate_primeiro_andar" to="elevador_fogo" method="_on_ir_ate_primeiro_andar_body_entered"]

@@ -9,12 +9,16 @@ var dano := 5
 
 var _atingiu := false
 
+@onready var sprite: AnimatedSprite2D = $Visual
+
+
+func _ready() -> void:
+	sprite.play("default")
+
 
 func _physics_process(delta: float) -> void:
 	velocidade.y += gravidade * delta
 	global_position += velocidade * delta
-
-	rotation += delta * 8.0
 
 	if global_position.y >= chao_y:
 		queue_free()

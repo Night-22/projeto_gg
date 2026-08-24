@@ -3,7 +3,7 @@ extends Node2D
 var duration = 3.0
 var cooldown = 25.0
 var mana_cost = 25
-var damage = 2
+var damage = 8
 var element = 1
 
 var cooldown_timer: Timer

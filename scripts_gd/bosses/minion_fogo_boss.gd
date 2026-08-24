@@ -14,12 +14,17 @@ class_name MinionFogoBoss
 @onready var area_explosao: Area2D = $AreaExplosao
 @onready var explosao_shape: CollisionShape2D = $AreaExplosao/CollisionShape2D
 
+@onready var visual: AnimatedSprite2D = $Visual
+
+
 var atingido := false
 var explodindo := false
 
 
 func _ready() -> void:
 	super._ready()
+
+	visual.play("default")
 
 	Speed = 0
 	dir = 0

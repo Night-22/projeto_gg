@@ -14,6 +14,15 @@ class_name ChamaChaoBoss
 
 signal minions_removidos
 
+## Arte animada das chamas (asset "magia fogo 3": 4 quadros de 48x16 lado a
+## lado numa faixa horizontal). Como o quadro é menor que a arena, várias
+## cópias são ladrilhadas lado a lado para cobrir toda a "largura_total".
+const CHAMA_TEXTURA := preload("res://assets/magia_fogo3.png")
+const CHAMA_FRAME_LARGURA := 48
+const CHAMA_FRAME_ALTURA := 16
+const CHAMA_FRAME_COUNT := 4
+const CHAMA_ANIM_VELOCIDADE := 5.0
+
 @export var largura_total := 400.0
 @export var altura := 40.0
 ## -1 = começa a se espalhar a partir da borda esquerda, 1 = da borda direita.
@@ -28,13 +37,14 @@ signal minions_removidos
 @onready var aviso: Node2D = $Aviso
 @onready var faixa_aviso: ColorRect = $Aviso/Faixa
 @onready var chamas_pivo: Node2D = $ChamasPivo
-@onready var chamas_visual: ColorRect = $ChamasPivo/Visual
 @onready var hitbox_shape: CollisionShape2D = $CollisionShape2D
 @onready var timer_dano: Timer = $TimerDano
 
 var _jogador_dentro := false
 var _jogador: Node2D = null
 var _direcao_crescimento := -1.0
+var _sprite_frames_chama: SpriteFrames
+var _tiles_chama: Array[AnimatedSprite2D] = []
 
 
 func _ready() -> void:
@@ -64,13 +74,50 @@ func _ready() -> void:
 	_espalhar()
 
 
+## Monta a SpriteFrames da animação de fogo (uma única vez, compartilhada
+## por todos os ladrilhos desta instância).
+func _construir_sprite_frames_chama() -> SpriteFrames:
+	var sf := SpriteFrames.new()
+	sf.remove_animation(&"default")
+	sf.add_animation(&"default")
+	sf.set_animation_speed(&"default", CHAMA_ANIM_VELOCIDADE)
+	sf.set_animation_loop(&"default", true)
+
+	for i in range(CHAMA_FRAME_COUNT):
+		var atlas := AtlasTexture.new()
+		atlas.atlas = CHAMA_TEXTURA
+		atlas.region = Rect2(i * CHAMA_FRAME_LARGURA, 0, CHAMA_FRAME_LARGURA, CHAMA_FRAME_ALTURA)
+		sf.add_frame(&"default", atlas)
+
+	return sf
+
+
+## Ladrilha a arte animada do fogo lado a lado até cobrir "largura_total".
 func _montar_visual() -> void:
-	chamas_visual.color = Color(1.0, 0.35, 0.15, 0.75)
-	chamas_visual.size = Vector2(largura_total, altura)
-	chamas_visual.position = Vector2(
-		0.0 if _direcao_crescimento > 0.0 else -largura_total,
-		-altura
-	)
+	for tile in _tiles_chama:
+		if is_instance_valid(tile):
+			tile.queue_free()
+	_tiles_chama.clear()
+
+	if _sprite_frames_chama == null:
+		_sprite_frames_chama = _construir_sprite_frames_chama()
+
+	var escala := altura / float(CHAMA_FRAME_ALTURA)
+	var tile_largura := CHAMA_FRAME_LARGURA * escala
+	var quantidade = max(1, int(ceil(largura_total / tile_largura)))
+	var origem_x := 0.0 if _direcao_crescimento > 0.0 else -largura_total
+
+	for i in range(quantidade):
+		var tile := AnimatedSprite2D.new()
+		tile.sprite_frames = _sprite_frames_chama
+		tile.animation = &"default"
+		tile.centered = false
+		tile.scale = Vector2(escala, escala)
+		tile.position = Vector2(origem_x + i * tile_largura, -altura)
+		tile.frame = i % CHAMA_FRAME_COUNT
+		chamas_pivo.add_child(tile)
+		tile.play(&"default")
+		_tiles_chama.append(tile)
 
 	if hitbox_shape.shape is RectangleShape2D:
 		hitbox_shape.shape.size = Vector2(largura_total, altura)

@@ -24,7 +24,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 14
 
 [node name="Titulo" type="Label" parent="Fundo/VBoxContainer"]
 layout_mode = 2
@@ -34,16 +34,25 @@ text = "Bancada"
 horizontal_alignment = 1
 
 [node name="BotaoSalvar" type="Button" parent="Fundo/VBoxContainer"]
-custom_minimum_size = Vector2(150, 24)
+custom_minimum_size = Vector2(140, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Salvar o Jogo"
 
-[node name="BotaoCraft" type="Button" parent="Fundo/VBoxContainer"]
-custom_minimum_size = Vector2(150, 24)
+[node name="BotoesSecundarios" type="HBoxContainer" parent="Fundo/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="BotaoCraft" type="Button" parent="Fundo/VBoxContainer/BotoesSecundarios"]
+custom_minimum_size = Vector2(130, 95)
 layout_mode = 2
 text = "Craft de Magias"
+autowrap_mode = 2
 
-[node name="BotaoEquipar" type="Button" parent="Fundo/VBoxContainer"]
-custom_minimum_size = Vector2(150, 24)
+[node name="BotaoEquipar" type="Button" parent="Fundo/VBoxContainer/BotoesSecundarios"]
+custom_minimum_size = Vector2(118, 95)
 layout_mode = 2
 text = "Alterar Magias Equipadas"
+autowrap_mode = 2

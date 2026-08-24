@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-const SLOTS_MINIMOS_ITENS = 12
+const SLOTS_MINIMOS_ITENS = 16
 
 var player = null
 
@@ -23,14 +23,28 @@ var spell_names = {
 	15: "PLANT 4"
 }
 
-@onready var grid_magias: GridContainer = $Fundo/VBoxContainer/MagiasEquipadas/GridMagias
-@onready var grid_itens: GridContainer = $Fundo/VBoxContainer/Itens/GridItens
+@onready var grid_magias: GridContainer = $GridMagias
+@onready var grid_itens: GridContainer = $GridItens
 
 var medalhao_elementos = {
 	"medalhao_fogo": 0,
 	"medalhao_agua": 1,
 	"medalhao_raio": 2,
 	"medalhao_planta": 3
+}
+
+var elemento_botao_normal = {
+	0: preload("res://assets/menus/botao_fogo1.png"),
+	1: preload("res://assets/menus/botao_agua1.png"),
+	2: preload("res://assets/menus/botao_raio1.png"),
+	3: preload("res://assets/menus/botao_planta1.png")
+}
+
+var elemento_botao_hover = {
+	0: preload("res://assets/menus/botao_fogo_hover.png"),
+	1: preload("res://assets/menus/botao_agua_hover.png"),
+	2: preload("res://assets/menus/botao_raio_hover.png"),
+	3: preload("res://assets/menus/botao_planta2.png")
 }
 
 
@@ -102,10 +116,13 @@ func atualizar_magias() -> void:
 		var caixa := Button.new()
 
 		caixa.text = get_spell_name(spell_id)
-		caixa.custom_minimum_size = Vector2(72, 40)
-		caixa.add_theme_font_size_override("font_size", 8)
+		caixa.custom_minimum_size = Vector2(32, 17)
+		caixa.add_theme_font_size_override("font_size", 6)
+		caixa.clip_text = true
 		caixa.disabled = true
 		caixa.focus_mode = Control.FOCUS_NONE
+
+		aplicar_estilo_botao_magia(caixa, player.obter_elemento_da_magia(spell_id))
 
 		grid_magias.add_child(caixa)
 
@@ -125,8 +142,9 @@ func atualizar_itens() -> void:
 	for i in range(total_slots):
 		var caixa := Button.new()
 
-		caixa.custom_minimum_size = Vector2(50, 32)
-		caixa.add_theme_font_size_override("font_size", 7)
+		caixa.custom_minimum_size = Vector2(39, 23)
+		caixa.add_theme_font_size_override("font_size", 6)
+		caixa.clip_text = true
 		caixa.disabled = true
 		caixa.focus_mode = Control.FOCUS_NONE
 
@@ -140,8 +158,10 @@ func atualizar_itens() -> void:
 
 				caixa.disabled = false
 
+				aplicar_estilo_botao_magia(caixa, elemento)
+
 				if player.obter_medalhao_ativo() == elemento:
-					caixa.text = texto + "\n[EQUIPADO]"
+					caixa.text = texto + " [EQ]"
 					caixa.modulate = Color(1.0, 0.85, 0.3)
 				else:
 					caixa.text = texto
@@ -171,3 +191,44 @@ func get_spell_name(spell_id) -> String:
 		return spell_names[spell_id]
 
 	return "?"
+
+
+func criar_stylebox_botao(textura: Texture2D, margem: int = 3, cor: Color = Color(1, 1, 1, 1)) -> StyleBoxTexture:
+	var estilo := StyleBoxTexture.new()
+	estilo.texture = textura
+	estilo.texture_margin_left = margem
+	estilo.texture_margin_right = margem
+	estilo.texture_margin_top = margem
+	estilo.texture_margin_bottom = margem
+	estilo.content_margin_left = 4
+	estilo.content_margin_right = 4
+	estilo.content_margin_top = 2
+	estilo.content_margin_bottom = 2
+	estilo.modulate_color = cor
+	return estilo
+
+
+func aplicar_estilo_botao_magia(button: Button, elemento: int) -> void:
+	var textura_normal = elemento_botao_normal.get(elemento)
+
+	if textura_normal == null:
+		return
+
+	var textura_hover = elemento_botao_hover.get(elemento, textura_normal)
+
+	var estilo_normal = criar_stylebox_botao(textura_normal, 3)
+	var estilo_hover = criar_stylebox_botao(textura_hover, 3)
+	var estilo_disabled = criar_stylebox_botao(textura_normal, 3, Color(0.85, 0.85, 0.85, 1))
+
+	button.add_theme_stylebox_override("normal", estilo_normal)
+	button.add_theme_stylebox_override("hover", estilo_hover)
+	button.add_theme_stylebox_override("pressed", estilo_hover)
+	button.add_theme_stylebox_override("focus", estilo_hover)
+	button.add_theme_stylebox_override("disabled", estilo_disabled)
+
+	button.add_theme_color_override("font_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_hover_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_focus_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_disabled_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	button.add_theme_constant_override("outline_size", 2)
