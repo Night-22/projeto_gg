@@ -445,5 +445,8 @@ entrada_destino = "EntradaFinal"
 position = Vector2(-37, 66)
 shape = SubResource("RectangleShape2D_area_passagem_final")
 
+[node name="entrada_top" type="Marker2D" parent="." unique_id=742529929]
+position = Vector2(-33, 228)
+
 [connection signal="body_entered" from="GatilhoLuta" to="." method="_on_gatilho_luta_body_entered"]
 [connection signal="body_entered" from="AreaPassagemFinal" to="AreaPassagemFinal" method="_on_body_entered"]

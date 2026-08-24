@@ -747,9 +747,6 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_pwnm3"]
 gradient = SubResource("Gradient_pe5rb")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gngh"]
-size = Vector2(138, 36)
-
 [node name="zona_terra" type="Node2D" unique_id=1272927004]
 script = ExtResource("1_u8jn5")
 
@@ -926,7 +923,7 @@ tile_map_data = PackedByteArray("AAAXALj/AAALAAIAAAAXALn/AAALAAIAAAAXALr/AAALAAM
 tile_set = SubResource("TileSet_3gngh")
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("2_018e7")]
-position = Vector2(278, -969)
+position = Vector2(222, 173)
 
 [node name="Cipos" type="Node2D" parent="." unique_id=518210661]
 

@@ -698,7 +698,6 @@ scale_amount_max = 2.5
 color = Color(0.53, 1, 0.6, 0.85)
 
 [node name="Fogo" type="CanvasLayer" parent="." unique_id=747516939]
-visible = false
 
 [node name="Sprite2D" type="TextureRect" parent="Fogo" unique_id=2074023098]
 material = SubResource("ShaderMaterial_yf5fn")

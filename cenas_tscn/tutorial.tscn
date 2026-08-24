@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bk45va1uoed6h" path="res://cenas_tscn/menus/general_inventory.tscn" id="20_vqqwn"]
 [ext_resource type="Script" uid="uid://dnji8e4tgy32a" path="res://scripts_gd/transicao_cena.gd" id="23_urwnf"]
 [ext_resource type="Shader" uid="uid://bcu8g8ugn72pk" path="res://gdshader/transicao.gdshader" id="24_vqqwn"]
+[ext_resource type="Script" uid="uid://kare8a42dwa4" path="res://camera_lock_area.gd" id="25_vqqwn"]
 [ext_resource type="PackedScene" uid="uid://b4ngpux4y5gbq" path="res://cenas_tscn/salas/camera_lock_area.tscn" id="26_pvrew"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_foa2r"]
@@ -290,6 +291,9 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_pwnm3"]
 gradient = SubResource("Gradient_pe5rb")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2j2di"]
+size = Vector2(371, 728)
+
 [node name="tutorial" type="Node2D" unique_id=1036654232]
 script = ExtResource("1_1j7gv")
 
@@ -442,7 +446,7 @@ Life = 5
 knockback_ataque = 120
 
 [node name="Player" parent="." unique_id=2135435064 instance=ExtResource("11_blw00")]
-position = Vector2(1618, -318)
+position = Vector2(338, 264)
 
 [node name="Flying2" parent="." unique_id=1786747674 instance=ExtResource("17_vqqwn")]
 position = Vector2(1626, -184)
@@ -604,6 +608,7 @@ entrada_destino = "entrada_neutra_tutorial_1"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transicao/transicao_cena" unique_id=406743179]
 position = Vector2(-1, 0.5)
+scale = Vector2(1.3627423, 3.9939945)
 shape = SubResource("RectangleShape2D_bqdo4")
 
 [node name="Transicao_efeito" type="CanvasLayer" parent="transicao" unique_id=514070227]
@@ -640,6 +645,14 @@ offset_right = 319.0
 offset_bottom = 238.0
 texture = SubResource("GradientTexture1D_pwnm3")
 
+[node name="CameraLockArea2" type="Area2D" parent="." unique_id=2057459890]
+position = Vector2(1526, 257)
+script = ExtResource("25_vqqwn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraLockArea2" unique_id=1013089871]
+position = Vector2(-1.5, -292)
+shape = SubResource("RectangleShape2D_2j2di")
+
 [connection signal="destrancou" from="props/porta3" to="." method="_on_porta_3_destrancou"]
 [connection signal="body_entered" from="HUD_Tutorial/area_texto_tutorial/cura" to="." method="_on_cura_body_entered"]
 [connection signal="body_exited" from="HUD_Tutorial/area_texto_tutorial/cura" to="." method="_on_cura_body_exited"]
@@ -657,3 +670,5 @@ texture = SubResource("GradientTexture1D_pwnm3")
 [connection signal="body_exited" from="HUD_Tutorial/area_texto_tutorial/reacao_elemental" to="." method="_on_reacao_elemental_body_exited"]
 [connection signal="body_entered" from="transicao/transicao_cena" to="transicao/transicao_cena" method="_on_body_entered"]
 [connection signal="body_entered" from="transicao2/transicao_cena" to="transicao2/transicao_cena" method="_on_body_entered"]
+[connection signal="body_entered" from="CameraLockArea2" to="CameraLockArea2" method="_on_body_entered"]
+[connection signal="body_exited" from="CameraLockArea2" to="CameraLockArea2" method="_on_body_exited"]

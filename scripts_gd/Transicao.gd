@@ -10,7 +10,7 @@ var transicao_material: ShaderMaterial
 var trocando_cena := false
 
 var voltando_da_zona_fogo := false
-
+var voltando_da_sala_elemental := false
 
 func iniciar_transicao() -> void:
 	if transicao_canvas != null:
@@ -52,6 +52,11 @@ func trocar_cena(caminho_cena: String, nome_entrada: String = "") -> void:
 	else:
 		voltando_da_zona_fogo = false
 
+
+	if cena_atual.scene_file_path == "res://cenas_tscn/salas/sala_porta_elemental.tscn" and caminho_cena == "res://zona_fogo.tscn":
+		voltando_da_sala_elemental = true
+	else:
+		voltando_da_sala_elemental = false
 
 
 	trocando_cena = true

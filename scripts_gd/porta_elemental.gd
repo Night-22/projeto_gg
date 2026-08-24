@@ -90,12 +90,18 @@ func abrir() -> void:
 		posicao_inicial.y - 80,
 		1.0
 	)
-
+	
+	tween.parallel().tween_property(
+		sprite,
+		"modulate:a",
+		0.0,
+		1.0
+	)
+	
 	tween.tween_callback(_liberar_passagem)
-
+	
 	aberta.emit()
-
-
+	
 func _liberar_passagem() -> void:
 	if area_transicao != null:
 		area_transicao.monitoring = true
