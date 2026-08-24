@@ -31,8 +31,6 @@ func _physics_process(delta: float) -> void:
 		if !atacando and cooldown.is_stopped():
 			disparar_rajada()
 	else:
-		# Patrulha normal: anda até bater em parede ou em
-		# outro inimigo, aí vira, igual aos demais inimigos.
 		velocity.x = dir * velocidade_patrulha
 		velocity.y = 0.0
 

@@ -4,9 +4,12 @@ var speed = 200.0
 var damage = 2
 var direction = Vector2.RIGHT
 
+@onready var anim: AnimatedSprite2D = $anim
+
 
 func _process(delta: float) -> void:
 	global_position += direction * speed * delta
+	anim.play("sla")
 
 
 func _on_body_entered(body: Node2D) -> void:

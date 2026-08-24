@@ -1,21 +1,36 @@
 [gd_scene format=3 uid="uid://b7b1re07g34ah"]
 
-[ext_resource type="Texture2D" uid="uid://cl1oc8hwp6tqp" path="res://placeholder/raio.png" id="1_jpbys"]
 [ext_resource type="Script" uid="uid://bw8fh6uesboib" path="res://scripts_gd/ataque_raio.gd" id="1_s8h2p"]
+[ext_resource type="Texture2D" uid="uid://wqg0ucalqd2f" path="res://assets/raio_ataque3.png" id="2_s8h2p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(17, 18)
+size = Vector2(10, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nc13"]
+atlas = ExtResource("2_s8h2p")
+region = Rect2(0, 0, 16, 14)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i11uk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nc13")
+}],
+"loop": 1,
+"name": &"sla",
+"speed": 5.0
+}]
 
 [node name="ataque_raio" type="Area2D" unique_id=119323177]
 script = ExtResource("1_s8h2p")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1164102278]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_jpbys")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=708506109]
-position = Vector2(-0.49999997, 0)
 scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="anim" type="AnimatedSprite2D" parent="." unique_id=977712174]
+sprite_frames = SubResource("SpriteFrames_i11uk")
+animation = &"sla"
+frame_progress = 0.8805415
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
