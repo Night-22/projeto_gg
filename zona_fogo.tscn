@@ -998,7 +998,7 @@ position = Vector2(-392, -952)
 scale = Vector2(0.30405864, 0.28458148)
 
 [node name="Bancada4" parent="." unique_id=32906608 instance=ExtResource("3_d4swy")]
-position = Vector2(-489.00003, -40)
+position = Vector2(-524, 9)
 scale = Vector2(0.30405864, 0.28458148)
 
 [node name="chao_movel" parent="." unique_id=184351549 instance=ExtResource("1_n1417")]
@@ -1685,7 +1685,7 @@ scale = Vector2(0.5721248, 0.5788711)
 elemento_nativo = 2
 
 [node name="fire_wizard2" parent="inimigos" unique_id=274526884 instance=ExtResource("28_tojck")]
-position = Vector2(-384.99997, 3.000001)
+position = Vector2(-589, -76.00001)
 scale = Vector2(0.5187009, 0.53441525)
 elemento_nativo = 2
 
