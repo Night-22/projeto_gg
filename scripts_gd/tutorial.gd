@@ -50,7 +50,7 @@ func _on_dash_body_exited(body: Node2D) -> void:
 
 func _on_planar_e_pulo_duplo_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
-		mostrar_tutorial("Pressione ESPAÇO no ar para ativar o pulo duplo e use novamente para planar.")
+		mostrar_tutorial("Pressione espaço para planar no ar")
 
 
 func _on_planar_e_pulo_duplo_body_exited(body: Node2D) -> void:

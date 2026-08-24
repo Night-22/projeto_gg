@@ -372,13 +372,25 @@ func _iniciar_porradao() -> void:
 
 
 func _executar_ataque_porradao() -> void:
+	if not is_inside_tree():
+		_porradao_em_andamento = false
+		return
+
 	var ataques: Array[String]
 
-	# desliga as duas
+	# desliga as duas hitboxes
 	colisao_esquerda.set_deferred("disabled", true)
 	colisao_direita.set_deferred("disabled", true)
 
+	if not is_inside_tree():
+		_porradao_em_andamento = false
+		return
+
 	await get_tree().physics_frame
+
+	if not is_inside_tree():
+		_porradao_em_andamento = false
+		return
 
 	# escolhe o lado
 	if randi() % 2 == 0:
@@ -388,17 +400,29 @@ func _executar_ataque_porradao() -> void:
 
 	# faz os 3 ataques
 	for ataque in ataques:
-		if dead:
+		if dead or not is_inside_tree():
 			break
-		
+
 		sprite.flip_h = false
 		await _executar_animacao_porradao(ataque)
+
+		if not is_inside_tree():
+			_porradao_em_andamento = false
+			return
 
 	# desliga tudo
 	colisao_esquerda.set_deferred("disabled", true)
 	colisao_direita.set_deferred("disabled", true)
 
+	if not is_inside_tree():
+		_porradao_em_andamento = false
+		return
+
 	await get_tree().physics_frame
+
+	if not is_inside_tree():
+		_porradao_em_andamento = false
+		return
 
 	_porradao_em_andamento = false
 
@@ -407,9 +431,12 @@ func _executar_ataque_porradao() -> void:
 
 
 func _executar_animacao_porradao(ataque: String) -> void:
+	if not is_inside_tree():
+		return
+
 	var hitbox_ativa: CollisionShape2D
 
-	# escolhe a hitbox
+	# escoljher hitbox
 	if ataque in ataques_esquerda:
 		hitbox_ativa = colisao_esquerda
 	elif ataque in ataques_direita:
@@ -418,74 +445,102 @@ func _executar_animacao_porradao(ataque: String) -> void:
 		print("ataque invalido: ", ataque)
 		return
 
-	# desliga as duas
 	colisao_esquerda.set_deferred("disabled", true)
 	colisao_direita.set_deferred("disabled", true)
 
-	await get_tree().physics_frame
-
-	if dead:
+	if not is_inside_tree():
 		return
 
-	# deixa a animacao anterior parar
-	sprite.stop()
+	await get_tree().physics_frame
 
-	# toca a animacao escolhida
+	if not is_inside_tree() or dead:
+		return
+
+	sprite.stop()
 	sprite.play(ataque)
 
-	# espera o sprite atualizar
+	if not is_inside_tree():
+		return
+
 	await get_tree().process_frame
 
-	# garante que comecou no frame 0
+	if not is_inside_tree() or dead:
+		return
+
 	sprite.frame = 0
 
 	print("ataque escolhido: ", ataque)
 	print("animacao atual: ", sprite.animation)
 
-	# confere se a animacao realmente foi trocada
 	if sprite.animation != StringName(ataque):
-		print("erro na animacao: esperado ", ataque, " mas esta ", sprite.animation)
+		print(
+			"erro na animacao: esperado ",
+			ataque,
+			" mas esta ",
+			sprite.animation
+		)
 		return
 
-	# espera o frame de impacto
+	# frame pra bate
 	while sprite.frame < 4:
-		await get_tree().process_frame
-
-		if dead:
-			colisao_esquerda.set_deferred("disabled", true)
-			colisao_direita.set_deferred("disabled", true)
-			await get_tree().physics_frame
+		if not is_inside_tree() or dead:
+			if is_inside_tree():
+				colisao_esquerda.set_deferred("disabled", true)
+				colisao_direita.set_deferred("disabled", true)
 			return
 
-	# desliga as duas antes de ligar a certa
+		await get_tree().process_frame
+
+	# desliga as duas antes de ligar a correta
 	colisao_esquerda.set_deferred("disabled", true)
 	colisao_direita.set_deferred("disabled", true)
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().physics_frame
+
+	if not is_inside_tree() or dead:
+		return
 
 	# liga a hitbox correta
 	hitbox_ativa.set_deferred("disabled", false)
-	
-	player.tremer_camera(10, 0.5)
-	
+
+	if player != null and is_instance_valid(player):
+		player.tremer_camera(10, 0.5)
+
+	if not is_inside_tree():
+		return
+
 	await get_tree().physics_frame
 
-	# da dano em quem ja estiver dentro
+	if not is_inside_tree() or dead:
+		if is_inside_tree():
+			colisao_esquerda.set_deferred("disabled", true)
+			colisao_direita.set_deferred("disabled", true)
+		return
+
 	_dar_dano_porradao(hitbox_ativa.get_parent())
 
-	print("animacao atual no impacto: ", sprite.animation)
-	print("hitbox ativa: ", hitbox_ativa.get_path())
-	print("esquerda ativa: ", !colisao_esquerda.disabled)
-	print("direita ativa: ", !colisao_direita.disabled)
+	
 
-	# espera a animacao acabar
+
 	await sprite.animation_finished
 
-	# desliga tudo
+	if not is_inside_tree():
+		return
+
+	
 	colisao_esquerda.set_deferred("disabled", true)
 	colisao_direita.set_deferred("disabled", true)
 
+	if not is_inside_tree():
+		return
+
 	await get_tree().physics_frame
+
+	if not is_inside_tree():
+		return
 
 	print("ataque terminou: ", ataque)
 

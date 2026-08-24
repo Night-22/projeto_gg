@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cq7pkbbmqfjet" path="res://assets/tilemap (1).png" id="1_uivkj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(6, 16)
+size = Vector2(12, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
-size = Vector2(13, 12)
+size = Vector2(12, 12)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_esos3"]
 texture = ExtResource("1_uivkj")
@@ -121,16 +121,15 @@ script = ExtResource("1_esos3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=754579734]
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_g4v7s")
-disabled = true
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=2059193244]
+scale = Vector2(3.350523, 1.1814463)
 target_position = Vector2(0, 250)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=79461027]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=67447990]
-position = Vector2(0.5, 6)
+position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_yf5fn")
 
 [node name="RayCastChao" type="RayCast2D" parent="." unique_id=904886423]

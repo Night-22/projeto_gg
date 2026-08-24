@@ -238,12 +238,28 @@ func _ready() -> void:
 
 		posicao_inicial = plataforma.global_position
 		posicao_destino = plataforma.global_position
-
+		
+		
 		
 		Transicao.voltando_da_zona_fogo = false
 
 		return
 
+	if Transicao.voltando_da_sala_elemental:
+
+		plataforma.global_position = $elevador_fogo.global_position
+
+		andar_atual = 4
+		andar_destino = 4
+		elevador_movendo = false
+		tempo_movimento = 0.0
+
+		posicao_inicial = plataforma.global_position
+		posicao_destino = plataforma.global_position
+
+		Transicao.voltando_da_sala_elemental = false
+
+		return
 
 
 	andar_atual = andar_inicial

@@ -661,9 +661,9 @@ func morrer_e_respawnar() -> void:
 	invulnerable = true
 	iframe_timer = 0.0
 	modulate.a = 1.0
-
+	queimadura = 0
 	damage_knockback = Vector2.ZERO
-
+	resetar_tempo_respirar()
 	cancelar_cura()
 	current_state = State.DEAD
 	lock_player()
